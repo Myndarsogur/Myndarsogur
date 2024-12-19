@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Art Image Carousel</title>
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f4f4f4;
+    }
+
+    .swiper-container {
+      width: 100%;
+      max-width: 800px;
+      height: 90%;
+      position: relative;
+    }
+
+    .swiper-slide img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .swiper-button-next,
+    .swiper-button-prev {
+      display: block;
+    }
+
+    .swiper-pagination {
+      bottom: 10px;
+      display: block;
+    }
+
+    .multi-frame {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow-y: auto;
+    }
+
+    .multi-frame img {
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+      <!-- Regular Images with Instagram links -->
+      <div class="swiper-slide" onclick="window.open('https://www.instagram.com/artist1', '_blank')">
+        <img src="https://i.imgur.com/obgo1eY.png" alt="Image 1">
+      </div>
+      <div class="swiper-slide" onclick="window.open('https://www.instagram.com/artist2', '_blank')">
+        <img src="https://i.imgur.com/amGd2ik.png" alt="Image 2">
+      </div>
+      <div class="swiper-slide" onclick="window.open('https://www.instagram.com/artist3', '_blank')">
+        <img src="https://i.imgur.com/524g3pA.jpeg" alt="Image 3">
+      </div>
+      <div class="swiper-slide" onclick="window.open('https://www.instagram.com/artist4', '_blank')">
+        <img src="https://i.imgur.com/QuioVdK.png" alt="Image 4">
+      </div>
+      <div class="swiper-slide" onclick="window.open('https://www.instagram.com/artist5', '_blank')">
+        <img src="https://i.imgur.com/onrLOoQ.jpeg" alt="Image 5">
+      </div>
+      <div class="swiper-slide" onclick="window.open('https://www.instagram.com/artist6', '_blank')">
+        <img src="https://i.imgur.com/1hopJMV.png" alt="Image 6">
+      </div>
+      <div class="swiper-slide" onclick="window.open('https://www.instagram.com/artist7', '_blank')">
+        <img src="https://i.imgur.com/XuI2Y5H.png" alt="Image 7">
+      </div>
+      <div class="swiper-slide" onclick="window.open('https://www.instagram.com/artist8', '_blank')">
+        <img src="https://i.imgur.com/G5hXCCf.png" alt="Image 8">
+      </div>
+      <div class="swiper-slide" onclick="window.open('https://www.instagram.com/artist9', '_blank')">
+        <img src="https://imgur.com/IPLN661" alt="Image 9">
+      </div>
+      <div class="swiper-slide" onclick="window.open('https://www.instagram.com/artist10', '_blank')">
+        <img src="https://i.imgur.com/ZfGdxdz.jpeg" alt="Image 10">
+      </div>
+      <div class="swiper-slide" onclick="window.open('https://www.instagram.com/artist11', '_blank')">
+        <img src="https://i.imgur.com/sXmU6u0.jpeg" alt="Image 11">
+      </div>
+      <div class="swiper-slide" onclick="window.open('https://www.instagram.com/artist12', '_blank')">
+        <img src="https://i.imgur.com/Ekx62ec.png" alt="Image 12">
+      </div>
+      <div class="swiper-slide" onclick="window.open('https://www.instagram.com/artist13', '_blank')">
+        <img src="https://i.imgur.com/oYoLyHC.jpeg" alt="Image 13">
+      </div>
+      <div class="swiper-slide" onclick="window.open('https://www.instagram.com/artist14', '_blank')">
+        <img src="https://i.imgur.com/6NaHKd4.png" alt="Image 14">
+      </div>
+      <div class="swiper-slide" onclick="window.open('https://www.instagram.com/artist15', '_blank')">
+        <img src="https://i.imgur.com/S3OGqV6.jpeg" alt="Image 15">
+      </div>
+      <div class="swiper-slide" onclick="window.open('https://www.instagram.com/artist16', '_blank')">
+        <img src="https://i.imgur.com/U8NQnke.jpeg" alt="Image 16">
+      </div>
+
+      <!-- Multi-Frame Story (Down Swipe) -->
+      <div class="swiper-slide">
+        <div class="multi-frame">
+          <img src="https://i.imgur.com/7pwUZcD.png" alt="Multi-frame story 1">
+          <img src="https://i.imgur.com/3Cy40jm.gif" alt="Multi-frame story 2">
+          <img src="https://i.imgur.com/nqcFC2x.gif" alt="Multi-frame story 3">
+          <img src="https://i.imgur.com/HelU12e.jpeg" alt="Multi-frame story 4">
+          <img src="https://i.imgur.com/adbRZg2.gif" alt="Multi-frame story 5">
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Pagination if necessary -->
+    <div class="swiper-pagination"></div>
+  </div>
+
+  <!-- Include Swiper JS -->
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+  <script>
+    // Initialize the Swiper carousel with manual control
+    const swiper = new Swiper('.swiper-container', {
+      loop: true, // Circular carousel
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true
+      },
+      autoplay: false, // Disabled auto-scroll
+      navigation: true, // Enable navigation arrows
+      direction: 'horizontal', // Horizontal scroll by default
+    });
+
+    // Detect when the user is at the bottom of the multi-frame story and scroll back up
+    let isAtBottom = false;
+    const multiFrame = document.querySelector('.multi-frame');
+
+    // Event listener for when the user scrolls the multi-frame story section
+    multiFrame.addEventListener('scroll', () => {
+      const bottom = multiFrame.scrollHeight - multiFrame.scrollTop === multiFrame.clientHeight;
+      if (bottom && !isAtBottom) {
+        isAtBottom = true;
+      } else if (!bottom && isAtBottom) {
+        isAtBottom = false;
+      }
+    });
+
+    // Check if user starts to scroll horizontally after reaching the bottom of the multi-frame section
+    let lastScrollTime = 0;
+    multiFrame.addEventListener('wheel', (e) => {
+      if (isAtBottom && Date.now() - lastScrollTime > 500) {
+        // Scroll back to top after 0.5 seconds delay (to avoid accidental scrolling)
+        swiper.slideTo(0);
+        lastScrollTime = Date.now();
+      }
+    });
+  </script>
+
+</body>
+</html>
