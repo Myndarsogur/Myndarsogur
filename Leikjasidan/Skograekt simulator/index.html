@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASCII Blómaleikur</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #222;
+            color: #fff;
+            font-family: monospace;
+        }
+
+        #gameCanvas {
+            display: block;
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        .flower {
+            position: absolute;
+            white-space: pre;
+            font-size: 10px;
+            line-height: 1;
+            transform-origin: center;
+            transform: scale(1);
+            color: inherit;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameCanvas"></div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+
+        const flowerDesigns = [
+            [
+                '   *   ',
+                '  ***  ',
+                ' ***** ',
+                '*******',
+                '   |   ',
+                '   |   '
+            ],
+            [
+                '   @   ',
+                '  @@@  ',
+                ' @@@@@ ',
+                '@@@@@@@',
+                '   |   ',
+                '   |   '
+            ],
+            [
+                '   #   ',
+                '  ###  ',
+                ' ##### ',
+                '#######',
+                '   |   ',
+                '   |   '
+            ],
+            [
+                '   &   ',
+                '  &&&  ',
+                ' &&&&& ',
+                '&&&&&&&',
+                '   |   ',
+                '   |   '
+            ],
+            [
+                '   +   ',
+                '  +++  ',
+                ' +++++ ',
+                '+++++++',
+                '   |   ',
+                '   |   '
+            ],
+            [
+                '   $   ',
+                '  $$$  ',
+                ' $$$$$ ',
+                '$$$$$$$',
+                '   |   ',
+                '   |   '
+            ],
+            [
+                '    .    ',
+                '   ..*   ',
+                '  ***.*  ',
+                ' *** *** ',
+                '   | |   ',
+                '    |    '
+            ],
+            [
+                '    o    ',
+                '   ooo   ',
+                '  ooooo  ',
+                ' ooooooo ',
+                '   | |   ',
+                '    |    '
+            ]
+        ];
+
+        function createFlower(x, y) {
+            const flower = document.createElement('div');
+            flower.className = 'flower';
+            flower.style.left = `${x}px`;
+            flower.style.top = `${y}px`;
+
+            // Randomly select a flower design and color
+            const petals = flowerDesigns[Math.floor(Math.random() * flowerDesigns.length)];
+            const colors = ['#FF6F61', '#6B5B95', '#88B04B', '#F7CAC9', '#92A8D1', '#955251', '#B565A7', '#009B77'];
+            flower.style.color = colors[Math.floor(Math.random() * colors.length)];
+
+            flower.innerText = petals.join('\n');
+            canvas.appendChild(flower);
+
+            growFlower(flower, Math.random() * 2 + 1, Math.random() * 3 + 0.5);
+        }
+
+        function growFlower(flower, maxScale, growSpeed) {
+            let size = 1;
+            const interval = setInterval(() => {
+                size += 0.02;
+                flower.style.transform = `scale(${size})`;
+
+                if (size >= maxScale) {
+                    clearInterval(interval);
+                }
+            }, 100 / growSpeed);
+        }
+
+        canvas.addEventListener('click', (e) => {
+            const x = e.clientX;
+            const y = e.clientY;
+            createFlower(x, y);
+        });
+    </script>
+</body>
+</html>

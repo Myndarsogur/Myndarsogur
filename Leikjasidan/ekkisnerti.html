@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Box Game</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .box {
+            width: 150px;
+            height: 150px;
+            margin: 10px;
+            position: absolute;
+            transform-style: preserve-3d;
+            transform: rotateX(30deg) rotateY(30deg);
+            transition: transform 0.2s;
+        }
+        .box .front, .box .back, .box .left, .box .right, .box .top, .box .bottom {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: #fff;
+            border: 2px solid #ddd;
+        }
+        .front  { transform: translateZ(75px); background: #ff9999; }
+        .back   { transform: rotateY(180deg) translateZ(75px); background: #99ccff; }
+        .left   { transform: rotateY(-90deg) translateZ(75px); background: #99ff99; }
+        .right  { transform: rotateY(90deg) translateZ(75px); background: #ffcc99; }
+        .top    { transform: rotateX(90deg) translateZ(75px); background: #cc99ff; }
+        .bottom { transform: rotateX(-90deg) translateZ(75px); background: #ffff99; }
+        
+        svg {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 25%;
+            left: 25%;
+        }
+
+        #box1 .front svg { fill: green; }
+        #box2 .front svg { fill: red; }
+        #box3 .front svg { fill: blue; }
+    </style>
+</head>
+<body>
+
+<div id="box1" class="box">
+    <div class="front">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M12 2C7.589 2 4 6.127 4 9c0 3.528 2.5 6 6 6h4c3.5 0 6-2.472 6-6 0-2.873-3.589-7-8-7z"/>
+        </svg>
+    </div>
+    <div class="back"></div>
+    <div class="left"></div>
+    <div class="right"></div>
+    <div class="top"></div>
+    <div class="bottom"></div>
+</div>
+
+<script>
+    let boxes = document.querySelectorAll('.box');
+    let shakeThreshold = 15;
+
+    if (window.DeviceOrientationEvent) {
+        window.addEventListener('deviceorientation', (event) => {
+            let beta = event.beta; // X-axis
+            let gamma = event.gamma; // Y-axis
+
+            boxes.forEach(box => {
+                box.style.transform = `rotateX(${beta}deg) rotateY(${gamma}deg)`;
+            });
+        });
+    }
+
+    if (window.DeviceMotionEvent) {
+        window.addEventListener('devicemotion', (event) => {
+            let x = event.acceleration.x;
+            let y = event.acceleration.y;
+            let z = event.acceleration.z;
+
+            if (Math.abs(x) > shakeThreshold || Math.abs(y) > shakeThreshold || Math.abs(z) > shakeThreshold) {
+                boxes.forEach(box => {
+                    box.style.transform = `translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px)`;
+                });
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+.person1 {
+    display: inline-block;
+    width: max-content;
+    padding: 5px 10px;
+    background-color: #007bff; 
+    color: #fff; 
+    border: 1px solid #007bff; 
+    border-radius: 25px; 
+  }
+  
+.person2 {
+    display: inline-block;
+    width: max-content;
+    padding: 5px 10px;
+    background-color: powderblue; 
+    color: #fff; 
+    border: 1px solid powderblue; 
+    border-radius: 25px; 
+}
+
+.hidden {
+    display: none;
+}
+
+.contain {
+    width: 800px;
+    margin-left: 23vw;
+    margin-bottom: 50px;
+}
+
+#topbar {
+    background-color: rgb(7,94,84);
+    color: white;
+}
+
+body {
+    background-image: url(https://i.pinimg.com/600x315/8c/98/99/8c98994518b575bfd8c949e91d20548b.jpg);
+}

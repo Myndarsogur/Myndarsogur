@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teiknileikur</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        canvas {
+            display: block;
+            cursor: crosshair;
+        }
+
+        .controls {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .color-picker, .brush-picker, .type-picker {
+            display: flex;
+            gap: 5px;
+        }
+
+        .color {
+            width: 30px;
+            height: 30px;
+            border: 2px solid black;
+            cursor: pointer;
+        }
+
+        .brush {
+            cursor: pointer;
+            padding: 5px;
+            border: 2px solid black;
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+        }
+
+        .brush.active, .color.active, .type.active {
+            border: 4px solid red;
+        }
+
+        .brush[data-size="5"]::after {
+            content: " 🐁";
+        }
+
+        .brush[data-size="15"]::after {
+            content: " 🐱";
+        }
+
+        .brush[data-size="30"]::after {
+            content: " 🐘";
+        }
+
+        .type {
+            cursor: pointer;
+            padding: 5px;
+            border: 2px solid black;
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+        }
+
+        .save-button {
+            cursor: pointer;
+            padding: 10px;
+            border: 2px solid black;
+            border-radius: 5px;
+            background-color: white;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <div class="color-picker">
+            <div class="color" style="background: red;" data-color="red"></div>
+            <div class="color" style="background: blue;" data-color="blue"></div>
+            <div class="color" style="background: green;" data-color="green"></div>
+            <div class="color" style="background: yellow;" data-color="yellow"></div>
+            <div class="color" style="background: purple;" data-color="purple"></div>
+            <div class="color" style="background: orange;" data-color="orange"></div>
+            <div class="color" style="background: black;" data-color="black"></div>
+            <div class="color" style="background: white;" data-color="white"></div>
+        </div>
+
+        <div class="brush-picker">
+            <div class="brush" data-size="5">Mús</div>
+            <div class="brush" data-size="15">Köttur</div>
+            <div class="brush" data-size="30">Fíll</div>
+        </div>
+
+        <div class="type-picker">
+            <div class="type" data-type="circle">⚪</div>
+            <div class="type" data-type="square">⬛</div>
+            <div class="type" data-type="line">📏</div>
+        </div>
+
+        <button class="save-button">Vista Mynd</button>
+    </div>
+
+    <canvas id="drawingCanvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById('drawingCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let drawing = false;
+        let brushColor = 'black';
+        let brushSize = 5;
+        let brushType = 'circle';
+        let startX, startY;
+
+        const colors = document.querySelectorAll('.color');
+        const brushes = document.querySelectorAll('.brush');
+        const types = document.querySelectorAll('.type');
+        const saveButton = document.querySelector('.save-button');
+
+        colors.forEach(color => {
+            color.addEventListener('click', () => {
+                colors.forEach(c => c.classList.remove('active'));
+                color.classList.add('active');
+                brushColor = color.dataset.color;
+            });
+        });
+
+        brushes.forEach(brush => {
+            brush.addEventListener('click', () => {
+                brushes.forEach(b => b.classList.remove('active'));
+                brush.classList.add('active');
+                brushSize = parseInt(brush.dataset.size, 10);
+            });
+        });
+
+        types.forEach(type => {
+            type.addEventListener('click', () => {
+                types.forEach(t => t.classList.remove('active'));
+                type.classList.add('active');
+                brushType = type.dataset.type;
+            });
+        });
+
+        canvas.addEventListener('mousedown', (e) => {
+            drawing = true;
+            startX = e.clientX;
+            startY = e.clientY;
+        });
+
+        canvas.addEventListener('mouseup', (e) => {
+            if (brushType === 'line' && drawing) {
+                ctx.strokeStyle = brushColor;
+                ctx.lineWidth = brushSize;
+                ctx.beginPath();
+                ctx.moveTo(startX, startY);
+                ctx.lineTo(e.clientX, e.clientY);
+                ctx.stroke();
+            }
+            drawing = false;
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (!drawing || brushType === 'line') return;
+
+            ctx.fillStyle = brushColor;
+            if (brushType === 'circle') {
+                ctx.beginPath();
+                ctx.arc(e.clientX, e.clientY, brushSize, 0, Math.PI * 2);
+                ctx.fill();
+            } else if (brushType === 'square') {
+                ctx.fillRect(e.clientX - brushSize / 2, e.clientY - brushSize / 2, brushSize, brushSize);
+            }
+        });
+
+        saveButton.addEventListener('click', () => {
+            const link = document.createElement('a');
+            link.download = 'my_drawing.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        });
+
+        window.addEventListener('resize', () => {
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            ctx.putImageData(imageData, 0, 0);
+        });
+    </script>
+</body>
+</html>

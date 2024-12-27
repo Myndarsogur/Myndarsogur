@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leikjasíðan</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        canvas {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas"></canvas>
+
+    <script>
+        const games = [
+            { name: "Formleikurinn", color: "#FF6F61", link: "./Formleikurinn/index.html" },
+            { name: "Skógrækt Simulator", color: "#6B5B95", link: "./Skograekt%20simulator/index.html" },
+            { name: "Teiknileikurinn", color: "#88B04B", link: "./Teiknileikurinn/index.html" }
+        ];
+
+        const tiles = [];
+        const gravity = 2;
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        class Tile {
+            constructor(x, y, game) {
+                this.x = x;
+                this.y = y;
+                this.width = 120;
+                this.height = 120;
+                this.color = game.color;
+                this.text = game.name;
+                this.link = game.link;
+                this.vx = 0;
+                this.vy = 0;
+                this.isDragging = false;
+            }
+
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.fillRect(this.x, this.y, this.width, this.height);
+                ctx.fillStyle = "white";
+                ctx.font = "bold 16px Arial";
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+
+                const words = this.text.split(" ");
+                const lines = [];
+                let currentLine = words[0];
+
+                for (let i = 1; i < words.length; i++) {
+                    if (ctx.measureText(`${currentLine} ${words[i]}`).width < this.width - 10) {
+                        currentLine += ` ${words[i]}`;
+                    } else {
+                        lines.push(currentLine);
+                        currentLine = words[i];
+                    }
+                }
+                lines.push(currentLine);
+
+                const lineHeight = 16;
+                const startY = this.y + (this.height - lines.length * lineHeight) / 2;
+
+                lines.forEach((line, index) => {
+                    ctx.fillText(line, this.x + this.width / 2, startY + index * lineHeight);
+                });
+            }
+
+            update() {
+                if (!this.isDragging) {
+                    this.vy += gravity;
+                    this.y += this.vy;
+                    if (this.y + this.height > canvas.height) {
+                        this.y = canvas.height - this.height;
+                        this.vy = 0;
+                    }
+
+                    for (const other of tiles) {
+                        if (other !== this && this.isColliding(other)) {
+                            this.y = other.y - this.height;
+                            this.vy = 0;
+                            break;
+                        }
+                    }
+                }
+                this.draw();
+            }
+
+            isColliding(other) {
+                return (
+                    this.x < other.x + other.width &&
+                    this.x + this.width > other.x &&
+                    this.y + this.height > other.y &&
+                    this.y < other.y + other.height
+                );
+            }
+
+            isClicked(x, y) {
+                return x > this.x && x < this.x + this.width && y > this.y && y < this.y + this.height;
+            }
+        }
+
+        // Populate tiles
+        for (let i = 0; i < 15; i++) {
+            const game = games[i % games.length];
+            const x = Math.random() * (canvas.width - 120);
+            const y = Math.random() * (canvas.height - 300);
+            tiles.push(new Tile(x, y, game));
+        }
+
+        let draggedTile = null;
+        canvas.addEventListener("mousedown", (e) => {
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+
+            for (const tile of tiles) {
+                if (tile.isClicked(mouseX, mouseY)) {
+                    draggedTile = tile;
+                    tile.isDragging = true;
+                    tile.vy = 0;
+                    tile.vx = 0;
+                    break;
+                }
+            }
+        });
+
+        canvas.addEventListener("mousemove", (e) => {
+            if (draggedTile) {
+                draggedTile.x = e.clientX - draggedTile.width / 2;
+                draggedTile.y = e.clientY - draggedTile.height / 2;
+            }
+        });
+
+        canvas.addEventListener("mouseup", () => {
+            if (draggedTile) {
+                draggedTile.isDragging = false;
+                draggedTile = null;
+            }
+        });
+
+        canvas.addEventListener("dblclick", (e) => {
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+
+            for (const tile of tiles) {
+                if (tile.isClicked(mouseX, mouseY)) {
+                    window.location.href = tile.link;
+                    break;
+                }
+            }
+        });
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (const tile of tiles) {
+                tile.update();
+            }
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
+</body>
+</html>

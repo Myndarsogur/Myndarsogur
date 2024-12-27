@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Madlibs Interview</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .container {
+            width: 80%;
+        }
+
+        .question {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            font-size: 1.5rem;
+            padding: 10px;
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 20px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            font-size: 1.5rem;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .madlib {
+            display: none;
+            font-size: 1.5rem;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="question" id="question"></div>
+        <input type="text" id="answer" placeholder="Skrifaðu það hér">
+        <button id="submit">Submit</button>
+        <div class="madlib" id="madlib"></div>
+    </div>
+
+    <script>
+        const questions = [
+            "Hver ertu?",
+            "Hvað er uppáhalds liturinn þinn?",
+            "Hver er uppáhalds staðurinn þinn?",
+            "Hvað viltu vinna við?",
+            "Hvað er uppáhalds dýrið þitt?",
+            "Hvað er fyndnasta orðið sem þú veist um?",
+            "Hvað finnst þér gaman að gera?",
+            "Hvað er uppáhalds maturinn þinn?",
+            "Hvað er eitthvað sem þú segjir alltaf?",
+            "Lýstu þér í þremur orðum."
+        ];
+
+        const madlibs = [
+            `Þú þarna ófétið þitt!, ${"${answers[0]}"}! Alltaf verið algjörlega ${"${answers[1]}"} á bakvið rasssmettið á þér, værir betur geymt svín á ${"${answers[2]}"} en þú hérna núna en hvað um það. Ég man þegar þú sagðir mér þú ætlaðir að vera ${"${answers[3]}"}, hahaha umvafinn ${"${answers[4]}"} eflaust eða hvað það nú var sem var eins og bangsinn þinn. Hvað hét hann aftur? \"${"${answers[5]}"}\" Bwahaha það er það fáránlegasta sem ég hef heyrt einhvern kalla eitthvað síðan þú kallaðir það góða hugmynd að við færum saman í ${"${answers[6]}"}. Þú veist að éta allt þetta ${"${answers[7]}"} mun drepa þig á endanum ég er bara að segja \"${"${answers[8]}"}\". Það er samt satt sem þeir segja um þig þú ert ${"${answers[9]}"} en þú veist þú verður samt aldrei neitt annað fyrir mér en vonbrigði!`,
+            `Hey ${"${answers[0]}"}, manstu þegar þú sagðir mér að þú værir alltaf ${"${answers[1]}"}? Ég trúi ekki að þú sagðir að þú vildir flytja til ${"${answers[2]}"}. Að vera ${"${answers[3]}"} hljómar vel, sérstaklega með ${"${answers[4]}"} í kringum þig!`,
+            `Halló ${"${answers[0]}"}, með uppáhalds litinn þinn ${"${answers[1]}"} og dýrið ${"${answers[4]}"}, hvernig í ósköpunum ætlar þú að verða ${"${answers[3]}"}? Ég vona að það gerist á ${"${answers[2]}"}!`,
+            `Það er ótrúlegt að heyra þig, ${"${answers[0]}"}, tala um ${"${answers[6]}"}! Ég trúi ekki að þú segðir \"${"${answers[8]}"}\" um það.`,
+            `Þú ert ${"${answers[9]}"}! Ég man að þú sagðir mér einu sinni að uppáhalds maturinn þinn væri ${"${answers[7]}"} og fyndnasta orðið sem þú veist er \"${"${answers[5]}"}\". Frábært!`,
+            `Ég hef heyrt að þú, ${"${answers[0]}"}, sért alltaf með ${"${answers[1]}"} í huga og að þú vilt alltaf vera á ${"${answers[2]}"}.`,
+            `Hversu oft hefur þú, ${"${answers[0]}"}, sagt \"${"${answers[8]}"}\"? Er það oftar en þú borðar ${"${answers[7]}"}?`,
+            `Lífið á ${"${answers[2]}"} hljómar eins og draumur fyrir einhvern eins og þig, ${"${answers[0]}"}, sem lýsir sér sem ${"${answers[9]}"}.`,
+            `Ég er ekki viss um að ${"${answers[4]}"} muni passa inn í lífið sem ${"${answers[3]}"}, ${"${answers[0]}"}!`,
+            `Þú sagðir að uppáhalds maturinn þinn væri ${"${answers[7]}"} og fyndnasta orðið er \"${"${answers[5]}"}\". Það segir margt um þig, ${"${answers[0]}"}!`
+        ];
+
+        const answers = [];
+        let currentQuestion = 0;
+
+        const questionDiv = document.getElementById('question');
+        const answerInput = document.getElementById('answer');
+        const submitButton = document.getElementById('submit');
+        const madlibDiv = document.getElementById('madlib');
+
+        function askQuestion() {
+            if (currentQuestion < questions.length) {
+                questionDiv.textContent = questions[currentQuestion];
+                answerInput.value = '';
+                answerInput.focus();
+            } else {
+                displayMadlib();
+            }
+        }
+
+        function displayMadlib() {
+            const randomIndex = Math.floor(Math.random() * madlibs.length);
+            const madlibTemplate = madlibs[randomIndex];
+            const madlibText = madlibTemplate.replace(/\${answers\[(\d+)\]}/g, (_, index) => answers[index]);
+            questionDiv.style.display = 'none';
+            answerInput.style.display = 'none';
+            submitButton.style.display = 'none';
+            madlibDiv.textContent = madlibText;
+            madlibDiv.style.display = 'block';
+        }
+
+        submitButton.addEventListener('click', () => {
+            const answer = answerInput.value.trim();
+            if (answer) {
+                answers.push(answer);
+                currentQuestion++;
+                askQuestion();
+            }
+        });
+
+        askQuestion();
+    </script>
+</body>
+</html>

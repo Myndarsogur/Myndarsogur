@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Madlibs Interview</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .question-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 100%;
+            width: 100%;
+        }
+
+        .question {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 20px;
+        }
+
+        input[type="text"] {
+            font-size: 1.5rem;
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            width: 80%;
+            margin: 20px 0;
+        }
+
+        button {
+            font-size: 1.5rem;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .madlib {
+            display: none;
+            font-size: 1.5rem;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="question-container" id="question-container">
+        <div class="question" id="question"></div>
+        <input type="text" id="answer" placeholder="Your answer here...">
+        <button id="submit">Submit</button>
+    </div>
+    <div class="madlib" id="madlib"></div>
+
+    <script>
+        const questions = [
+            "Hver ertu?",
+            "Hvað er uppáhalds liturinn þinn?",
+            "Hver er uppáhalds staðurinn þinn?",
+            "Hvað viltu vinna við?",
+            "Hvað er uppáhalds dýrið þitt?",
+            "Hvað er fyndnasta orðið sem þú veist um?",
+            "Hvað finnst þér gaman að gera?",
+            "Hvað er uppáhalds maturinn þinn?",
+            "Hvað er eitthvað sem þú segjir alltaf?",
+            "Lýstu þér í þremur orðum."
+        ];
+
+        const answers = [];
+        let currentQuestion = 0;
+
+        const questionContainer = document.getElementById('question-container');
+        const questionDiv = document.getElementById('question');
+        const answerInput = document.getElementById('answer');
+        const submitButton = document.getElementById('submit');
+        const madlibDiv = document.getElementById('madlib');
+
+        function askQuestion() {
+            if (currentQuestion < questions.length) {
+                questionDiv.textContent = questions[currentQuestion];
+                answerInput.value = '';
+                answerInput.focus();
+            } else {
+                generateMadlib();
+            }
+        }
+
+        function generateMadlib() {
+            const madlib = `Þú þarna ófétið þitt!, ${answers[0]}! Alltaf verið algjörlega ${answers[1]} á bakvið rasssmettið á þér, værir betur geymt svín á ${answers[2]} en þú hérna núna en hvað um það. Ég man þegar þú sagðir mér þú ætlaðir að vera ${answers[3]}, hahaha umvafinn ${answers[4]} eflaust eða hvað það nú var sem var eins og bangsinn þinn. Hvað hét hann aftur? \"${answers[5]}\" Bwahaha það er það fáránlegasta sem ég hef heyrt einhvern kalla eitthvað síðan þú kallaðir það góða hugmynd að við færum saman í ${answers[6]}. Þú veist að éta allt þetta ${answers[7]} mun drepa þig á endanum ég er bara að segja \"${answers[8]}\". Það er samt satt sem þeir segja um þig þú ert ${answers[9]} en þú veist þú verður samt aldrei neitt annað fyrir mér en vonbrigði!`;
+            questionContainer.style.display = 'none';
+            madlibDiv.textContent = madlib;
+            madlibDiv.style.display = 'block';
+        }
+
+        submitButton.addEventListener('click', () => {
+            const answer = answerInput.value.trim();
+            if (answer) {
+                answers.push(answer);
+                currentQuestion++;
+                askQuestion();
+            }
+        });
+
+        askQuestion();
+    </script>
+</body>
+</html>

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Myndasögur</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: white;
+            color: black;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        #mainContainer {
+            position: relative;
+            overflow: hidden;
+        }
+
+        #mainImage {
+            width: 100%;
+            height: auto;
+            cursor: pointer;
+        }
+
+        #orderForm {
+            display: none;
+            max-width: 600px;
+            margin: 20px auto;
+            text-align: center;
+            position: relative;
+        }
+
+        #orderForm img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            text-align: left;
+            position: relative;
+        }
+
+        label {
+            margin: 10px 0 5px;
+            color: black;
+            cursor: pointer;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            border: 1px solid #bbb;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            width: 100%;
+            color: black;
+        }
+
+        input[type="text"]::placeholder {
+            color: grey;
+        }
+
+        textarea::placeholder {
+            color: grey;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 5px;
+            cursor: pointer;
+        }
+
+        /* Karfan */
+        .cart-container {
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+            min-height: 50px;
+        }
+
+        .cart-items {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .cart-item {
+            width: 80px;
+            height: 80px;
+            border: 1px solid #bbb;
+            border-radius: 4px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Stóra útgáfan í körfu */
+        .item-stora {
+            background-image: url('https://i.imgur.com/dmsyTRU.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        /* Hlutar úr uJRs7OB.png */
+        .item-jola {
+            background-image: url('https://i.imgur.com/uJRs7OB.png');
+            background-position: 0px 0px;
+            background-size: 300px 200px;
+        }
+
+        .item-omynd {
+            background-image: url('https://i.imgur.com/uJRs7OB.png');
+            background-position: -100px 0px;
+            background-size: 300px 200px;
+        }
+
+        .item-fyrsta {
+            background-image: url('https://i.imgur.com/uJRs7OB.png');
+            background-position: -200px 0px;
+            background-size: 300px 200px;
+        }
+
+        button {
+            padding: 15px 20px;
+            background-color: #FFFC3E;
+            color: black;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: 300;
+            font-family: Arial, sans-serif;
+        }
+
+        button:hover {
+            background-color: rgba(255,252,62,0.9);
+        }
+
+        .edition-group {
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+        }
+
+        .product-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .product-row label {
+            margin: 0 0 0 5px;
+            cursor: pointer;
+        }
+
+        .fancy-quote {
+            font-style: italic;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        /* Modal gluggi */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top:0; left:0; right:0; bottom:0;
+            background: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal {
+            background: white;
+            padding:20px;
+            border-radius:10px;
+            max-width:300px;
+            width:100%;
+            text-align:left;
+            position:relative;
+        }
+
+        .modal label {
+            margin:5px 0;
+        }
+
+        .choice-btn {
+            background-color: #FFFC3E;
+            color: black;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 18px;
+            font-weight: 300;
+            font-family: Arial, sans-serif;
+            padding: 10px 15px;
+            margin-right: 5px;
+        }
+
+        .choice-btn:hover {
+            background-color: rgba(255,252,62,0.9);
+        }
+
+        textarea {
+            padding: 8px;
+            border: 1px solid #bbb;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            width: 100%;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div id="mainContainer">
+        <img id="mainImage" src="https://i.imgur.com/PzG3IS6.jpg" alt="Aðalmynd" ondblclick="showForm()">
+    </div>
+
+    <div id="orderForm">
+        <form>
+            <p class="fancy-quote">"Ég vil það."</p>
+            <div class="edition-group">
+                <label for="storaCheck" style="display:block; cursor:pointer;">
+                    <img src="https://i.imgur.com/dmsyTRU.png" alt="Myndarsögur Stóra útgáfan!">
+                    <input type="checkbox" id="storaCheck" name="product" value="Myndarsögur Stóra útgáfan!" style="margin-right:5px;" onchange="updateCartDisplay()">
+                    Myndarsögur Stóra útgáfan!
+                </label>
+            </div>
+
+            <h3>Fleiri útgáfur</h3>
+
+            <div class="edition-group" style="position:relative;">
+                <img src="https://i.imgur.com/uJRs7OB.png" usemap="#multiProducts" alt="Önnur útgáfa" width="300" height="200">
+                <map name="multiProducts">
+                    <area shape="rect" coords="0,0,100,200" href="#" onclick="toggleCheckbox('jolaCheck'); return false;">
+                    <area shape="rect" coords="100,0,200,200" href="#" onclick="toggleCheckbox('omyndCheck'); return false;">
+                    <area shape="rect" coords="200,0,300,200" href="#" onclick="toggleCheckbox('fyrstaCheck'); return false;">
+                </map>
+            </div>
+
+            <div class="product-row">
+                <input type="checkbox" id="jolaCheck" name="product" value="Jólablaðið" onchange="updateCartDisplay()">
+                <label for="jolaCheck">Jólablaðið</label>
+            </div>
+            <div class="product-row">
+                <input type="checkbox" id="omyndCheck" name="product" value="Ómyndarsögur" onchange="updateCartDisplay()">
+                <label for="omyndCheck">Ómyndarsögur</label>
+            </div>
+            <div class="product-row">
+                <input type="checkbox" id="fyrstaCheck" name="product" value="Fyrsta blaðið" onchange="updateCartDisplay()">
+                <label for="fyrstaCheck">Fyrsta blaðið</label>
+            </div>
+
+            <!-- Karfa -->
+            <div class="cart-container">
+                <div class="cart-items" id="cartItems"></div>
+            </div>
+            
+            <button type="button" onclick="openModal()">Fá það</button>
+        </form>
+    </div>
+
+    <!-- Modal fyrir nafn og heimilisfang -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="modalBox">
+            <input type="text" id="userName" placeholder="Nafn" style="width:100%; margin-bottom:10px;">
+            <input type="text" id="userAddress" placeholder="Heimilisfang" style="width:100%; margin-bottom:10px;">
+            <textarea id="goodIdea" placeholder="Góð hugmynd" rows="3"></textarea>
+
+            <div style="text-align:right;">
+                <button class="choice-btn" onclick="chooseOption('komdu')">Komdu með það</button>
+                <button class="choice-btn" onclick="chooseOption('kem')">Ég kem</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const SPEED_THRESHOLD = 1000; 
+        let lastX = null;
+        let lastY = null;
+        let lastTime = null;
+
+        let chosenOption = null; // geymum hvort var valið "komdu" eða "kem"
+
+        document.addEventListener('mousemove', (e) => {
+            const currentX = e.clientX;
+            const currentY = e.clientY;
+            const currentTime = performance.now();
+            if (lastX !== null && lastY !== null && lastTime !== null) {
+                const dx = currentX - lastX;
+                const dy = currentY - lastY;
+                const distance = Math.sqrt(dx*dx + dy*dy);
+                const dt = (currentTime - lastTime) / 1000; 
+                const speed = distance / dt; 
+
+                if (speed > SPEED_THRESHOLD) {
+                    showForm();
+                }
+            }
+            lastX = currentX;
+            lastY = currentY;
+            lastTime = currentTime;
+        });
+
+        function showForm() {
+            const form = document.getElementById('orderForm');
+            form.style.display = 'block';
+        }
+
+        function toggleCheckbox(id) {
+            const cb = document.getElementById(id);
+            cb.checked = !cb.checked;
+            updateCartDisplay();
+        }
+
+        function updateCartDisplay() {
+            const products = Array.from(document.querySelectorAll('input[name="product"]:checked'))
+                .map(item => item.value);
+            
+            const cartItems = document.getElementById('cartItems');
+            cartItems.innerHTML = '';
+
+            products.forEach(prod => {
+                const div = document.createElement('div');
+                div.className = 'cart-item';
+                if(prod === "Myndarsögur Stóra útgáfan!") {
+                    div.classList.add('item-stora');
+                } else if (prod === "Jólablaðið") {
+                    div.classList.add('item-jola');
+                } else if (prod === "Ómyndarsögur") {
+                    div.classList.add('item-omynd');
+                } else if (prod === "Fyrsta blaðið") {
+                    div.classList.add('item-fyrsta');
+                }
+                cartItems.appendChild(div);
+            });
+        }
+
+        function openModal() {
+            const products = document.querySelectorAll('input[name="product"]:checked');
+            if(products.length === 0) {
+                alert("Veldu vöru fyrst!");
+                return;
+            }
+            const overlay = document.getElementById('modalOverlay');
+            overlay.style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').style.display = 'none';
+        }
+
+        // Lokar modali ef smellt er fyrir utan
+        document.getElementById('modalOverlay').addEventListener('click', function(e) {
+            const modalBox = document.getElementById('modalBox');
+            if(!modalBox.contains(e.target)) {
+                closeModal();
+            }
+        });
+
+        function chooseOption(option) {
+            chosenOption = option;
+            sendEmail();
+        }
+
+        function sendEmail() {
+            const userName = document.getElementById('userName').value.trim();
+            const userAddress = document.getElementById('userAddress').value.trim();
+            const goodIdea = document.getElementById('goodIdea').value.trim();
+
+            let productsArray = Array.from(document.querySelectorAll('input[name="product"]:checked'))
+                .map(item => item.value);
+
+            if(!userName || !userAddress) {
+                alert("Vinsamlegast sláðu inn nafn og heimilisfang.");
+                return;
+            }
+
+            // Setjum inn "og að sjálfsögðu" á undan síðustu vöru ef fleiri en ein
+            let productText = "";
+            if (productsArray.length === 0) {
+                productText = 'engar útgáfur valdar';
+            } else if (productsArray.length === 1) {
+                productText = encodeURIComponent(productsArray[0]);
+            } else {
+                const last = productsArray.pop();
+                productText = encodeURIComponent(productsArray.join(', ')) + '%2C%20og%20að%20sjálfsögðu%20' + encodeURIComponent(last);
+            }
+
+            let scenarioText = "";
+            if(chosenOption === 'komdu') {
+                scenarioText = `sendu það til mín ég er ófær ferðum af spenningi`;
+            } else if(chosenOption === 'kem') {
+                scenarioText = `Ertu ennþá í Hafnarhúsinu? þessum hafnar haus eða ertu á flakki?  hvar næ ég í þig og hvenær?  geturu staðfest þetta?  segðu mér það?  ég verð að vita!!??!`;
+            }
+
+            // setjum inn goodIdea í stað "settu inn HVAÐ ÞÚ MYNDIR VILJA SJÁ HÉR"
+            const ideaText = goodIdea ? encodeURIComponent(goodIdea) : 'settu inn HVAÐ ÞÚ MYNDIR VILJA SJÁ HÉR';
+
+            const subject = `Áríðandi skilaboð frá ${encodeURIComponent(userName)}`;
+            const body = `Kæru Myndarsögur,%0D%0A%0D%0A` +
+                         `Ég sendi þér bréf frá ${encodeURIComponent(userAddress)} því ég gat ekki lengur lifað án bóka þinna.%0D%0A` +
+                         `Kallaðu þær blöð, kallaðu þau útgáfur hvað sem þú vilt. En ég veit að þetta eru hinar sönnu bókmenntir íslands. Þar sem raddir lita og forma spretta í gegn og segja sögur ríkari en nokkru sinni fyrr.%0D%0A%0D%0A` +
+                         `Þess vegna vil ég ${productText} ${encodeURIComponent(scenarioText)}%0D%0A%0D%0A` +
+                         `Verð frá mér af spenningi og verð að ná um þig.%0D%0A` +
+                         `Ég var samt með eina hugmynd um eitt annað sem mig langaði að segja þér....... ${ideaText}%0D%0A%0D%0A` +
+                         `Vonast til þess að heyra frá þér. Sakna þín.%0D%0A` +
+                         `Kær kveðja%0D%0A` +
+                         `${encodeURIComponent(userName)}%0D%0A%0D%0A` +
+                         `P.s. held þú sért ennþá með vatnsbrúsann minn, hef allavega ekki séð hann lengi láttu mig allavega vita ef þú sérð hann`;
+
+            const mailtoLink = `mailto:myndarsogur@gmail.com?subject=${subject}&body=${body}`;
+            window.location.href = mailtoLink;
+
+            closeModal();
+        }
+    </script>
+</body>
+</html>

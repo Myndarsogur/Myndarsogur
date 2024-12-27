@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link href="index.css" rel="stylesheet" />
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/128/4505/4505323.png">
+    <title>Fantasy Chat!</title>
+  </head>
+  <body>
+    <div class="p-4  maindiv">
+      <div class="py-5">
+        <div class="text-center">
+          <h1 class="text-body-emphasis">Fake Chat App</h1>
+          <p class="col-lg-8 mx-auto lead fw-normal">
+            Enter the names of the 2 people and their messages, then hit the magic button!
+          </p>
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="inputGroup-sizing-default"
+            >First Person's Name</span
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="p1name"
+            aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-default"
+          />
+        </div>
+        <div class="input-group mb-3 mt-3">
+          <span class="input-group-text" id="inputGroup-sizing-default"
+            >Second Person's Name</span
+          >
+          <input
+            type="text"
+            id="p2name"
+            class="form-control"
+            aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-default"
+          />
+        </div>
+      </div>
+    </div>
+    <ul class="list-group m-3">
+      <div class="input-group">
+        <span class="input-group-text" id="basic-addon1">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-send"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"
+            ></path>
+          </svg>
+        </span>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter Message for person 1"
+          id="p1msg1"
+          aria-label="Input group example"
+          aria-describedby="basic-addon1"
+        />
+      </div>
+      <div class="input-group">
+        <span class="input-group-text" id="basic-addon1">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-send"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"
+            ></path>
+          </svg>
+        </span>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter Message for person 2"
+          id="p2msg1"
+          aria-label="Input group example"
+          aria-describedby="basic-addon1"
+        />
+      </div>
+      <div class="input-group">
+        <span class="input-group-text" id="basic-addon1">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-send"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"
+            ></path>
+          </svg>
+        </span>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter Message for person 1"
+          id="p1msg2"
+          aria-label="Input group example"
+          aria-describedby="basic-addon1"
+        />
+      </div>
+      <div class="input-group">
+        <span class="input-group-text" id="basic-addon1">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-send"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"
+            ></path>
+          </svg>
+        </span>
+        <input
+          type="text"
+          class="form-control"
+          id="p2msg2"
+          placeholder="Enter Message for person 2"
+          aria-label="Input group example"
+          aria-describedby="basic-addon1"
+        />
+      </div>
+      <div class="input-group">
+        <span class="input-group-text" id="basic-addon1">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-send"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"
+            ></path>
+          </svg>
+        </span>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter Message for person 1"
+          id="p1msg3"
+          aria-label="Input group example"
+          aria-describedby="basic-addon1"
+        />
+      </div>
+      <div class="input-group">
+        <span class="input-group-text" id="basic-addon1">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-send"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"
+            ></path>
+          </svg>
+        </span>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter Message for person 2"
+          id="p2msg3"
+          aria-label="Input group example"
+          aria-describedby="basic-addon1"
+        />
+      </div>
+      <button type="button" class="btn btn-success m-3 magic">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          class="bi bi-send"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"
+          ></path>
+        </svg>
+        Magic!
+      </button>
+    </ul>
+
+    <div class="container-sm mb-5 mt-3 hidden" id="chatbox">
+      <ul class="list-group">
+        <li class="list-group-item" id="topbar">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <p class="profile-pic d-inline">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-envelope-check-fill" viewBox="0 0 16 16">
+                            <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.026A2 2 0 0 0 2 14h6.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.606-3.446l-.367-.225L8 9.586l-1.239-.757ZM16 4.697v4.974A4.491 4.491 0 0 0 12.5 8a4.49 4.49 0 0 0-1.965.45l-.338-.207L16 4.697Z"/>
+                            <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-1.993-1.679a.5.5 0 0 0-.686.172l-1.17 1.95-.547-.547a.5.5 0 0 0-.708.708l.774.773a.75.75 0 0 0 1.174-.144l1.335-2.226a.5.5 0 0 0-.172-.686Z"/>
+                        </svg>
+                    </p>
+                    <div class="contact-info ml-3 m-3">
+                        <h4 class="mb-0">TweeterChat</h4>
+                        <small>Last seen: 128 years ago!</small>
+                    </div>
+                </div>
+            </div>
+        </li>        
+          </li>
+        <li class="list-group-item">
+          <span class="badge max-content-badge m-1 person1"> p1 name </span>
+          <p id="p1-1" class="d-inline">p1 msg 1</p>
+        </li>
+        <li class="list-group-item">
+          <span class="badge max-content-badge m-1 person2"> p2 name </span>
+          <p id="p2-1" class="d-inline">p2 msg 1</p>
+        </li>
+        <li class="list-group-item">
+          <span class="badge max-content-badge m-1  person1"> p1 name </span>
+          <p id="p1-2" class="d-inline">p1 msg 2</p>
+        </li>
+        <li class="list-group-item">
+          <span class="badge max-content-badge m-1 person2"> p2 name </span>
+          <p id="p2-2" class="d-inline">p2 msg 2</p>
+        </li>
+        <li class="list-group-item">
+          <span class="badge max-content-badge m-1 person1"> p1 name </span>
+          <p id="p1-3" class="d-inline">p1 msg 3</p>
+        </li>
+        <li class="list-group-item">
+          <span class="badge max-content-badge m-1 person2"> p2 name </span>
+          <p id="p2-3" class="d-inline">p2 msg 3</p>
+        </li>
+        <li class="list-group-item" id="bottombar">
+            <div class="input-group">
+                <input disabled type="text" class="form-control" placeholder="Type your message" aria-label="Type your message" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button type="button" class="btn btn-success magic">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="currentColor"
+                          class="bi bi-send"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"
+                          ></path>
+                        </svg>
+                        Magic!
+                      </button> 
+                </div>
+            </div>
+        </li>        
+      </ul>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>

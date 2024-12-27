@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Litríkur Formaleikur</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: #000;
+        }
+
+        canvas {
+            display: block;
+        }
+
+        .instructions {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 18px;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="instructions">Smelltu til að skapa litrík form!</div>
+    <canvas id="gameCanvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const shapes = [];
+
+        class Shape {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 30 + 10;
+                this.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                this.dx = Math.random() * 2 - 1;
+                this.dy = Math.random() * 2 - 1;
+                this.angle = 0;
+                this.rotationSpeed = Math.random() * 0.05 - 0.025;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.angle);
+                ctx.beginPath();
+                const sides = Math.floor(Math.random() * 6) + 3;
+                const step = (Math.PI * 2) / sides;
+                for (let i = 0; i < sides; i++) {
+                    const x = Math.cos(step * i) * this.size;
+                    const y = Math.sin(step * i) * this.size;
+                    ctx.lineTo(x, y);
+                }
+                ctx.closePath();
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                ctx.restore();
+            }
+
+            update() {
+                this.x += this.dx;
+                this.y += this.dy;
+                this.angle += this.rotationSpeed;
+
+                if (this.x - this.size < 0 || this.x + this.size > canvas.width) this.dx *= -1;
+                if (this.y - this.size < 0 || this.y + this.size > canvas.height) this.dy *= -1;
+            }
+        }
+
+        canvas.addEventListener('click', (e) => {
+            const x = e.clientX;
+            const y = e.clientY;
+            shapes.push(new Shape(x, y));
+        });
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            shapes.forEach((shape) => {
+                shape.update();
+                shape.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>

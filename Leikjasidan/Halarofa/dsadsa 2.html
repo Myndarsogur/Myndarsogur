@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Völvuundrahúsið</title>
+    <style>
+        canvas {
+            display: block;
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle, #1e3c72, #2a5298, #0d1a26);
+        }
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas"></canvas>
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const elements = [];
+        const tail = [];
+        const shapes = ['circle', 'rectangle', 'triangle', 'squiggly'];
+        const colors = ['#ff6347', '#ffa500', '#32cd32', '#4682b4', '#6a5acd', '#ff69b4', '#00ced1', '#ffd700'];
+
+        const player = {
+            x: canvas.width / 2,
+            y: canvas.height / 2,
+            size: 40,
+            color: '#ffffff',
+            dx: 0,
+            dy: 0,
+            speed: 4
+        };
+
+        function createElement() {
+            return {
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 30 + 10,
+                color: colors[Math.floor(Math.random() * colors.length)],
+                shape: shapes[Math.floor(Math.random() * shapes.length)],
+                dx: Math.random() * 2 - 1,
+                dy: Math.random() * 2 - 1,
+                angle: 0,
+                angularSpeed: Math.random() * 0.1 - 0.05
+            };
+        }
+
+        function initElements(count) {
+            elements.length = 0;
+            for (let i = 0; i < count; i++) {
+                elements.push(createElement());
+            }
+        }
+
+        function drawElements() {
+            elements.forEach(element => {
+                ctx.save();
+                ctx.translate(element.x, element.y);
+                ctx.rotate(element.angle);
+
+                ctx.beginPath();
+                if (element.shape === 'circle') {
+                    ctx.arc(0, 0, element.size / 2, 0, Math.PI * 2);
+                } else if (element.shape === 'rectangle') {
+                    ctx.rect(-element.size / 2, -element.size / 2, element.size, element.size / 2);
+                } else if (element.shape === 'triangle') {
+                    ctx.moveTo(0, -element.size / 2);
+                    ctx.lineTo(-element.size / 2, element.size / 2);
+                    ctx.lineTo(element.size / 2, element.size / 2);
+                    ctx.closePath();
+                } else if (element.shape === 'squiggly') {
+                    ctx.moveTo(-element.size / 2, -element.size / 4);
+                    ctx.quadraticCurveTo(0, -element.size / 2, element.size / 2, -element.size / 4);
+                    ctx.quadraticCurveTo(0, element.size / 2, -element.size / 2, element.size / 4);
+                    ctx.closePath();
+                }
+                ctx.fillStyle = element.color;
+                ctx.fill();
+                ctx.restore();
+
+                element.angle += element.angularSpeed;
+            });
+        }
+
+        function drawPlayer() {
+            ctx.beginPath();
+            ctx.arc(player.x, player.y, player.size / 2, 0, Math.PI * 2);
+            ctx.fillStyle = player.color;
+            ctx.fill();
+            ctx.closePath();
+        }
+
+        function drawTail() {
+            tail.forEach((segment, index) => {
+                ctx.beginPath();
+                ctx.arc(segment.x, segment.y, segment.size / 2, 0, Math.PI * 2);
+                ctx.fillStyle = segment.color;
+                ctx.fill();
+                ctx.closePath();
+
+                // Move each segment towards the previous segment
+                if (index > 0) {
+                    const prev = tail[index - 1];
+                    const dx = prev.x - segment.x;
+                    const dy = prev.y - segment.y;
+                    const dist = Math.hypot(dx, dy);
+                    if (dist > segment.size) {
+                        segment.x += dx * 0.1;
+                        segment.y += dy * 0.1;
+                    }
+                } else {
+                    // Follow the player
+                    const dx = player.x - segment.x;
+                    const dy = player.y - segment.y;
+                    const dist = Math.hypot(dx, dy);
+                    if (dist > segment.size) {
+                        segment.x += dx * 0.1;
+                        segment.y += dy * 0.1;
+                    }
+                }
+            });
+        }
+
+        function updateElements() {
+            elements.forEach((element, index) => {
+                const dx = player.x - element.x;
+                const dy = player.y - element.y;
+                const dist = Math.hypot(dx, dy);
+
+                if (dist < player.size) {
+                    tail.push(element);
+                    elements.splice(index, 1);
+                } else {
+                    element.x += element.dx;
+                    element.y += element.dy;
+
+                    if (element.x - element.size / 2 < 0 || element.x + element.size / 2 > canvas.width) {
+                        element.dx *= -1;
+                    }
+
+                    if (element.y - element.size / 2 < 0 || element.y + element.size / 2 > canvas.height) {
+                        element.dy *= -1;
+                    }
+                }
+            });
+
+            if (elements.length === 0) {
+                resetGame();
+            }
+        }
+
+        function resetGame() {
+            initElements(100);
+            tail.length = 0;
+        }
+
+        function updatePlayer() {
+            player.x += player.dx;
+            player.y += player.dy;
+
+            if (player.x < 0) player.x = canvas.width;
+            if (player.x > canvas.width) player.x = 0;
+            if (player.y < 0) player.y = canvas.height;
+            if (player.y > canvas.height) player.y = 0;
+        }
+
+        function drawScene() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawElements();
+            drawTail();
+            drawPlayer();
+        }
+
+        function gameLoop() {
+            drawScene();
+            updateElements();
+            updatePlayer();
+            requestAnimationFrame(gameLoop);
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowUp') player.dy = -player.speed;
+            if (e.key === 'ArrowDown') player.dy = player.speed;
+            if (e.key === 'ArrowLeft') player.dx = -player.speed;
+            if (e.key === 'ArrowRight') player.dx = player.speed;
+        });
+
+        window.addEventListener('keyup', (e) => {
+            if (e.key === 'ArrowUp' || e.key === 'ArrowDown') player.dy = 0;
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') player.dx = 0;
+        });
+
+        initElements(100);
+        gameLoop();
+    </script>
+</body>
+</html>

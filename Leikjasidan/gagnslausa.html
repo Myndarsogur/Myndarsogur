@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Box Game</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .box {
+            width: 150px;
+            height: 150px;
+            margin: 10px;
+            position: absolute;
+            transform-style: preserve-3d;
+            transform: rotateX(0deg) rotateY(0deg);
+            transition: transform 0.2s ease-in-out;
+        }
+        .box .front, .box .back, .box .left, .box .right, .box .top, .box .bottom {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: #fff;
+            border: 2px solid #ddd;
+        }
+        .front  { transform: translateZ(75px); background: #ff9999; }
+        .back   { transform: rotateY(180deg) translateZ(75px); background: #99ccff; }
+        .left   { transform: rotateY(-90deg) translateZ(75px); background: #99ff99; }
+        .right  { transform: rotateY(90deg) translateZ(75px); background: #ffcc99; }
+        .top    { transform: rotateX(90deg) translateZ(75px); background: #cc99ff; }
+        .bottom { transform: rotateX(-90deg) translateZ(75px); background: #ffff99; }
+        
+        svg {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 25%;
+            left: 25%;
+        }
+
+        #box1 .front svg { fill: green; }
+        #box2 .front svg { fill: red; }
+        #box3 .front svg { fill: blue; }
+    </style>
+</head>
+<body>
+
+<div id="box1" class="box" onclick="location.href='Formleikurinn/index.html'">
+    <div class="front">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M12 2C7.589 2 4 6.127 4 9c0 3.528 2.5 6 6 6h4c3.5 0 6-2.472 6-6 0-2.873-3.589-7-8-7z"/>
+        </svg>
+    </div>
+    <div class="back"></div>
+    <div class="left"></div>
+    <div class="right"></div>
+    <div class="top"></div>
+    <div class="bottom"></div>
+</div>
+
+<div id="box2" class="box" onclick="location.href='Teiknileikurinn/index.html'">
+    <div class="front">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10"/>
+        </svg>
+    </div>
+    <div class="back"></div>
+    <div class="left"></div>
+    <div class="right"></div>
+    <div class="top"></div>
+    <div class="bottom"></div>
+</div>
+
+<div id="box3" class="box" onclick="location.href='Skograekt\ simulator/index.html'">
+    <div class="front">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <rect width="12" height="12" x="6" y="6" rx="2"/>
+        </svg>
+    </div>
+    <div class="back"></div>
+    <div class="left"></div>
+    <div class="right"></div>
+    <div class="top"></div>
+    <div class="bottom"></div>
+</div>
+
+<script>
+    let lastX, lastY;
+    const boxes = document.querySelectorAll('.box');
+
+    document.addEventListener('mousemove', (event) => {
+        if (lastX !== undefined && lastY !== undefined) {
+            let dx = event.clientX - lastX;
+            let dy = event.clientY - lastY;
+
+            boxes.forEach((box) => {
+                let style = window.getComputedStyle(box);
+                let transform = style.transform.match(/matrix3d\((.+)\)/);
+
+                if (transform) {
+                    let values = transform[1].split(', ');
+                    let rotateX = parseFloat(values[5]);
+                    let rotateY = parseFloat(values[1]);
+
+                    box.style.transform = `rotateX(${rotateX + dy * 0.2}deg) rotateY(${rotateY + dx * 0.2}deg)`;
+                }
+            });
+        }
+
+        lastX = event.clientX;
+        lastY = event.clientY;
+    });
+</script>
+
+</body>
+</html>

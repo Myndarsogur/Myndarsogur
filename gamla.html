@@ -17,15 +17,6 @@
             text-shadow: 2px 2px 5px #ff0, 0 0 10px #f00;
             font-size: 3em;
             margin: 20px 0;
-            animation: pulsate 3s infinite;
-        }
-        @keyframes pulsate {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.2);
-            }
         }
         .section {
             display: flex;
@@ -36,6 +27,7 @@
             padding: 20px;
             border: 3px solid #fff;
             margin: 20px;
+            animation: expand 60s ease-in-out; /* Slower animation */
         }
         .section:nth-child(odd) {
             background-color: #111;
@@ -43,21 +35,14 @@
         .section:nth-child(even) {
             background-color: #222;
         }
-        #arctic a {
-            font-size: 2.5em;
-            font-family: 'Arial', sans-serif;
-            font-weight: bold;
-            text-decoration: none;
-            color: #fff;
-            text-shadow: 0px -5px 5px #00f, 0px 5px 5px #fff;
-            animation: arctic-shimmer 5s infinite alternate;
-        }
-        @keyframes arctic-shimmer {
-            0% {
-                text-shadow: 0px -5px 5px #00f, 0px 5px 5px #fff;
+        @keyframes expand {
+            from {
+                transform: scale(0.9);
+                opacity: 0.7; /* Remove gray overlay */
             }
-            100% {
-                text-shadow: 0px -5px 5px #fff, 0px 5px 5px #00f;
+            to {
+                transform: scale(1);
+                opacity: 1; /* Ensure full visibility */
             }
         }
         a {
@@ -76,6 +61,51 @@
                 transform: translateY(-10px);
             }
         }
+        #arctic {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Endangered_arctic_-_starving_polar_bear.jpg/320px-Endangered_arctic_-_starving_polar_bear.jpg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            padding: 50px;
+            border: 3px solid #ff00ff;
+        }
+        #arctic a {
+            font-family: 'Arial', sans-serif;
+            font-size: 2.5em;
+            font-weight: 300;
+            color: #fff;
+            background: linear-gradient(to bottom, #fff 50%, #00f 50%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: color-shift 5s infinite alternate; /* Letter movement */
+        }
+        @keyframes color-shift {
+            0% {
+                letter-spacing: 2px;
+            }
+            100% {
+                letter-spacing: 5px;
+            }
+        }
+        #arid {
+            font-family: Impact, sans-serif;
+            font-size: 2em;
+            color: #fff;
+            background: #ff0;
+            border: 2px solid #f00;
+            padding: 20px;
+            box-shadow: 0 0 20px #f00;
+        }
+        #arid::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/c/cc/Solar_system_orrery_inner_planets.gif');
+            top: -50px;
+            left: -50px;
+            opacity: 0.7;
+        }
         #solusida {
             font-size: 1.5em;
             background-color: #888;
@@ -83,24 +113,32 @@
             padding: 20px;
             display: inline-block;
             cursor: pointer;
-            position: absolute;
-            animation: organic-motion 20s linear infinite;
+            position: absolute; /* Changed to absolute for dynamic movement */
+            animation: circular-motion 10s linear infinite, spin 2s linear infinite;
         }
-        @keyframes organic-motion {
+        @keyframes circular-motion {
             0% {
-                transform: translate(10vw, 10vh);
+                transform: translate(0, 0);
             }
             25% {
-                transform: translate(80vw, 15vh) rotate(10deg);
+                transform: translate(50vw, -10vh);
             }
             50% {
-                transform: translate(70vw, 80vh) rotate(-10deg);
+                transform: translate(100vw, 50vh);
             }
             75% {
-                transform: translate(20vw, 70vh) rotate(5deg);
+                transform: translate(50vw, 100vh);
             }
             100% {
-                transform: translate(10vw, 10vh);
+                transform: translate(0, 0);
+            }
+        }
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
             }
         }
         .emoji {
@@ -117,8 +155,8 @@
         }
         #cursor {
             position: absolute;
-            width: 200px;
-            height: 200px;
+            width: 50px;
+            height: 50px;
             background: url('https://imgur.com/a/IbicCMI.png');
             pointer-events: none;
             animation: cursor-move 2s ease-in-out infinite;
@@ -155,7 +193,7 @@
     </style>
 </head>
 <body>
-    <h1><a href="Leikjasidan/index.html" style="color: #ff00ff; text-decoration: none;">ULTramEgasidan</a></h1>
+  <h1><a href="Leikjasidan/index.html" style="color: #ff00ff; text-decoration: none;">ULTramEgasidan</a></h1>
     <div class="section-container">
         <div class="section" id="arctic">
             <a href="ARCTIC/index.html">The Arctic Comics Journal</a>
@@ -164,7 +202,7 @@
             <a href="Arid2024/index.html">Árið 2024 í myndasögum</a>
         </div>
         <div class="section" id="solusida">
-            <a href="Solusida/index.html">Sölusíða</a>
+            <a href="Solusida/index.html">Solusida</a>
         </div>
     </div>
     <div id="cursor"></div>
@@ -173,75 +211,10 @@
     <div class="emoji" style="left: 40%; top: 70%;">💥</div>
     <script>
         const cursor = document.getElementById('cursor');
-        const solusida = document.getElementById('solusida');
-        const body = document.body;
-
-        let solusidaX = 10;
-        let solusidaY = 10;
-        let vx = 1;
-        let vy = 1;
-
-        function moveSolusida() {
-            const rect = solusida.getBoundingClientRect();
-            const cursorRect = cursor.getBoundingClientRect();
-
-            // Adjust direction to avoid cursor
-            if (
-                rect.left < cursorRect.right &&
-                rect.right > cursorRect.left &&
-                rect.top < cursorRect.bottom &&
-                rect.bottom > cursorRect.top
-            ) {
-                vx = rect.left < cursorRect.left ? -Math.abs(vx) : Math.abs(vx);
-                vy = rect.top < cursorRect.top ? -Math.abs(vy) : Math.abs(vy);
-            }
-
-            // Update position
-            solusidaX += vx;
-            solusidaY += vy;
-
-            // Bounce off edges
-            if (solusidaX < 0 || solusidaX > window.innerWidth - rect.width) vx *= -1;
-            if (solusidaY < 0 || solusidaY > window.innerHeight - rect.height) vy *= -1;
-
-            solusida.style.transform = `translate(${solusidaX}px, ${solusidaY}px)`;
-        }
-
-        setInterval(moveSolusida, 20);
-
         document.addEventListener('mousemove', (e) => {
             cursor.style.left = `${e.pageX}px`;
             cursor.style.top = `${e.pageY}px`;
         });
-
-       document.addEventListener('click', (e) => {
-    const emojis = [
-        '🌟', '🔥', '💥', '✨', '💫', '👽', '👾', '🧑‍🚀', '👨‍🚀', 
-        '👩‍🚀', '🛰️', '🚀', '🛸', '🌕', '☀️', '🪐', '🌌', '☄️'
-    ];
-    const emoji = document.createElement('div');
-    emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-    emoji.style.position = 'absolute';
-    emoji.style.left = `${e.pageX}px`;
-    emoji.style.top = `${e.pageY}px`;
-    emoji.style.fontSize = '2rem';
-    emoji.style.pointerEvents = 'none';
-    emoji.style.transition = 'transform 0.2s ease-in-out';
-    document.body.appendChild(emoji);
-
-    // Random movement in one of 8 directions
-    const moveInterval = setInterval(() => {
-        const dx = Math.random() < 0.5 ? -10 : 10;
-        const dy = Math.random() < 0.5 ? -10 : 10;
-        emoji.style.transform = `translate(${dx}px, ${dy}px)`;
-    }, 200);
-
-    // Remove emoji after 10 seconds
-    setTimeout(() => {
-        clearInterval(moveInterval);
-        emoji.remove();
-    }, 10000);
-});
     </script>
 </body>
 </html>
