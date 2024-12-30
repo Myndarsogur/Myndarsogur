@@ -1,0 +1,45 @@
+body {
+    margin: 0;
+    background-color: #000;
+    color: #fff;
+    font-family: Arial, sans-serif;
+  }
+  
+  #author-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .author {
+    text-align: center;
+    width: 150px; /* Stærð einstakra kassa */
+    cursor: pointer;
+  }
+  
+  .author img {
+    display: block;
+    width: 100%; /* Myndir fylla kassann */
+    height: auto; /* Heldur hlutföllum */
+    border-radius: 10px; /* Ávöl horn */
+  }
+  
+  .author-name {
+    margin-top: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  /* Fyrir minni skjái */
+  @media (max-width: 768px) {
+    .author {
+      width: 120px; /* Minni kassar */
+    }
+  
+    .author-name {
+      font-size: 1rem;
+    }
+  }
+  

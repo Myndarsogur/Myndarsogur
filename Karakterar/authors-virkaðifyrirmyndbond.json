@@ -1,0 +1,479 @@
+[
+  {
+    "id": 1,
+    "name": "Alex Steinþórsdóttir",
+    "img": "https://static.wixstatic.com/media/738beb_c952018e7b894fdc876001a0f4f6ccc8~mv2.jpeg/v1/fill/w_920,h_690,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/IMG_4295.jpeg",
+    "bio": "Alexandra Dögg Steinþórsdóttir is an illustrator and writer currently living and working in Iceland. She works in various mediums but specializes in watercolours and gouache. Her main influences are Icelandic nature, folklore, social issues and the occult.",
+    "links": [
+      {
+        "img": "https://imgur.com/VQFhycf.png",
+        "url": "https://www.forlagid.is/vara/mer-list-ekkert-a-thetta/"
+      },
+      {
+        "img": "https://imgur.com/rgrMCHz",
+        "url": "https://www.alexsteinthorsdottir.com/copy-of-svartur-á-leik-1"
+      },
+      {
+        "img": "https://imgur.com/9ig1flj.png",
+        "url": "https://www.instagram.com/alexsteinthorsdottir"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Arndís Björk Marinósdóttir",
+    "img": "https://imgur.com/TT0qd2D.png",
+    "bio": "An icelandic horror-,fantasy-,and videogame fan that just happens to love the human body, cats, coffee and to draw. 🐙🦄🏳️‍🌈",
+    "links": [
+      {
+        "img": "https://imgur.com/TT0qd2D.png",
+        "url": "linktr.ee/adda_bjagga_art"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Arnfinnur Rúnar Sigmundsson",
+    "img": "https://imgur.com/ONZEjLM.png",
+    "bio": "Addi nabblakusk 🎨 Teiknari | Animator | Myndbandsbúatilari ✨ Ég fanga hugmyndir og fylli þær af lífi með sköpunarkrafti og hreyfingu!",
+    "links": [
+      {
+        "img": "https://imgur.com/ONZEjLM.png",
+        "url": "https://www.instagram.com/addinabblakusk/"
+      },
+      {
+        "img": "https://imgur.com/l5WEARA",
+        "url": "https://vimeo.com/nabblakusk?fbclid=PAZXh0bgNhZW0CMTEAAaZlO5Oi-LMihhS1su2IV_veSV-PvOMNRZtNV_6iu6wyNAQ9w5ZFZ_t6Q7k_aem_eX_zIjUUgUCvrSDOp6bI8w"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Dileydi Florez",
+    "img": "https://imgur.com/T9FOxoZ.png",
+    "bio": "Hello! My name is Dileydi Florez. I'm a Visual Artist and Storyteller, specialized in Editorial Design, Drawing & Comics. I love using drawing and painting as a tool to express my creativity, and comics as a way to communicate my beliefs and knowledge to our society.",
+    "links": [
+      {
+        "img": "https://imgur.com/8jRmkH3.png",
+        "url": "https://www.dileydiflorez.com/about-me-contact"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Fannar Gilbertsson",
+    "img": "https://imgur.com/uF7YSms.png",
+    "bio": "Based in iceland 🇮🇸 Author/Artist of the comic Gen-01.🧪 Artist of the book: Landverðirnir Contact me: icecomics1@gmail.com My store and other links:",
+    "links": [
+      {
+        "img": "https://imgur.com/sVZsMGZ.png",
+        "url": "linktr.ee/icecomics"
+      },
+      {
+        "img": "https://imgur.com/mrhy72M.png",
+        "url": "https://www.forlagid.is/vara/gen-01-2/"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Fannar Már Skarphéðinsson",
+    "img": "https://imgur.com/xWPAOV3",
+    "bio": "Myndlistaskólinn í Reykjavík 2020-2022 WDKA 2022-",
+    "links": [
+      {
+        "img": "https://imgur.com/88UJcsq.png",
+        "url": "https://www.instagram.com/fannar_draw/"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Finnur Matteo Bettaglio",
+    "img": "https://imgur.com/TbPNTP6.png",
+    "bio": "Animator/Illustrator🌸🌴🇮🇹 🇮🇸 🐧 Personal acc: @finnurmatteo",
+    "links": [
+      {
+        "img": "https://imgur.com/TbPNTP6.png",
+        "url": "https://www.instagram.com/greenfinnur/"
+      },
+      {
+        "img": "https://imgur.com/a3jphjg.png",
+        "url": "finnurmatteo.myportfolio.com"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Glytta",
+    "img": "https://imgur.com/hGwXxrz.png",
+    "bio": "Ceramisist in Gufunes Reykjavík - Iceland 🇮🇸🏳️‍⚧️\n",
+    "links": [
+      {
+        "img": "https://imgur.com/e7PWib5.png",
+        "url": "https://www.instagram.com/glytta/"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Hugleikur Dagsson",
+    "img": "https://imgur.com/CHJTagy.png",
+    "bio": "Icelandic cartoonist/comedian/person.\ndagsson@dagsson.com",
+    "links": [
+      {
+        "img": "https://imgur.com/ciVATdn.png",
+        "url": "https://www.instagram.com/dagsson/"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Ingi Rúnar Kjartansson",
+    "img": "https://imgur.com/0MP0awL.png",
+    "bio": "Myndasögur teiknari frá Íslandi\nListagallerí @ingisnakeface\nHöfundur: Hreindýrið og Stríðsvélin og Manndýra Hópurinn",
+    "links": [
+      {
+        "img": "https://imgur.com/gSJdrre.png",
+        "url": "https://www.instagram.com/i.r.kjartansson_/"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Ísold Davíðsdóttir",
+    "links": []
+  },
+  {
+    "id": 12,
+    "name": "jj mancho",
+    "links": []
+  },
+  {
+    "id": 13,
+    "name": "Klara Rosatti",
+    "links": []
+  },
+  {
+    "id": 14,
+    "name": "Kris Helga",
+    "links": []
+  },
+  {
+    "id": 15,
+    "name": "Krummi",
+    "links": []
+  },
+  {
+    "id": 16,
+    "name": "Lóa Hlín Hjálmtýsdóttir",
+    "links": []
+  },
+  {
+    "id": 17,
+    "name": "Lúkas Regal",
+    "links": []
+  },
+  {
+    "id": 18,
+    "name": "Ómar Smári Sigurgeirsson",
+    "links": []
+  },
+  {
+    "id": 19,
+    "name": "Vala Steingrímsdóttir",
+    "links": []
+  },
+  {
+    "id": 20,
+    "name": "Þórey Mjallhvít",
+    "links": []
+  },
+  {
+    "id": 21,
+    "name": "Hlíf Una",
+    "links": []
+  },
+  {
+    "id": 22,
+    "name": "Hugljúf Jósefsdóttir",
+    "links": []
+  },
+  {
+    "id": 23,
+    "name": "Martyna Laura",
+    "links": []
+  },
+  {
+    "id": 24,
+    "name": "Herdís Þorvaldsdóttir",
+    "links": []
+  },
+  {
+    "id": 25,
+    "name": "Einar Másson",
+    "links": []
+  },
+  {
+    "id": 26,
+    "name": "Elías Rúni",
+    "links": []
+  },
+  {
+    "id": 27,
+    "name": "Una Erlín",
+    "links": []
+  },
+  {
+    "id": 28,
+    "name": "Viktoría Söring",
+    "links": []
+  },
+  {
+    "id": 29,
+    "name": "Eiríkur Lynch",
+    "links": []
+  },
+  {
+    "id": 30,
+    "name": "Ingi Jensson",
+    "links": []
+  },
+  {
+    "id": 31,
+    "name": "Rakki móri úr mýri Reykjavíkur",
+    "links": []
+  },
+  {
+    "id": 32,
+    "name": "Arnar Marvin Kristjánsson",
+    "img": "https://imgur.com/ewGfNvW.png",
+    "bio": "Icelandic Comic book artist and illustrator. Happily married father of two. Currently working on @whatinhellcomic",
+    "links": [
+      {
+        "img": "https://imgur.com/ewGfNvW.png",
+        "url": "https://www.instagram.com/addimarvin/"
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "name": "Egill Jónasson",
+    "links": []
+  },
+  {
+    "id": 34,
+    "name": "Unndeadcat",
+    "links": []
+  },
+  {
+    "id": 35,
+    "name": "Dagur Sævarsson",
+    "links": []
+  },
+  {
+    "id": 36,
+    "name": "Lilja Björg Jökulsdóttir",
+    "links": []
+  },
+  {
+    "id": 37,
+    "name": "Hrafnsunna Ross",
+    "links": []
+  },
+  {
+    "id": 38,
+    "name": "Arnar Þór Kristjánsson",
+    "links": []
+  },
+  {
+    "id": 39,
+    "name": "Sigurður Ámundason",
+    "links": []
+  },
+  {
+    "id": 40,
+    "name": "Ingi Rúnar Kjartansson",
+    "links": []
+  },
+  {
+    "id": 41,
+    "name": "Taylor Garcia von Biiljon",
+    "links": []
+  },
+  {
+    "id": 42,
+    "name": "Unnur Snorradóttir",
+    "links": []
+  },
+  {
+    "id": 43,
+    "name": "Hermann Ingi Guðbrandsson",
+    "links": []
+  },
+  {
+    "id": 44,
+    "name": "Linn Janssen",
+    "links": []
+  },
+  {
+    "id": 45,
+    "name": "Fannar Skarphéðinsson",
+    "links": []
+  },
+  {
+    "id": 46,
+    "name": "Ymir Arnarson",
+    "links": []
+  },
+  {
+    "id": 47,
+    "name": "Kailash Youze",
+    "links": []
+  },
+  {
+    "id": 48,
+    "name": "Jörundur Óskarsson",
+    "links": []
+  },
+  {
+    "id": 49,
+    "name": "Elín Elísabet Einarsdóttir",
+    "links": []
+  },
+  {
+    "id": 50,
+    "name": "Dýrfinna Benita",
+    "links": []
+  },
+  {
+    "id": 51,
+    "name": "Ari Hlynur",
+    "links": []
+  },
+  {
+    "id": 52,
+    "name": "XXXXX",
+    "links": []
+  },
+  {
+    "id": 53,
+    "name": "XXXXX",
+    "links": []
+  },
+  {
+    "id": 54,
+    "name": "XXXXX",
+    "links": []
+  },
+  {
+    "id": 55,
+    "name": "XXXXX",
+    "links": []
+  },
+  {
+    "id": 56,
+    "name": "XXXXX",
+    "links": []
+  },
+  {
+    "id": 57,
+    "name": "XXXXX",
+    "links": []
+  },
+  {
+    "id": 58,
+    "name": "X",
+    "links": []
+  },
+  {
+    "id": 59,
+    "name": "XXXXX",
+    "links": []
+  },
+  {
+    "id": 60,
+    "name": "XXXXX",
+    "links": []
+  },
+  {
+    "id": 61,
+    "name": "XXXXX",
+    "links": []
+  },
+  {
+    "id": 62,
+    "name": "XXXXX",
+    "links": []
+  },
+  {
+    "id": 63,
+    "name": "X",
+    "links": []
+  },
+  {
+    "id": 64,
+    "name": "XXXXX",
+    "links": []
+  },
+  {
+    "id": 65,
+    "name": "XXXXX",
+    "links": []
+  },
+  {
+    "id": 66,
+    "name": "XXXXX",
+    "links": []
+  },
+  {
+    "id": 67,
+    "name": "XXXXX",
+    "links": []
+  },
+  {
+    "id": 68,
+    "name": "X",
+    "links": []
+  },
+  {
+    "id": 69,
+    "name": "XXXXX",
+    "links": []
+  },
+  {
+    "id": 70,
+    "name": "XXXXX",
+    "links": []
+  },
+  {
+    "id": 71,
+    "name": "XXXXX",
+    "links": []
+  },
+  {
+    "id": 72,
+    "name": "XXXXX",
+    "links": []
+  },
+  {
+    "id": 73,
+    "name": "XXXXX",
+    "links": []
+  },
+  {
+    "id": 74,
+    "name": "XXXXX",
+    "links": []
+  },
+  {
+    "id": 75,
+    "name": "XXXXX",
+    "links": []
+  },
+  {
+    "id": 76,
+    "name": "XXXXX",
+    "links": []
+  }
+]

@@ -1,0 +1,25 @@
+[
+    {
+      "id": 1,
+      "name": "Jólaljósamaðurinn",
+      "img": "https://imgur.com/GgWZFjh.png",
+      "bio": "Á æskuárum sínum var Jólaljósamaðurinn með ofurhetjur á heilanum. Dag einn í aðdraganda jóla féll hann af þaki þar sem hann var að setja upp jólaljós en það vildi honum til happs að flækjast í ljósasnúrunum. Í kjölfarið ákvað hann að gerast ofurhetja sjálfur..",
+      "links": [
+        { "img": "https://imgur.com/L5fGCJu.png", "url": "https://www.jolaljosamadurinn.com/leiðin-upp-hallgrímskirkju" },
+        { "img": "https://imgur.com/hO9mjzQ.png", "url": "https://www.jolaljosamadurinn.com/copy-of-leiðin-upp-hallgrímskirkju" },
+        { "img": "https://imgur.com/DnGIAf2.png", "url": "https://www.jolaljosamadurinn.com/copy-of-of-gamall-til-að-sníkja" }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Larfur Lauks",
+      "img": "https://imgur.com/yYhG1at.png",
+      "bio": "Stutt ágrip um Höfund 2. Þetta gæti verið ferill hans eða áhugamál.",
+      "links": [
+        { "img": "https://imgur.com/bQxImGc.png", "url": "https://link4.com" },
+        { "img": "https://imgur.com/gHdWygj.png", "url": "https://link5.com" },
+        { "img": "https://imgur.com/yYhG1at.png", "url": "https://link6.com" }
+      ]
+    }
+  ]
+  
