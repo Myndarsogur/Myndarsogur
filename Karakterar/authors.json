@@ -426,13 +426,34 @@
   {
     "id": 43,
     "name": "Hermann Ingi Guðbrandsson",
-    "links": []
+    "img": "https://imgur.com/eYNCG4v.png",
+    "bio": "Pure hearted Icelandic artist: “ I articulate my thoughts / emotions with creations. “\nDm for prints.",
+    "links": [
+      {
+        "img": "https://imgur.com/qvMf5mJ.png",
+        "url": "https://www.instagram.com/hig_peculiart/"
+      },
+      {
+        "img": "https://imgur.com/oMM3ta7.png",
+        "url": "https://www.instagram.com/hig_peculiart/"
+      }
+    ]
   },
   {
     "id": 44,
     "name": "Linn Janssen",
     "img": "https://imgur.com/dOIbCtE.png",
-    "links": []
+    "bio": "she/her\nArtist\n* Illustrator living in Reykjavík\n* From Hamburg\n* Open for commissions 🐦",
+    "links": [
+      {
+        "img": "https://imgur.com/6aN3TYa.png",
+        "url": "https://www.forlagid.is/vara/einstakt-jolatre/"
+      },
+      {
+        "img": "https://imgur.com/ZspSVbR.png",
+        "url": "https://www.instagram.com/linn.illustrates/"
+      }
+    ]
   },
   {
     "id": 45,
