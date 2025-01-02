@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://myndarsogur.is/</loc>
+  <lastmod>2025-01-02T11:48:55+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://myndarsogur.is/leikjasidan/</loc>
+  <lastmod>2025-01-02T11:48:55+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://myndarsogur.is/arctic/</loc>
+  <lastmod>2025-01-02T11:48:55+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://myndarsogur.is/arid2024/</loc>
+  <lastmod>2025-01-02T11:48:55+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://myndarsogur.is/solusida/</loc>
+  <lastmod>2025-01-02T11:48:55+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://myndarsogur.is/karakterar/</loc>
+  <lastmod>2025-01-02T11:48:55+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+
+
+</urlset>
