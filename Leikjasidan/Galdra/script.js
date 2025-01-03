@@ -1,7 +1,6 @@
 // Velja element fyrir tákn og texta
 const symbols = document.querySelectorAll('.symbol');
 const centerText = document.querySelector('.center-text');
-const starsContainer = document.querySelector('.stars');
 
 // Dreifa táknum jafnt í hring
 symbols.forEach((symbol, index) => {
@@ -15,32 +14,26 @@ symbols.forEach((symbol, index) => {
     });
 });
 
-// Búa til kyrrstjörnur í bakgrunni
+// Búa til stjörnur í bakgrunni
+const starsContainer = document.querySelector('.stars');
+
 function createStar() {
     const star = document.createElement('div');
     star.className = 'star';
     star.style.left = `${Math.random() * 100}vw`;
     star.style.top = `${Math.random() * 100}vh`;
-    star.style.animationDuration = `${Math.random() * 3 + 2}s`;
+    star.style.width = `${Math.random() * 3 + 2}px`;
+    star.style.height = star.style.width;
+    star.style.animationDuration = `${Math.random() * 5 + 2}s`;
+    star.style.opacity = Math.random();
+    star.style.position = 'absolute';
+    star.style.borderRadius = '50%';
+    star.style.background = 'white';
+    star.style.animation = 'twinkle 5s linear infinite';
+
     starsContainer.appendChild(star);
 
-    setTimeout(() => star.remove(), 5000); // Fjarlægir stjörnu eftir 5 sek
+    setTimeout(() => star.remove(), 5000);
 }
 
-// Kalla reglulega á createStar
 setInterval(createStar, 200);
-
-// Búa til stjörnur sem þjóta
-function createShootingStar() {
-    const shootingStar = document.createElement('div');
-    shootingStar.className = 'shooting-star';
-    shootingStar.style.left = `${Math.random() * 100}vw`;
-    shootingStar.style.top = `${Math.random() * 50}vh`;
-    shootingStar.style.animationDuration = `${Math.random() * 2 + 1}s`;
-    starsContainer.appendChild(shootingStar);
-
-    setTimeout(() => shootingStar.remove(), 2000); // Fjarlægir skjóta stjörnu eftir 2 sek
-}
-
-// Kalla reglulega á createShootingStar
-setInterval(createShootingStar, 1000);
