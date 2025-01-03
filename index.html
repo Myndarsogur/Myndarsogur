@@ -204,14 +204,130 @@
         left: -9999px; /* Flytur textann langt út fyrir skjáinn */
         visibility: hidden; /* Tryggir að hann sé ósýnilegur */
     }
+    #ultramega {
+    position: relative;
+    display: inline-block;
+    font-family: cursive; /* Cursive */
+    font-size: 9em; /* Stórt og skrautlegt letur */
+    color: #ff00ff;
+    text-decoration: none;
+    /* Byrjandi neon-skuggi */
+    text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+    /* Carnivalskeyti! */
+    animation: carnival 1s ease-in-out infinite,  
+    dance  1s ease-in-out infinite, 
+    bounce  1s ease-in-out infinite; 
+
+}
+
+/* Fleiri litir, meiri snúningur og hristingur til að fá „carnival“-tilfinningu */
+@keyframes carnival {
+    0% {
+        color: #ff00ff;
+        text-shadow: 
+            0 0 5px #ae59ae, 
+            0 0 10px #e1b3e1, 
+            0 0 20px #ff00ff;
+        transform: scale(1) rotate(0deg) translate(0, 0);
+    }
+    20% {
+        color: #ffff00;
+        text-shadow: 
+            0 0 5px #ffff00, 
+            0 0 10px #ffff00, 
+            0 0 20px #ffff00;
+        transform: scale(1.2) rotate(10deg) translate(5px, 0);
+    }
+    40% {
+        color: #00ff00;
+        text-shadow: 
+            0 0 5px #00ff00, 
+            0 0 10px #00ff00, 
+            0 0 20px #00ff00;
+        transform: scale(1.1) rotate(-5deg) translate(-5px, 5px);
+    }
+    60% {
+        color: #ff0000;
+        text-shadow: 
+            0 0 5px #ff0000, 
+            0 0 10px #ff0000, 
+            0 0 20px #ff0000;
+        transform: scale(1.3) rotate(5deg) translate(10px, -5px);
+    }
+    80% {
+        color: #00ffff;
+        text-shadow: 
+            0 0 5px #00ffff, 
+            0 0 10px #00ffff, 
+            0 0 20px #00ffff;
+        transform: scale(1.2) rotate(-5deg) translate(-5px, 10px);
+    }
+    100% {
+        color: #ff00ff;
+        text-shadow: 
+            0 0 5px #ff00ff, 
+            0 0 10px #ff00ff, 
+            0 0 20px #ff00ff;
+        transform: scale(1) rotate(0deg) translate(0, 0);
+    }
+}
+ /* ====== "Dance": Sjálft dansið/hreyfingin ====== */
+ @keyframes dance {
+  0% {
+    transform: scale(1) rotate(0deg) translate(0, 0);
+  }
+  10% {
+    /* lítið hopp upp */
+    transform: scale(1.3) rotate(5deg) translate(0, -20px);
+  }
+  20% {
+    /* lending með smá „dip“ */
+    transform: scale(0.9) rotate(-5deg) translate(0, 10px);
+  }
+  30% {
+    /* sveifla til vinstri */
+    transform: scale(1.2) rotate(10deg) translate(-10px, 0);
+  }
+  40% {
+    /* sveifla til hægri */
+    transform: scale(1) rotate(-10deg) translate(10px, 0);
+  }
+  50% {
+    /* lítið hopp upp + snúningur */
+    transform: scale(1.2) rotate(5deg) translate(5px, -10px);
+  }
+  60% {
+    /* lending + sveifla niður */
+    transform: scale(0.8) rotate(-5deg) translate(-5px, 15px);
+  }
+  70% {
+    /* hopp upp aftur */
+    transform: scale(1.2) rotate(5deg) translate(10px, -10px);
+  }
+  80% {
+    /* sveifla til baka */
+    transform: scale(1) rotate(-5deg) translate(-10px, 5px);
+  }
+  90% {
+    /* smá "cha cha" hliðarskref */
+    transform: scale(1.1) rotate(10deg) translate(5px, 0);
+  }
+  100% {
+    /* komum aftur í kyrrstöðu */
+    transform: scale(1) rotate(0deg) translate(0, 0);
+  }
+}
+
+
+
 </style>
 
     
 </head>
 <body>
-    <h1>ULTramEgasíðan - Heimur myndasagna og sköpunar</h1>
+    <h1>ULTramEgasíðan - Myndasögur, leikir, sköpun, heimar og geimar! </h1>
 <p>Velkomin á ULTramEgasíðuna! Hér finnur þú spennandi myndasögur, leikjasíður og margt fleira sem veitir þér skemmtun og sköpunargleði.</p>
-      <a href="Leikjasidan/index.html" style="color: #ff00ff; text-decoration: none;">ULTramEgasíðan</a>
+      <a id="ultramega" href="Leikjasidan/index.html" style="color: #ff00ff; text-decoration: none;">ULTramEgasíðan</a>
     <div class="section-container">
         <div class="section" id="arctic">
             <a href="ARCTIC/index.html">The Arctic Comics Journal</a>
