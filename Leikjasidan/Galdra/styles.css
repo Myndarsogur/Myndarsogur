@@ -2,7 +2,8 @@
 body {
     margin: 0;
     overflow: hidden;
-    background: radial-gradient(circle, #000428, #004e92); /* Bakgrunnur eins og geimur */
+    background: black !important; /* Fallback litur */
+    background: radial-gradient(circle at center, #000428, #004e92) !important; /* Gradient fyrir nýrri vafra */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,7 +18,7 @@ body {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    z-index: -1;
+    z-index: -1; /* Tryggir að þetta er undir öllu */
 }
 
 /* Kyrrstjörnurnar */
