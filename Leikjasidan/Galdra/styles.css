@@ -1,13 +1,15 @@
-/* styles.css */
+/* Stílar fyrir stjörnuspávefsíðu */
+
 body {
     margin: 0;
     overflow: hidden;
-    background: radial-gradient(circle, #000428, #004e92);
+    background: radial-gradient(circle, #000428, #004e92); /* Bakgrunnur með næturþema */
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     font-family: Arial, sans-serif;
+    position: relative;
 }
 
 .circle {
@@ -38,10 +40,12 @@ body {
 
 .center-text {
     position: absolute;
-    font-size: 2rem;
+    font-size: 1.8rem;
     color: white;
     text-align: center;
-    max-width: 80%;
+    max-width: 70%;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    z-index: 10;
 }
 
 .stars {
@@ -51,6 +55,16 @@ body {
     background: transparent;
     pointer-events: none;
     overflow: hidden;
+    z-index: -1;
+}
+
+.star {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: white;
+    border-radius: 50%;
+    animation: star-move linear forwards;
 }
 
 @keyframes spin {
@@ -84,17 +98,3 @@ body {
         opacity: 0;
     }
 }
-
-<span class="symbol" style="--angle: 0deg;" data-text="Hrúturinn ...">♈</span>
-<span class="symbol" style="--angle: 30deg;" data-text="Nautið ...">♉</span>
-<span class="symbol" style="--angle: 60deg;" data-text="Tvíburarnir ...">♊</span>
-<span class="symbol" style="--angle: 90deg;" data-text="Krabbinn ...">♋</span>
-<span class="symbol" style="--angle: 120deg;" data-text="Ljónið ...">♌</span>
-<span class="symbol" style="--angle: 150deg;" data-text="Meyjan ...">♍</span>
-<span class="symbol" style="--angle: 180deg;" data-text="Vogin ...">♎</span>
-<span class="symbol" style="--angle: 210deg;" data-text="Sporðdreki ...">♏</span>
-<span class="symbol" style="--angle: 240deg;" data-text="Bogamaðurinn ...">♐</span>
-<span class="symbol" style="--angle: 270deg;" data-text="Steingeitin ...">♑</span>
-<span class="symbol" style="--angle: 300deg;" data-text="Vatnsberinn ...">♒</span>
-<span class="symbol" style="--angle: 330deg;" data-text="Fiskarnir ...">♓</span>
-
