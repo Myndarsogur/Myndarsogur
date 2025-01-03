@@ -8,7 +8,6 @@ body {
     align-items: center;
     height: 100vh;
     font-family: Arial, sans-serif;
-    position: relative;
 }
 
 .circle {
@@ -16,7 +15,6 @@ body {
     width: 400px;
     height: 400px;
     animation: spin 20s linear infinite;
-    transform-origin: 50% 50%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -27,96 +25,20 @@ body {
     left: 50%;
     top: 50%;
     transform: rotate(var(--angle)) translate(150px) rotate(calc(-1 * var(--angle)));
-    font-size: 2.5rem;
+    font-size: 3rem;
     color: white;
     cursor: pointer;
     transition: transform 0.2s ease;
-    pointer-events: auto;
+    animation: float 5s ease-in-out infinite;
 }
 
 .symbol:hover {
-    transform: rotate(var(--angle)) translate(150px) rotate(calc(-1 * var(--angle))) scale(1.2);
+    transform: rotate(var(--angle)) translate(150px) rotate(calc(-1 * var(--angle))) scale(1.5);
 }
 
 .center-text {
     position: absolute;
-    font-size: 1.5rem;
-    color: white;
-    text-align: center;
-    max-width: 70%;
-    pointer-events: none;
-    transition: transform 0.5s ease, opacity 0.5s ease;
-    z-index: 10;
-}
-
-.stars {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    pointer-events: none;
-    overflow: hidden;
-}
-
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-@keyframes star-move {
-    0% {
-        transform: translateX(100vw) translateY(100vh);
-        opacity: 0;
-    }
-    50% {
-        opacity: 1;
-    }
-    100% {
-        transform: translateX(-100vw) translateY(-100vh);
-        opacity: 0;
-    }
-}
-body {
-    margin: 0;
-    overflow: hidden;
-    background: radial-gradient(circle, #000428, #004e92);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    font-family: Arial, sans-serif;
-}
-
-.circle {
-    position: relative;
-    width: 400px; /* Stækka hringinn fyrir meira pláss */
-    height: 400px;
-    animation: spin 20s linear infinite; /* Hægari snúningur */
-}
-
-.symbol {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: rotate(var(--angle)) translate(160px) rotate(calc(-1 * var(--angle)));
-    font-size: 3rem; /* Stækka táknin */
-    color: white;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-    animation: float 5s ease-in-out infinite; /* Látum táknin fljóta */
-}
-
-.symbol:hover {
-    transform: rotate(var(--angle)) translate(160px) rotate(calc(-1 * var(--angle))) scale(1.5);
-}
-
-.center-text {
-    position: absolute;
-    font-size: 2rem; /* Stækka textann */
+    font-size: 2rem;
     color: white;
     text-align: center;
     max-width: 80%;
@@ -145,7 +67,7 @@ body {
         transform: translateY(0);
     }
     50% {
-        transform: translateY(-20px); /* Fljótandi áhrif */
+        transform: translateY(-20px);
     }
 }
 
@@ -162,6 +84,7 @@ body {
         opacity: 0;
     }
 }
+
 <span class="symbol" style="--angle: 0deg;" data-text="Hrúturinn ...">♈</span>
 <span class="symbol" style="--angle: 30deg;" data-text="Nautið ...">♉</span>
 <span class="symbol" style="--angle: 60deg;" data-text="Tvíburarnir ...">♊</span>
