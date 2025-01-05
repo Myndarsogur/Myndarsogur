@@ -24,8 +24,7 @@ symbols.forEach((symbol, index) => {
 // Stílar fyrir miðtexta í byrjun
 centerText.style.opacity = '0';
 centerText.style.transform = 'scale(0.8)';
-    });
-});
+
 
 // Búa til stjörnur í bakgrunni
 const starsContainer = document.querySelector('.stars');
