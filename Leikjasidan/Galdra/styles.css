@@ -1,113 +1,77 @@
-/* Almennt útlit */
 body {
     margin: 0;
-    overflow: hidden;
-    background: black !important; /* Fallback litur */
-    background: radial-gradient(circle at center, #000428, #004e92) !important; /* Gradient fyrir nýrri vafra */
+    background: radial-gradient(circle, #001d3d, #000);
+    color: white;
+    font-family: Arial, sans-serif;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    font-family: Arial, sans-serif;
+    overflow: hidden;
+  }
+  
+  .circle-container {
     position: relative;
-}
-
-/* Bakgrunnsstjörnur */
-.stars {
+    width: 800px;
+    height: 800px;
+  }
+  
+  .circle {
     position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 100%;
     height: 100%;
-    overflow: hidden;
-    z-index: -1; /* Tryggir að þetta er undir öllu */
-}
-
-/* Kyrrstjörnurnar */
-.star {
+    animation: rotate 20s linear infinite; /* Snúningur */
+    transform-origin: center; /* Lykilatriði: miðja */
+  }
+  
+  .symbol {
     position: absolute;
-    width: 3px;
-    height: 3px;
-    background: white;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    font-size: 24px;
+    text-align: center;
+    color: #ffd700;
+    background: rgba(255, 255, 255, 0.1);
     border-radius: 50%;
-    animation: twinkle 5s linear infinite;
-}
-
-/* Stjörnurnar sem þjóta */
-.shooting-star {
+    transform-origin: 400px center; /* Miðpunktur radíuss */
+  }
+  
+  /* Tákn dreifast jafnt í kringum miðjuna */
+  .symbol:nth-child(1) { transform: rotate(0deg) translate(0, -400px); }
+  .symbol:nth-child(2) { transform: rotate(30deg) translate(0, -400px); }
+  .symbol:nth-child(3) { transform: rotate(60deg) translate(0, -400px); }
+  .symbol:nth-child(4) { transform: rotate(90deg) translate(0, -400px); }
+  .symbol:nth-child(5) { transform: rotate(120deg) translate(0, -400px); }
+  .symbol:nth-child(6) { transform: rotate(150deg) translate(0, -400px); }
+  .symbol:nth-child(7) { transform: rotate(180deg) translate(0, -400px); }
+  .symbol:nth-child(8) { transform: rotate(210deg) translate(0, -400px); }
+  .symbol:nth-child(9) { transform: rotate(240deg) translate(0, -400px); }
+  .symbol:nth-child(10) { transform: rotate(270deg) translate(0, -400px); }
+  .symbol:nth-child(11) { transform: rotate(300deg) translate(0, -400px); }
+  .symbol:nth-child(12) { transform: rotate(330deg) translate(0, -400px); }
+  
+  .center-text {
     position: absolute;
-    width: 2px;
-    height: 2px;
-    background: white;
-    border-radius: 50%;
-    box-shadow: 0 0 6px 2px white;
-    animation: shoot linear forwards;
-}
-
-/* Hreyfing stjörnanna */
-@keyframes twinkle {
-    0%, 100% {
-        opacity: 0.2;
-    }
-    50% {
-        opacity: 1;
-    }
-}
-
-@keyframes shoot {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-size: 20px;
+    color: white;
+    text-shadow: 0 0 10px #ffd700;
+  }
+  
+  /* Snúningur fyrir hringinn */
+  @keyframes rotate {
     from {
-        transform: translateX(0) translateY(0);
-        opacity: 1;
+      transform: rotate(0deg);
     }
     to {
-        transform: translateX(-100vw) translateY(50vh);
-        opacity: 0;
+      transform: rotate(360deg);
     }
-}
-
-/* Hringurinn með táknunum */
-.circle {
-    position: relative;
-    width: 400px;
-    height: 400px;
-    animation: spin 20s linear infinite;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Tákn fyrir stjörnumerki */
-.symbol {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: rotate(var(--angle)) translate(150px) rotate(calc(-1 * var(--angle)));
-    font-size: 2.5rem;
-    color: white;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-}
-
-.symbol:hover {
-    transform: rotate(var(--angle)) translate(150px) rotate(calc(-1 * var(--angle))) scale(1.3);
-}
-
-/* Textinn í miðjunni */
-.center-text {
-    position: absolute;
-    font-size: 1.8rem;
-    color: white;
-    text-align: center;
-    max-width: 70%;
-    transition: opacity 0.5s ease, transform 0.5s ease;
-    z-index: 10;
-    transform-origin: center;
-}
-
-/* Lykilrammar fyrir hringhreyfingu */
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
+  }
+  
