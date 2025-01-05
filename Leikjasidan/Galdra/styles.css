@@ -73,5 +73,71 @@ body {
     to {
       transform: rotate(360deg);
     }
+  }  
+  /* Shooting star container */
+  .shooting-stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1; /* Behind everything else */
+  }
+  
+  .star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 6px white;
+    animation: shoot 3s linear infinite;
+    opacity: 0;
+  }
+  
+  /* Keyframes for shooting stars */
+  @keyframes shoot {
+    0% {
+      transform: translate(-200px, -200px) scale(0.5);
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    80% {
+      opacity: 1;
+    }
+    100% {
+      transform: translate(120vw, 120vh) scale(0.5);
+      opacity: 0;
+    }
+  }
+  
+  /* Randomly positioned stars */
+  .star:nth-child(1) {
+    top: 10%;
+    left: 20%;
+    animation-delay: 0s;
+  }
+  .star:nth-child(2) {
+    top: 30%;
+    left: 50%;
+    animation-delay: 1s;
+  }
+  .star:nth-child(3) {
+    top: 60%;
+    left: 10%;
+    animation-delay: 2s;
+  }
+  .star:nth-child(4) {
+    top: 80%;
+    left: 70%;
+    animation-delay: 3s;
+  }
+  .star:nth-child(5) {
+    top: 50%;
+    left: 90%;
+    animation-delay: 4s;
   }
   
