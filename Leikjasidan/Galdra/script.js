@@ -24,28 +24,3 @@ symbols.forEach((symbol, index) => {
 // Stílar fyrir miðtexta í byrjun
 centerText.style.opacity = '0';
 centerText.style.transform = 'scale(0.8)';
-
-
-// Búa til stjörnur í bakgrunni
-const starsContainer = document.querySelector('.stars');
-
-function createStar() {
-    const star = document.createElement('div');
-    star.className = 'star';
-    star.style.left = `${Math.random() * 100}vw`;
-    star.style.top = `${Math.random() * 100}vh`;
-    star.style.width = `${Math.random() * 3 + 2}px`;
-    star.style.height = star.style.width;
-    star.style.animationDuration = `${Math.random() * 5 + 2}s`;
-    star.style.opacity = Math.random();
-    star.style.position = 'absolute';
-    star.style.borderRadius = '50%';
-    star.style.background = 'white';
-    star.style.animation = 'twinkle 5s linear infinite';
-
-    starsContainer.appendChild(star);
-
-    setTimeout(() => star.remove(), 5000);
-}
-
-setInterval(createStar, 200);
