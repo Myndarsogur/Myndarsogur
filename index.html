@@ -417,21 +417,23 @@
         clearInterval(moveInterval);
         emoji.remove();
     }, 10000);
+});
 
-
-    fetch('https://api.indexnow.org/IndexNow', {
+fetch('https://api.indexnow.org/IndexNow', {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-        host: 'www.example.org',
+        host: 'https://www.myndarsogur.is',
         key: '9e96548408224b589657f48289b700e0',
-        keyLocation: 'https://www.example.org/9e96548408224b589657f48289b700e0.txt',
+        keyLocation: 'https://www.myndarsogur.is/9e96548408224b589657f48289b700e0.txt',
         urlList: [
-            'https://www.example.org/url1',
-            'https://www.example.org/folder/url2',
-            'https://www.example.org/url3'
+            'https://www.myndarsogur.is/Arid2024',
+            'https://www.myndarsogur.is/arctic',
+            'https://www.myndarsogur.is/leikjasidan',
+            'https://www.myndarsogur.is/solusida',
+            'https://www.myndarsogur.is/karakterar'
         ]
     })
 })
@@ -439,10 +441,6 @@
 .then(data => console.log(data))
 .catch(error => console.error('Error:', error));
 
-
-});
-
-
-    </script>
+</script>
 </body>
 </html>
