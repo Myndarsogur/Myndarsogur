@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Myndasögugerðarvél</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+
+        .robot-container {
+            position: relative;
+            text-align: center;
+        }
+
+        .robot {
+            width: 200px;
+            height: auto;
+        }
+
+        .speech-bubble {
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 250px;
+            padding: 10px;
+            background: white;
+            border: 2px solid black;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 16px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .animated-text {
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 2px solid black;
+            animation: typing 2s steps(20, end), blink 0.5s step-end infinite alternate;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes blink {
+            50% {
+                border-color: transparent;
+            }
+        }
+
+        .reset-text {
+            animation: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="robot-container">
+        <img src="The_Master_Mystery.gif" alt="Veifandi vélmenni" class="robot">
+        <div class="speech-bubble">
+            <span class="animated-text" id="bubble-text">Komdu og gerðu myndasögu!</span>
+        </div>
+    </div>
+
+    <script>
+        const textElement = document.getElementById('bubble-text');
+        const originalText = "Komdu og gerðu myndasögu!";
+
+        function animateText() {
+            textElement.classList.remove('reset-text');
+            textElement.classList.add('animated-text');
+            textElement.textContent = originalText;
+
+            // Remove animation and reapply to restart typing effect
+            setTimeout(() => {
+                textElement.classList.remove('animated-text');
+                textElement.classList.add('reset-text');
+
+                setTimeout(() => {
+                    animateText();
+                }, 500); // Pause before restarting animation
+            }, 2000); // Duration of typing animation
+        }
+
+        animateText();
+    </script>
+</body>
+</html>

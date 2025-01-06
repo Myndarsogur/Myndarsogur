@@ -4,32 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="ULTramEgasíðan er staður þar sem myndasögur, leikjasíður og skapandi efni lifna við! Komdu og uppgötvaðu heim ævintýra." />
-    <title>Myndarsögur - Heimili myndasögunnar á Íslandi</title>
-      <!-- Basic Open Graph Meta Tags -->
-  <meta property="og:url" content="https://myndarsogur.is/" />
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="ULTramEgasíðan - Þar sem myndar sögur lifa!" />
-  <meta property="og:description" content="Upplifðu myndasögur eins og aldrei fyrr á ULTramEgasíðunni - Skemmtun, sköpun og sögur fyrir alla!" />
-  <meta property="og:image" content="https://i.imgur.com/COCCKrc.png" /> <!-- Skiptu þessu út fyrir rétta myndarslóð -->
-  <meta property="fb:app_id" content="1501563707185143" />
-<!-- Favicon fyrir helstu vafra -->
-<link rel="icon" href="https://myndarsogur.is/Myndarsogur-Merki.ico" type="image/x-icon">
-<!-- PNG fyrir vafra sem styðja PNG -->
-<link rel="icon" href="https://myndarsogur.is/Myndarsogur-Merki.png" type="image/png">
-<!-- Apple Touch Icon -->
-<link rel="apple-touch-icon" href="https://myndarsogur.is/Myndarsogur-Merki.png">
+    <title>ULTramEgasíðan - Myndasögur, leikir, sköpun, heimar og geimar!</title>
+    <!-- Basic Open Graph Meta Tags -->
+    <meta property="og:url" content="https://myndarsogur.is/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="ULTramEgasíðan - Þar sem myndar sögur lifa!" />
+    <meta property="og:description" content="Upplifðu myndasögur eins og aldrei fyrr á ULTramEgasíðunni - Skemmtun, sköpun og sögur fyrir alla!" />
+    <meta property="og:image" content="https://i.imgur.com/COCCKrc.png" /> <!-- Skiptu þessu út fyrir rétta myndarslóð -->
+    <meta property="fb:app_id" content="1501563707185143" />
+    <!-- Favicon fyrir helstu vafra -->
+    <link rel="icon" href="https://myndarsogur.is/Myndarsogur-Merki.ico" type="image/x-icon">
+    <!-- PNG fyrir vafra sem styðja PNG -->
+    <link rel="icon" href="https://myndarsogur.is/Myndarsogur-Merki.png" type="image/png">
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" href="https://myndarsogur.is/Myndarsogur-Merki.png">
     <!-- Hotjar Tracking Code for https://myndarsogur.is -->
-<script>
-    (function(h,o,t,j,a,r){
-        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-        h._hjSettings={hjid:5255530,hjsv:6};
-        a=o.getElementsByTagName('head')[0];
-        r=o.createElement('script');r.async=1;
-        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-        a.appendChild(r);
-    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-</script>
-        <style>
+    <script>
+        (function(h,o,t,j,a,r){
+            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+            h._hjSettings={hjid:5255530,hjsv:6};
+            a=o.getElementsByTagName('head')[0];
+            r=o.createElement('script');r.async=1;
+            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+    </script>
+    <style>
         body {
             background-color: #000;
             color: #00ff00;
@@ -62,11 +62,58 @@
             border: 3px solid #fff;
             margin: 20px;
         }
-        .section:nth-child(odd) {
-            background-color: #111;
+        h1 {
+            text-align: center;
+            color: #333;
         }
-        .section:nth-child(even) {
-            background-color: #222;
+        p {
+            text-align: center;
+            color: #666;
+        }
+        .section-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px;
+        }
+        .section {
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .section a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        .emoji {
+            position: absolute;
+            font-size: 2rem;
+        }
+        #robotEmoji {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            font-size: 4rem;
+            cursor: pointer;
+        }
+        #myndasogugerd {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            font-size: 8rem;
+            cursor: pointer;
+            transform: rotate(-10deg);
+            animation: robot-move 3s infinite alternate;
+        }
+        @keyframes robot-move {
+            0% {
+                transform: rotate(-10deg) translate(0, 0);
+            }
+            100% {
+                transform: rotate(10deg) translate(10px, -10px);
+            }
         }
         #arctic a {
             font-size: 2.5em;
@@ -347,6 +394,7 @@
     <div class="emoji" style="left: 10%; top: 30%;">🌟</div>
     <div class="emoji" style="left: 70%; top: 50%;">🔥</div>
     <div class="emoji" style="left: 40%; top: 70%;">💥</div>
+    <div id="myndasogugerd">🤖</div>
     <script>
         const cursor = document.getElementById('cursor');
         const solusida = document.getElementById('solusida');
@@ -440,6 +488,12 @@ fetch('https://api.indexnow.org/IndexNow', {
 .then(response => response.json())
 .then(data => console.log(data))
 .catch(error => console.error('Error:', error));
+
+// Myndasogugerd click event
+const myndasogugerd = document.getElementById('myndasogugerd');
+myndasogugerd.addEventListener('click', () => {
+    window.location.href = 'Myndasogugerd/index.html';
+});
 
 </script>
 </body>

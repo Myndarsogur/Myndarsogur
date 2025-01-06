@@ -63,9 +63,32 @@
             margin: 20px auto;
             max-width: 90%;
         }
+        #grid div {
+            position: relative;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: white;
+        }
         #grid img {
             max-width: 100%;
+            max-height: 100%;
             object-fit: cover;
+        }
+        #grid button {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+        }
+        .draggable {
+            cursor: move;
         }
         button {
             margin: 10px;
@@ -247,9 +270,21 @@
             grid.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
             grid.innerHTML = '';
             images.forEach((src, index) => {
+                const imgDiv = document.createElement('div');
                 const img = document.createElement('img');
                 img.src = src;
-                grid.appendChild(img);
+                imgDiv.appendChild(img);
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.textContent = '×';
+                deleteBtn.classList.add('delete-btn');
+                deleteBtn.addEventListener('click', () => {
+                    images.splice(index, 1);
+                    renderGrid();
+                });
+                imgDiv.appendChild(deleteBtn);
+
+                grid.appendChild(imgDiv);
             });
         }
 
