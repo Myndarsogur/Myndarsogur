@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teiknitól</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #f8f8f8;
+        }
+
+        #stjornbord {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 5px 8px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+
+        #stjornbord input, #stjornbord button {
+            border: none;
+            outline: none;
+            background: none;
+        }
+
+        #stjornbord input[type="range"] {
+            width: 80px;
+        }
+
+        #stjornbord button {
+            font-size: 18px;
+            cursor: pointer;
+        }
+        #stjornbord button  {
+            filter: grayscale(100%); /* Gera emoji svarthvítt */
+        }
+        canvas {
+            display: block;
+            touch-action: none; /* Leyfir snertiteikningu */
+        }
+    </style>
+</head>
+<body>
+    <div id="stjornbord">
+        <input type="color" id="litur" title="Velja lit" value="#000000">
+        <input type="range" id="þykkt" title="Stilla þykkt" min="1" max="50" value="5">
+        <button id="sækja" title="Sækja mynd"> ↓
+        </button>
+    </div>
+
+    <canvas id="teiknitol"></canvas>
+
+    <script>
+        const canvas = document.getElementById('teiknitol');
+        const ctx = canvas.getContext('2d');
+        const litur = document.getElementById('litur');
+        const þykkt = document.getElementById('þykkt');
+        const hreinsa = document.getElementById('hreinsa');
+        const sækja = document.getElementById('sækja');
+
+        // Stillum stærð canvas
+        function stillaCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', stillaCanvas);
+        stillaCanvas();
+
+        let teikna = false;
+
+        function byrjaTeikningu(e) {
+            teikna = true;
+            teiknaLínu(e);
+        }
+
+        function hættaTeikningu() {
+            teikna = false;
+            ctx.beginPath(); // Byrjar nýja línu
+        }
+
+        function teiknaLínu(e) {
+            if (!teikna) return;
+
+            const x = e.touches ? e.touches[0].clientX : e.clientX;
+            const y = e.touches ? e.touches[0].clientY : e.clientY;
+
+            ctx.lineWidth = þykkt.value; // Þykkt línunnar
+            ctx.lineCap = 'round'; // Rúnuð endar
+            ctx.strokeStyle = litur.value; // Litur línunnar
+
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+        }
+
+        // Atburðir fyrir mús
+        canvas.addEventListener('mousedown', byrjaTeikningu);
+        canvas.addEventListener('mousemove', teiknaLínu);
+        canvas.addEventListener('mouseup', hættaTeikningu);
+
+        // Atburðir fyrir snertiskjá
+        canvas.addEventListener('touchstart', byrjaTeikningu);
+        canvas.addEventListener('touchmove', teiknaLínu);
+        canvas.addEventListener('touchend', hættaTeikningu);
+
+        // Hreinsa mynd
+        hreinsa.addEventListener('click', () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        });
+
+        // Sækja mynd
+        sækja.addEventListener('click', () => {
+            const link = document.createElement('a');
+            link.download = 'mynd.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        });
+    </script>
+</body>
+</html>

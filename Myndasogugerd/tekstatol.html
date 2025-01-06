@@ -1,41 +1,95 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-  </head>
-  <body>
+<html lang="is">
+<head>
+  <meta charset="utf-8" />
+  <title>Quill – lítill download-hnappur</title>
 
-    <!--
-      Adding the `tinymce-editor` element with various options set as attributes.
-    -->
-    <tinymce-editor
-      api-key="no-api-key"
-      height="500"
-      menubar="false"
-      plugins="a11ychecker advlist advcode advtable autolink checklist markdown
-      lists link image charmap preview anchor searchreplace visualblocks
-      powerpaste fullscreen formatpainter insertdatetime media table help wordcount"
-      toolbar="undo redo | casechange blocks | bold italic backcolor |
-       alignleft aligncenter alignright alignjustify | bullist numlist checklist outdent indent |
-       removeformat | a11ycheck code table help"
-      content_style="body
-      {
-        font-family:Helvetica,Arial,sans-serif;
-        font-size:14px
-      }"
-      >
+  <!-- Quill Snow CSS -->
+  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet" />
 
-      <!-- Adding some initial editor content -->
-      &lt;p&gt;Welcome to the TinyMCE Web Component example!&lt;/p&gt;
+  <!-- Font Awesome til að nota niðurhalstákn (valfrjálst) -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    integrity="sha512-acJkc+HJRfzNYc6jSuo+z6C0fkLn/u9oM6Dl7VYYGn7CdAzrOg2D8EC9Ofb60E+HjVOxuKVKCBPDp5f3m9b1wA=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
 
-    </tinymce-editor>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
 
-    <!--
-      Sourcing the `tinymce-webcomponent` from jsDelivr,
-      which sources TinyMCE from the Tiny Cloud.
-    -->
-    <script src="https://cdn.jsdelivr.net/npm/@tinymce/tinymce-webcomponent@1/dist/tinymce-webcomponent.min.js"></script>
+    /* Quill-editor fyllir síðan gluggann */
+    #editor {
+      height: 100%;
+    }
 
-  </body>
+    /* Fljótandi hnappur, neðst til hægri */
+    .floating-download-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #506b88;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      z-index: 9999; /* svo hnappur sé ofan á ritilnum */
+      outline: none;
+    }
+
+    .floating-download-btn:hover {
+      background-color: #51c27c; /* dekkra blátt */
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Quill ritillinn -->
+  <div id="editor"></div>
+
+  <!-- Fljótandi niðurhalshnappur (táknið er valfrjálst) -->
+  <button class="floating-download-btn" id="downloadBtn">
+    <i class="fas fa-save"></i>
+  </button>
+
+  <!-- Quill JS -->
+  <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+  <script>
+    // Búum til Quill-ritil með tækjum (m.a. myndainnsetningu)
+    var quill = new Quill('#editor', {
+      theme: 'snow',
+      modules: {
+        toolbar: [
+          [{ header: [1, 2, 3, false] }],
+          ['bold', 'italic', 'underline', 'strike'],
+          ['link', 'image'],
+          ['clean']
+        ]
+      }
+    });
+
+    // Sækjum hnappinn úr DOM
+    document.getElementById('downloadBtn').addEventListener('click', () => {
+      const content = quill.root.innerHTML;
+      const blob = new Blob([content], { type: 'text/html' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'handrit.html';
+      link.click();
+    });
+  </script>
+</body>
 </html>
