@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="is">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerðu myndasögu með nútíma tækni</title>
+    <title>Myndasögugerðarvélin</title>
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-   <style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-acJkc+HJRfzNYc6jSuo+z6C0fkLn/u9oM6Dl7VYYGn7CdAzrOg2D8EC9Ofb60E+HjVOxuKVKCBPDp5f3m9b1wA==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -48,6 +49,34 @@
         .hidden {
             display: none;
         }
+        #upload-area {
+            border: 2px dashed #007bff;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 600px;
+            background-color: #c2f1c0;
+            border-radius: 8px;
+        }
+        #grid {
+            display: grid;
+            gap: 10px;
+            margin: 20px auto;
+            max-width: 90%;
+        }
+        #grid img {
+            max-width: 100%;
+            object-fit: cover;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #6de369;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
         canvas {
             border: 1px solid black;
             background-color: white;
@@ -55,25 +84,9 @@
         .toolbox {
             margin: 1rem 0;
         }
-        .toolbox button, .toolbox input {
-            margin-right: 0.5rem;
+        .toolbox label {
+            margin-right: 10px;
         }
-        .comicGrid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    width: 100%;
-    max-width: 600px;
-    margin: auto;
-    background: white;
-    border: 1px solid black;
-    padding: 10px;
-}
-.comicGrid img {
-    width: 100%;
-    height: auto;
-}
-
     </style>
 </head>
 <body>
@@ -82,79 +95,59 @@
     </header>
     <nav>
         <button id="tab1" class="active">Skrifa handritið</button>
-        <button id="tab2">Skyssa söguna</button>
-        <button id="tab3">Teikna rammana</button>
-        <button id="tab4">Setja saman söguna</button>
+        <button id="tab2">Teiknaðu</button>
+        <button id="tab3">Setja saman söguna</button>
     </nav>
     <div id="content">
-        <!-- Tab 1: Write Script -->
+        <!-- Skrifa handritið -->
         <div id="scriptTab">
             <h2>Skrifaðu handritið þitt</h2>
-            <p>Hérna getur verið gott að nýta einhvern ramma til þess að segja söguna:</p> <p> T.d. Upphaf - Miðja - Endir</p> Rammi 1-2-3  = Upphaf, kynnum persónu til leiks og aðstæður og vandamál<p>Rammi 4-5-6 = Sjáum hvað gerist fyrir persónuna í aðstæðunum</p>
-            <p>Rammi 7-8-9 = Hérna leysist vandinn eða hann verður algjör.  Við sjáum söguna í nýju ljós eða lærum eitthvað með aðalpersónunni.</p>
-            <textarea id="scriptArea" rows="12" style="width: 100%;"></textarea>
-            <button onclick="saveProgress('scriptArea')">Vista handrit</button>
+            <div id="editor"></div>
+            <button id="downloadBtn">Vista handrit</button>
         </div>
 
-        <!-- Tab 2: Draw Story -->
-        <div id="drawStoryTab" class="hidden">
-            <h2>Skyssaðu söguna þína</h2>
+        <!-- Teiknaðu -->
+        <div id="drawTab" class="hidden">
+            <h2>Teiknaðu einhverja hluta sögunnar</h2>
             <div class="toolbox">
-                <button onclick="setTool('draw')">Teikna</button>
-                <button onclick="setTool('erase')">Eyða</button>
-                <input type="color" id="colorPicker" value="#000000" onchange="setColor(this.value)">
-                <input type="range" id="brushSize" min="1" max="20" value="5" onchange="setBrushSize(this.value)">
+                <label for="colorPicker">Litur:</label>
+                <input type="color" id="colorPicker" value="#000000">
+
+                <label for="brushSize">Pennastærð:</label>
+                <input type="range" id="brushSize" min="1" max="20" value="5">
             </div>
-            <canvas id="storyCanvas" width="800" height="600"></canvas>
+            <canvas id="drawingCanvas" width="800" height="600"></canvas>
             <br>
-            <button onclick="clearCanvas('storyCanvas')">Hreinsa allt</button>
-            <button onclick="saveCanvas('storyCanvas', 'skyssa.png')">Vista skyssur</button>
+            <button id="saveDrawing"><i class="fas fa-save"></i> Vista mynd</button>
         </div>
 
-        <!-- Tab 3: Draw Frames -->
-        <div id="drawFramesTab" class="hidden">
-            <h2>Teiknum upp hvern ramma fyrir sig</h2>
-            <div class="toolbox">
-                <button onclick="setTool('draw')">Teikna</button>
-                <button onclick="setTool('erase')">Eyða</button>
-                <input type="color" id="colorPicker" value="#000000" onchange="setColor(this.value)">
-                <input type="range" id="brushSize" min="1" max="20" value="5" onchange="setBrushSize(this.value)">
+        <!-- Setja saman söguna -->
+        <div id="assembleTab" class="hidden">
+            <h2>Settu saman söguna þína</h2>
+            <div id="upload-area">
+                Dragðu allt hingað eða <input type="file" id="file-input" multiple>
             </div>
-            <div id="framesContainer">
-                <!-- Frames will be dynamically added here -->
+            <div>
+                <label for="columns-slider">Veldu fjölda dálka:</label>
+                <input type="range" id="columns-slider" min="1" max="10" value="3">
+                <span id="columns-value">3</span>
             </div>
-            <br>
-            <button onclick="addNewFrame()">Bæta við nýjum ramma</button>
+            <div id="grid"></div>
+            <button id="grid-clear">Eyða öllu</button>
+            <button id="save">Vista sem mynd</button>
         </div>
-
-       <!-- Tab 4: Assemble Comic -->
-<div id="assembleComicTab" class="hidden">
-    <h2>Setja saman söguna</h2>
-    <div id="comicGrid">
-        <!-- Frames will be added here as images -->
     </div>
-    <button onclick="loadFrames()">Hlaða inn römmum</button>
-    <button onclick="saveComic()">Vista myndasögu</button>
-</div>
 
-<div id="editor">
-    <p>Skrifaðu hér...</p>
-  </div>
-  
-
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas"></script>
     <script>
+        // Tab toggle
         const tabs = document.querySelectorAll('nav button');
         const tabContents = [
             document.getElementById('scriptTab'),
-            document.getElementById('drawStoryTab'),
-            document.getElementById('drawFramesTab'),
-            document.getElementById('assembleComicTab')
+            document.getElementById('drawTab'),
+            document.getElementById('assembleTab')
         ];
-
-        let currentTool = 'draw';
-        let currentColor = '#000000';
-        let currentBrushSize = 5;
-        let frameCount = 0;
 
         tabs.forEach((tab, index) => {
             tab.addEventListener('click', () => {
@@ -165,220 +158,116 @@
             });
         });
 
-        function addNewFrame() {
-            frameCount++;
-            const framesContainer = document.getElementById('framesContainer');
-            const frameDiv = document.createElement('div');
-            frameDiv.style.marginBottom = '1rem';
-            
-            const canvas = document.createElement('canvas');
-            canvas.id = `frameCanvas${frameCount}`;
-            canvas.width = 400;
-            canvas.height = 300;
-            canvas.style.border = '1px solid black';
-            
-            const saveButton = document.createElement('button');
-            saveButton.innerText = `Vista Rammi ${frameCount}`;
-            saveButton.onclick = () => saveCanvas(canvas.id, `rammi_${frameCount}.png`);
-
-            const clearButton = document.createElement('button');
-            clearButton.innerText = 'Hreinsa';
-            clearButton.onclick = () => clearCanvas(canvas.id);
-
-            frameDiv.appendChild(canvas);
-            frameDiv.appendChild(saveButton);
-            frameDiv.appendChild(clearButton);
-
-            framesContainer.appendChild(frameDiv);
-            initCanvas(canvas.id);
-        }
-
-        function saveProgress(elementId) {
-            const element = document.getElementById(elementId);
-            let data;
-
-            if (element.tagName === 'TEXTAREA') {
-                data = element.value;
-            } else {
-                data = element.innerHTML;
+        // Quill editor
+        var quill = new Quill('#editor', {
+            theme: 'snow',
+            modules: {
+                toolbar: [
+                    [{ header: [1, 2, 3, false] }],
+                    ['bold', 'italic', 'underline', 'strike'],
+                    ['link', 'image'],
+                    ['clean']
+                ]
             }
+        });
 
-            console.log('Saved data:', data);
-            alert('Progress saved!');
+        document.getElementById('downloadBtn').addEventListener('click', () => {
+            const content = quill.root.innerHTML;
+            const blob = new Blob([content], { type: 'text/html' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'handrit.html';
+            link.click();
+        });
+
+        // Drawing functionality
+        const canvas = document.getElementById('drawingCanvas');
+        const ctx = canvas.getContext('2d');
+        const colorPicker = document.getElementById('colorPicker');
+        const brushSize = document.getElementById('brushSize');
+        let drawing = false;
+        let currentColor = colorPicker.value;
+        let currentBrushSize = brushSize.value;
+
+        colorPicker.addEventListener('input', () => currentColor = colorPicker.value);
+        brushSize.addEventListener('input', () => currentBrushSize = brushSize.value);
+
+        canvas.addEventListener('mousedown', () => drawing = true);
+        canvas.addEventListener('mouseup', () => drawing = false);
+        canvas.addEventListener('mousemove', draw);
+
+        function draw(event) {
+            if (!drawing) return;
+            const rect = canvas.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+            ctx.fillStyle = currentColor;
+            ctx.beginPath();
+            ctx.arc(x, y, currentBrushSize / 2, 0, Math.PI * 2);
+            ctx.fill();
         }
 
-        function saveCanvas(canvasId, filename) {
-            const canvas = document.getElementById(canvasId);
-            canvas.toBlob(function(blob) {
+        document.getElementById('saveDrawing').addEventListener('click', () => {
+            canvas.toBlob(blob => {
                 const link = document.createElement('a');
-                link.download = filename;
+                link.download = 'mynd.png';
                 link.href = URL.createObjectURL(blob);
                 link.click();
             });
-        }
+        });
 
-        function clearCanvas(canvasId) {
-            const canvas = document.getElementById(canvasId);
-            const context = canvas.getContext('2d');
-            context.clearRect(0, 0, canvas.width, canvas.height);
-        }
+        // Image upload and grid functionality
+        const fileInput = document.getElementById('file-input');
+        const grid = document.getElementById('grid');
+        const columnsSlider = document.getElementById('columns-slider');
+        const columnsValue = document.getElementById('columns-value');
+        const gridClearButton = document.getElementById('grid-clear');
+        const saveButton = document.getElementById('save');
 
-        function setTool(tool) {
-            currentTool = tool;
-        }
+        let images = [];
 
-        function setColor(color) {
-            currentColor = color;
-        }
+        fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
 
-        function setBrushSize(size) {
-            currentBrushSize = size;
-        }
-
-        function initCanvas(canvasId) {
-            const canvas = document.getElementById(canvasId);
-            const context = canvas.getContext('2d');
-            let drawing = false;
-
-            canvas.addEventListener('mousedown', () => drawing = true);
-            canvas.addEventListener('mouseup', () => drawing = false);
-            canvas.addEventListener('mousemove', (event) => {
-                if (!drawing) return;
-                const rect = canvas.getBoundingClientRect();
-                const x = event.clientX - rect.left;
-                const y = event.clientY - rect.top;
-                context.fillStyle = currentColor;
-                context.strokeStyle = currentColor;
-                context.lineWidth = currentBrushSize;
-
-                if (currentTool === 'draw') {
-                    context.beginPath();
-                    context.arc(x, y, currentBrushSize / 2, 0, Math.PI * 2);
-                    context.fill();
-                } else if (currentTool === 'erase') {
-                    context.clearRect(x - currentBrushSize / 2, y - currentBrushSize / 2, currentBrushSize, currentBrushSize);
+        function handleFiles(files) {
+            Array.from(files).forEach(file => {
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = event => {
+                        images.push(event.target.result);
+                        renderGrid();
+                    };
+                    reader.readAsDataURL(file);
                 }
-
-                function addImages() {
-    const fileInput = document.getElementById('fileInput');
-    const comicGrid = document.getElementById('comicGrid');
-    comicGrid.innerHTML = ''; // Clear existing images
-
-    Array.from(fileInput.files).forEach(file => {
-        const reader = new FileReader();
-        reader.onload = function (event) {
-            const img = document.createElement('img');
-            img.src = event.target.result;
-            comicGrid.appendChild(img);
-        };
-        reader.readAsDataURL(file);
-    });
-}
-
-function saveComic() {
-    const comicGrid = document.getElementById('comicGrid');
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    const images = comicGrid.querySelectorAll('img');
-
-    const cols = 3; // Grid með 3 dálkum
-    const rows = Math.ceil(images.length / cols);
-    const imgWidth = 200;
-    const imgHeight = 200;
-
-    canvas.width = cols * imgWidth;
-    canvas.height = rows * imgHeight;
-
-    let x = 0, y = 0;
-    images.forEach((img, index) => {
-        const imgElement = new Image();
-        imgElement.src = img.src;
-        imgElement.onload = () => {
-            ctx.drawImage(imgElement, x, y, imgWidth, imgHeight);
-            x += imgWidth;
-            if ((index + 1) % cols === 0) {
-                x = 0;
-                y += imgHeight;
-            }
-        };
-    });
-
-    setTimeout(() => {
-        canvas.toBlob(blob => {
-            const link = document.createElement('a');
-            link.download = 'comic_page.png';
-            link.href = URL.createObjectURL(blob);
-            link.click();
-        });
-    }, 1000);
-}
-
-
-function loadFrames() {
-    const comicGrid = document.getElementById('comicGrid');
-    comicGrid.innerHTML = '';
-    for (let i = 1; i <= frameCount; i++) {
-        const img = document.createElement('img');
-        img.src = `rammi_${i}.png`; // Þetta ætti að benda á réttar myndir vistaðar á disknum
-        img.alt = `Rammi ${i}`;
-        img.onerror = () => console.error(`Myndin rammi_${i}.png fannst ekki.`);
-        comicGrid.appendChild(img);
-    }
-}
-
-function saveComic() {
-    const comicGrid = document.getElementById('comicGrid');
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    const images = comicGrid.querySelectorAll('img');
-
-    // Skipulag og stærðir
-    const cols = 3; // Grid með 3 dálkum
-    const rows = Math.ceil(images.length / cols);
-    const imgWidth = 200;
-    const imgHeight = 200;
-
-    canvas.width = cols * imgWidth;
-    canvas.height = rows * imgHeight;
-
-    // Teikna hverja mynd í grid
-    let x = 0, y = 0;
-    images.forEach((img, index) => {
-        const imgElement = new Image();
-        imgElement.src = img.src;
-        imgElement.onload = () => {
-            ctx.drawImage(imgElement, x, y, imgWidth, imgHeight);
-            x += imgWidth;
-            if ((index + 1) % cols === 0) {
-                x = 0;
-                y += imgHeight;
-            }
-        };
-    });
-
-    // Vistar grid sem eina mynd
-    setTimeout(() => {
-        canvas.toBlob(function(blob) {
-            const link = document.createElement('a');
-            link.download = 'comic_page.png';
-            link.href = URL.createObjectURL(blob);
-            link.click();
-        });
-    }, 1000); // Bíður eftir að allar myndir hlaðist
-}
-
-
             });
         }
 
-        initCanvas('storyCanvas');
-        
+        function renderGrid() {
+            const columns = parseInt(columnsSlider.value, 10) || 3;
+            columnsValue.textContent = columns;
+            grid.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
+            grid.innerHTML = '';
+            images.forEach((src, index) => {
+                const img = document.createElement('img');
+                img.src = src;
+                grid.appendChild(img);
+            });
+        }
 
-        src="https://cdn.quilljs.com/1.3.6/quill.js"
-      
-        var quill = new Quill('#editor', {
-    theme: 'snow'
-  });
+        columnsSlider.addEventListener('input', renderGrid);
+
+        gridClearButton.addEventListener('click', () => {
+            images = [];
+            renderGrid();
+        });
+
+        saveButton.addEventListener('click', () => {
+            html2canvas(grid).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'myndir.png';
+                link.href = canvas.toDataURL();
+                link.click();
+            });
+        });
     </script>
 </body>
 </html>
