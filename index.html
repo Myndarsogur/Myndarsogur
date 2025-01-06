@@ -62,6 +62,12 @@
             border: 3px solid #fff;
             margin: 20px;
         }
+        .section:nth-child(odd) {
+            background-color: #111;
+        }
+        .section:nth-child(even) {
+            background-color: #222;
+        }
         h1 {
             text-align: center;
             color: #333;
@@ -90,22 +96,42 @@
         .emoji {
             position: absolute;
             font-size: 2rem;
+            animation: float 3s ease-in-out infinite;
         }
-        #robotEmoji {
-            position: fixed;
-            top: 10px;
-            left: 10px;
-            font-size: 4rem;
-            cursor: pointer;
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+        #cursor {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: url('https://imgur.com/a/IbicCMI.png');
+            pointer-events: none;
+            animation: cursor-move 2s ease-in-out infinite;
+        }
+        @keyframes cursor-move {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
         }
         #myndasogugerd {
             position: fixed;
-            bottom: 10px;
-            left: 10px;
+            bottom: -100px;
+            left: -200px;
             font-size: 8rem;
             cursor: pointer;
             transform: rotate(-10deg);
             animation: robot-move 3s infinite alternate;
+            background: none;
+            border: none;
         }
         @keyframes robot-move {
             0% {
@@ -149,8 +175,8 @@
             }
         }
         #solusida {
-            font-size: 1.5em;
-            background-color: #888;
+            font-size: 1.5em;'
+            background-color: #0000ff;
             border: 3px solid #ff00ff;
             padding: 20px;
             display: inline-block;
@@ -365,6 +391,33 @@
     transform: scale(1) rotate(0deg) translate(0, 0);
   }
 }
+/* Sérstakir stílar fyrir hverja section */
+#arid {
+            background-color: #ff0;
+            color: #000;
+            font-size: 15px;
+        }
+        #arid a {
+            color: #000;
+        }
+        #solusida {
+            background-color: #851c1c;
+            color: #ff0;
+        }
+        #solusida a {
+            color: #ff0;
+        }
+        #hofundar {
+            color: #d40606;
+        }
+        #hofundar a {
+            color: #f5f5f5;
+        }
+        #arctic {
+            background-color: #e2e0f4;
+            color: #fcfbff;
+            background: linear-gradient(90deg, #969dfb, #f0f0f0);
+        }
 
 
 
@@ -388,6 +441,9 @@
         </div>
         <div class="section" id="hofundar">
             <a href="Karakterar/index.html">Höfundar</a>
+        </div>
+        <div class="section" id="myndasogugerd">
+            <a href="Myndasogugerd/index.html">🤖</a>
         </div>
     </div>
     <div id="cursor"></div>
@@ -489,12 +545,18 @@ fetch('https://api.indexnow.org/IndexNow', {
 .then(data => console.log(data))
 .catch(error => console.error('Error:', error));
 
+// Robot emoji click event
+const robotEmoji = document.getElementById('robotEmoji');
+robotEmoji.addEventListener('click', () => {
+    window.location.href = 'Myndasogugerd/index.html';
+});
+
 // Myndasogugerd click event
 const myndasogugerd = document.getElementById('myndasogugerd');
 myndasogugerd.addEventListener('click', () => {
     window.location.href = 'Myndasogugerd/index.html';
 });
 
-</script>
+    </script>
 </body>
 </html>
