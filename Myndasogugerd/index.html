@@ -110,10 +110,6 @@
         .toolbox label {
             margin-right: 10px;
         }
-        #canvas {
-            border: 1px solid #000;
-            touch-action: none; /* Prevent default touch actions */
-        }
     </style>
 </head>
 <body>
@@ -223,6 +219,12 @@
         canvas.addEventListener('mouseup', () => drawing = false);
         canvas.addEventListener('mousemove', draw);
 
+        canvas.addEventListener('touchstart', () => drawing = true);
+        canvas.addEventListener('touchend', () => drawing = false); 
+        canvas.addEventListener('touchmove', (event) => {
+            draw(event.touches[0]);
+        });
+
         function draw(event) {
             if (!drawing) return;
             const rect = canvas.getBoundingClientRect();
@@ -307,54 +309,6 @@
                 link.click();
             });
         });
-
-        // New drawing functionality with touch support
-        const newCanvas = document.getElementById('canvas');
-        const newCtx = newCanvas.getContext('2d');
-        let newDrawing = false;
-
-        function startPosition(e) {
-            newDrawing = true;
-            newDraw(e);
-        }
-
-        function endPosition() {
-            newDrawing = false;
-            newCtx.beginPath();
-        }
-
-        function newDraw(e) {
-            if (!newDrawing) return;
-
-            newCtx.lineWidth = 5;
-            newCtx.lineCap = 'round';
-            newCtx.strokeStyle = '#000';
-
-            let x, y;
-            if (e.type.includes('touch')) {
-                const touch = e.touches[0];
-                x = touch.clientX - newCanvas.offsetLeft;
-                y = touch.clientY - newCanvas.offsetTop;
-            } else {
-                x = e.clientX - newCanvas.offsetLeft;
-                y = e.clientY - newCanvas.offsetTop;
-            }
-
-            newCtx.lineTo(x, y);
-            newCtx.stroke();
-            newCtx.beginPath();
-            newCtx.moveTo(x, y);
-        }
-
-        // Mouse events
-        newCanvas.addEventListener('mousedown', startPosition);
-        newCanvas.addEventListener('mouseup', endPosition);
-        newCanvas.addEventListener('mousemove', newDraw);
-
-        // Touch events
-        newCanvas.addEventListener('touchstart', startPosition);
-        newCanvas.addEventListener('touchend', endPosition);
-        newCanvas.addEventListener('touchmove', newDraw);
     </script>
 </body>
 </html>
