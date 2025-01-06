@@ -417,7 +417,32 @@
         clearInterval(moveInterval);
         emoji.remove();
     }, 10000);
+
+
+    fetch('https://api.indexnow.org/IndexNow', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        host: 'www.example.org',
+        key: '9e96548408224b589657f48289b700e0',
+        keyLocation: 'https://www.example.org/9e96548408224b589657f48289b700e0.txt',
+        urlList: [
+            'https://www.example.org/url1',
+            'https://www.example.org/folder/url2',
+            'https://www.example.org/url3'
+        ]
+    })
+})
+.then(response => response.json())
+.then(data => console.log(data))
+.catch(error => console.error('Error:', error));
+
+
 });
+
+
     </script>
 </body>
 </html>
