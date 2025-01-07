@@ -32,12 +32,15 @@
       color: rgb(68, 68, 68);
       border: none;
       cursor: pointer;
-      font-size: 18px;
+      font-size: 32px;
       padding: 5px 10px;
       border-radius: 5px;
       display: flex;
       align-items: center;
-      margin-left: -300px; /* Færa hnappinn aðeins til vinstri */
+      position: fixed; /* Festa hnappinn í hægra horninu */
+      top: 0px;
+      right:300px;
+      z-index: 1000; /* Gera hnappinn sýnilegan yfir öðru efni */
 
     }
 
