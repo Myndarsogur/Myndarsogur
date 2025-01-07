@@ -1,0 +1,88 @@
+/* styles.css */
+
+/* Hnappurinn fyrir míkróblogg */
+.blog-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: background-color 0.3s;
+    z-index: 1000;
+}
+
+.blog-button:hover {
+    background-color: #0056b3;
+}
+
+/* Popup glugginn */
+.blog-popup {
+    display: none; /* Fylgir ekki upphaflega */
+    position: fixed;
+    bottom: 90px; /* Ofar í gegn við hnappinn */
+    right: 20px;
+    width: 300px;
+    max-height: 400px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    overflow-y: auto;
+    animation: fadeIn 0.5s;
+    z-index: 999;
+}
+
+/* Innihald popup gluggans */
+.popup-content {
+    padding: 20px;
+    position: relative;
+}
+
+/* Loka hnappurinn (X) */
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Animation fyrir popup */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; transform: scale(1); }
+    to { opacity: 0; transform: scale(0.9); }
+}
+
+/* Stílfærslu fyrir bloggfærslur */
+#blogContent {
+    margin-top: 10px;
+}
+
+.blog-entry {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}
+
+.blog-entry:last-child {
+    border-bottom: none;
+}
+
+.blog-entry h3 {
+    margin: 0 0 5px 0;
+}
+
+.blog-entry p {
+    margin: 0;
+}
