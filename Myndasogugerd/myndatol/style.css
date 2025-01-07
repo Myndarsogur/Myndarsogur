@@ -18,23 +18,28 @@ body {
 
 #grid {
   display: grid;
-  gap: 10px;
-  margin: 20px auto;
+  gap: 0px;
+  margin: 0px auto;
   max-width: 90%;
+  margin: 0; /* Engin bil á milli raða */
+  padding: 0; /* Engin bil á milli raða */
 }
 
 #grid div {
   position: relative;
-  border: 1px solid #ddd;
+  border: none;
   border-radius: 8px;
   overflow: hidden;
-  background-color: white;
+  margin: 0; /* Engin bil á milli raða */
+  padding: 0; /* Engin bil á milli raða */
 }
 
 #grid img {
   max-width: 100%;
   max-height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  margin: 0; /* Engin bil á milli raða */
+  padding: 0; /* Engin bil á milli raða */
 }
 
 #grid button {

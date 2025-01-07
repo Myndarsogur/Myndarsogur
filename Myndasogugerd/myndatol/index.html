@@ -10,14 +10,14 @@
   background-color: #f4f4f9;
   color: #333;
   margin: 0;
-  padding: 20px;
+  padding: 0px;
   text-align: center;
 }
 
 #upload-area {
   border: 2px dashed #007bff;
-  padding: 20px;
-  margin: 20px auto;
+  padding: 100px;
+  margin: 0px auto;
   max-width: 600px;
   background-color: #c2f1c0;
   border-radius: 8px;
@@ -25,51 +25,42 @@
 
 #grid {
   display: grid;
-  gap: 10px;
-  margin: 20px auto;
-  max-width: 90%;
+  gap: 0px;
+  margin: 0px auto;
+  max-width: 100%;
 }
 
 #grid div {
   position: relative;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  border: none;
+  border-radius: 0;
   overflow: hidden;
-  background-color: white;
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
 }
 
 #grid img {
   max-width: 100%;
   max-height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  margin: 0; 
+  padding: 0;
 }
-
-.delete-btn {
-      position: absolute;
-      top: 5px;
-      right: 5px;
-      background-color: red;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 25px;
-      height: 25px;
-      cursor: pointer;
-    }
 
     .draggable {
       cursor: move;
     }
 
 button {
-  margin: 10px;
-  padding: 10px 20px;
+  margin: 1px;
+  padding: 5px 10px;
   background-color: #6de369;
-  color: white;
+  color: rgb(255, 255, 255);
   border: none;
   cursor: pointer;
   font-size: 16px;
-  border-radius: 5px;
+  border-radius: 6px;
 }
 
 button:hover {

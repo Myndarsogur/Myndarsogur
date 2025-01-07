@@ -79,10 +79,20 @@ gridClearButton.addEventListener('click', () => {
 
 // Save grid as image
 saveButton.addEventListener('click', () => {
+  // Temporarily hide delete buttons and borders
+  const deleteButtons = document.querySelectorAll('#grid button');
+  const containers = document.querySelectorAll('#grid div');
+  deleteButtons.forEach(button => button.style.display = 'none');
+  containers.forEach(container => container.style.border = 'none');
+
   html2canvas(grid).then((canvas) => {
     const link = document.createElement('a');
     link.download = 'myndir.png';
     link.href = canvas.toDataURL();
     link.click();
+
+    // Restore delete buttons and borders
+    deleteButtons.forEach(button => button.style.display = 'block');
+    containers.forEach(container => container.style.border = '1px solid #ddd');
   });
 });
