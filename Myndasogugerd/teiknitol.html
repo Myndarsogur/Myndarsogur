@@ -52,9 +52,8 @@
 <body>
     <div id="stjornbord">
         <input type="color" id="litur" title="Velja lit" value="#000000">
-        <input type="range" id="þykkt" title="Stilla þykkt" min="1" max="50" value="5">
-        <button id="sækja" title="Sækja mynd"> ↓
-        </button>
+        <input type="range" id="þykkt" title="Stilla þykkt" min="1" max="50" value ="5">
+        <button id="saekja" title="Sækja mynd"><span class="emoji">↓</span></button>
     </div>
 
     <canvas id="teiknitol"></canvas>
@@ -64,8 +63,7 @@
         const ctx = canvas.getContext('2d');
         const litur = document.getElementById('litur');
         const þykkt = document.getElementById('þykkt');
-        const hreinsa = document.getElementById('hreinsa');
-        const sækja = document.getElementById('sækja');
+        const saekja = document.getElementById('saekja');
 
         // Stillum stærð canvas
         function stillaCanvas() {
@@ -113,13 +111,9 @@
         canvas.addEventListener('touchmove', teiknaLínu);
         canvas.addEventListener('touchend', hættaTeikningu);
 
-        // Hreinsa mynd
-        hreinsa.addEventListener('click', () => {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-        });
 
-        // Sækja mynd
-        sækja.addEventListener('click', () => {
+          // Sækja mynd
+          saekja.addEventListener('click', () => {
             const link = document.createElement('a');
             link.download = 'mynd.png';
             link.href = canvas.toDataURL('image/png');
