@@ -148,6 +148,51 @@
             }
         });
 
+       // Snertiatburðir
+       key.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            key.style.cursor = 'grabbing';
+            const touch = e.touches[0];
+            offsetX = touch.clientX - key.getBoundingClientRect().left;
+            offsetY = touch.clientY - key.getBoundingClientRect().top;
+            document.body.style.cursor = 'grabbing';
+        });
+
+        document.addEventListener('touchmove', (e) => {
+            if (isDragging) {
+                const touch = e.touches[0];
+                key.style.left = `${touch.clientX - offsetX}px`;
+                key.style.top = `${touch.clientY - offsetY}px`;
+            }
+        });
+
+        document.addEventListener('touchend', (e) => {
+            if (isDragging) {
+                isDragging = false;
+                key.style.cursor = 'grab';
+                document.body.style.cursor = 'default';
+                // Athuga hvort lykillinn sé yfir bílnum
+                const keyRect = key.getBoundingClientRect();
+                const carRect = carContainer.getBoundingClientRect();
+                if (
+                    keyRect.left < carRect.right &&
+                    keyRect.right > carRect.left &&
+                    keyRect.top < carRect.bottom &&
+                    keyRect.bottom > carRect.top
+                ) {
+                    // Fjarlægja lyklinn
+                    key.style.display = 'none';
+                    // Hristir bílinn
+                    carImage.classList.add('shake');
+                    setTimeout(() => {
+                        carImage.classList.remove('shake');
+                        // Opna verslun.html
+                        window.location.href = 'verslun.html';
+                    }, 500);
+                }
+            }
+        });
+
         // Forðast að velja texta á lykilinn
         key.addEventListener('dragstart', (e) => {
             e.preventDefault();
