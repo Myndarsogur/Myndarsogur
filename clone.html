@@ -132,14 +132,9 @@
             25% {
                 transform: rotate(-20deg) translate(10px, -10);
             }
-            0% {
-                transform: rotate(-10deg) translate(0, 0);
-            }
             100% {
                 transform: rotate(10deg) translate(10px, -10px);
             }
-
-
         }
         #arctic a {
             font-size: 2.5em;
@@ -476,13 +471,15 @@
 }
 
 .blog-entry {
+    position: relative;
+    background-color: #1a1a1a; /* Dökkri bakgrunnur fyrir betri lesanleika */
     border-bottom: 1px solid #ddd;
-    padding: 10px 0;
-    color:#ffd000;
-    border-radius: 8px;
+    padding: 20px 0;
+    color:#dced40;
+    border-radius: 10px;
     padding: 15px 20px;
-    margin-bottom: 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s, box-shadow 0.3s;
 
 }
@@ -502,13 +499,13 @@
 
 .blog-entry:hover {
     transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
 .blog-entry h3 {
-    color: #fe285d;
+    color: #ee6a8b;
     margin-bottom: 10px;
-    font-size: 2.3em;
+    font-size: 1.9em;
 
 }
 
@@ -522,8 +519,53 @@
     color: #555;
 }
 
+* Bloggfærslu haus */
+.blog-header {
+    text-align: left; /* Staðsetja titilinn til vinstri */
+    margin-bottom: 15px;
+}
 
+/* Titill bloggfærslu */
+.blog-title {
+    font-size: 2.5em;
+    color: #fe285d;
+    margin: 0;
+    padding: 0;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
 
+/* Undirtitill bloggfærslu */
+.blog-subtitle {
+    font-size: 1.2em;
+    color: #ffffff;
+    margin: 5px 0 0 0;
+    font-weight: normal;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Bloggfærslu mynd */
+.blog-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    object-fit: cover;
+}
+
+/* Lýsing bloggfærslu */
+.blog-description {
+    font-size: 1em;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    color: #ffffff;
+}
+
+/* Nánari upplýsingar */
+.blog-details {
+    font-size: 0.9em;
+    color: #ffd000;
+
+}
 </style>
 
     
@@ -555,12 +597,11 @@
     <div class="emoji" style="left: 40%; top: 70%;">💥</div>
    
     <!-- Hnappurinn fyrir míkróblogg -->
-<button id="blogButton" class="blog-button">📩</button>
+<button id="blogButton" class="blog-button">🗞️</button>
 
 <!-- Popup glugginn fyrir míkróblogg -->
 <div id="blogPopup" class="blog-popup">
     <div class="popup-content">
-        <span id="closeButton" class="close-button">&times;</span>
         <h2>Áríðandi tilkynningar</h2>
         <div id="blogContent">
             <!-- Bloggfærslur koma hingað -->
@@ -654,7 +695,7 @@ document.addEventListener('DOMContentLoaded', () => {
         blogPopup.style.animation = 'fadeOut 0.5s';
         setTimeout(() => {
             blogPopup.style.display = 'none';
-            blogButton.textContent = '📩'; // Endurheimta skilaboðamerkið
+            blogButton.textContent = '📰'; // Endurheimta skilaboðamerkið
             blogPopup.style.animation = 'fadeIn 0.5s'; // Setja aftur upp animation fyrir næsta opnun
             isOpen = false;
         }, 500); // Sama tíma og fadeOut animation
