@@ -33,7 +33,7 @@
             box-sizing: border-box;
             position: relative;
             overflow: hidden;
-            animation: float 5s ease-in-out infinite; /* Bæta við grunn fljótandi hreyfingu */
+            animation: float 2s, float 1s, dance 100s ease-in-out infinite; /* Bæta við grunn fljótandi hreyfingu */
         }
         a.tool-button {
             text-decoration: none;
@@ -52,17 +52,17 @@
             left: 50%;
             width: 300%;
             height: 300%;
-            transform: translate(-50%, -50%) scale(0);
+            transform: translate(-110%, -110%) scale(0);
             animation: ripple 0.6s forwards;
         }
         .tool-button.textatol:hover {
-            animation: dance 1s forwards, float-hover 1s ease-in-out infinite; /* Bæta við hraðari hover hreyfingu fyrir textatól */
+            animation: dance 2s backwards, float-hover 1s ease-in-out infinite; /* Bæta við hraðari hover hreyfingu fyrir textatól */
         }
         .tool-button.teiknitol:hover {
-            animation: spin 1s forwards, float-hover 1s ease-in-out infinite; /* Bæta við hraðari hover hreyfingu fyrir teiknitól */
+            animation: spin 3s backwards, float-hover 1s ease-in-out infinite; /* Bæta við hraðari hover hreyfingu fyrir teiknitól */
         }
         .tool-button.myndatol:hover {
-            animation: shake 1s forwards, float-hover 1s ease-in-out infinite; /* Bæta við hraðari hover hreyfingu fyrir myndatól */
+            animation: shake 2s forwards, float-hover 3s ease-in-out infinite; /* Bæta við hraðari hover hreyfingu fyrir myndatól */
         }
         @keyframes ripple {
             to {

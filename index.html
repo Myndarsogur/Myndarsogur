@@ -41,7 +41,7 @@
             color: #ff00ff;
             text-shadow: 2px 2px 5px #ff0, 0 0 10px #f00;
             font-size: 3em;
-            margin: 20px 0;
+            margin: 10px 100px;
             animation: pulsate 3s infinite;
         }
         @keyframes pulsate {
@@ -58,8 +58,8 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 20px;
-            border: 3px solid #fff;
+            padding: 1px;
+            border: px solid #fff;
             margin: 20px;
         }
         .section:nth-child(odd) {
@@ -79,8 +79,9 @@
         .section-container {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            margin: 20px;
+            gap: 5px;
+            margin: 1px;
+            padding: 1px;
         }
         .section {
             padding: 20px;
@@ -96,7 +97,7 @@
         .emoji {
             position: absolute;
             font-size: 2rem;
-            animation: float 3s ease-in-out infinite;
+            animation: float 1s ease-in-out infinite;
         }
         @keyframes float {
             0%, 100% {
@@ -106,22 +107,7 @@
                 transform: translateY(-20px);
             }
         }
-        #cursor {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            background: url('https://imgur.com/a/IbicCMI.png');
-            pointer-events: none;
-            animation: cursor-move 2s ease-in-out infinite;
-        }
-        @keyframes cursor-move {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-20px);
-            }
-        }
+     
         #myndasogugerd {
             position: fixed;
             bottom: -100px;
@@ -137,9 +123,17 @@
             0% {
                 transform: rotate(-10deg) translate(0, 0);
             }
+            25% {
+                transform: rotate(-20deg) translate(10px, -10);
+            }
+            0% {
+                transform: rotate(-10deg) translate(0, 0);
+            }
             100% {
                 transform: rotate(10deg) translate(10px, -10px);
             }
+
+
         }
         #arctic a {
             font-size: 2.5em;
@@ -158,7 +152,7 @@
                 text-shadow: 0px -5px 5px #fff, 0px 5px 5px #00f;
             }
         }
-        a {
+         a {
             display: block;
             margin: 20px;
             font-size: 2em;
@@ -166,6 +160,7 @@
             text-decoration: none;
             animation: bounce 1.5s infinite;
         }
+       
         @keyframes bounce {
             0%, 100% {
                 transform: translateY(0);
@@ -175,7 +170,7 @@
             }
         }
         #solusida {
-            font-size: 1.5em;'
+            font-size: 1.5em;
             background-color: #0000ff;
             border: 3px solid #ff00ff;
             padding: 20px;
@@ -202,54 +197,29 @@
             }
         }
         #hofundar {
-    position: absolute;
-    width: 100px;
-    height: 100px;
-    background: url('https://i.imgur.com/EBOQ8eV.gif') no-repeat center center;
-    background-size: cover;
-    border-radius: 50%;
-    animation: spin 5s linear infinite, move 10s linear infinite;
-    z-index: 1000;
-}
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-@keyframes move {
-    0% { transform: translate(10vw, 10vh); }
-    25% { transform: translate(80vw, 15vh); }
-    50% { transform: translate(70vw, 80vh); }
-    75% { transform: translate(20vw, 70vh); }
-    100% { transform: translate(10vw, 10vh); }
-}
-
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: url('https://i.imgur.com/EBOQ8eV.gif') no-repeat center center;
+            background-size: cover;
+            border-radius: 50%;
+            animation: spin 5s linear infinite, move 10s linear infinite;
+            z-index: 1000;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes move {
+            0% { transform: translate(10vw, 10vh); }
+            25% { transform: translate(80vw, 15vh); }
+            50% { transform: translate(70vw, 80vh); }
+            75% { transform: translate(20vw, 70vh); }
+            100% { transform: translate(10vw, 10vh); }
+        }
         .emoji {
             position: absolute;
             animation: float 3s ease-in-out infinite;
-        }
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-20px);
-            }
-        }
-        #cursor {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            background: url('https://imgur.com/a/IbicCMI.png');
-            pointer-events: none;
-            animation: cursor-move 2s ease-in-out infinite;
-        }
-        @keyframes cursor-move {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-20px);
-            }
         }
         .section-container {
             display: flex;
@@ -272,130 +242,135 @@
                 flex: 1 1 100%;
             }
         }
-      
-    h1, p {
-        position: absolute;
-        left: -9999px; /* Flytur textann langt út fyrir skjáinn */
-        visibility: hidden; /* Tryggir að hann sé ósýnilegur */
-    }
-    #ultramega {
-    position: relative;
-    display: inline-block;
-    font-family: cursive; /* Cursive */
-    font-size: 9em; /* Stórt og skrautlegt letur */
-    color: #ff00ff;
-    text-decoration: none;
-    /* Byrjandi neon-skuggi */
-    text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 20px #ff00ff;
-    /* Carnivalskeyti! */
-    animation: carnival 1s ease-in-out infinite,  
-    dance  1s ease-in-out infinite, 
-    bounce  1s ease-in-out infinite; 
-
-}
-
-/* Fleiri litir, meiri snúningur og hristingur til að fá „carnival“-tilfinningu */
-@keyframes carnival {
-    0% {
-        color: #ff00ff;
-        text-shadow: 
-            0 0 5px #ae59ae, 
-            0 0 10px #e1b3e1, 
-            0 0 20px #ff00ff;
-        transform: scale(1) rotate(0deg) translate(0, 0);
-    }
-    20% {
-        color: #ffff00;
-        text-shadow: 
-            0 0 5px #ffff00, 
-            0 0 10px #ffff00, 
-            0 0 20px #ffff00;
-        transform: scale(1.2) rotate(10deg) translate(5px, 0);
-    }
-    40% {
-        color: #00ff00;
-        text-shadow: 
-            0 0 5px #00ff00, 
-            0 0 10px #00ff00, 
-            0 0 20px #00ff00;
-        transform: scale(1.1) rotate(-5deg) translate(-5px, 5px);
-    }
-    60% {
-        color: #ff0000;
-        text-shadow: 
-            0 0 5px #ff0000, 
-            0 0 10px #ff0000, 
-            0 0 20px #ff0000;
-        transform: scale(1.3) rotate(5deg) translate(10px, -5px);
-    }
-    80% {
-        color: #00ffff;
-        text-shadow: 
-            0 0 5px #00ffff, 
-            0 0 10px #00ffff, 
-            0 0 20px #00ffff;
-        transform: scale(1.2) rotate(-5deg) translate(-5px, 10px);
-    }
-    100% {
-        color: #ff00ff;
-        text-shadow: 
-            0 0 5px #ff00ff, 
-            0 0 10px #ff00ff, 
-            0 0 20px #ff00ff;
-        transform: scale(1) rotate(0deg) translate(0, 0);
-    }
-}
- /* ====== "Dance": Sjálft dansið/hreyfingin ====== */
- @keyframes dance {
-  0% {
-    transform: scale(1) rotate(0deg) translate(0, 0);
-  }
-  10% {
-    /* lítið hopp upp */
-    transform: scale(1.3) rotate(5deg) translate(0, -20px);
-  }
-  20% {
-    /* lending með smá „dip“ */
-    transform: scale(0.9) rotate(-5deg) translate(0, 10px);
-  }
-  30% {
-    /* sveifla til vinstri */
-    transform: scale(1.2) rotate(10deg) translate(-10px, 0);
-  }
-  40% {
-    /* sveifla til hægri */
-    transform: scale(1) rotate(-10deg) translate(10px, 0);
-  }
-  50% {
-    /* lítið hopp upp + snúningur */
-    transform: scale(1.2) rotate(5deg) translate(5px, -10px);
-  }
-  60% {
-    /* lending + sveifla niður */
-    transform: scale(0.8) rotate(-5deg) translate(-5px, 15px);
-  }
-  70% {
-    /* hopp upp aftur */
-    transform: scale(1.2) rotate(5deg) translate(10px, -10px);
-  }
-  80% {
-    /* sveifla til baka */
-    transform: scale(1) rotate(-5deg) translate(-10px, 5px);
-  }
-  90% {
-    /* smá "cha cha" hliðarskref */
-    transform: scale(1.1) rotate(10deg) translate(5px, 0);
-  }
-  100% {
-    /* komum aftur í kyrrstöðu */
-    transform: scale(1) rotate(0deg) translate(0, 0);
-  }
-}
-/* Sérstakir stílar fyrir hverja section */
-#arid {
+        h1, p {
+            position: absolute;
+            left: -9999px; /* Flytur textann langt út fyrir skjáinn */
+            visibility: hidden; /* Tryggir að hann sé ósýnilegur */
+        }
+        #ultramega {
+            position: relative;
+            display: inline-block;
+            font-family: cursive; /* Cursive */
+            font-size: 6em; /* Stórt og skrautlegt letur */
+            padding: 0;
+            margin: 0;
+            color: #ff00ff;
+            text-decoration: none;
+            /* Byrjandi neon-skuggi */
+            text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+            /* Carnivalskeyti! */
+            animation: carnival 1s ease-in-out infinite,  
+            dance  1s ease-in-out infinite, 
+            bounce  5s ease-in-out infinite; 
+        }
+        /* Fleiri litir, meiri snúningur og hristingur til að fá „carnival“-tilfinningu */
+        @keyframes carnival {
+            0% {
+                color: #ff00ff;
+                text-shadow: 
+                    0 0 5px #ae59ae, 
+                    0 0 10px #e1b3e1, 
+                    0 0 20px #ff00ff;
+                transform: scale(1) rotate(0deg) translate(0, 0);
+            }
+            20% {
+                color: #ffff00;
+                text-shadow: 
+                    0 0 5px #ffff00, 
+                    0 0 10px #ffff00, 
+                    0 0 20px #ffff00;
+                transform: scale(1.2) rotate(10deg) translate(5px, 0);
+            }
+            40% {
+                color: #00ff00;
+                text-shadow: 
+                    0 0 5px #00ff00, 
+                    0 0 10px #00ff00, 
+                    0 0 20px #00ff00;
+                transform: scale(1.1) rotate(-5deg) translate(-5px, 5px);
+            }
+            60% {
+                color: #ff0000;
+                text-shadow: 
+                    0 0 5px #ff0000, 
+                    0 0 10px #ff0000, 
+                    0 0 20px #ff0000;
+                transform: scale(1.3) rotate(5deg) translate(10px, -5px);
+            }
+            80% {
+                color: #00ffff;
+                text-shadow: 
+                    0 0 5px #00ffff, 
+                    0 0 10px #00ffff, 
+                    0 0 20px #00ffff;
+                transform: scale(1.2) rotate(-5deg) translate(-5px, 10px);
+            }
+            100% {
+                color: #ff00ff;
+                text-shadow: 
+                    0 0 5px #ff00ff, 
+                    0 0 10px #ff00ff, 
+                    0 0 20px #ff00ff;
+                transform: scale(1) rotate(0deg) translate(0, 0);
+            }
+        }
+        /* ====== "Dance": Sjálft dansið/hreyfingin ====== */
+        @keyframes dance {
+            0% {
+                transform: scale(1) rotate(0deg) translate(0, 0);
+            }
+            10% {
+                /* lítið hopp upp */
+                transform: scale(1.3) rotate(5deg) translate(0, -20px);
+            }
+            20% {
+                /* lending með smá „dip“ */
+                transform: scale(0.9) rotate(-5deg) translate(0, 10px);
+            }
+            30% {
+                /* sveifla til vinstri */
+                transform: scale(1.2) rotate(10deg) translate(-10px, 0);
+            }
+            40% {
+                /* sveifla til hægri */
+                transform: scale(1) rotate(-10deg) translate(10px, 0);
+            }
+            50% {
+                /* lítið hopp upp + snúningur */
+                transform: scale(1.2) rotate(5deg) translate(5px, -10px);
+            }
+            60% {
+                /* lending + sveifla niður */
+                transform: scale(0.8) rotate(-5deg) translate(-5px, 15px);
+            }
+            70% {
+                /* hopp upp aftur */
+                transform: scale(1.2) rotate(5deg) translate(10px, -10px);
+            }
+            80% {
+                /* sveifla til baka */
+                transform: scale(1) rotate(-5deg) translate(-10px, 5px);
+            }
+            90% {
+                /* smá "cha cha" hliðarskref */
+                transform: scale(1.1) rotate(10deg) translate(5px, 0);
+            }
+            100% {
+                /* komum aftur í kyrrstöðu */
+                transform: scale(1) rotate(0deg) translate(0, 0);
+            }
+        }
+        /* Sérstakir stílar fyrir hverja section */
+        #arid {
             background-color: #ff0;
             color: #000;
-            font-size: 15px;
+            font-size: 25px;
+            font-weight: bolder;
+            font-style: sans-serif;
+            height: 140px;
+
+
+            
         }
         #arid a {
             color: #000;
@@ -434,7 +409,7 @@
             <a href="ARCTIC/index.html">The Arctic Comics Journal</a>
         </div>
         <div class="section" id="arid">
-            <a href="Arid2024/index.html">Árið 2024 í myndasögum</a>
+            <a href="Arid2024/index.html">Myndarsögur <br> Árið 2024 </a>
         </div>
         <div class="section" id="solusida">
             <a href="Solusida/index.html">Sölusíða</a>
@@ -450,7 +425,7 @@
     <div class="emoji" style="left: 10%; top: 30%;">🌟</div>
     <div class="emoji" style="left: 70%; top: 50%;">🔥</div>
     <div class="emoji" style="left: 40%; top: 70%;">💥</div>
-    <div id="myndasogugerd">🤖</div>
+   
     <script>
         const cursor = document.getElementById('cursor');
         const solusida = document.getElementById('solusida');
@@ -545,11 +520,6 @@ fetch('https://api.indexnow.org/IndexNow', {
 .then(data => console.log(data))
 .catch(error => console.error('Error:', error));
 
-// Robot emoji click event
-const robotEmoji = document.getElementById('robotEmoji');
-robotEmoji.addEventListener('click', () => {
-    window.location.href = 'Myndasogugerd/index.html';
-});
 
 // Myndasogugerd click event
 const myndasogugerd = document.getElementById('myndasogugerd');
