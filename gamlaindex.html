@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="ULTramEgasíðan er staður þar sem myndasögur, leikjasíður og skapandi efni lifna við! Komdu og uppgötvaðu heim ævintýra." />
-    <title>  ULTramEgasíðan - Myndasögur, leikir, sköpun, heimar og geimar!</title>
+    <title>ULTramEgasíðan - Myndasögur, leikir, sköpun, heimar og geimar!</title>
     <!-- Basic Open Graph Meta Tags -->
     <meta property="og:url" content="https://myndarsogur.is/" />
     <meta property="og:type" content="website" />
@@ -32,16 +32,10 @@
     <style>
         body {
             background-color: #000;
-            color: #ffffff;
+            color: #00ff00;
             font-family: 'Comic Sans MS', cursive, sans-serif;
             margin: 0;
             overflow: hidden;
-        }
-         /* Fela aðeins tiltekna h1 og p */
-         .hidden-text {
-            position: absolute;
-            left: -9999px; /* Flytur textann langt út fyrir skjáinn */
-            visibility: hidden; /* Tryggir að hann sé ósýnilegur */
         }
         title {
             color: #ff00ff;
@@ -132,9 +126,14 @@
             25% {
                 transform: rotate(-20deg) translate(10px, -10);
             }
+            0% {
+                transform: rotate(-10deg) translate(0, 0);
+            }
             100% {
                 transform: rotate(10deg) translate(10px, -10px);
             }
+
+
         }
         #arctic a {
             font-size: 2.5em;
@@ -243,8 +242,7 @@
                 flex: 1 1 100%;
             }
         }
-        /* Fela aðeins tiltekna h1 og p */
-        .hidden-text {
+        h1, p {
             position: absolute;
             left: -9999px; /* Flytur textann langt út fyrir skjáinn */
             visibility: hidden; /* Tryggir að hann sé ósýnilegur */
@@ -395,184 +393,16 @@
             color: #fcfbff;
             background: linear-gradient(90deg, #969dfb, #f0f0f0);
         }
-/* Hnappurinn fyrir míkróblogg */
-.blog-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #ff0095;
-    color: rgb(255, 255, 255);
-    border: none;
-    border-radius: 50%;
-    width: 10;
-    height: 10;
-    font-size: 74px;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(231, 222, 222, 0.1);
-    transition: background-color 0.3s;
-    z-index: 1000;
-}
 
-.blog-button:hover {
-    background-color: #e63599;
-}
 
-/* Popup glugginn */
-.blog-popup {
-    display: none; /* Fylgir ekki upphaflega */
-    position: fixed;
-    bottom: 90px; /* Ofar í gegn við hnappinn */
-    right: 20px;
-    width: 300px;
-    max-height: 400px;
-    background-color: rgb(0, 0, 0);
-   
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-    overflow-y: auto;
-    animation: fadeIn 0.5s;
-    z-index: 999;
-}
 
-/* Innihald popup gluggans */
-.popup-content {
-    padding: 20px;
-    position: relative;
-    text-emphasis-color: rgb(255, 255, 255);
-    text-decoration-color: rgb(255, 255, 255)
-}
-
-/* Loka hnappurinn (X) */
-.close-button {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 24px;
-    cursor: pointer;
-}
-
-/* Animation fyrir popup */
-@keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
-}
-
-@keyframes fadeOut {
-    from { opacity: 1; transform: scale(1); }
-    to { opacity: 0; transform: scale(0.9); }
-}
-
-/* Bæta við stíl fyrir bloggfærslur */
-#blogContent {
-    margin-top: 10px;
-    color:#dced40
-    
-}
-
-.blog-entry {
-    position: relative;
-    background-color: #1a1a1a; /* Dökkri bakgrunnur fyrir betri lesanleika */
-    border-bottom: 1px solid #ddd;
-    padding: 20px 0;
-    color:#dced40;
-    border-radius: 10px;
-    padding: 15px 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s, box-shadow 0.3s;
-
-}
-
-.blog-entry:last-child {
-    border-bottom: none;
-    color:#09ff00
-    
-
-}
-.blog-entry img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    margin-bottom: 10px;
-}
-
-.blog-entry:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-}
-
-.blog-entry h3 {
-    color: #ee6a8b;
-    margin-bottom: 10px;
-    font-size: 1.9em;
-
-}
-
-.blog-entry p {
-    color: #ffffff;
-    line-height: 1.6;
-    margin-bottom: 10px;
-}
-
-.blog-entry strong {
-    color: #555;
-}
-
-* Bloggfærslu haus */
-.blog-header {
-    text-align: left; /* Staðsetja titilinn til vinstri */
-    margin-bottom: 15px;
-}
-
-/* Titill bloggfærslu */
-.blog-title {
-    font-size: 2.5em;
-    color: #fe285d;
-    margin: 0;
-    padding: 0;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-}
-
-/* Undirtitill bloggfærslu */
-.blog-subtitle {
-    font-size: 1.2em;
-    color: #ffffff;
-    margin: 5px 0 0 0;
-    font-weight: normal;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-}
-
-/* Bloggfærslu mynd */
-.blog-image {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    object-fit: cover;
-}
-
-/* Lýsing bloggfærslu */
-.blog-description {
-    font-size: 1em;
-    line-height: 1.6;
-    margin-bottom: 15px;
-    color: #ffffff;
-}
-
-/* Nánari upplýsingar */
-.blog-details {
-    font-size: 0.9em;
-    color: #ffd000;
-
-}
 </style>
 
     
 </head>
 <body>
-    <h1 class="hidden-text">ULTramEgasíðan - Myndasögur, leikir, sköpun, heimar og geimar!</h1>
-    <p class="hidden-text">Velkomin á ULTramEgasíðuna! Hér finnur þú spennandi myndasögur, leikjasíður og margt fleira sem veitir þér skemmtun og sköpunargleði.</p>
+    <h1>ULTramEgasíðan - Myndasögur, leikir, sköpun, heimar og geimar! </h1>
+<p>Velkomin á ULTramEgasíðuna! Hér finnur þú spennandi myndasögur, leikjasíður og margt fleira sem veitir þér skemmtun og sköpunargleði.</p>
       <a id="ultramega" href="Leikjasidan/index.html" style="color: #ff00ff; text-decoration: none;">ULTramEgasíðan</a>
     <div class="section-container">
         <div class="section" id="arctic">
@@ -596,112 +426,7 @@
     <div class="emoji" style="left: 70%; top: 50%;">🔥</div>
     <div class="emoji" style="left: 40%; top: 70%;">💥</div>
    
-    <!-- Hnappurinn fyrir míkróblogg -->
-<button id="blogButton" class="blog-button">🗞️</button>
-
-<!-- Popup glugginn fyrir míkróblogg -->
-<div id="blogPopup" class="blog-popup">
-    <div class="popup-content">
-        <h2>Áríðandi tilkynningar</h2>
-        <div id="blogContent">
-            <!-- Bloggfærslur koma hingað -->
-            <p>Hleður bloggfærslur...</p>
-        </div>
-    </div>
-</div>
-
-
     <script>
-
-        // script.js (Innan <script> taggsins þíns)
-
-document.addEventListener('DOMContentLoaded', () => {
-    const blogButton = document.getElementById('blogButton');
-    const blogPopup = document.getElementById('blogPopup');
-    const closeButton = document.getElementById('closeButton');
-    const blogContent = document.getElementById('blogContent');
-
-    let isOpen = false;
-
-    // Opna popup
-    blogButton.addEventListener('click', () => {
-        if (!isOpen) {
-            openPopup();
-        } else {
-            closePopup();
-        }
-    });
-
-    // Loka popup þegar loka hnappurinn er smellt
-    closeButton.addEventListener('click', () => {
-        closePopup();
-    });
-
-    // Loka popup þegar notandi smellt utan við
-    window.addEventListener('click', (event) => {
-        if (event.target === blogPopup) {
-            closePopup();
-        }
-    });
-
-    async function openPopup() {
-        blogContent.innerHTML = '<p>Hleður bloggfærslur...</p>';
-        blogPopup.style.display = 'block';
-        blogPopup.style.animation = 'fadeIn 0.5s';
-        blogButton.textContent = '✖'; // Breyta í X
-        isOpen = true;
-
-        try {
-            const response = await fetch('orblogg/blogg.json?v=' + new Date().getTime());
-            if (!response.ok) {
-                throw new Error('Ekki tókst að sækja blogg.json');
-            }
-            const blogFiles = await response.json();
-            displayBlogs(blogFiles);
-        } catch (error) {
-            blogContent.innerHTML = `<p>Villa við að hlaða bloggfærslur: ${error.message}</p>`;
-            console.error(error);
-        }
-    }
-
-    async function displayBlogs(blogFiles) {
-        if (blogFiles.length === 0) {
-            blogContent.innerHTML = '<p>Engar bloggfærslur til staðar.</p>';
-            return;
-        }
-
-        blogContent.innerHTML = ''; // Hreinsa fyrri innihald
-
-        for (const file of blogFiles) {
-            try {
-                const response = await fetch(`orblogg/${file}`);
-                if (!response.ok) {
-                    console.warn(`Ekki tókst að sækja ${file}`);
-                    continue;
-                }
-                const blogHTML = await response.text();
-                const blogEntry = document.createElement('div');
-                blogEntry.classList.add('blog-entry');
-                blogEntry.innerHTML = blogHTML;
-                blogContent.appendChild(blogEntry);
-            } catch (error) {
-                console.warn(`Villa við að hlaða ${file}: ${error.message}`);
-            }
-        }
-    }
-
-    function closePopup() {
-        // Bæta við fade out animation
-        blogPopup.style.animation = 'fadeOut 0.5s';
-        setTimeout(() => {
-            blogPopup.style.display = 'none';
-            blogButton.textContent = '📰'; // Endurheimta skilaboðamerkið
-            blogPopup.style.animation = 'fadeIn 0.5s'; // Setja aftur upp animation fyrir næsta opnun
-            isOpen = false;
-        }, 500); // Sama tíma og fadeOut animation
-    }
-});
-
         const cursor = document.getElementById('cursor');
         const solusida = document.getElementById('solusida');
         const body = document.body;
