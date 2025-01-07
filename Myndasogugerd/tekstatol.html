@@ -29,7 +29,7 @@
     /* Niðurhalshnappur */
     .download-btn {
       background-color: #506b88;
-      color: #6c6262;
+      color: rgb(68, 68, 68);
       border: none;
       cursor: pointer;
       font-size: 18px;
@@ -37,7 +37,8 @@
       border-radius: 5px;
       display: flex;
       align-items: center;
-      margin-left: -250px; /* Færa hnappinn aðeins til vinstri */
+      margin-left: -720px; /* Færa hnappinn aðeins til vinstri */
+
     }
 
     .download-btn span {
@@ -83,7 +84,9 @@
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
       link.download = 'handrit.html';
+      document.body.appendChild(link); // Bæta við tengilinn í DOM
       link.click();
+      document.body.removeChild(link); // Fjarlægja tengilinn úr DOM
     });
   </script>
 </body>
