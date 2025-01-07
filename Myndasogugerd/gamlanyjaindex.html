@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tól</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #333;
+        }
+        nav a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+        }
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        #content {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="tekstatol.html" onclick="navigate(event, 'tekstatol.html', 'Textatól')">Textatól</a>
+        <a href="teiknitol.html" onclick="navigate(event, 'teiknitol.html', 'Teiknitól')">Teiknitól</a>
+        <a href="myndatol/index.html" onclick="navigate(event, 'myndatol/index.html', 'Myndatól')">Myndatól</a>
+    </nav>
+    <div id="content">
+        <h2>Veldu tólið efst til að byrja</h2>
+    </div>
+
+    <script>
+        // Fall til að hlaða innihald og uppfæra URL með pushState
+        function loadContent(page, title) {
+            fetch(page)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Síða fannst ekki');
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('content').innerHTML = data;
+                    if (title) {
+                        document.title = title;
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('content').innerHTML = '<p>Villa við að hlaða síðunni.</p>';
+                    console.error('Villa:', error);
+                });
+        }
+
+        // Fall sem fer með pushState
+        function navigate(event, page, title) {
+            event.preventDefault(); // Hindra venjuleg tengil hegðun
+            loadContent(page, title);
+            window.history.pushState({page: page, title: title}, title, page);
+        }
+
+        // Viðburðarhandler fyrir þegar notandi notar fram eða aftur hnappana
+        window.onpopstate = function(event) {
+            if (event.state && event.state.page) {
+                loadContent(event.state.page, event.state.title);
+            }
+        };
+    </script>
+</body>
+</html>
