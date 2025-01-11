@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sæt borg - 1.hluti - Bras og brestir</title>
+  <style>
+    /* Núllstillum grunn stillingar */
+    * {
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f1e4;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    /* Parent container fyrir myndasögu-rammana */
+    #comicContainer {
+      display: flex;
+      flex-wrap: wrap;         /* Gerir það auðvelt að raða römmum á litlum skjám */
+      max-width: 1200px;
+      margin: 0 auto;          /* Miðja síðuna */
+      justify-content: center; /* Jafnar bil í miðju */
+      gap: 20px;               /* Bil á milli ramma */
+      padding: 20px;
+    }
+
+    /* Hver rammi (myndasögu panel) */
+    .comicFrame {
+      position: relative;      /* Fyrir mögulegt overlap */
+      width: 250px;
+      height: 180px;
+      background: #ccc;
+      border: 3px solid #f7f2e4;
+      cursor: pointer;
+      overflow: hidden;
+      border-radius: 5px;      /* Örlítið mýkra útlit */
+      transition: transform 0.3s ease;
+    }
+    .comicFrame:hover {
+      transform: scale(1.03);
+    }
+
+    /* Dæmi um placeholder-mynd */
+    .comicFrame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Klippir mynd til að passa í rammann */
+      display: block;
+    }
+
+    /* Simple overlay (modal gluggi) sem við birtum/duldum */
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; 
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: none;         /* Falið í byrjun */
+      align-items: center;   /* Miðja lóðrétt */
+      justify-content: center; /* Miðja lárétt */
+      z-index: 999;          /* Ofar öllu */
+      animation-duration: 0.5s;
+      animation-fill-mode: forwards;
+    }
+
+    /* Innihald gluggans */
+    .overlayContent {
+      background: #fff;
+      color: #333;
+      max-width: 600px;
+      width: 90%;
+      padding: 20px;
+      border-radius: 5px;
+      position: relative;
+      /* Fade-in effect ef við viljum að modal itself dofni inn */
+      animation-name: fadeInModal;
+      animation-duration: 0.5s;
+      animation-fill-mode: forwards;
+    }
+
+    /* Close takki (X) efst til hægri */
+    .closeBtn {
+      position: absolute;
+      top: 10px; 
+      right: 10px;
+      background: #333;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      padding: 5px 8px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    /* Fade-in/fade-out keyframes fyrir overlay */
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+    /* Fade-in á modal box sjálft */
+    @keyframes fadeInModal {
+      0% { transform: translateY(-20px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+    /* Ef við viljum fade out modal geturðu búið til samsvarandi fadeOutModal keyframe einnig */
+
+    /* Class sem við setjum á overlay þegar við birtum það (til að keyra fade-in) */
+    .showOverlay {
+      display: flex;
+      animation-name: fadeIn;
+    }
+  </style>
+</head>
+<body>
+
+  <h1> Sæt borg - Ást og Bylting - Undir Mosanum  </h1>
+  
+  <!-- 1) Ytri container fyrir myndasögu-rammana -->
+  <div id="comicContainer">
+    <!-- Rammi #1 -->
+    <div class="comicFrame" data-story="content1">
+      <!-- Placeholder-mynd -->
+      <img src="http://placekittens.com/g/209/300" alt="R1">
+      <h2>Myndasaga dagsins</h2>
+      <p>Smelltu til að byrja söguna...</p>
+
+      <textarea> sdsladlndsa</textarea> 
+      
+    </div>
+    <!-- Rammi #2 -->
+    <div class="comicFrame" data-story="content2">
+      <img src="http://placekittens.com/g/205/300" alt="R2">
+    </div>
+    <!-- Rammi #3 -->
+    <div class="comicFrame" data-story="content3">
+      <img src="http://placekittens.com/g/201/300" alt="R3">
+    </div>
+    <!-- Rammi #4 -->
+    <div class="comicFrame" data-story="content4">
+      <img src="http://placekittens.com/g/202/300" alt="R4">
+    </div>
+    <!-- Rammi #5 -->
+    <div class="comicFrame" data-story="content5">
+      <img src="http://placekittens.com/g/203/300" alt="R5">
+    </div>
+    <!-- Rammi #6 -->
+    <div class="comicFrame" data-story="content6">
+      <img src="http://placekittens.com/g/202/300" alt="R6">
+    </div>
+    <!-- Rammi #7 -->
+    <div class="comicFrame" data-story="content7">
+      <img src="http://placekittens.com/g/204/300" alt="R7">
+    </div>
+    <!-- Rammi #8 -->
+    <div class="comicFrame" data-story="content8">
+      <img src="http://placekittens.com/g/206/300" alt="R8">
+    </div>
+    <!-- Rammi #9 -->
+    <div class="comicFrame" data-story="content9">
+      <img src="http://placekittens.com/g/208/300" alt="R9">
+    </div>
+  </div>
+
+  <!-- 2) Overlay gluggi – hér birtist efni eftir því hvaða rammi var valinn -->
+  <div id="overlay" class="overlay">
+    <div class="overlayContent" id="overlayContent">
+      <button class="closeBtn" id="closeBtn">Loka</button>
+      <div id="content1" style="display:none;">
+        <h2>Ljósmyndarinn</h2>
+        <p>Hlédræg, en áhugasöm. Forvitin og ævintýragjörn, hikandi.</p>
+        <p>Hefur ekki mikið verið að veita fólki athygli en langar að vita meira.</p>
+        <p>Langar að sjá meira af heiminum en er feimin, felur sig á bakvið myndavél.</p>
+        <p>Nær að nálgast veröldina gegnum hana.  Nær að nýta tólið til að koma sér inn.</p>
+        <p>Langar að vera með veröldinni í að uppgötva sjálfa sig. </p>
+        <p>Mikil löngun í að fanga eitthvað, safna einhverju, ná utan um eitthvað.</p>
+      </div>
+      <div id="content2" style="display:none;">
+        <h2>Rapparinn</h2>
+        <p>Í öðrum kafla heldur kötturinn í spennandi ævintýri.</p>
+        <p>Hvað gerist næst? Við höldum áfram sögunni hér...</p>
+      </div>
+      <div id="content3" style="display:none;">
+        <h2>Kötturinn</h2>
+        <p>Kötturinn mætir skrýtnum persónum á leið sinni. Kostir og gallar eru vegnir og metnir...</p>
+      </div>
+      <div id="content4" style="display:none;">
+        <h2>Stelpan í gulu úlpunni</h2>
+        <p>Lokaorð sögunnar – kötturinn nær markmiðinu sínu, eða kannski ekki?</p>
+      </div>
+      <div id="content5" style="display:none;">
+        <h2>Stjórnmálamaðurinn</h2>
+        <p>Hér gæti byrjað saga dagsins. Kötturinn vaknar og horfir út um gluggann...</p>
+        <p>Frekari texti eða myndir sem útskýra fyrsta hluta myndasögunnar.</p>
+      </div>
+      <div id="content6" style="display:none;">
+        <h2>Byltingarmóðirin</h2>
+        <p>Í öðrum kafla heldur kötturinn í spennandi ævintýri.</p>
+        <p>Hvað gerist næst? Við höldum áfram sögunni hér...</p>
+      </div>
+      <div id="content7" style="display:none;">
+        <h2>Strætóbílstjórinn</h2>
+        <p>Kötturinn mætir skrýtnum persónum á leið sinni. Kostir og gallar eru vegnir og metnir...</p>
+      </div>
+      <div id="content8" style="display:none;">
+        <h2>Borgin</h2>
+        <p>Lokaorð sögunnar – kötturinn nær markmiðinu sínu, eða kannski ekki?</p>
+      </div>
+      <div id="content9" style="display:none;">
+        <h2>Aukapersónur</h2>
+        <p>Aukakafli – kötturinn uppgötvar nýja hluti og heldur áfram ævintýrinu...</p>
+        <p>Frekari texti eða myndir sem útskýra aukakaflann.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Sækjum element
+    const frames = document.querySelectorAll('.comicFrame');
+    const overlay = document.getElementById('overlay');
+    const closeBtn = document.getElementById('closeBtn');
+    const overlayContent = document.getElementById('overlayContent');
+
+    // Allar content-dívurnar (kaflar)
+    const contents = {
+      content1: document.getElementById('content1'),
+      content2: document.getElementById('content2'),
+      content3: document.getElementById('content3'),
+      content4: document.getElementById('content4'),
+      content5: document.getElementById('content5'),
+      content6: document.getElementById('content6'),
+      content7: document.getElementById('content7'),
+      content8: document.getElementById('content8'),
+      content9: document.getElementById('content9')
+    };
+
+    // 1) Þegar smellt er á ramma
+    frames.forEach((frame) => {
+      frame.addEventListener('click', () => {
+        // Finna hvaða "data-story" var á rammanum
+        const storyId = frame.getAttribute('data-story');
+
+        // Birta overlay
+        overlay.classList.add('showOverlay');
+
+        // Felum allt efni innan overlayContent
+        for (const key in contents) {
+          contents[key].style.display = 'none';
+        }
+
+        // Sýnum rétt efni
+        contents[storyId].style.display = 'block';
+      });
+    });
+
+    // 2) Lokuhnappur fyrir overlay
+    closeBtn.addEventListener('click', () => {
+      // Felum overlay með því að taka burt .showOverlay (sem keyrði fadeIn)
+      overlay.classList.remove('showOverlay');
+      // Ef við viljum fade-out animation, gætum við sett .fadeOut klasa í stað remove
+      // og svo sett setTimeout til að fjarlægja "display:flex;" o.s.frv.
+    });
+  </script>
+</body>
+</html>
