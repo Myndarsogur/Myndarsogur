@@ -1,0 +1,65 @@
+Velkomin/n í Myndasögur appið (héðan eftir nefnt "Appið"). 
+Við leggjum mikla áherslu á að vernda persónuupplýsingar notenda okkar og viðurkennum mikilvægi persónuverndar. 
+Þessi persónuverndarstefna útskýrir hvernig við söfnum, notum, deilum og verndum persónuupplýsingar þínar þegar þú notar Appið.
+
+1. Hvaða upplýsingar við söfnum
+
+Við getum söfnun eftirfarandi persónuupplýsinga:
+
+Persónuupplýsingar: Nafn, netfang, símanúmer (ef þú skráir þig inn).
+Tækjabundnar upplýsingar: Tegund tæks, stýrikerfi, tæknilegar upplýsingar um tækið sem þú notar til að keyra Appið.
+Notkunarupplýsingar: Hvernig þú notar Appið, hvaða myndasögur þú skoðar, tími notkunar og aðrar tengdar upplýsingar.
+Upplýsingar frá samfélagsmiðlum: Ef þú samþykkir að tengja Appið við samfélagsmiðla, gætum við fengið upplýsingar frá þeim þjónustum.
+2. Hvernig við notum upplýsingarnar
+
+Við notum upplýsingar þínar til eftirfarandi tilgangs:
+
+Að veita og bæta þjónustu: Til að keyra Appið og veita þér bestu mögulegu upplifun.
+Persónuleg upplifun: Til að sérsníða innihald og tillögur í samræmi við áhugamál þín.
+Tækniþjónusta og stuðningur: Til að aðstoða við tæknilegar villur eða spurningar sem þú kannt að hafa.
+Markaðssetning: Til að senda þér fréttir, uppfærslur og tilboð (að sjálfsögðu, þú getur valið að sleppa þessum).
+Greining og rannsókn: Til að greina notkunarmynstur og bæta Appið.
+3. Deiling upplýsinganna
+
+Við deilum ekki persónuupplýsingum þínum með þriðja aðila nema:
+
+Þriðja aðilar þjónustuveitendur: Til að hjálpa okkur við rekstur og aðstoða við að veita þína þjónustu (til dæmis, skýjahýsingar, greiningarþjónustur).
+Lögfræðileg skyldur: Ef við erum skyldug að deila upplýsingum til að uppfylla lög eða reglugerðir, til að verja réttindi okkar, eða í tengslum við lagaleg ráðgjöf.
+Fjármögnun: Ef við seljum eða kaupum fyrirtæki eða eignir, gæti nýja eignaraðilinn fengið aðgang að upplýsingum þínum.
+4. Öryggi upplýsinganna
+
+Við tökum öryggi persónuupplýsinga þinna alvarlega og notum viðeigandi tæknilega og stjórnsýslulegar aðferðir til að verja þær gegn óleyfilegum aðgangi, breytingum, birtingu eða eyðingu.
+
+5. Réttur þinn
+
+Þú hefur eftirfarandi réttindi varðandi persónuupplýsingar þínar:
+
+Aðgangur: Þú getur fengið aðgang að persónuupplýsingum þínum sem við höfum varðandi þig.
+Réttur til að leiðrétta: Þú getur beðið um að leiðrétta rangar eða ófullkomnar upplýsingar.
+Réttur til að eyða: Þú getur beðið um að eyða persónuupplýsingum þínum, nema við höfum lögbundnar skyldur til að halda þeim.
+Réttur til að takmarka vinnslu: Þú getur beðið um að takmarka vinnslu upplýsinga þinna.
+Réttur til að mótmæla: Þú getur mótmælt vinnslu upplýsinga þinna undir tilteknum skilyrðum.
+Réttur til að hagnýta gögn: Þú getur beðið um að fá persónuupplýsingar þínar í skipulögðu, almennilega og vélavænnu sniðinu.
+Til að nýta þessi réttindi, vinsamlegast hafðu samband við okkur í gegnum netfangið okkar.
+
+6. Öryggisstillingar
+
+Við notum aðferðir eins og SSL (Secure Socket Layer) til að tryggja að gögnin sem þú sendir í gegnum Appið séu örugg. Hins vegar, engin gagnatrygging er 100% örugg, svo við getum ekki ábyrgst að gögnin þín séu alltaf óbreytt eða óbarkað.
+
+7. Notkun samfélagsmiðla og þriðja aðila
+
+Ef þú samþykkir að tengja Appið við samfélagsmiðla, þá kunna að þeir þjónustur að taka við og nota persónuupplýsingar þínar í samræmi við eigin persónuverndarstefnu þeirra.
+
+8. Börn
+
+Appið er ekki ætlað börnum undir 13 ára aldri. Við söfnum ekki meðvitað persónuupplýsingar barna undir þessum aldri. Ef við lærum að við höfum verið að safna slíkt gildi, þá munum við fjarlægja það strax.
+
+9. Breytingar á persónuverndarstefnu
+
+Við gætum breytt þessari persónuverndarstefnu til að laga okkur að breytingum á lögum eða til að bæta hvernig við verndum persónuupplýsingar þínar. Við munum tilkynna þér um allar breytingar með því að uppfæra þessa stefnu og birta nýju útgáfuna í Appinu.
+
+10. Hafðu samband
+
+Ef þú hefur einhverjar spurningar, áhyggjur eða athugasemdir varðandi þessa persónuverndarstefnu eða hvernig við höndlum persónuupplýsingar þínar, vinsamlegast hafðu samband við okkur í gegnum:
+
+Netfang: myndarsogur@gmail.com
