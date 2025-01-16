@@ -50,6 +50,7 @@ body {
   height: 100px; /* ef hnappamyndin er fermynd */
   z-index: 5;    /* ofan á bakgrunni */
   transition: transform 0.3s ease-in-out; /* smá “smooth” */
+  
 
 }
 .button-container:hover {
