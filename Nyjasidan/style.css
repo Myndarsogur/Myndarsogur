@@ -57,23 +57,23 @@ body {
 
 /* Stillingar fyrir hnapp 1 */
 #btn1 {
-  top: 10%;
-  left: 0%;
-  width: 150px;  /* Stilltu breiddina fyrir hnapp 1 */
-  height: 150px; /* Stilltu hæðina fyrir hnapp 1 */
+  top: 18%;
+  left: 10%;
+  width: 110px;  /* Stilltu breiddina fyrir hnapp 1 */
+  height: 110px; /* Stilltu hæðina fyrir hnapp 1 */
 }
 
 /* Stillingar fyrir hnapp 2 */
 #btn2 {
-  top: 29%;
-  left: 10%;
-  width: 120px;  /* Stilltu breiddina fyrir hnapp 2 */
-  height: 120px; /* Stilltu hæðina fyrir hnapp 2 */
+  top: 30%;
+  left: 14%;
+  width: 140px;  /* Stilltu breiddina fyrir hnapp 2 */
+  height: 140px; /* Stilltu hæðina fyrir hnapp 2 */
 }
 
 /* Stillingar fyrir hnapp 3 */
 #btn3 {
-  top: 44%;
+  top: 40%;
   left: 0%;
   width: 220px;  /* Stilltu breiddina fyrir hnapp 3 */
   height: 200px; /* Stilltu hæðina fyrir hnapp 3 */
@@ -91,8 +91,8 @@ body {
 
 /* Sjálf hnappamyndin */
 .hnappur {
-  width: 100%; 
-  height: 100%;
+  width: 80%; 
+  height: 80%;
   object-fit: contain;
   pointer-events: auto; /* svo smelli "lendi" á container, ef það hentar */
 }
@@ -121,7 +121,7 @@ body {
 #btn2 .hnappur-overlay {
   top: -20%; /* Stilltu staðsetningu fyrir overlay textann */
   left: -30%; /* S-tilltu staðsetningu fyrir overlay textann */
-  width: 180%; /* Stilltu breiddina fyrir overlay textann */
+  width: 150%; /* Stilltu breiddina fyrir overlay textann */
 }
 
 /* Minnstu ikon (teningur, rammi, skrifa, palletta) á hnapp #3 */
