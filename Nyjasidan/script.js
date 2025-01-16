@@ -1,40 +1,42 @@
 // Ef þú vilt að smelli á litlu táknin opni síður:
+const basePath = '../'; // Þetta fer upp um eina möppu
+
 document.getElementById("teningur").addEventListener("click", function() {
-  window.open("Leikjasidan/index.html", "_blank");
+  window.open(`${basePath}Leikjasidan/index.html`, "_blank");
 });
 document.getElementById("rammi").addEventListener("click", function() {
-  window.open("Myndasogugerd/myndatol.html", "_blank");
+  window.open(`${basePath}Myndasogugerd/myndatol.html`, "_blank");
 });
 document.getElementById("skrifa").addEventListener("click", function() {
-  window.open("Myndasogugerd/tekstatol.html", "_blank");
+  window.open(`${basePath}Myndasogugerd/tekstatol.html`, "_blank");
 });
 document.getElementById("palletta").addEventListener("click", function() {
-  window.open("Myndasogugerd/teiknitol.html", "_blank");
+  window.open(`${basePath}Myndasogugerd/teiknitol.html`, "_blank");
 });
 
 // Fiskur 1
 document.getElementById("fiskur1").addEventListener("click", function() {
-  window.open("Karakterar/index.html", "_blank");
+  window.open(`${basePath}Karakterar/index.html`, "_blank");
 });
 
 // Fiskur 2
 document.getElementById("fiskur2").addEventListener("click", function() {
-  window.open("Karakterar/index.html", "_blank");
+  window.open(`${basePath}Karakterar/index.html`, "_blank");
 });
 
 // Hundur
 document.getElementById("hundur").addEventListener("click", function() {
-  window.open("Solusida/index.html", "_blank");
+  window.open(`${basePath}Solusida/index.html`, "_blank");
 });
 
 // Arctic
 document.getElementById("arctic").addEventListener("click", function() {
-  window.open("ARCTIC/index.html", "_blank");
+  window.open(`${basePath}ARCTIC/index.html`, "_blank");
 });
 
 // 2024
 document.getElementById("twenty24").addEventListener("click", function() {
-  window.open("Arid2024/index.html", "_blank");
+  window.open(`${basePath}Arid2024/index.html`, "_blank");
 });
 
 // List of plant emojis
