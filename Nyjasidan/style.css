@@ -197,7 +197,7 @@ body {
 @keyframes dogWalk {
   0% {
     /* Byrjun: kemur inn á skjáinn frá (30vw, -20vh) */
-    transform: translate(30vw, -40vh);
+    transform: translate(40vw, -40vh);
   }
   15% {
     /* Stefna upp skjáinn: -20vw, -40vh */
@@ -216,16 +216,16 @@ body {
       transform: translate(-100vw, -80vh) scaleX(-1);
     }
     60% {
-      /* Beygir til vinstri: -20vw, -80vh */
+      /* Beygir til vinstri: -30vw, -80vh */
       transform: translate(-20vw, -80vh) scaleX(-1);
     }
       85% {
-        /* Stefna upp skjáinn: -20vw, -40vh */
+        /* Stefna upp skjáinn: -30vw, -40vh */
         transform: translate(-20vw, -40vh)scaleX(-1);
       }
         100% {
           /* Byrjun: kemur inn á skjáinn frá (30vw, -20vh) */
-          transform: translate(30vw, -40vh)scaleX(-1);
+          transform: translate(40vw, -40vh)scaleX(-1);
 
 
 
