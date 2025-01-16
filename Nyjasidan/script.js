@@ -35,7 +35,7 @@ document.getElementById("arctic").addEventListener("click", function() {
 });
 
 // 2024
-document.getElementById("twenty24").addEventListener("click", function() {
+document.getElementById("arid").addEventListener("click", function() {
   window.open(`${basePath}Arid2024/index.html`, "_blank");
 });
 
