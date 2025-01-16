@@ -1,0 +1,203 @@
+/* Núllstillum helstu margin/padding */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+/* Aðal-umgjörð fyrir síðuna */
+.container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  /* Gras: bakgrunnur í réttum hlutföllum; fær kannski svartar rendur í sumum tilfellum */
+  background: url("imgs/gras.png") no-repeat center center;
+  background-size: cover; /* eða "cover" ef þú vilt fylla skjá en þá er meiri líkur á cropping */
+  overflow: hidden;
+}
+
+/* Auka-lög (bara sem dæmi - fínstilltu position og stærðir að vild) */
+.strond,
+.vatn,
+
+.steinar,
+.meiragras {
+  position: absolute;
+  top:30; 
+  left: 0;
+  width: 400%; /* Skalaðu eins og þér sýnist */
+  z-index: 2;
+  opacity: 0.7; /* aðeins gegnsætt, t.d. */
+}
+.strond { top: 60%; left: 0%; width: 650px; }
+.vatn   { top: 80%; left: 0%; width: 650px; }
+.steinar{ top: 65%; left: 0%; width: 650px; }
+.meiragras { top: 35%; left: 0%; width: 650px; }
+
+/* Sameiginlegar stillingar fyrir hnappa */
+.button-container {
+  position: absolute;
+  width: 100px;  /* stilla út frá hönnun */
+  height: 100px; /* ef hnappamyndin er fermynd */
+  z-index: 5;    /* ofan á bakgrunni */
+  transition: transform 0.3s ease-in-out; /* smá “smooth” */
+
+}
+.button-container:hover {
+  animation: float 1.5s ease-in-out infinite; /* Use the new float animation */
+  transform: rotateX(5deg) scale(1.05);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Sjálf hnappamyndin */
+.hnappur {
+  width: 200%; 
+  height: 200%;
+  object-fit: contain;
+  pointer-events: auto; /* svo smelli "lendi" á container, ef það hentar */
+}
+
+/* Overlay (t.d. textinn "arctic", "2024") ofan á hnappinn 
+   (getur stillt position, stærð o.s.frv.) */
+.hnappur-overlay {
+  position: absolute;
+  top: 35%;
+  left: 15%;
+  width: 200%;
+  pointer-events: auto; /* Enable pointer events */
+}
+.hnappur-overlay:hover {
+  animation: float 1.5s ease-in-out infinite; /* Use the new float animation */
+  transform: rotateX(5deg) scale(1.05);
+}
+
+/* Dæmi um staðsetningu hverra þriggja takka á síðunni */
+#btn1 { top: 6%; left: 0%; }
+#btn2 { top: 25%; left: 0%; }
+#btn3 { top: 44%; left: 0%; }
+
+/* Minnstu ikon (teningur, rammi, skrifa, palletta) á hnapp #3 */
+.mini-icon {
+  position: absolute;
+  width: 100px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out; /* Add transition for smooth hover effect */
+}
+
+/* Make the teningur icon larger */
+#teningur {
+  width: 200px; /* Adjust the size as needed */
+}
+
+/* Hover effect for mini icons */
+.mini-icon:hover {
+  animation: float 1.5s ease-in-out infinite; /* Use the new float animation */
+  transform: scale(1.1) rotate(3deg);
+}
+
+/* Þá getum við raðað þeim inni í .button-container #btn3 */
+#teningur { top: 30%; left: -0%; }
+#rammi    { top: 10%; right: -85%; }
+#skrifa   { bottom: -25%; left: 33%; }
+#palletta { bottom: -55%; right: -90%; }
+
+/* Fiskarnir neðarlega á skjánum */
+.fiskur {
+  position: absolute;
+  width: 100px;  /* stilla að vild */
+  bottom: 0%;   /* vera neðarlega */
+  z-index: 4;
+}
+
+/* Fiskur 1 syndir frá vinstri til hægri og til baka endalaust */
+.fish1 {
+  left: -100px; /* byrjar utanfyrir vinstri brún */
+  animation: fishSwim1 16s linear infinite; /* Double the duration for back and forth */
+}
+@keyframes fishSwim1 {
+  0%   { transform: translateX(0) rotate(0deg) scaleX(1); }
+  50%  { transform: translateX(120vw) rotate(0deg) scaleX(1); }
+  50.01% { transform: translateX(120vw) rotate(0deg) scaleX(-1); }
+  100% { transform: translateX(0) rotate(0deg) scaleX(-1); }
+}
+
+/* Fiskur 2 syndir frá hægri til vinstri og til baka endalaust */
+.fish2 {
+  right: -100px; 
+  animation: fishSwim2 20s linear infinite; /* Double the duration for back and forth */
+}
+@keyframes fishSwim2 {
+  0%   { transform: translateX(0) rotate(0deg) scaleX(1); }
+  50%  { transform: translateX(-120vw) rotate(0deg) scaleX(1); }
+  50.01% { transform: translateX(-120vw) rotate(0deg) scaleX(-1); }
+  100% { transform: translateX(0) rotate(0deg) scaleX(-1); }
+}
+
+/* Hundurinn (hund.gif) sem ferðast eftir "leið" - 
+   sem er til dæmis frá hægri neðst => upp til vinstri => til baka */
+.hundur {
+  position: absolute;
+  width: 150px;
+  z-index: 4; /* Set z-index lower than buttons */
+  /* Setjum startpunkt nálægt neðri/hægri brún */
+  bottom: 0;
+  right: 0;
+  animation: dogWalk 24s ease-in-out infinite alternate;
+}
+
+/* Keyframes sem færir hundinn upp/til vinstri og svo til baka */
+@keyframes dogWalk {
+  0% {
+    /* Byrjun: kemur inn á skjáinn frá (30vw, -20vh) */
+    transform: translate(30vw, -40vh);
+  }
+  15% {
+    /* Stefna upp skjáinn: -20vw, -40vh */
+    transform: translate(-20vw, -40vh);
+  }
+  30% {
+    /* Beygir til vinstri: -20vw, -80vh */
+    transform: translate(-20vw, -80vh);
+  }
+  45% {
+    /* Fer út af skjánum: -20vw, -100vh */
+    transform: translate(-100vw, -80vh);
+  }
+    46% {
+      /* Fer út af skjánum: -20vw, -100vh */
+      transform: translate(-100vw, -80vh) scaleX(-1);
+    }
+    60% {
+      /* Beygir til vinstri: -20vw, -80vh */
+      transform: translate(-20vw, -80vh) scaleX(-1);
+    }
+      85% {
+        /* Stefna upp skjáinn: -20vw, -40vh */
+        transform: translate(-20vw, -40vh)scaleX(-1);
+      }
+        100% {
+          /* Byrjun: kemur inn á skjáinn frá (30vw, -20vh) */
+          transform: translate(30vw, -40vh)scaleX(-1);
+
+
+
+
+
+
+}
+}
+
+

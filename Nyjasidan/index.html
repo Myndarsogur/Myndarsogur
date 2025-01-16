@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mín vefsíða</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- Auka-lög (strond, vatn, steinar, meiragras) - án virkni -->
+    <!-- Þú getur fært þau til, skalað, o.s.frv. með CSS -->
+    <img src="imgs/strond.png" alt="strond" class="strond" />
+    <img src="imgs/vatn.png" alt="vatn" class="vatn" />
+    <img src="imgs/steinar.png" alt="steinar" class="steinar" />
+    <img src="imgs/meiragras.png" alt="meiragras" class="meiragras" />
+
+    <!-- Hnapparnir (með eigin "ofaná-lögum") -->
+    <div class="button-container" id="btn1">
+      <img src="imgs/hnappur 1.png" alt="Hnappur 1" class="hnappur" id="arctic">
+      <img src="imgs/arctic.png" alt="arctic text" class="hnappur-overlay" />
+    </div>
+    
+    <div class="button-container" id="btn2">
+      <img src="imgs/hnappur 2.png" alt="Hnappur 2" class="hnappur" id="twenty24">
+      <img src="imgs/2024.png" alt="2024 text" class="hnappur-overlay" id="twenty24"/>
+    </div>
+    
+    <div class="button-container" id="btn3">
+      <img src="imgs/hnappur 3.png" alt="Hnappur 3" class="hnappur">
+      <!-- Hérna setjum við 4 lítil „ofaná-lög“ sem hvert um sig gæti verið tengt link -->
+      <img src="imgs/teningur.png" alt="teningur" class="mini-icon" id="teningur" />
+      <img src="imgs/rammi.png"    alt="rammi"    class="mini-icon" id="rammi" />
+      <img src="imgs/skrifa.png"   alt="skrifa"   class="mini-icon" id="skrifa" />
+      <img src="imgs/palletta.png" alt="palletta" class="mini-icon" id="palletta" />
+    </div>
+    
+    <!-- Fiskar neðarlega á skjánum, synda fram og til baka -->
+    <img src="imgs/fiskur 1.png" alt="Fiskur 1" class="fiskur fish1" id="fiskur1">
+    <img src="imgs/fiskur 2.png" alt="Fiskur 2" class="fiskur fish2" id="fiskur2">
+    
+    <!-- Hundur sem ferðast frá hægri neðst upp til vinstri og til baka -->
+    <img src="imgs/hund.gif" alt="Ferðast um skjáinn" class="hundur" id="hundur">
+    
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>
