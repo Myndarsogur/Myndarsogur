@@ -28,16 +28,18 @@ body {
 /* Auka-lög (bara sem dæmi - fínstilltu position og stærðir að vild) */
 .strond,
 .vatn,
-
 .steinar,
 .meiragras {
   position: absolute;
-  top:30; 
+  top: 30; 
   left: 0;
   width: 400%; /* Skalaðu eins og þér sýnist */
   z-index: 2;
   opacity: 0.7; /* aðeins gegnsætt, t.d. */
+  pointer-events: none; /* Slökkva á smellum */
+  cursor: default; /* Gakktu úr skugga um að músabendillinn breytist ekki */
 }
+
 .strond { top: 60%; left: 0%; width: 650px; }
 .vatn   { top: 80%; left: 0%; width: 650px; }
 .steinar{ top: 65%; left: 0%; width: 650px; }
@@ -46,13 +48,37 @@ body {
 /* Sameiginlegar stillingar fyrir hnappa */
 .button-container {
   position: absolute;
-  width: 100px;  /* stilla út frá hönnun */
-  height: 100px; /* ef hnappamyndin er fermynd */
   z-index: 5;    /* ofan á bakgrunni */
   transition: transform 0.3s ease-in-out; /* smá “smooth” */
-  
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+/* Stillingar fyrir hnapp 1 */
+#btn1 {
+  top: 10%;
+  left: 0%;
+  width: 150px;  /* Stilltu breiddina fyrir hnapp 1 */
+  height: 150px; /* Stilltu hæðina fyrir hnapp 1 */
+}
+
+/* Stillingar fyrir hnapp 2 */
+#btn2 {
+  top: 29%;
+  left: 10%;
+  width: 120px;  /* Stilltu breiddina fyrir hnapp 2 */
+  height: 120px; /* Stilltu hæðina fyrir hnapp 2 */
+}
+
+/* Stillingar fyrir hnapp 3 */
+#btn3 {
+  top: 44%;
+  left: 0%;
+  width: 220px;  /* Stilltu breiddina fyrir hnapp 3 */
+  height: 200px; /* Stilltu hæðina fyrir hnapp 3 */
+}
+
 .button-container:hover {
   animation: float 1.5s ease-in-out infinite; /* Use the new float animation */
   transform: rotateX(5deg) scale(1.05);
@@ -65,8 +91,8 @@ body {
 
 /* Sjálf hnappamyndin */
 .hnappur {
-  width: 200%; 
-  height: 200%;
+  width: 100%; 
+  height: 100%;
   object-fit: contain;
   pointer-events: auto; /* svo smelli "lendi" á container, ef það hentar */
 }
@@ -77,30 +103,38 @@ body {
   position: absolute;
   top: 35%;
   left: 15%;
-  width: 200%;
+  width: 100%;
   pointer-events: none; /* Enable pointer events */
 }
 .hnappur-overlay:hover {
   animation: float 1.5s ease-in-out infinite; /* Use the new float animation */
   transform: rotateX(5deg) scale(1.05);
 }
+/* Overlay fyrir hnapp 1 */
+#btn1 .hnappur-overlay {
+  top: 10%; /* Stilltu staðsetningu fyrir overlay textann */
+  left: 5%; /* Stilltu staðsetningu fyrir overlay textann */
+  width: 150%; /* Stilltu breiddina fyrir overlay textann */
+}
 
-/* Dæmi um staðsetningu hverra þriggja takka á síðunni */
-#btn1 { top: 6%; left: 0%; }
-#btn2 { top: 25%; left: 0%; }
-#btn3 { top: 44%; left: 0%; }
+/* Overlay fyrir hnapp 2 (2024) */
+#btn2 .hnappur-overlay {
+  top: -20%; /* Stilltu staðsetningu fyrir overlay textann */
+  left: -30%; /* S-tilltu staðsetningu fyrir overlay textann */
+  width: 180%; /* Stilltu breiddina fyrir overlay textann */
+}
 
 /* Minnstu ikon (teningur, rammi, skrifa, palletta) á hnapp #3 */
 .mini-icon {
   position: absolute;
-  width: 100px;
+  width: 80px;
   cursor: pointer;
   transition: transform 0.3s ease-in-out; /* Add transition for smooth hover effect */
 }
 
 /* Make the teningur icon larger */
 #teningur {
-  width: 200px; /* Adjust the size as needed */
+  width: 80px; /* Adjust the size as needed */
 }
 
 /* Hover effect for mini icons */
@@ -110,10 +144,10 @@ body {
 }
 
 /* Þá getum við raðað þeim inni í .button-container #btn3 */
-#teningur { top: 30%; left: -0%; }
-#rammi    { top: 10%; right: -85%; }
-#skrifa   { bottom: -25%; left: 33%; }
-#palletta { bottom: -55%; right: -90%; }
+#teningur { top: 47%; left: 10%; }
+#rammi    { top: 6%; right: 10%; }
+#skrifa   { bottom: 50%; left: 23%; }
+#palletta { bottom: 20%; right: 15%; }
 
 /* Fiskarnir neðarlega á skjánum */
 .fiskur {
