@@ -77,7 +77,7 @@ body {
   top: 35%;
   left: 15%;
   width: 200%;
-  pointer-events: auto; /* Enable pointer events */
+  pointer-events: none; /* Enable pointer events */
 }
 .hnappur-overlay:hover {
   animation: float 1.5s ease-in-out infinite; /* Use the new float animation */
