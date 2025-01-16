@@ -1,40 +1,40 @@
 // Ef þú vilt að smelli á litlu táknin opni síður:
 document.getElementById("teningur").addEventListener("click", function() {
-  window.open("https://example.com/teningur", "_blank");
+  window.open("Leikjasidan/index.html", "_blank");
 });
 document.getElementById("rammi").addEventListener("click", function() {
-  window.open("https://example.com/rammi", "_blank");
+  window.open("Myndasogugerd/myndatol.html", "_blank");
 });
 document.getElementById("skrifa").addEventListener("click", function() {
-  window.open("https://example.com/skrifa", "_blank");
+  window.open("Myndasogugerd/tekstatol.html", "_blank");
 });
 document.getElementById("palletta").addEventListener("click", function() {
-  window.open("https://example.com/palletta", "_blank");
+  window.open("Myndasogugerd/teiknitol.html", "_blank");
 });
 
 // Fiskur 1
 document.getElementById("fiskur1").addEventListener("click", function() {
-  window.open("https://example.com/fiskur1", "_blank");
+  window.open("Karakterar/index.html", "_blank");
 });
 
 // Fiskur 2
 document.getElementById("fiskur2").addEventListener("click", function() {
-  window.open("https://example.com/fiskur2", "_blank");
+  window.open("Karakterar/index.html", "_blank");
 });
 
 // Hundur
 document.getElementById("hundur").addEventListener("click", function() {
-  window.open("https://example.com/hundur", "_blank");
+  window.open("Solusida/index.html", "_blank");
 });
 
 // Arctic
 document.getElementById("arctic").addEventListener("click", function() {
-  window.open("https://example.com/arctic", "_blank");
+  window.open("ARCTIC/index.html", "_blank");
 });
 
 // 2024
 document.getElementById("twenty24").addEventListener("click", function() {
-  window.open("https://example.com/2024", "_blank");
+  window.open("Arid2024/index.html", "_blank");
 });
 
 // List of plant emojis
