@@ -25,26 +25,32 @@ body {
   overflow: hidden;
 }
 
-/* Auka-lög (bara sem dæmi - fínstilltu position og stærðir að vild) */
+ /* Auka-lög (bara sem dæmi - fínstilltu position og stærðir að vild) */
 .strond,
 .vatn,
 .steinar,
+.umhverfi,
 .meiragras {
   position: absolute;
-  top: 30; 
-  left: 0;
-  width: 400%; /* Skalaðu eins og þér sýnist */
   z-index: 2;
   opacity: 0.7; /* aðeins gegnsætt, t.d. */
   pointer-events: none; /* Slökkva á smellum */
   cursor: default; /* Gakktu úr skugga um að músabendillinn breytist ekki */
 }
 
-.strond { top: 60%; left: 0%; width: 650px; }
-.vatn   { top: 80%; left: 0%; width: 650px; }
-.steinar{ top: 65%; left: 0%; width: 650px; }
-.meiragras { top: 35%; left: 0%; width: 650px; }
+.strond { top: 60%; left: 0%; width: 650px; background: url("imgs/strond.png") no-repeat center center; background-size: cover; }
+.vatn   { top: 80%; left: 0%; width: 650px; background: url("imgs/vatn.png") no-repeat center center; background-size: cover; }
+.steinar{ top: 65%; left: 0%; width: 650px; background: url("imgs/steinar.png") no-repeat center center; background-size: cover; }
+.meiragras { top: 35%; left: 0%; width: 650px; background: url("imgs/meiragras.png") no-repeat center center; background-size: cover; }
+.umhverfi { top: 43%; left: 0%; width: 1228px; background: url("imgs/umhverfi.png") no-repeat center center; background-size: cover; }
 
+/* Fela strond, vatn, steinar og meiragras */
+.strond,
+.vatn,
+.steinar,
+.meiragras {
+  display: none;
+}
 /* Sameiginlegar stillingar fyrir hnappa */
 .button-container {
   position: absolute;
