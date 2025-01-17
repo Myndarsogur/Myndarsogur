@@ -12,12 +12,12 @@
       height: 100%;
       margin: 0;
       padding: 0;
-      font-family: Arial, sans-serif;
     }
 
     /* Quill-editor fyllir síðan gluggann */
     #editor {
       height: calc(100% - 42px); /* Hæðin mínkuð til að passa fyrir tólastikuna */
+      font-family: Monospace; /* Laga villa hér */
     }
 
     /* Tólastikan */
@@ -29,67 +29,66 @@
     /* Niðurhalshnappur */
     .download-btn {
       background-color: #506b88;
-      color: rgb(68, 68, 68);
+      color: rgb(68, 68, 68); /* Setja litinn á textann */
       border: none;
       cursor: pointer;
-      font-size: 32px;
+      font-size: 16px;
       padding: 5px 10px;
       border-radius: 5px;
       display: flex;
       align-items: center;
-      position: fixed; /* Festa hnappinn í hægra horninu */
-      top: 0px;
-      right:300px;
-      z-index: 1000; /* Gera hnappinn sýnilegan yfir öðru efni */
-
+      margin-left: 10px;
     }
 
-    .download-btn span {
-      margin-right: 5px;
+    /* Stílar fyrir betri upplifun í símavafra */
+    @media (max-width: 600px) {
+      #editor {
+        height: calc(100% - 52px); /* Hæðin mínkuð til að passa fyrir tólastikuna og niðurhalshnappinn */
+      }
+      .ql-toolbar {
+        flex-direction: column;
+      }
+      .download-btn {
+        width: 100%;
+        justify-content: center;
+      }
     }
   </style>
 </head>
 <body>
-  <div id="toolbar">
-    <!-- Quill tólastikan -->
-    <span class="ql-formats">
-      <select class="ql-header">
-        <option value="1"></option>
-        <option value="2"></option>
-        <option selected></option>
-      </select>
-      <button class="ql-bold"></button>
-      <button class="ql-italic"></button>
-      <button class="ql-underline"></button>
-      <button class="ql-link"></button>
-      <button class="ql-image"></button>
-    </span>
-    <!-- Niðurhalshnappur -->
-    <button class="download-btn" id="downloadBtn">
-      <span>⬇</span> 
-    </button>
-  </div>
-  <div id="editor"></div>
+ <!-- Quill editor -->
+ <div id="toolbar">
+  <span class="ql-formats">
+   
+    </select>
+    <select class="ql-size"></select>
+  <span class="ql-formats">
+    <button class="ql-bold"></button>
+    <button class="ql-italic"></button>
+    <button class="ql-underline"></button>
+    <button class="ql-strike"></button>
+    <select class="ql-color"></select>
+    <select class="ql-background"></select>
+    <select class="ql-align"></select>
+    <button class="ql-link"></button>
+    <button class="ql-image"></button>
+  <button class="download-btn" id="download-btn">↓</button>
+</div>
+<div id="editor"></div>
 
   <!-- Quill JS -->
   <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
   <script>
-    var quill = new Quill('#editor', {
+    // Setja upp Quill editor
+    const quill = new Quill('#editor', {
       theme: 'snow',
       modules: {
-        toolbar: '#toolbar'
+        toolbar: {
+          container: '#toolbar'
+        }
       }
     });
 
-    document.getElementById('downloadBtn').addEventListener('click', () => {
-      const content = quill.root.innerHTML;
-      const blob = new Blob([content], { type: 'text/html' });
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = 'handrit.html';
-      document.body.appendChild(link); // Bæta við tengilinn í DOM
-      link.click();
-      document.body.removeChild(link); // Fjarlægja tengilinn úr DOM
     });
   </script>
 </body>
