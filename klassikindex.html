@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ULTramEgasíðan er staður þar sem myndasögur, leikjasíður og skapandi efni lifna við! Komdu og uppgötvaðu heim ævintýra." />
+    <title>  ULTramEgasíðan - Myndasögur, leikir, sköpun, heimar og geimar!</title>
+    <!-- Basic Open Graph Meta Tags -->
+    <meta property="og:url" content="https://myndarsogur.is/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="ULTramEgasíðan - Þar sem myndar sögur lifa!" />
+    <meta property="og:description" content="Upplifðu myndasögur eins og aldrei fyrr á ULTramEgasíðunni - Skemmtun, sköpun og sögur fyrir alla!" />
+    <meta property="og:image" content="https://i.imgur.com/COCCKrc.png" /> <!-- Skiptu þessu út fyrir rétta myndarslóð -->
+    <meta property="fb:app_id" content="1501563707185143" />
+    <!-- Favicon fyrir helstu vafra -->
+    <link rel="icon" href="https://myndarsogur.is/Myndarsogur-Merki.ico" type="image/x-icon">
+    <!-- PNG fyrir vafra sem styðja PNG -->
+    <link rel="icon" href="https://myndarsogur.is/Myndarsogur-Merki.png" type="image/png">
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" href="https://myndarsogur.is/Myndarsogur-Merki.png">
+    <!-- Hotjar Tracking Code for https://myndarsogur.is -->
+    <script>
+        (function(h,o,t,j,a,r){
+            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+            h._hjSettings={hjid:5255530,hjsv:6};
+            a=o.getElementsByTagName('head')[0];
+            r=o.createElement('script');r.async=1;
+            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+    </script>
+    <style>
+        body {
+            background-color: #000;
+            color: #ffffff;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            margin: 0;
+            overflow: hidden;
+        }
+         /* Fela aðeins tiltekna h1 og p */
+         .hidden-text {
+            position: absolute;
+            left: -9999px; /* Flytur textann langt út fyrir skjáinn */
+            visibility: hidden; /* Tryggir að hann sé ósýnilegur */
+        }
+        title {
+            color: #ff00ff;
+            text-shadow: 2px 2px 5px #ff0, 0 0 10px #f00;
+            font-size: 3em;
+            margin: 10px 100px;
+            animation: pulsate 3s infinite;
+        }
+        @keyframes pulsate {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+        }
+        .section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 1px;
+            border: px solid #fff;
+            margin: 20px;
+        }
+        .section:nth-child(odd) {
+            background-color: #111;
+        }
+        .section:nth-child(even) {
+            background-color: #222;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        p {
+            text-align: center;
+            color: #666;
+        }
+        .section-container {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin: 1px;
+            padding: 1px;
+        }
+        .section {
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .section a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        .emoji {
+            position: absolute;
+            font-size: 2rem;
+            animation: float 1s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+     
+        #myndasogugerd {
+            position: fixed;
+            bottom: -100px;
+            left: -200px;
+            font-size: 8rem;
+            cursor: pointer;
+            transform: rotate(-10deg);
+            animation: robot-move 3s infinite alternate;
+            background: none;
+            border: none;
+        }
+        @keyframes robot-move {
+            0% {
+                transform: rotate(-10deg) translate(0, 0);
+            }
+            25% {
+                transform: rotate(-20deg) translate(10px, -10);
+            }
+            100% {
+                transform: rotate(10deg) translate(10px, -10px);
+            }
+        }
+        #arctic a {
+            font-size: 2.5em;
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            text-decoration: none;
+            color: #fff;
+            text-shadow: 0px -5px 5px #00f, 0px 5px 5px #fff;
+            animation: arctic-shimmer 5s infinite alternate;
+        }
+        @keyframes arctic-shimmer {
+            0% {
+                text-shadow: 0px -5px 5px #00f, 0px 5px 5px #fff;
+            }
+            100% {
+                text-shadow: 0px -5px 5px #fff, 0px 5px 5px #00f;
+            }
+        }
+         a {
+            display: block;
+            margin: 20px;
+            font-size: 2em;
+            color: #ff0;
+            text-decoration: none;
+            animation: bounce 1.5s infinite;
+        }
+       
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        #solusida {
+            font-size: 1.5em;
+            background-color: #0000ff;
+            border: 3px solid #ff00ff;
+            padding: 20px;
+            display: inline-block;
+            cursor: pointer;
+            position: absolute;
+            animation: organic-motion 20s linear infinite;
+        }
+        @keyframes organic-motion {
+            0% {
+                transform: translate(10vw, 10vh);
+            }
+            25% {
+                transform: translate(80vw, 15vh) rotate(10deg);
+            }
+            50% {
+                transform: translate(70vw, 80vh) rotate(-10deg);
+            }
+            75% {
+                transform: translate(20vw, 70vh) rotate(5deg);
+            }
+            100% {
+                transform: translate(10vw, 10vh);
+            }
+        }
+        #hofundar {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: url('https://i.imgur.com/EBOQ8eV.gif') no-repeat center center;
+            background-size: cover;
+            border-radius: 50%;
+            animation: spin 5s linear infinite, move 10s linear infinite;
+            z-index: 1000;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes move {
+            0% { transform: translate(10vw, 10vh); }
+            25% { transform: translate(80vw, 15vh); }
+            50% { transform: translate(70vw, 80vh); }
+            75% { transform: translate(20vw, 70vh); }
+            100% { transform: translate(10vw, 10vh); }
+        }
+        .emoji {
+            position: absolute;
+            animation: float 3s ease-in-out infinite;
+        }
+        .section-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 20px;
+            justify-content: center;
+        }
+        .section {
+            flex: 1 1 calc(33% - 20px);
+            box-sizing: border-box;
+        }
+        @media (max-width: 800px) {
+            .section {
+                flex: 1 1 calc(50% - 20px);
+            }
+        }
+        @media (max-width: 500px) {
+            .section {
+                flex: 1 1 100%;
+            }
+        }
+        /* Fela aðeins tiltekna h1 og p */
+        .hidden-text {
+            position: absolute;
+            left: -9999px; /* Flytur textann langt út fyrir skjáinn */
+            visibility: hidden; /* Tryggir að hann sé ósýnilegur */
+        }
+        #ultramega {
+            position: relative;
+            display: inline-block;
+            font-family: cursive; /* Cursive */
+            font-size: 6em; /* Stórt og skrautlegt letur */
+            padding: 0;
+            margin: 0;
+            color: #ff00ff;
+            text-decoration: none;
+            /* Byrjandi neon-skuggi */
+            text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+            /* Carnivalskeyti! */
+            animation: carnival 1s ease-in-out infinite,  
+            dance  1s ease-in-out infinite, 
+            bounce  5s ease-in-out infinite; 
+        }
+        /* Fleiri litir, meiri snúningur og hristingur til að fá „carnival“-tilfinningu */
+        @keyframes carnival {
+            0% {
+                color: #ff00ff;
+                text-shadow: 
+                    0 0 5px #ae59ae, 
+                    0 0 10px #e1b3e1, 
+                    0 0 20px #ff00ff;
+                transform: scale(1) rotate(0deg) translate(0, 0);
+            }
+            20% {
+                color: #ffff00;
+                text-shadow: 
+                    0 0 5px #ffff00, 
+                    0 0 10px #ffff00, 
+                    0 0 20px #ffff00;
+                transform: scale(1.2) rotate(10deg) translate(5px, 0);
+            }
+            40% {
+                color: #00ff00;
+                text-shadow: 
+                    0 0 5px #00ff00, 
+                    0 0 10px #00ff00, 
+                    0 0 20px #00ff00;
+                transform: scale(1.1) rotate(-5deg) translate(-5px, 5px);
+            }
+            60% {
+                color: #ff0000;
+                text-shadow: 
+                    0 0 5px #ff0000, 
+                    0 0 10px #ff0000, 
+                    0 0 20px #ff0000;
+                transform: scale(1.3) rotate(5deg) translate(10px, -5px);
+            }
+            80% {
+                color: #00ffff;
+                text-shadow: 
+                    0 0 5px #00ffff, 
+                    0 0 10px #00ffff, 
+                    0 0 20px #00ffff;
+                transform: scale(1.2) rotate(-5deg) translate(-5px, 10px);
+            }
+            100% {
+                color: #ff00ff;
+                text-shadow: 
+                    0 0 5px #ff00ff, 
+                    0 0 10px #ff00ff, 
+                    0 0 20px #ff00ff;
+                transform: scale(1) rotate(0deg) translate(0, 0);
+            }
+        }
+        /* ====== "Dance": Sjálft dansið/hreyfingin ====== */
+        @keyframes dance {
+            0% {
+                transform: scale(1) rotate(0deg) translate(0, 0);
+            }
+            10% {
+                /* lítið hopp upp */
+                transform: scale(1.3) rotate(5deg) translate(0, -20px);
+            }
+            20% {
+                /* lending með smá „dip“ */
+                transform: scale(0.9) rotate(-5deg) translate(0, 10px);
+            }
+            30% {
+                /* sveifla til vinstri */
+                transform: scale(1.2) rotate(10deg) translate(-10px, 0);
+            }
+            40% {
+                /* sveifla til hægri */
+                transform: scale(1) rotate(-10deg) translate(10px, 0);
+            }
+            50% {
+                /* lítið hopp upp + snúningur */
+                transform: scale(1.2) rotate(5deg) translate(5px, -10px);
+            }
+            60% {
+                /* lending + sveifla niður */
+                transform: scale(0.8) rotate(-5deg) translate(-5px, 15px);
+            }
+            70% {
+                /* hopp upp aftur */
+                transform: scale(1.2) rotate(5deg) translate(10px, -10px);
+            }
+            80% {
+                /* sveifla til baka */
+                transform: scale(1) rotate(-5deg) translate(-10px, 5px);
+            }
+            90% {
+                /* smá "cha cha" hliðarskref */
+                transform: scale(1.1) rotate(10deg) translate(5px, 0);
+            }
+            100% {
+                /* komum aftur í kyrrstöðu */
+                transform: scale(1) rotate(0deg) translate(0, 0);
+            }
+        }
+        /* Sérstakir stílar fyrir hverja section */
+        #arid {
+            background-color: #ff0;
+            color: #000;
+            font-size: 25px;
+            font-weight: bolder;
+            font-style: sans-serif;
+            height: 190px;
+
+
+            
+        }
+        #arid a {
+            color: #000;
+        }
+        #solusida {
+            background-color: #851c1c;
+            color: #ff0;
+        }
+        #solusida a {
+            color: #ff0;
+        }
+        #hofundar {
+            color: #d40606;
+        }
+        #hofundar a {
+            color: #f5f5f5;
+        }
+        #arctic {
+            background-color: #e2e0f4;
+            color: #fcfbff;
+            background: linear-gradient(90deg, #969dfb, #f0f0f0);
+        }
+/* Hnappurinn fyrir míkróblogg */
+.blog-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #ff0095;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 50%;
+    width: 10;
+    height: 10;
+    font-size: 74px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(231, 222, 222, 0.1);
+    transition: background-color 0.3s;
+    z-index: 1000;
+}
+
+.blog-button:hover {
+    background-color: #e63599;
+}
+
+/* Popup glugginn */
+.blog-popup {
+    display: none; /* Fylgir ekki upphaflega */
+    position: fixed;
+    bottom: 90px; /* Ofar í gegn við hnappinn */
+    right: 20px;
+    width: 300px;
+    max-height: 400px;
+    background-color: rgb(0, 0, 0);
+   
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    overflow-y: auto;
+    animation: fadeIn 0.5s;
+    z-index: 999;
+}
+
+/* Innihald popup gluggans */
+.popup-content {
+    padding: 20px;
+    position: relative;
+    text-emphasis-color: rgb(255, 255, 255);
+    text-decoration-color: rgb(255, 255, 255)
+}
+
+/* Loka hnappurinn (X) */
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Animation fyrir popup */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; transform: scale(1); }
+    to { opacity: 0; transform: scale(0.9); }
+}
+
+/* Bæta við stíl fyrir bloggfærslur */
+#blogContent {
+    margin-top: 10px;
+    color:#dced40
+    
+}
+
+.blog-entry {
+    position: relative;
+    background-color: #1a1a1a; /* Dökkri bakgrunnur fyrir betri lesanleika */
+    border-bottom: 1px solid #ddd;
+    padding: 20px 0;
+    color:#dced40;
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+
+}
+
+.blog-entry:last-child {
+    border-bottom: none;
+    color:#09ff00
+    
+
+}
+.blog-entry img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.blog-entry:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.blog-entry h3 {
+    color: #ee6a8b;
+    margin-bottom: 10px;
+    font-size: 1.9em;
+
+}
+
+.blog-entry p {
+    color: #ffffff;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.blog-entry strong {
+    color: #555;
+}
+
+* Bloggfærslu haus */
+.blog-header {
+    text-align: left; /* Staðsetja titilinn til vinstri */
+    margin-bottom: 15px;
+}
+
+/* Titill bloggfærslu */
+.blog-title {
+    font-size: 2.5em;
+    color: #fe285d;
+    margin: 0;
+    padding: 0;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Undirtitill bloggfærslu */
+.blog-subtitle {
+    font-size: 1.2em;
+    color: #ffffff;
+    margin: 5px 0 0 0;
+    font-weight: normal;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Bloggfærslu mynd */
+.blog-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    object-fit: cover;
+}
+
+/* Lýsing bloggfærslu */
+.blog-description {
+    font-size: 1em;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    color: #ffffff;
+}
+
+/* Nánari upplýsingar */
+.blog-details {
+    font-size: 0.9em;
+    color: #ffd000;
+
+}
+</style>
+
+    
+</head>
+<body>
+    <h1 class="hidden-text">ULTramEgasíðan - Myndasögur, leikir, sköpun, heimar og geimar!</h1>
+    <p class="hidden-text">Velkomin á ULTramEgasíðuna! Hér finnur þú spennandi myndasögur, leikjasíður og margt fleira sem veitir þér skemmtun og sköpunargleði.</p>
+      <a id="ultramega" href="Leikjasidan/index.html" style="color: #ff00ff; text-decoration: none;">ULTramEgasíðan</a>
+    <div class="section-container">
+        <div class="section" id="arctic">
+            <a href="ARCTIC/index.html">The Arctic Comics Journal</a>
+        </div>
+        <div class="section" id="arid">
+            <a href="Arid2024/index.html">Myndarsögur <br> Árið 2024 </a>
+        </div>
+        <div class="section" id="solusida">
+            <a href="Solusida/index.html">Sölusíða</a>
+        </div>
+        <div class="section" id="hofundar">
+            <a href="Karakterar/index.html">Höfundar</a>
+        </div>
+        <div class="section" id="myndasogugerd">
+            <a href="Myndasogugerd/index.html">🤖</a>
+        </div>
+    </div>
+    <div id="cursor"></div>
+    <div class="emoji" style="left: 10%; top: 30%;">🌟</div>
+    <div class="emoji" style="left: 70%; top: 50%;">🔥</div>
+    <div class="emoji" style="left: 40%; top: 70%;">💥</div>
+   
+    <!-- Hnappurinn fyrir míkróblogg -->
+<button id="blogButton" class="blog-button">🗞️</button>
+
+<!-- Popup glugginn fyrir míkróblogg -->
+<div id="blogPopup" class="blog-popup">
+    <div class="popup-content">
+        <h2>Áríðandi tilkynningar</h2>
+        <div id="blogContent">
+            <!-- Bloggfærslur koma hingað -->
+            <p>Hleður bloggfærslur...</p>
+        </div>
+    </div>
+</div>
+
+
+    <script>
+
+        // script.js (Innan <script> taggsins þíns)
+
+document.addEventListener('DOMContentLoaded', () => {
+    const blogButton = document.getElementById('blogButton');
+    const blogPopup = document.getElementById('blogPopup');
+    const closeButton = document.getElementById('closeButton');
+    const blogContent = document.getElementById('blogContent');
+
+    let isOpen = false;
+
+    // Opna popup
+    blogButton.addEventListener('click', () => {
+        if (!isOpen) {
+            openPopup();
+        } else {
+            closePopup();
+        }
+    });
+
+    // Loka popup þegar loka hnappurinn er smellt
+    closeButton.addEventListener('click', () => {
+        closePopup();
+    });
+
+    // Loka popup þegar notandi smellt utan við
+    window.addEventListener('click', (event) => {
+        if (event.target === blogPopup) {
+            closePopup();
+        }
+    });
+
+    async function openPopup() {
+        blogContent.innerHTML = '<p>Hleður bloggfærslur...</p>';
+        blogPopup.style.display = 'block';
+        blogPopup.style.animation = 'fadeIn 0.5s';
+        blogButton.textContent = '✖'; // Breyta í X
+        isOpen = true;
+
+        try {
+            const response = await fetch('orblogg/blogg.json?v=' + new Date().getTime());
+            if (!response.ok) {
+                throw new Error('Ekki tókst að sækja blogg.json');
+            }
+            const blogFiles = await response.json();
+            displayBlogs(blogFiles);
+        } catch (error) {
+            blogContent.innerHTML = `<p>Villa við að hlaða bloggfærslur: ${error.message}</p>`;
+            console.error(error);
+        }
+    }
+
+    async function displayBlogs(blogFiles) {
+        if (blogFiles.length === 0) {
+            blogContent.innerHTML = '<p>Engar bloggfærslur til staðar.</p>';
+            return;
+        }
+
+        blogContent.innerHTML = ''; // Hreinsa fyrri innihald
+
+        for (const file of blogFiles) {
+            try {
+                const response = await fetch(`orblogg/${file}`);
+                if (!response.ok) {
+                    console.warn(`Ekki tókst að sækja ${file}`);
+                    continue;
+                }
+                const blogHTML = await response.text();
+                const blogEntry = document.createElement('div');
+                blogEntry.classList.add('blog-entry');
+                blogEntry.innerHTML = blogHTML;
+                blogContent.appendChild(blogEntry);
+            } catch (error) {
+                console.warn(`Villa við að hlaða ${file}: ${error.message}`);
+            }
+        }
+    }
+
+    function closePopup() {
+        // Bæta við fade out animation
+        blogPopup.style.animation = 'fadeOut 0.5s';
+        setTimeout(() => {
+            blogPopup.style.display = 'none';
+            blogButton.textContent = '📰'; // Endurheimta skilaboðamerkið
+            blogPopup.style.animation = 'fadeIn 0.5s'; // Setja aftur upp animation fyrir næsta opnun
+            isOpen = false;
+        }, 500); // Sama tíma og fadeOut animation
+    }
+});
+
+        const cursor = document.getElementById('cursor');
+        const solusida = document.getElementById('solusida');
+        const body = document.body;
+
+        let solusidaX = 10;
+        let solusidaY = 10;
+        let vx = 1;
+        let vy = 1;
+
+        function moveSolusida() {
+            const rect = solusida.getBoundingClientRect();
+            const cursorRect = cursor.getBoundingClientRect();
+
+            // Adjust direction to avoid cursor
+            if (
+                rect.left < cursorRect.right &&
+                rect.right > cursorRect.left &&
+                rect.top < cursorRect.bottom &&
+                rect.bottom > cursorRect.top
+            ) {
+                vx = rect.left < cursorRect.left ? -Math.abs(vx) : Math.abs(vx);
+                vy = rect.top < cursorRect.top ? -Math.abs(vy) : Math.abs(vy);
+            }
+
+            // Update position
+            solusidaX += vx;
+            solusidaY += vy;
+
+            // Bounce off edges
+            if (solusidaX < 0 || solusidaX > window.innerWidth - rect.width) vx *= -1;
+            if (solusidaY < 0 || solusidaY > window.innerHeight - rect.height) vy *= -1;
+
+            solusida.style.transform = `translate(${solusidaX}px, ${solusidaY}px)`;
+        }
+
+        setInterval(moveSolusida, 20);
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = `${e.pageX}px`;
+            cursor.style.top = `${e.pageY}px`;
+        });
+
+       document.addEventListener('click', (e) => {
+    const emojis = [
+        '🌟', '🔥', '💥', '✨', '💫', '👽', '👾', '🧑‍🚀', '👨‍🚀', 
+        '👩‍🚀', '🛰️', '🚀', '🛸', '🌕', '☀️', '🪐', '🌌', '☄️'
+    ];
+    const emoji = document.createElement('div');
+    emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    emoji.style.position = 'absolute';
+    emoji.style.left = `${e.pageX}px`;
+    emoji.style.top = `${e.pageY}px`;
+    emoji.style.fontSize = '2rem';
+    emoji.style.pointerEvents = 'none';
+    emoji.style.transition = 'transform 0.2s ease-in-out';
+    document.body.appendChild(emoji);
+
+    // Random movement in one of 8 directions
+    const moveInterval = setInterval(() => {
+        const dx = Math.random() < 0.5 ? -10 : 10;
+        const dy = Math.random() < 0.5 ? -10 : 10;
+        emoji.style.transform = `translate(${dx}px, ${dy}px)`;
+    }, 200);
+
+    // Remove emoji after 10 seconds
+    setTimeout(() => {
+        clearInterval(moveInterval);
+        emoji.remove();
+    }, 10000);
+});
+
+fetch('https://api.indexnow.org/IndexNow', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        host: 'https://www.myndarsogur.is',
+        key: '9e96548408224b589657f48289b700e0',
+        keyLocation: 'https://www.myndarsogur.is/9e96548408224b589657f48289b700e0.txt',
+        urlList: [
+            'https://www.myndarsogur.is/Arid2024',
+            'https://www.myndarsogur.is/arctic',
+            'https://www.myndarsogur.is/leikjasidan',
+            'https://www.myndarsogur.is/solusida',
+            'https://www.myndarsogur.is/karakterar'
+        ]
+    })
+})
+.then(response => response.json())
+.then(data => console.log(data))
+.catch(error => console.error('Error:', error));
+
+
+// Myndasogugerd click event
+const myndasogugerd = document.getElementById('myndasogugerd');
+myndasogugerd.addEventListener('click', () => {
+    window.location.href = 'Myndasogugerd/index.html';
+});
+
+    </script>
+</body>
+</html>

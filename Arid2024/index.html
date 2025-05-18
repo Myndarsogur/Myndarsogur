@@ -277,6 +277,26 @@
       navigation: true, // Enable navigation arrows
       direction: 'horizontal', // Horizontal scroll by default
     });
+    document.querySelectorAll('.swiper-slide').forEach((slide, index) => {
+  let timeoutId = null;
+
+  slide.addEventListener('scroll', () => {
+    const isAtBottom = slide.scrollTop + slide.clientHeight >= slide.scrollHeight - 5;
+
+    if (isAtBottom && !timeoutId) {
+      timeoutId = setTimeout(() => {
+        swiper.slideNext();
+        timeoutId = null;
+      }, 5000); // 5 sekúndur bið
+    }
+
+    if (!isAtBottom && timeoutId) {
+      clearTimeout(timeoutId); // hætta við ef notandi scrollar til baka
+      timeoutId = null;
+    }
+  });
+});
+
   </script>
 
 </body>

@@ -1,807 +1,658 @@
 <!DOCTYPE html>
 <html lang="is">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ULTramEgasíðan er staður þar sem myndasögur, leikjasíður og skapandi efni lifna við! Komdu og uppgötvaðu heim ævintýra." />
-    <title>  ULTramEgasíðan - Myndasögur, leikir, sköpun, heimar og geimar!</title>
-    <!-- Basic Open Graph Meta Tags -->
-    <meta property="og:url" content="https://myndarsogur.is/" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="ULTramEgasíðan - Þar sem myndar sögur lifa!" />
-    <meta property="og:description" content="Upplifðu myndasögur eins og aldrei fyrr á ULTramEgasíðunni - Skemmtun, sköpun og sögur fyrir alla!" />
-    <meta property="og:image" content="https://i.imgur.com/COCCKrc.png" /> <!-- Skiptu þessu út fyrir rétta myndarslóð -->
-    <meta property="fb:app_id" content="1501563707185143" />
-    <!-- Favicon fyrir helstu vafra -->
-    <link rel="icon" href="https://myndarsogur.is/Myndarsogur-Merki.ico" type="image/x-icon">
-    <!-- PNG fyrir vafra sem styðja PNG -->
-    <link rel="icon" href="https://myndarsogur.is/Myndarsogur-Merki.png" type="image/png">
-    <!-- Apple Touch Icon -->
-    <link rel="apple-touch-icon" href="https://myndarsogur.is/Myndarsogur-Merki.png">
-    <!-- Hotjar Tracking Code for https://myndarsogur.is -->
-    <script>
-        (function(h,o,t,j,a,r){
-            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-            h._hjSettings={hjid:5255530,hjsv:6};
-            a=o.getElementsByTagName('head')[0];
-            r=o.createElement('script');r.async=1;
-            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-            a.appendChild(r);
-        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-    </script>
-    <style>
-        body {
-            background-color: #000;
-            color: #ffffff;
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            margin: 0;
-            overflow: hidden;
-        }
-         /* Fela aðeins tiltekna h1 og p */
-         .hidden-text {
-            position: absolute;
-            left: -9999px; /* Flytur textann langt út fyrir skjáinn */
-            visibility: hidden; /* Tryggir að hann sé ósýnilegur */
-        }
-        title {
-            color: #ff00ff;
-            text-shadow: 2px 2px 5px #ff0, 0 0 10px #f00;
-            font-size: 3em;
-            margin: 10px 100px;
-            animation: pulsate 3s infinite;
-        }
-        @keyframes pulsate {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.2);
-            }
-        }
-        .section {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 1px;
-            border: px solid #fff;
-            margin: 20px;
-        }
-        .section:nth-child(odd) {
-            background-color: #111;
-        }
-        .section:nth-child(even) {
-            background-color: #222;
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        p {
-            text-align: center;
-            color: #666;
-        }
-        .section-container {
-            display: flex;
-            justify-content: center;
-            gap: 5px;
-            margin: 1px;
-            padding: 1px;
-        }
-        .section {
-            padding: 20px;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            text-align: center;
-        }
-        .section a {
-            text-decoration: none;
-            color: #007bff;
-        }
-        .emoji {
-            position: absolute;
-            font-size: 2rem;
-            animation: float 1s ease-in-out infinite;
-        }
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-20px);
-            }
-        }
-     
-        #myndasogugerd {
-            position: fixed;
-            bottom: -100px;
-            left: -200px;
-            font-size: 8rem;
-            cursor: pointer;
-            transform: rotate(-10deg);
-            animation: robot-move 3s infinite alternate;
-            background: none;
-            border: none;
-        }
-        @keyframes robot-move {
-            0% {
-                transform: rotate(-10deg) translate(0, 0);
-            }
-            25% {
-                transform: rotate(-20deg) translate(10px, -10);
-            }
-            100% {
-                transform: rotate(10deg) translate(10px, -10px);
-            }
-        }
-        #arctic a {
-            font-size: 2.5em;
-            font-family: 'Arial', sans-serif;
-            font-weight: bold;
-            text-decoration: none;
-            color: #fff;
-            text-shadow: 0px -5px 5px #00f, 0px 5px 5px #fff;
-            animation: arctic-shimmer 5s infinite alternate;
-        }
-        @keyframes arctic-shimmer {
-            0% {
-                text-shadow: 0px -5px 5px #00f, 0px 5px 5px #fff;
-            }
-            100% {
-                text-shadow: 0px -5px 5px #fff, 0px 5px 5px #00f;
-            }
-        }
-         a {
-            display: block;
-            margin: 20px;
-            font-size: 2em;
-            color: #ff0;
-            text-decoration: none;
-            animation: bounce 1.5s infinite;
-        }
-       
-        @keyframes bounce {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-        #solusida {
-            font-size: 1.5em;
-            background-color: #0000ff;
-            border: 3px solid #ff00ff;
-            padding: 20px;
-            display: inline-block;
-            cursor: pointer;
-            position: absolute;
-            animation: organic-motion 20s linear infinite;
-        }
-        @keyframes organic-motion {
-            0% {
-                transform: translate(10vw, 10vh);
-            }
-            25% {
-                transform: translate(80vw, 15vh) rotate(10deg);
-            }
-            50% {
-                transform: translate(70vw, 80vh) rotate(-10deg);
-            }
-            75% {
-                transform: translate(20vw, 70vh) rotate(5deg);
-            }
-            100% {
-                transform: translate(10vw, 10vh);
-            }
-        }
-        #hofundar {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            background: url('https://i.imgur.com/EBOQ8eV.gif') no-repeat center center;
-            background-size: cover;
-            border-radius: 50%;
-            animation: spin 5s linear infinite, move 10s linear infinite;
-            z-index: 1000;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        @keyframes move {
-            0% { transform: translate(10vw, 10vh); }
-            25% { transform: translate(80vw, 15vh); }
-            50% { transform: translate(70vw, 80vh); }
-            75% { transform: translate(20vw, 70vh); }
-            100% { transform: translate(10vw, 10vh); }
-        }
-        .emoji {
-            position: absolute;
-            animation: float 3s ease-in-out infinite;
-        }
-        .section-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            padding: 20px;
-            justify-content: center;
-        }
-        .section {
-            flex: 1 1 calc(33% - 20px);
-            box-sizing: border-box;
-        }
-        @media (max-width: 800px) {
-            .section {
-                flex: 1 1 calc(50% - 20px);
-            }
-        }
-        @media (max-width: 500px) {
-            .section {
-                flex: 1 1 100%;
-            }
-        }
-        /* Fela aðeins tiltekna h1 og p */
-        .hidden-text {
-            position: absolute;
-            left: -9999px; /* Flytur textann langt út fyrir skjáinn */
-            visibility: hidden; /* Tryggir að hann sé ósýnilegur */
-        }
-        #ultramega {
-            position: relative;
-            display: inline-block;
-            font-family: cursive; /* Cursive */
-            font-size: 6em; /* Stórt og skrautlegt letur */
-            padding: 0;
-            margin: 0;
-            color: #ff00ff;
-            text-decoration: none;
-            /* Byrjandi neon-skuggi */
-            text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 20px #ff00ff;
-            /* Carnivalskeyti! */
-            animation: carnival 1s ease-in-out infinite,  
-            dance  1s ease-in-out infinite, 
-            bounce  5s ease-in-out infinite; 
-        }
-        /* Fleiri litir, meiri snúningur og hristingur til að fá „carnival“-tilfinningu */
-        @keyframes carnival {
-            0% {
-                color: #ff00ff;
-                text-shadow: 
-                    0 0 5px #ae59ae, 
-                    0 0 10px #e1b3e1, 
-                    0 0 20px #ff00ff;
-                transform: scale(1) rotate(0deg) translate(0, 0);
-            }
-            20% {
-                color: #ffff00;
-                text-shadow: 
-                    0 0 5px #ffff00, 
-                    0 0 10px #ffff00, 
-                    0 0 20px #ffff00;
-                transform: scale(1.2) rotate(10deg) translate(5px, 0);
-            }
-            40% {
-                color: #00ff00;
-                text-shadow: 
-                    0 0 5px #00ff00, 
-                    0 0 10px #00ff00, 
-                    0 0 20px #00ff00;
-                transform: scale(1.1) rotate(-5deg) translate(-5px, 5px);
-            }
-            60% {
-                color: #ff0000;
-                text-shadow: 
-                    0 0 5px #ff0000, 
-                    0 0 10px #ff0000, 
-                    0 0 20px #ff0000;
-                transform: scale(1.3) rotate(5deg) translate(10px, -5px);
-            }
-            80% {
-                color: #00ffff;
-                text-shadow: 
-                    0 0 5px #00ffff, 
-                    0 0 10px #00ffff, 
-                    0 0 20px #00ffff;
-                transform: scale(1.2) rotate(-5deg) translate(-5px, 10px);
-            }
-            100% {
-                color: #ff00ff;
-                text-shadow: 
-                    0 0 5px #ff00ff, 
-                    0 0 10px #ff00ff, 
-                    0 0 20px #ff00ff;
-                transform: scale(1) rotate(0deg) translate(0, 0);
-            }
-        }
-        /* ====== "Dance": Sjálft dansið/hreyfingin ====== */
-        @keyframes dance {
-            0% {
-                transform: scale(1) rotate(0deg) translate(0, 0);
-            }
-            10% {
-                /* lítið hopp upp */
-                transform: scale(1.3) rotate(5deg) translate(0, -20px);
-            }
-            20% {
-                /* lending með smá „dip“ */
-                transform: scale(0.9) rotate(-5deg) translate(0, 10px);
-            }
-            30% {
-                /* sveifla til vinstri */
-                transform: scale(1.2) rotate(10deg) translate(-10px, 0);
-            }
-            40% {
-                /* sveifla til hægri */
-                transform: scale(1) rotate(-10deg) translate(10px, 0);
-            }
-            50% {
-                /* lítið hopp upp + snúningur */
-                transform: scale(1.2) rotate(5deg) translate(5px, -10px);
-            }
-            60% {
-                /* lending + sveifla niður */
-                transform: scale(0.8) rotate(-5deg) translate(-5px, 15px);
-            }
-            70% {
-                /* hopp upp aftur */
-                transform: scale(1.2) rotate(5deg) translate(10px, -10px);
-            }
-            80% {
-                /* sveifla til baka */
-                transform: scale(1) rotate(-5deg) translate(-10px, 5px);
-            }
-            90% {
-                /* smá "cha cha" hliðarskref */
-                transform: scale(1.1) rotate(10deg) translate(5px, 0);
-            }
-            100% {
-                /* komum aftur í kyrrstöðu */
-                transform: scale(1) rotate(0deg) translate(0, 0);
-            }
-        }
-        /* Sérstakir stílar fyrir hverja section */
-        #arid {
-            background-color: #ff0;
-            color: #000;
-            font-size: 25px;
-            font-weight: bolder;
-            font-style: sans-serif;
-            height: 190px;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ULTramEgasíðan er staður þar sem myndasögur, leikjasíður og skapandi efni lifna við! Komdu og uppgötvaðu heim ævintýra." />
+  <title>  ULTramEgasíðan - Myndasögur, leikir, sköpun, heimar og geimar!</title>
+  <!-- Basic Open Graph Meta Tags -->
+  <meta property="og:url" content="https://myndarsogur.is/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="ULTramEgasíðan - Þar sem myndar sögur lifa!" />
+  <meta property="og:description" content="Upplifðu myndasögur eins og aldrei fyrr á ULTramEgasíðunni - Skemmtun, sköpun og sögur fyrir alla!" />
+  <meta property="og:image" content="https://i.imgur.com/COCCKrc.png" /> <!-- Skiptu þessu út fyrir rétta myndarslóð -->
+  <meta property="fb:app_id" content="1501563707185143" />
+  <!-- Favicon fyrir helstu vafra -->
+  <link rel="icon" href="https://myndarsogur.is/Myndarsogur-Merki.ico" type="image/x-icon">
+  <!-- PNG fyrir vafra sem styðja PNG -->
+  <link rel="icon" href="https://myndarsogur.is/Myndarsogur-Merki.png" type="image/png">
+  <!-- Apple Touch Icon -->
+  <link rel="apple-touch-icon" href="https://myndarsogur.is/Myndarsogur-Merki.png">
+  <!-- Hotjar Tracking Code for https://myndarsogur.is -->
+  <script>
+      (function(h,o,t,j,a,r){
+          h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+          h._hjSettings={hjid:5255530,hjsv:6};
+          a=o.getElementsByTagName('head')[0];
+          r=o.createElement('script');r.async=1;
+          r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+          a.appendChild(r);
+      })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+  </script>
+  <style>
+    body {
+      margin: 0;
+      display: grid;
+      grid-template-columns: 35% 43% 22%; /* Adjusted column widths */
+      min-height: 100vh;
+      gap: 0; /* Remove any gap between columns */
+      background-color: yellow; /* Optional: Set a background color */
+    }
 
+    .left-col {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 100vh;
+    }
 
-            
-        }
-        #arid a {
-            color: #000;
-        }
-        #solusida {
-            background-color: #851c1c;
-            color: #ff0;
-        }
-        #solusida a {
-            color: #ff0;
-        }
-        #hofundar {
-            color: #d40606;
-        }
-        #hofundar a {
-            color: #f5f5f5;
-        }
-        #arctic {
-            background-color: #e2e0f4;
-            color: #fcfbff;
-            background: linear-gradient(90deg, #969dfb, #f0f0f0);
-        }
-/* Hnappurinn fyrir míkróblogg */
-.blog-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #ff0095;
-    color: rgb(255, 255, 255);
-    border: none;
-    border-radius: 50%;
-    width: 10;
-    height: 10;
-    font-size: 74px;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(231, 222, 222, 0.1);
-    transition: background-color 0.3s;
-    z-index: 1000;
+    .blue-section {
+      background: blue;
+      height: 60vh; /* Adjust this value to control blue section height */
+      padding: 20px;
+      overflow: hidden;
+      position: relative; /* Nauðsynlegt fyrir z-index */
+      z-index: 1; /* Blái ramminn er undir gula */
+    }
+    .scroll-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+  grid-auto-flow: dense;
+  justify-items: center;
 }
 
-.blog-button:hover {
-    background-color: #e63599;
-}
+    .yellow-section {
+      background: yellow;
+      flex-grow: 1; /* Takes remaining space below blue section */
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative; /* Nauðsynlegt fyrir z-index */
+      z-index: 2; /* Guli ramminn er ofan á bláa */
+    }
 
-/* Popup glugginn */
-.blog-popup {
-    display: none; /* Fylgir ekki upphaflega */
-    position: fixed;
-    bottom: 90px; /* Ofar í gegn við hnappinn */
-    right: 20px;
-    width: 300px;
-    max-height: 400px;
-    background-color: rgb(0, 0, 0);
-   
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-    overflow-y: auto;
-    animation: fadeIn 0.5s;
-    z-index: 999;
-}
+    .yellow-section a {
+      width: 150px;  /* Adjust size as needed */
+      height: 150px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
 
-/* Innihald popup gluggans */
-.popup-content {
-    padding: 20px;
-    position: relative;
-    text-emphasis-color: rgb(255, 255, 255);
-    text-decoration-color: rgb(255, 255, 255)
-}
+    .yellow-section a img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
 
-/* Loka hnappurinn (X) */
-.close-button {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 24px;
-    cursor: pointer;
-}
+    .mid-section {
+      background: red;
+      display: flex;
+      flex-direction: column;
+      justify-content: top;
+      align-items: top;
+      height: 100%;
+      z-index: 3; /* Blái ramminn er undir gula */
 
-/* Animation fyrir popup */
-@keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
-}
+    }
 
-@keyframes fadeOut {
-    from { opacity: 1; transform: scale(1); }
-    to { opacity: 0; transform: scale(0.9); }
-}
-
-/* Bæta við stíl fyrir bloggfærslur */
-#blogContent {
-    margin-top: 10px;
-    color:#dced40
-    
-}
-
-.blog-entry {
-    position: relative;
-    background-color: #1a1a1a; /* Dökkri bakgrunnur fyrir betri lesanleika */
-    border-bottom: 1px solid #ddd;
-    padding: 20px 0;
-    color:#dced40;
-    border-radius: 10px;
-    padding: 15px 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s, box-shadow 0.3s;
+ 
 
 }
 
-.blog-entry:last-child {
-    border-bottom: none;
-    color:#09ff00
-    
-
-}
-.blog-entry img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    margin-bottom: 10px;
+.mid-scroll-container::-webkit-scrollbar {
+  display: none;             /* Chrome, Safari, Opera */
 }
 
-.blog-entry:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+.mid-scroll-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  padding: 20px
+  margin: 0px;
+  border: none;
+  background: transparent;
+  overflow: hidden;
 }
 
-.blog-entry h3 {
-    color: #ee6a8b;
-    margin-bottom: 10px;
-    font-size: 1.9em;
-
+.mid-scroll-content a img {
+  width: 240px;
+  height: 320px;
+  object-fit: cover;
+  border-radius: 20px;
+  transition: trasform 0.3s ease, box shadow 0.3s ease;
+  display:block
 }
 
-.blog-entry p {
-    color: #ffffff;
-    line-height: 1.6;
-    margin-bottom: 10px;
+  .mid-scroll-content a:hover img {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
 }
 
-.blog-entry strong {
-    color: #555;
-}
+    .right-col {
+      background: green;
+      height: 100%;
+      padding: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      border-left: 1px solid #ccc; /* Optional: adds visual separation */
+    }
 
-* Bloggfærslu haus */
-.blog-header {
-    text-align: left; /* Staðsetja titilinn til vinstri */
-    margin-bottom: 15px;
-}
+    .right-scroll-container {
+      height: 130vh;
+      overflow-y: auto;
+      padding-right: 10px;
+      /* Hide scrollbar */
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
 
-/* Titill bloggfærslu */
-.blog-title {
-    font-size: 2.5em;
-    color: #fe285d;
-    margin: 0;
-    padding: 0;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-}
+    .right-scroll-container::-webkit-scrollbar {
+      display: none;
+    }
 
-/* Undirtitill bloggfærslu */
-.blog-subtitle {
-    font-size: 1.2em;
-    color: #ffffff;
-    margin: 5px 0 0 0;
-    font-weight: normal;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-}
+    .right-scroll-content {
+      display: flex;
+      height: 100%;
+      flex-direction: column;
+      gap: 15px;
+      align-items: center;
+      padding: 10px;
+    }
 
-/* Bloggfærslu mynd */
-.blog-image {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    object-fit: cover;
-}
+    .right-scroll-content a img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
 
-/* Lýsing bloggfærslu */
-.blog-description {
-    font-size: 1em;
-    line-height: 1.6;
-    margin-bottom: 15px;
-    color: #ffffff;
-}
+    .scroll-container {
+      height: 100%;
+      overflow-y: scroll;
+      scroll-behavior: smooth; /* Gerir skrollið lífrænt */
+      padding-right: 10px;
+      /* Hide scrollbar for different browsers */
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+    }
 
-/* Nánari upplýsingar */
-.blog-details {
-    font-size: 0.9em;
-    color: #ffd000;
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .scroll-container::-webkit-scrollbar {
+      display: none;
+    }
 
-}
-</style>
+    .scroll-content {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* Two columns */
+      gap: 15px;
+      padding: 0px;
+    }
 
-    
+    /* Remove old scrollbar styles */
+    .scroll-container::-webkit-scrollbar,
+    .scroll-container::-webkit-scrollbar-track,
+    .scroll-container::-webkit-scrollbar-thumb {
+      display: none;
+    }
+
+    /* Adjust image sizing for two-column layout */
+    .blue-section a img {
+      width: 100%; /* Myndin fyllir foreldrið */
+      height: 100%; /* Myndin fyllir foreldrið */
+      object-fit: cover; /* Tryggir að myndin fylli út án þess að aflagast */
+      border-radius: 50%; /* Heldur myndunum hringlaga */
+    }
+
+    /* Stíll fyrir alla hnappa */
+    a {
+      text-decoration: none;
+      display: block;
+    }
+
+    a img {
+      width: 120px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    /* Sérstillingar fyrir gula hlutann */
+    .yellow-section a img {
+      width: 400px;
+      height: 440px;
+    }
+
+    /* Stækkar letrið á takkunum í græna fletinum */
+    .right-scroll-content a {
+        font-size: 74px; /* Stærð letursins */
+        font-weight: bold; /* Feitletrað */
+        text-align: center; /* Miðar textann */
+        color: black; /* Litur letursins */
+        text-decoration: none; /* Fjarlægir undirstrik */
+        display: block; /* Tryggir að textinn birtist sem blokk */
+        margin: 0px 0; /* Bil á milli texta */
+    }
+
+    .right-scroll-content a img {
+        display: none; /* Felur myndirnar */
+    }
+
+    /* Stíll fyrir tooltip */
+    .tooltip {
+        position: relative;
+        display: inline-block;
+    }
+
+    .tooltip .tooltip-text {
+        visibility: visible;
+        width: 120px;
+        background-color: none;
+        color: #fff;
+        text-align: center;
+        border-radius: 5px;
+        padding: 5px;
+        position: absolute;
+        z-index: 10;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 1;
+        transition: opacity 0.3s;
+    }
+
+    .tooltip:hover .tooltip-text {
+        visibility: visible;
+        opacity: 1;
+        
+    } /* Stíll fyrir dagsetningu yfir myndum */
+    .tooltip .tooltip-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 34px; /* Stærð letursins */
+        stroke width: ;: 3px black; /* Skuggi fyrir betri læsileika */ 
+        font-weight: bold;
+        color: white; /* Litur letursins */
+        text-shadow: 6px 6px 8px rgba(0, 0, 0, 0.7); /* Skuggi fyrir betri læsileika */
+        pointer-events: none; /* Leyfir ekki að smella á textann */
+    }
+  </style>
 </head>
 <body>
-    <h1 class="hidden-text">ULTramEgasíðan - Myndasögur, leikir, sköpun, heimar og geimar!</h1>
-    <p class="hidden-text">Velkomin á ULTramEgasíðuna! Hér finnur þú spennandi myndasögur, leikjasíður og margt fleira sem veitir þér skemmtun og sköpunargleði.</p>
-      <a id="ultramega" href="Leikjasidan/index.html" style="color: #ff00ff; text-decoration: none;">ULTramEgasíðan</a>
-    <div class="section-container">
-        <div class="section" id="arctic">
-            <a href="ARCTIC/index.html">The Arctic Comics Journal</a>
-        </div>
-        <div class="section" id="arid">
-            <a href="Arid2024/index.html">Myndarsögur <br> Árið 2024 </a>
-        </div>
-        <div class="section" id="solusida">
-            <a href="Solusida/index.html">Sölusíða</a>
-        </div>
-        <div class="section" id="hofundar">
-            <a href="Karakterar/index.html">Höfundar</a>
-        </div>
-        <div class="section" id="myndasogugerd">
-            <a href="Myndasogugerd/index.html">🤖</a>
-        </div>
-    </div>
-    <div id="cursor"></div>
-    <div class="emoji" style="left: 10%; top: 30%;">🌟</div>
-    <div class="emoji" style="left: 70%; top: 50%;">🔥</div>
-    <div class="emoji" style="left: 40%; top: 70%;">💥</div>
-   
-    <!-- Hnappurinn fyrir míkróblogg -->
-<button id="blogButton" class="blog-button">🗞️</button>
-
-<!-- Popup glugginn fyrir míkróblogg -->
-<div id="blogPopup" class="blog-popup">
-    <div class="popup-content">
-        <h2>Áríðandi tilkynningar</h2>
-        <div id="blogContent">
-            <!-- Bloggfærslur koma hingað -->
-            <p>Hleður bloggfærslur...</p>
+  <div class="left-col">
+    <!-- Blái hlutinn -->
+    <div class="blue-section">
+      <div class="scroll-container">
+        <div class="scroll-content">
+          <a href="https://www.forlagid.is/vara/mer-list-ekkert-a-thetta/" class="author-link"><img src="https://static.wixstatic.com/media/738beb_c952018e7b894fdc876001a0f4f6ccc8~mv2.jpeg/v1/fill/w_920,h_690,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/IMG_4295.jpeg" alt="Alex Steinþórsdóttir"></a>
+          <a class="author-link" href="linktr.ee/adda_bjagga_art">
+            <img alt="Arndís Björk Marinósdóttir" src="https://imgur.com/TT0qd2D.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/addinabblakusk/">
+            <img alt="Arnfinnur Rúnar Sigmundsson" src="https://imgur.com/ONZEjLM.png"/>
+           </a>
+           <a class="author-link" href="https://www.dileydiflorez.com/about-me-contact">
+            <img alt="Dileydi Florez" src="https://imgur.com/T9FOxoZ.png"/>
+           </a>
+           <a class="author-link" href="linktr.ee/icecomics">
+            <img alt="Fannar Gilbertsson" src="https://imgur.com/uF7YSms.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/fannar_draw/">
+            <img alt="Fannar Már Skarphéðinsson" src="https://imgur.com/xWPAOV3.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/greenfinnur/">
+            <img alt="Finnur Matteo Bettaglio" src="https://imgur.com/TbPNTP6.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/glytta/">
+            <img alt="Glytta" src="https://imgur.com/hGwXxrz.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/dagsson/">
+            <img alt="Hugleikur Dagsson" src="https://imgur.com/CHJTagy.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/i.r.kjartansson_/">
+            <img alt="Ingi Rúnar Kjartansson" src="https://imgur.com/0MP0awL.png"/>
+           </a>
+           <a class="author-link" href="https://www.webtoons.com/en/canvas/smásögur-/krummafótur/viewer?title_no=860721&amp;episode_no=3&amp;webtoonType=CHALLENGE&amp;fbclid=PAZXh0bgNhZW0CMTEAAablgaMpcNGX33pPzSW2fKKHVt90-H7B7UDg7WAM2pZht7vEttkdwyo85eI_aem_6xfD56ROam2Gx2zz4HurIw&amp;webtoon-platform-redirect=true">
+            <img alt="Ísold Davíðsdóttir" src="https://imgur.com/WBzTUVH.png"/>
+           </a>
+           <a class="author-link" href="https://myndarsogur.is">
+            <img alt="jj mancho" src="https://imgur.com/Lbansfp.png"/>
+           </a>
+           <a class="author-link" href="https://myndarsogur.is">
+            <img alt="Klara Rosatti" src="https://imgur.com/4zAMLcO.png"/>
+           </a>
+           <a class="author-link" href="https://myndarsogur.is">
+            <img alt="Kris Helga" src="https://imgur.com/FTV6rrG.png"/>
+           </a>
+           <a class="author-link" href="https://kruzidula.neocities.org">
+            <img alt="Krummi" src="https://imgur.com/cQHs8f3.png"/>
+           </a>
+           <a class="author-link" href="https://myndarsogur.is">
+            <img alt="Lóa Hlín Hjálmtýsdóttir" src="https://imgur.com/mGubx0m.png"/>
+           </a>
+           <a class="author-link" href="https://myndarsogur.is">
+            <img alt="Lúkas Regal" src="https://imgur.com/Nc37AID.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/robotic_turtle/">
+            <img alt="Ómar Smári Sigurgeirsson" src="https://imgur.com/2OjbgU7.png"/>
+           </a>
+           <a class="author-link" href="https://www.valadraws.com">
+            <img alt="Vala Steingrímsdóttir" src="https://imgur.com/I4noZOf.png"/>
+           </a>
+           <a class="author-link" href="https://myndarsogur.is">
+            <img alt="Þórey Mjallhvít" src="https://imgur.com/vnN8TLo.png"/>
+           </a>
+           <a class="author-link" href="https://myndarsogur.is">
+            <img alt="Hlíf Una" src="https://imgur.com/Ke4asUn.png"/>
+           </a>
+           <a class="author-link" href="https://myndarsogur.is">
+            <img alt="Hugljúf Jósefsdóttir" src="https://imgur.com/joc1cIh.png"/>
+           </a>
+           <a class="author-link" href="https://myndarsogur.is">
+            <img alt="Martyna Laura" src="https://imgur.com/lxCH8x0.png"/>
+           </a>
+           <a class="author-link" href="https://myndarsogur.is">
+            <img alt="Herdís Þorvaldsdóttir" src="https://imgur.com/3IRZTos.png"/>
+           </a>
+           <a class="author-link" href="https://myndarsogur.is">
+            <img alt="Einar Másson" src="https://imgur.com/FPR8I1E.png"/>
+           </a>
+           <a class="author-link" href="https://myndarsogur.is">
+            <img alt="Elías Rúni" src="https://imgur.com/vJE0VhO.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/dumb.loves.svali/">
+            <img alt="Una Erlín" src="https://imgur.com/li9QtyC.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/bluebonnetmilk/">
+            <img alt="Viktoría Söring" src="https://imgur.com/mCFTepv.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/eirikurlynch/">
+            <img alt="Eiríkur Lynch" src="https://imgur.com/eGRC7zT.png"/>
+           </a>
+           <a class="author-link" href="https://myndarsogur.is">
+            <img alt="Ingi Jensson" src="https://imgur.com/rgXcljj.png"/>
+           </a>
+           <a class="author-link" href="https://myndarsogur.is">
+            <img alt="Rakki móri úr mýri Reykjavíkur" src="https://imgur.com/ynK4ZV2.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/addimarvin/">
+            <img alt="Arnar Marvin Kristjánsson" src="https://imgur.com/ewGfNvW.png"/>
+           </a>
+           <a class="author-link" href="https://myndarsogur.is">
+            <img alt="Egill Jónasson" src="https://imgur.com/dvabOzH.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/unndeadcat/">
+            <img alt="Unndeadcat" src="https://imgur.com/cteaR6B.png"/>
+           </a>
+           <a class="author-link" href="https://www.forlagid.is/vara/bannad-ad-vekja-grylu/">
+            <img alt="Dagur Sævarsson" src="https://imgur.com/zhQ36xh.png"/>
+           </a>
+           <a class="author-link" href="https://smjorfluga.com">
+            <img alt="Lilja Björg Jökulsdóttir" src="https://imgur.com/gefHgoV.png"/>
+           </a>
+           <a class="author-link" href="https://myndarsogur.is">
+            <img alt="Hrafnsunna Ross" src="https://imgur.com/UxCz2tm.png"/>
+           </a>
+           <a class="author-link" href="https://myndarsogur.is">
+            <img alt="Arnar Þór Sigurlaugar-Kristjánsson" src="https://imgur.com/5nHBP2J.png"/>
+           </a>
+           <a class="author-link" href="https://www.sigurduramundason.com/?fbclid=PAZXh0bgNhZW0CMTEAAaa9AvD3Q898xxeq9p1PCVWfoPoeeCKyOvxtHmt3kkdWui7DZCYvAoOS5YA_aem_g1JalJ8t3hgv096bOUxvYQ">
+            <img alt="Sigurður Ámundason" src="https://imgur.com/bLdhnIx.png "/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/myndarsogur/?hl=en">
+            <img alt="Myndarsögur" src="https://imgur.com/vlacKnM.png"/>
+           </a>
+           <a class="author-link" href="https://myndarsogur.is">
+            <img alt="Taylor Garcia van Biljon" src="https://imgur.com/pq4Yazz.png"/>
+           </a>
+           <a class="author-link" href="https://www.fluoro.life/2023/06/unnur-snorradottir/">
+            <img alt="Unnur Snorradóttir" src="https://imgur.com/XP9wdHJ.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/hig_peculiart/">
+            <img alt="Hermann Ingi Guðbrandsson" src="https://imgur.com/eYNCG4v.png"/>
+           </a>
+           <a class="author-link" href="https://www.forlagid.is/vara/einstakt-jolatre/">
+            <img alt="Linn Janssen" src="https://imgur.com/dOIbCtE.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/myndarsogur/?hl=en">
+            <img alt="Myndarsögur" src="https://imgur.com/vlacKnM.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/ymirarnarson/">
+            <img alt="Ymir Arnarson" src="https://imgur.com/guAdvMr.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/kallikailashyouzeartandmusic/">
+            <img alt="Kailash Youze" src="https://imgur.com/W1U4ko2.png"/>
+           </a>
+           <a class="author-link" href="https://www.artstation.com/j_rundur">
+            <img alt="Jörundur Óskarsson" src="https://imgur.com/MoIN7ZK.jpg"/>
+           </a>
+          <a class="author-link" href="https://www.instagram.com/elinelisabete/?hl=en">
+            <img alt="Elín Elísabet Einarsdóttir" src="https://imgur.com/o8pL7uh.png"/>
+           </a>
+           <a class="author-link" href="https://myndarsogur.is">
+            <img alt="Dýrfinna Benita" src="https://imgur.com/CueoYfQ.png"/>
+           </a>
+           <a class="author-link" href="teiknari.is">
+            <img alt="Ari Hlynur Yates" src="https://imgur.com/YIiGfN9.png"/>
+           </a>
+           <a class="author-link" href="https://www.jolaljosamadurinn.com/leiðin-upp-hallgrímskirkju">
+            <img alt="Jólaljósamaðurinn" src="https://imgur.com/xSDkZKY.png"/>
+           </a>
+           <a class="author-link" href="https://www.kosmonatka.net">
+            <img alt="Natka Klimowicz" src="https://imgur.com/3aMdrhH.gif"/>
+           </a>
+           <a class="author-link" href="https://bjornheimir.com">
+            <img alt="Björn Heimir Önundarson" src="https://imgur.com/NY687Xc.png"/>
+           </a>
         </div>
     </div>
 </div>
+<!-- Yellow section moved here, under blue section -->
+<div class="yellow-section">
+  <a href="https://www.myndarsogur.is/stora"><img src="https://imgur.com/dmsyTRU.png" alt="Mynd 1"></a>
+</div>
+</div>
+  <!-- Rauði hlutinn með stórum hnappi -->
+  <div class="mid-section">
+    <div class="mid-scroll-container">
+      <div class="mid-scroll-content">
+        <div class="tooltip">
+          <a href="https://www.comicsfestival.is"><img src="https://www.comicsfestival.is/themes/custom/siklo/img/logo-animated-2.gif" alt="Mynd 1"></a>
+          <span class="tooltip-text">15.-17.Ágúst</span>
+        </div>
+        <div class="tooltip">
+          <a href="https://www.facebook.com/events/672629485521447/?acontext=%7B%22event_action_history%22%3A[%7B%22surface%22%3A%22external_search_engine%22%7D%2C%7B%22mechanism%22%3A%22attachment%22%2C%22surface%22%3A%22newsfeed%22%7D]%2C%22ref_notif_type%22%3Anull%7D&locale=is_IS"><img src="https://imgur.com/fBdqHJJ.png" alt="Mynd 1"></a>
+          <span class="tooltip-text">27. Maí</span>
+        </div>
+        <div class="tooltip">
+          <a href="https://www.facebook.com/events/672629485521447/?acontext=%7B%22event_action_history%22%3A[%7B%22surface%22%3A%22external_search_engine%22%7D%2C%7B%22mechanism%22%3A%22attachment%22%2C%22surface%22%3A%22newsfeed%22%7D]%2C%22ref_notif_type%22%3Anull%7D&locale=is_IS"><img src="https://imgur.com/Q4Y1fhw.png" alt="Mynd 1"></a>
+          <span class="tooltip-text">7. Júní</span>
+        </div><div class="tooltip">
+          <a href="https://myndarsogur.is/arctic/"><img src="https://i.imgur.com/MYJssUY.png" alt="ACJ"></a>
+          <span class="tooltip-text">Arctic Comics Journal</span>
+        </div>
+        <div class="tooltip">
+          <a href="https://www.comicsfestival.is"><img src="https://www.comicsfestival.is/themes/custom/siklo/img/logo-animated-2.gif" alt="Mynd 1"></a>
+          <span class="tooltip-text">15.-17.Ágúst</span>
+        </div>
+        <div class="tooltip">
+          <a href="https://www.facebook.com/events/672629485521447/?acontext=%7B%22event_action_history%22%3A[%7B%22surface%22%3A%22external_search_engine%22%7D%2C%7B%22mechanism%22%3A%22attachment%22%2C%22surface%22%3A%22newsfeed%22%7D]%2C%22ref_notif_type%22%3Anull%7D&locale=is_IS"><img src="https://imgur.com/fBdqHJJ.png" alt="Mynd 1"></a>
+          <span class="tooltip-text">27. Maí</span>
+        </div>
+        <div class="tooltip">
+          <a href="https://www.facebook.com/events/672629485521447/?acontext=%7B%22event_action_history%22%3A[%7B%22surface%22%3A%22external_search_engine%22%7D%2C%7B%22mechanism%22%3A%22attachment%22%2C%22surface%22%3A%22newsfeed%22%7D]%2C%22ref_notif_type%22%3Anull%7D&locale=is_IS"><img src="https://imgur.com/Q4Y1fhw.png" alt="Mynd 1"></a>
+          <span class="tooltip-text">7. Júní</span>
+        </div><div class="tooltip">
+          <a href="https://myndarsogur.is/arid2024/"><img src="https://i.imgur.com/4V02spN.png" alt="2024"></a>
+          <span class="tooltip-text">árið 2024</span>
+          
+        </div>
+      
+        </div>
+        <!-- Bættu við fleiri hnöppum ef vill -->
+      </div>
+    </div>
+  </div>
 
+  <!-- Græni hlutinn með scrollbox -->
+  <div class="right-col">
+    <div class="right-scroll-container">
+      <div class="right-scroll-content">
+        <a class="stuff-link" href="https://myndarsogur.is/myndasogugerd/teiknitol">
+          🎨
+         </a>       <a class="stuff-link" href="https://myndarsogur.is/myndasogugerd/teiknitol">
+          🖌️
+         </a> <a class="stuff-link" href="https://myndarsogur.is/myndasogugerd/teiknitol">
+          🖍️
+         </a> <a class="stuff-link" href="https://myndarsogur.is/myndasogugerd/teiknitol">
+          ✏️
+         </a> <a class="stuff-link" href="https://myndarsogur.is/myndasogugerd/teiknitol">
+          🖊️
+         </a> <a class="stuff-link" href="https://myndarsogur.is/myndasogugerd/teiknitol">
+          🖍️
+         </a> <a class="stuff-link" href="https://myndarsogur.is/myndasogugerd/teiknitol">
+          🖌️
+         </a> <a class="stuff-link" href="https://myndarsogur.is/myndasogugerd/teiknitol">
+          ✏️
+         </a> <a class="stuff-link" href="https://myndarsogur.is/myndasogugerd/teiknitol">
+          🎨
+        </a>       <a class="stuff-link" href="https://myndarsogur.is/myndasogugerd/teiknitol">
+          🖌️
+         </a> <a class="stuff-link" href="https://myndarsogur.is/myndasogugerd/teiknitol">
+          🖍️
+         </a> <a class="stuff-link" href="https://myndarsogur.is/myndasogugerd/teiknitol">
+          ✏️
+         </a> <a class="stuff-link" href="https://myndarsogur.is/myndasogugerd/teiknitol">
+          🖊️
+         </a> <a class="stuff-link" href="https://myndarsogur.is/myndasogugerd/teiknitol">
+          🖍️
+         </a> <a class="stuff-link" href="https://myndarsogur.is/myndasogugerd/teiknitol">
+          🖌️
+         </a> <a class="stuff-link" href="https://myndarsogur.is/myndasogugerd/teiknitol">
+          ✏️
+         </a> <a class="stuff-link" href="https://myndarsogur.is/myndasogugerd/teiknitol">
+          🎨
 
-    <script>
-
-        // script.js (Innan <script> taggsins þíns)
-
-document.addEventListener('DOMContentLoaded', () => {
-    const blogButton = document.getElementById('blogButton');
-    const blogPopup = document.getElementById('blogPopup');
-    const closeButton = document.getElementById('closeButton');
-    const blogContent = document.getElementById('blogContent');
-
-    let isOpen = false;
-
-    // Opna popup
-    blogButton.addEventListener('click', () => {
-        if (!isOpen) {
-            openPopup();
-        } else {
-            closePopup();
-        }
-    });
-
-    // Loka popup þegar loka hnappurinn er smellt
-    closeButton.addEventListener('click', () => {
-        closePopup();
-    });
-
-    // Loka popup þegar notandi smellt utan við
-    window.addEventListener('click', (event) => {
-        if (event.target === blogPopup) {
-            closePopup();
-        }
-    });
-
-    async function openPopup() {
-        blogContent.innerHTML = '<p>Hleður bloggfærslur...</p>';
-        blogPopup.style.display = 'block';
-        blogPopup.style.animation = 'fadeIn 0.5s';
-        blogButton.textContent = '✖'; // Breyta í X
-        isOpen = true;
-
-        try {
-            const response = await fetch('orblogg/blogg.json?v=' + new Date().getTime());
-            if (!response.ok) {
-                throw new Error('Ekki tókst að sækja blogg.json');
+          <script>
+            const container = document.querySelector('.blue-section .scroll-content');
+            const items = Array.from(container.querySelectorAll('.author-link'));
+          
+            // Hrista röðina
+            for (let i = items.length - 1; i > 0; i--) {
+              const j = Math.floor(Math.random() * (i + 1));
+              container.appendChild(items[j]);
+              [items[i], items[j]] = [items[j], items[i]];
             }
-            const blogFiles = await response.json();
-            displayBlogs(blogFiles);
-        } catch (error) {
-            blogContent.innerHTML = `<p>Villa við að hlaða bloggfærslur: ${error.message}</p>`;
-            console.error(error);
-        }
-    }
+          
+            // Gefa hverjum mismunandi stærð
+            const sizes = [60, 80, 100, 120];
+            items.forEach(link => {
+              const img = link.querySelector('img');
+              const size = sizes[Math.floor(Math.random() * sizes.length)];
+              img.style.width = size + 'px';
+              img.style.height = size + 'px';
+              img.style.borderRadius = '100%';
+              img.style.objectFit = 'cover';
+            });
 
-    async function displayBlogs(blogFiles) {
-        if (blogFiles.length === 0) {
-            blogContent.innerHTML = '<p>Engar bloggfærslur til staðar.</p>';
-            return;
-        }
+            // Bætir við lífrænu skrolli með JavaScript
+            const scrollContainer = document.querySelector('.scroll-container');
 
-        blogContent.innerHTML = ''; // Hreinsa fyrri innihald
+            scrollContainer.addEventListener('wheel', (event) => {
+                event.preventDefault();
+                scrollContainer.scrollBy({
+                    top: event.deltaY * 0.5, // Hægir á skrollinu
+                    behavior: 'smooth'
+                });
+            });
 
-        for (const file of blogFiles) {
-            try {
-                const response = await fetch(`orblogg/${file}`);
-                if (!response.ok) {
-                    console.warn(`Ekki tókst að sækja ${file}`);
-                    continue;
-                }
-                const blogHTML = await response.text();
-                const blogEntry = document.createElement('div');
-                blogEntry.classList.add('blog-entry');
-                blogEntry.innerHTML = blogHTML;
-                blogContent.appendChild(blogEntry);
-            } catch (error) {
-                console.warn(`Villa við að hlaða ${file}: ${error.message}`);
-            }
-        }
-    }
+            // Hreyfing og árekstraráhrif
+            const items = document.querySelectorAll('.scroll-content a img');
 
-    function closePopup() {
-        // Bæta við fade out animation
-        blogPopup.style.animation = 'fadeOut 0.5s';
-        setTimeout(() => {
-            blogPopup.style.display = 'none';
-            blogButton.textContent = '📰'; // Endurheimta skilaboðamerkið
-            blogPopup.style.animation = 'fadeIn 0.5s'; // Setja aftur upp animation fyrir næsta opnun
-            isOpen = false;
-        }, 500); // Sama tíma og fadeOut animation
-    }
-});
+            items.forEach((item) => {
+                // Randomize initial position
+                const randomX = Math.random() * 10 - 5; // Milli -5px og 5px
+                const randomY = Math.random() * 10 - 5;
+                item.style.transform = `translate(${randomX}px, ${randomY}px)`;
 
-        const cursor = document.getElementById('cursor');
-        const solusida = document.getElementById('solusida');
-        const body = document.body;
+                // Mousemove áhrif
+                item.addEventListener('mousemove', (event) => {
+                    const rect = item.getBoundingClientRect();
+                    const offsetX = (event.clientX - rect.left) / rect.width - 0.5;
+                    const offsetY = (event.clientY - rect.top) / rect.height - 0.5;
+                    item.style.transform = `translate(${offsetX * 20}px, ${offsetY * 20}px) scale(1.2)`;
+                });
 
-        let solusidaX = 10;
-        let solusidaY = 10;
-        let vx = 1;
-        let vy = 1;
+                // Mouseleave til að endurstilla
+                item.addEventListener('mouseleave', () => {
+                    item.style.transform = '';
+                });
+            });
 
-        function moveSolusida() {
-            const rect = solusida.getBoundingClientRect();
-            const cursorRect = cursor.getBoundingClientRect();
+            const items = document.querySelectorAll('.scroll-content a img');
 
-            // Adjust direction to avoid cursor
-            if (
-                rect.left < cursorRect.right &&
-                rect.right > cursorRect.left &&
-                rect.top < cursorRect.bottom &&
-                rect.bottom > cursorRect.top
-            ) {
-                vx = rect.left < cursorRect.left ? -Math.abs(vx) : Math.abs(vx);
-                vy = rect.top < cursorRect.top ? -Math.abs(vy) : Math.abs(vy);
-            }
+            // Fjórar mismunandi stærðir
+            const sizes = [60, 80, 100, 120];
 
-            // Update position
-            solusidaX += vx;
-            solusidaY += vy;
+            // Fjórar mismunandi hreyfingar
+            const animations = ['move1', 'move2', 'move3', 'move4'];
 
-            // Bounce off edges
-            if (solusidaX < 0 || solusidaX > window.innerWidth - rect.width) vx *= -1;
-            if (solusidaY < 0 || solusidaY > window.innerHeight - rect.height) vy *= -1;
+            items.forEach((item) => {
+                // Úthluta handahófskenndri stærð
+                const size = sizes[Math.floor(Math.random() * sizes.length)];
+                item.style.width = size + 'px';
+                item.style.height = size + 'px';
+                item.style.borderRadius = '100%';
+                item.style.objectFit = 'cover';
 
-            solusida.style.transform = `translate(${solusidaX}px, ${solusidaY}px)`;
-        }
+                // Úthluta handahófskenndri hreyfingu
+                const animation = animations[Math.floor(Math.random() * animations.length)];
+                item.style.animation = `${animation} 3s infinite ease-in-out`;
 
-        setInterval(moveSolusida, 20);
+                // Randomize initial position
+                const randomX = Math.random() * 10 - 5; // Milli -5px og 5px
+                const randomY = Math.random() * 10 - 5;
+                item.style.transform = `translate(${randomX}px, ${randomY}px)`;
 
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = `${e.pageX}px`;
-            cursor.style.top = `${e.pageY}px`;
-        });
+                // Mousemove áhrif
+                item.addEventListener('mousemove', (event) => {
+                    const rect = item.getBoundingClientRect();
+                    const offsetX = (event.clientX - rect.left) / rect.width - 0.5;
+                    const offsetY = (event.clientY - rect.top) / rect.height - 0.5;
+                    item.style.transform = `translate(${offsetX * 20}px, ${offsetY * 20}px) scale(1.2)`;
+                });
 
-       document.addEventListener('click', (e) => {
-    const emojis = [
-        '🌟', '🔥', '💥', '✨', '💫', '👽', '👾', '🧑‍🚀', '👨‍🚀', 
-        '👩‍🚀', '🛰️', '🚀', '🛸', '🌕', '☀️', '🪐', '🌌', '☄️'
-    ];
-    const emoji = document.createElement('div');
-    emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-    emoji.style.position = 'absolute';
-    emoji.style.left = `${e.pageX}px`;
-    emoji.style.top = `${e.pageY}px`;
-    emoji.style.fontSize = '2rem';
-    emoji.style.pointerEvents = 'none';
-    emoji.style.transition = 'transform 0.2s ease-in-out';
-    document.body.appendChild(emoji);
+                // Mouseleave til að endurstilla
+                item.addEventListener('mouseleave', () => {
+                    item.style.transform = `translate(${randomX}px, ${randomY}px)`; // Endurstillir í upphafsstöðu
+                });
+            });
 
-    // Random movement in one of 8 directions
-    const moveInterval = setInterval(() => {
-        const dx = Math.random() < 0.5 ? -10 : 10;
-        const dy = Math.random() < 0.5 ? -10 : 10;
-        emoji.style.transform = `translate(${dx}px, ${dy}px)`;
-    }, 200);
+            // Úthluta handahófskenndri stærð fyrir grænu myndirnar
+            const greenItems = document.querySelectorAll('.right-scroll-content a img');
+            greenItems.forEach((item) => {
+                const size = sizes[Math.floor(Math.random() * sizes.length)];
+                item.style.width = size + 'px';
+                item.style.height = size + 'px';
+                item.style.borderRadius = '100%';
+                item.style.objectFit = 'cover';
+            });
 
-    // Remove emoji after 10 seconds
-    setTimeout(() => {
-        clearInterval(moveInterval);
-        emoji.remove();
-    }, 10000);
-});
-
-fetch('https://api.indexnow.org/IndexNow', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-        host: 'https://www.myndarsogur.is',
-        key: '9e96548408224b589657f48289b700e0',
-        keyLocation: 'https://www.myndarsogur.is/9e96548408224b589657f48289b700e0.txt',
-        urlList: [
-            'https://www.myndarsogur.is/Arid2024',
-            'https://www.myndarsogur.is/arctic',
-            'https://www.myndarsogur.is/leikjasidan',
-            'https://www.myndarsogur.is/solusida',
-            'https://www.myndarsogur.is/karakterar'
-        ]
-    })
-})
-.then(response => response.json())
-.then(data => console.log(data))
-.catch(error => console.error('Error:', error));
-
-
-// Myndasogugerd click event
-const myndasogugerd = document.getElementById('myndasogugerd');
-myndasogugerd.addEventListener('click', () => {
-    window.location.href = 'Myndasogugerd/index.html';
-});
-
-    </script>
-</body>
-</html>
+            // Úthluta handahófskenndri stærð fyrir grænu myndirnar
+            window.addEventListener('DOMContentLoaded', () => {
+                const greenItems = document.querySelectorAll('.right-scroll-content a img');
+                greenItems.forEach((item) => {
+                    const size = sizes[Math.floor(Math.random() * sizes.length)];
+                    item.style.width = size + 'px';
+                    item.style.height = size + 'px';
+                    item.style.borderRadius = '100%';
+                    item.style.objectFit = 'cover';
+                });
+            });
+          </script>
