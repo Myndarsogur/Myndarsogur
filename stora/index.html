@@ -7,7 +7,8 @@
   <style>
     body {
       margin: 0;
-      background-color: black;
+      background-color: rgb(213, 204, 26);
+      background-image: url('Bakgrunnsmyndir/mynd1.jpg'); /* Eina bakgrunnsmyndin */
       background-size: cover;
       background-position: center;
       display: flex;
@@ -16,46 +17,9 @@
       height: 100vh;
       overflow: hidden;
     }
-    #background {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-      background-size: cover;
-      background-position: center;
-      transition: opacity 1s ease-in-out; /* Fade effect */
-      opacity: 1; /* Start hidden */
-    }
-    #background.loaded {
-      opacity: 1; /* Show when loaded */
-    }
-    #floating-frame {
-      position: absolute;
-      width: 150px;
-      height: 150px;
-      z-index: 15;
-      border: 2px solid white;
-      background-size: cover;
-      background-position: center;
-      border-radius: 10px;
-    }
-    #fixed-frame {
-      position: absolute;
-      bottom: 10px;
-      right: 10px;
-      width: 150px;
-      height: 150px;
-      z-index: 15;
-      border: 2px solid white;
-      background-size: cover;
-      background-position: center;
-      border-radius: 10px;
-    }
     img {
-      max-width: 90vw;
-      max-height: 90vh;
+      max-width: 85vw; /* 85% nýting á skjánum */
+      max-height: 85vh;
       object-fit: contain;
       display: block;
       z-index: 5;
@@ -78,49 +42,18 @@
 </head>
 <body>
 
-  <div id="background"></div>
-  <div id="floating-frame"></div>
-  <div id="fixed-frame"></div>
-  <audio id="player" autoplay loop></audio>
   <img id="image" src="Adal/mynd1.jpeg" alt="mynd">
 
   <div class="click-zone left-zone" onclick="previousImage()"></div>
   <div class="click-zone right-zone" onclick="nextImage()"></div>
 
   <script>
-    const totalImages =196;
+    const totalImages = 196; // Fjöldi mynda í Adal
     let currentImage = 1;
-
-    // Skilgreindu hópana og lögin
-    const songGroups = [
-      { start: 1, end: 30, song: "Login/My Song 11 - er thett_01.mp3" },
-      { start: 31, end: 60, song: "Login/My Song 11_01.mp3" },
-      { start: 61, end: 90, song: "Login/My Song 16_01.mp3" },
-      { start: 91, end: 120, song: "Login/My Song 23_01.mp3" },
-      { start: 121, end: 150, song: "Login/My Song 26_01.mp3" },
-      { start: 151, end: 170, song: "Login/My Song 27_01.mp3" },
-      { start: 171, end: 196, song: "Login/My Song 34_01.mp3" }
-    ];
-
-    const player = document.getElementById('player');
     const image = document.getElementById('image');
-    const background = document.getElementById('background');
-    const floatingFrame = document.getElementById('floating-frame');
-    const fixedFrame = document.getElementById('fixed-frame');
-    let currentGroup = null;
 
     function updateImage() {
-      image.src = `stora/Adal/mynd${currentImage}.jpeg`;
-      updateAudio();
-    }
-
-    function updateAudio() {
-      const group = songGroups.find(g => currentImage >= g.start && currentImage <= g.end);
-      if (group !== currentGroup) {
-        currentGroup = group;
-        player.src = group.song;
-        player.play();
-      }
+      image.src = `Adal/mynd${currentImage}.jpeg`;
     }
 
     function nextImage() {
@@ -146,72 +79,9 @@
       }
     });
 
-    // Cycle background images every 3 seconds
-    const totalBackgrounds = 1; // Assume Bakgrunnsmyndir group has 75 images
-    let currentBackground = 1;
-
-    function preloadImage(src, callback) {
-      const img = new Image();
-      img.onload = callback;
-      img.src = src;
-    }
-
-    function updateBackground() {
-      const nextBackgroundSrc = `Bakgrunnsmyndir/mynd${currentBackground}.jpeg`;
-      preloadImage(nextBackgroundSrc, () => {
-        background.style.backgroundImage = `url('${nextBackgroundSrc}')`;
-        background.classList.add('loaded'); // Apply fade-in effect
-      });
-      background.classList.remove('loaded'); // Prepare for next fade
-      currentBackground = currentBackground < totalBackgrounds ? currentBackground + 1 : 1;
-    }
-
-    setInterval(updateBackground, 3000);
-
-    // Initialize the first background
-    updateBackground();
-
-    // Floating frame logic
-    let currentFloatingImage = 1;
-
-    function updateFloatingFrame() {
-      floatingFrame.style.backgroundImage = `url('Bakgrunnsmyndir/mynd${currentFloatingImage}.jpeg')`;
-      currentFloatingImage = currentFloatingImage < totalBackgrounds ? currentFloatingImage + 1 : 1;
-
-      // Randomize position
-      const x = Math.random() * (window.innerWidth - 150);
-      const y = Math.random() * (window.innerHeight - 150);
-      floatingFrame.style.transform = `translate(${x}px, ${y}px)`;
-    }
-
-    setInterval(updateFloatingFrame, 3000);
-
-    // Initialize the floating frame
-    updateFloatingFrame();
-
-    // Fixed frame logic
-    let currentFixedImage = 1;
-
-    function updateFixedFrame() {
-      fixedFrame.style.backgroundImage = `url('Bakgrunnsmyndir/mynd${currentFixedImage}.jpeg')`;
-      currentFixedImage = currentFixedImage < totalBackgrounds ? currentFixedImage + 1 : 1;
-    }
-
-    // Cycle images in the fixed frame every 3 seconds
-    setInterval(updateFixedFrame, 3000);
-
-    // Initialize the fixed frame
-    updateFixedFrame();
-
-    // Byrja með fyrstu mynd og lag
-    updateImage();
-
-    // Add user interaction to start audio
-    document.addEventListener('click', () => {
-      if (player.tagName === 'AUDIO') {
-        player.play();
-      }
-    }, { once: true }); // Ensure this runs only once
+    // Add click/touch navigation
+    document.querySelector('.right-zone').addEventListener('click', nextImage);
+    document.querySelector('.left-zone').addEventListener('click', previousImage);
   </script>
 
 </body>
