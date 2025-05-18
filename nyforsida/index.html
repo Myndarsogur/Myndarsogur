@@ -24,7 +24,15 @@
       height: 60vh; /* Adjust this value to control blue section height */
       padding: 20px;
       overflow: hidden;
+      position: relative; /* Nauðsynlegt fyrir z-index */
+      z-index: 1; /* Blái ramminn er undir gula */
     }
+    .scroll-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+  grid-auto-flow: dense;
+  justify-items: center;
+}
 
     .yellow-section {
       background: yellow;
@@ -33,13 +41,15 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      position: relative; /* Nauðsynlegt fyrir z-index */
+      z-index: 2; /* Guli ramminn er ofan á bláa */
     }
 
     .yellow-section a {
       width: 150px;  /* Adjust size as needed */
       height: 150px;
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
     }
 
@@ -55,20 +65,54 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: column
-     
+      align-items: center
+      height: 120vh;
       gap: 20px;
       padding: 20px;
+      z-index: 3; /* Blái ramminn er undir gula */
+
     }
 
-    .mid-section a img {
-      width: 340px; /* Stærri hnappar í miðju */
-      height: 320px;
-    }
+    .mid-scroll-container {
+      display: block;
+      position: relative;
+      overflow: visible
+
+}
+
+.mid-scroll-container::-webkit-scrollbar {
+  display: none;             /* Chrome, Safari, Opera */
+}
+
+.mid-scroll-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  padding: 20px
+  margin: 0px;
+  border: none;
+  background: transparent;
+  overflow: hidden;
+}
+
+.mid-scroll-content a img {
+  width: 240px;
+  height: 320px;
+  object-fit: cover;
+  border-radius: 20px;
+  transition: trasform 0.3s ease, box shadow 0.3s ease;
+  display:block
+}
+
+  .mid-scroll-content a:hover img {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
 
     .right-col {
       background: green;
-      height: 100vh;
+      height: 100%;
       padding: 20px;
       overflow: hidden;
       display: flex;
@@ -77,7 +121,7 @@
     }
 
     .right-scroll-container {
-      height: 100%;
+      height: 100vh;
       overflow-y: auto;
       padding-right: 10px;
       /* Hide scrollbar */
@@ -91,6 +135,7 @@
 
     .right-scroll-content {
       display: flex;
+      height: 100%;
       flex-direction: column;
       gap: 15px;
       align-items: center;
@@ -106,7 +151,8 @@
 
     .scroll-container {
       height: 100%;
-      overflow-y: auto;
+      overflow-y: scroll;
+      scroll-behavior: smooth; /* Gerir skrollið lífrænt */
       padding-right: 10px;
       /* Hide scrollbar for different browsers */
       -ms-overflow-style: none;  /* IE and Edge */
@@ -122,7 +168,7 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr); /* Two columns */
       gap: 15px;
-      padding: 10px;
+      padding: 0px;
     }
 
     /* Remove old scrollbar styles */
@@ -134,9 +180,10 @@
 
     /* Adjust image sizing for two-column layout */
     .blue-section a img {
-      width: 100%;
-      height: auto;
-      aspect-ratio: 1/1;
+      width: 100%; /* Myndin fyllir foreldrið */
+      height: 100%; /* Myndin fyllir foreldrið */
+      object-fit: cover; /* Tryggir að myndin fylli út án þess að aflagast */
+      border-radius: 50%; /* Heldur myndunum hringlaga */
     }
 
     /* Stíll fyrir alla hnappa */
@@ -146,7 +193,7 @@
     }
 
     a img {
-      width: 80px;
+      width: 120px;
       height: 80px;
       border-radius: 50%;
       object-fit: cover;
@@ -155,29 +202,63 @@
 
     /* Sérstillingar fyrir gula hlutann */
     .yellow-section a img {
-      width: 200px;
-      height: 200px;
+      width: 400px;
+      height: 440px;
     }
 
-    /* Hover áhrif */
-    a:hover img {
-      transform: scale(1.1);
-      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    /* Stækkar letrið á takkunum í græna fletinum */
+    .right-scroll-content a {
+        font-size: 74px; /* Stærð letursins */
+        font-weight: bold; /* Feitletrað */
+        text-align: center; /* Miðar textann */
+        color: black; /* Litur letursins */
+        text-decoration: none; /* Fjarlægir undirstrik */
+        display: block; /* Tryggir að textinn birtist sem blokk */
+        margin: 0px 0; /* Bil á milli texta */
     }
 
-    /* Fallegri scrollbar */
-    .scroll-container::-webkit-scrollbar {
-      width: 8px;
+    .right-scroll-content a img {
+        display: none; /* Felur myndirnar */
     }
 
-    .scroll-container::-webkit-scrollbar-track {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 4px;
+    /* Stíll fyrir tooltip */
+    .tooltip {
+        position: relative;
+        display: inline-block;
     }
 
-    .scroll-container::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.3);
-      border-radius: 4px;
+    .tooltip .tooltip-text {
+        visibility: visible;
+        width: 120px;
+        background-color: none;
+        color: #fff;
+        text-align: center;
+        border-radius: 5px;
+        padding: 5px;
+        position: absolute;
+        z-index: 10;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 1;
+        transition: opacity 0.3s;
+    }
+
+    .tooltip:hover .tooltip-text {
+        visibility: visible;
+        opacity: 1;
+        
+    } /* Stíll fyrir dagsetningu yfir myndum */
+    .tooltip .tooltip-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 34px; /* Stærð letursins */
+        stroke width: ;: 3px black; /* Skuggi fyrir betri læsileika */ 
+        font-weight: bold;
+        color: white; /* Litur letursins */
+        text-shadow: 6px 6px 8px rgba(0, 0, 0, 0.7); /* Skuggi fyrir betri læsileika */
+        pointer-events: none; /* Leyfir ekki að smella á textann */
     }
   </style>
 </head>
@@ -187,81 +268,339 @@
     <div class="blue-section">
       <div class="scroll-container">
         <div class="scroll-content">
-          <a href="#"><img src="https://i.imgur.com/Y1RHJzX.jpg" alt="Mynd 1"></a>
-          <a href="#"><img src="https://i.imgur.com/WkICy3T.jpg" alt="Mynd 2"></a>
-          <a href="#"><img src="https://i.imgur.com/l3T90tQ.jpg" alt="Mynd 3"></a>
-          <a href="#"><img src="https://i.imgur.com/Xlo3eQN.jpg" alt="Mynd 4"></a>
-          <a href="#"><img src="https://i.imgur.com/LxAyvyt.jpg" alt="Mynd 5"></a>
-          <a href="#"><img src="https://i.imgur.com/YzUdYLe.jpg" alt="Mynd 6"></a>
-          <a href="#"><img src="https://i.imgur.com/IVzKRoV.jpg" alt="Mynd 7"></a>
-          <a href="#"><img src="https://i.imgur.com/6i98csm.jpg" alt="Mynd 8"></a>
-          <a href="#"><img src="https://i.imgur.com/Y1RHJzX.jpg" alt="Mynd 1"></a>
-          <a href="#"><img src="https://i.imgur.com/WkICy3T.jpg" alt="Mynd 2"></a>
-          <a href="#"><img src="https://i.imgur.com/l3T90tQ.jpg" alt="Mynd 3"></a>
-          <a href="#"><img src="https://i.imgur.com/Xlo3eQN.jpg" alt="Mynd 4"></a>
-          <a href="#"><img src="https://i.imgur.com/LxAyvyt.jpg" alt="Mynd 5"></a>
-          <a href="#"><img src="https://i.imgur.com/YzUdYLe.jpg" alt="Mynd 6"></a>
-          <a href="#"><img src="https://i.imgur.com/IVzKRoV.jpg" alt="Mynd 7"></a>
-          <a href="#"><img src="https://i.imgur.com/6i98csm.jpg" alt="Mynd 8"></a>
-           <a href="#"><img src="https://i.imgur.com/l3T90tQ.jpg" alt="Mynd 3"></a>
-          <a href="#"><img src="https://i.imgur.com/Xlo3eQN.jpg" alt="Mynd 4"></a>
-          <a href="#"><img src="https://i.imgur.com/LxAyvyt.jpg" alt="Mynd 5"></a>
-          <a href="#"><img src="https://i.imgur.com/YzUdYLe.jpg" alt="Mynd 6"></a>
-          <a href="#"><img src="https://i.imgur.com/IVzKRoV.jpg" alt="Mynd 7"></a>
-          <a href="#"><img src="https://i.imgur.com/6i98csm.jpg" alt="Mynd 8"></a>
-          <a href="#"><img src="https://i.imgur.com/Y1RHJzX.jpg" alt="Mynd 1"></a>
-          <a href="#"><img src="https://i.imgur.com/WkICy3T.jpg" alt="Mynd 2"></a>
-          <a href="#"><img src="https://i.imgur.com/l3T90tQ.jpg" alt="Mynd 3"></a>
-          <a href="#"><img src="https://i.imgur.com/Xlo3eQN.jpg" alt="Mynd 4"></a>
-          <a href="#"><img src="https://i.imgur.com/LxAyvyt.jpg" alt="Mynd 5"></a>
-          <a href="#"><img src="https://i.imgur.com/YzUdYLe.jpg" alt="Mynd 6"></a>
-          <a href="#"><img src="https://i.imgur.com/IVzKRoV.jpg" alt="Mynd 7"></a>
-          <a href="#"><img src="https://i.imgur.com/6i98csm.jpg" alt="Mynd 8"></a>
+          <a href="https://www.forlagid.is/vara/mer-list-ekkert-a-thetta/" class="author-link"><img src="https://static.wixstatic.com/media/738beb_c952018e7b894fdc876001a0f4f6ccc8~mv2.jpeg/v1/fill/w_920,h_690,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/IMG_4295.jpeg" alt="Alex Steinþórsdóttir"></a>
+          <a class="author-link" href="linktr.ee/adda_bjagga_art">
+            <img alt="Arndís Björk Marinósdóttir" src="https://imgur.com/TT0qd2D.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/addinabblakusk/">
+            <img alt="Arnfinnur Rúnar Sigmundsson" src="https://imgur.com/ONZEjLM.png"/>
+           </a>
+           <a class="author-link" href="https://www.dileydiflorez.com/about-me-contact">
+            <img alt="Dileydi Florez" src="https://imgur.com/T9FOxoZ.png"/>
+           </a>
+           <a class="author-link" href="linktr.ee/icecomics">
+            <img alt="Fannar Gilbertsson" src="https://imgur.com/uF7YSms.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/fannar_draw/">
+            <img alt="Fannar Már Skarphéðinsson" src="https://imgur.com/xWPAOV3.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/greenfinnur/">
+            <img alt="Finnur Matteo Bettaglio" src="https://imgur.com/TbPNTP6.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/glytta/">
+            <img alt="Glytta" src="https://imgur.com/hGwXxrz.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/dagsson/">
+            <img alt="Hugleikur Dagsson" src="https://imgur.com/CHJTagy.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/i.r.kjartansson_/">
+            <img alt="Ingi Rúnar Kjartansson" src="https://imgur.com/0MP0awL.png"/>
+           </a>
+           <a class="author-link" href="https://www.webtoons.com/en/canvas/smásögur-/krummafótur/viewer?title_no=860721&amp;episode_no=3&amp;webtoonType=CHALLENGE&amp;fbclid=PAZXh0bgNhZW0CMTEAAablgaMpcNGX33pPzSW2fKKHVt90-H7B7UDg7WAM2pZht7vEttkdwyo85eI_aem_6xfD56ROam2Gx2zz4HurIw&amp;webtoon-platform-redirect=true">
+            <img alt="Ísold Davíðsdóttir" src="https://imgur.com/WBzTUVH.png"/>
+           </a>
+           <a class="author-link" href="https://myndarsogur.is">
+            <img alt="jj mancho" src="https://imgur.com/Lbansfp.png"/>
+           </a>
+           <a class="author-link" href="https://myndarsogur.is">
+            <img alt="Klara Rosatti" src="https://imgur.com/4zAMLcO.png"/>
+           </a>
+           <a class="author-link" href="https://myndarsogur.is">
+            <img alt="Kris Helga" src="https://imgur.com/FTV6rrG.png"/>
+           </a>
+           <a class="author-link" href="https://kruzidula.neocities.org">
+            <img alt="Krummi" src="https://imgur.com/cQHs8f3.png"/>
+           </a>
+           <a class="author-link" href="https://myndarsogur.is">
+            <img alt="Lóa Hlín Hjálmtýsdóttir" src="https://imgur.com/mGubx0m.png"/>
+           </a>
+           <a class="author-link" href="https://myndarsogur.is">
+            <img alt="Lúkas Regal" src="https://imgur.com/Nc37AID.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/robotic_turtle/">
+            <img alt="Ómar Smári Sigurgeirsson" src="https://imgur.com/2OjbgU7.png"/>
+           </a>
+           <a class="author-link" href="https://www.valadraws.com">
+            <img alt="Vala Steingrímsdóttir" src="https://imgur.com/I4noZOf.png"/>
+           </a>
+           <a class="author-link" href="https://myndarsogur.is">
+            <img alt="Þórey Mjallhvít" src="https://imgur.com/vnN8TLo.png"/>
+           </a>
+           <a class="author-link" href="https://myndarsogur.is">
+            <img alt="Hlíf Una" src="https://imgur.com/Ke4asUn.png"/>
+           </a>
+           <a class="author-link" href="https://myndarsogur.is">
+            <img alt="Hugljúf Jósefsdóttir" src="https://imgur.com/joc1cIh.png"/>
+           </a>
+           <a class="author-link" href="https://myndarsogur.is">
+            <img alt="Martyna Laura" src="https://imgur.com/lxCH8x0.png"/>
+           </a>
+           <a class="author-link" href="https://myndarsogur.is">
+            <img alt="Herdís Þorvaldsdóttir" src="https://imgur.com/3IRZTos.png"/>
+           </a>
+           <a class="author-link" href="https://myndarsogur.is">
+            <img alt="Einar Másson" src="https://imgur.com/FPR8I1E.png"/>
+           </a>
+           <a class="author-link" href="https://myndarsogur.is">
+            <img alt="Elías Rúni" src="https://imgur.com/vJE0VhO.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/dumb.loves.svali/">
+            <img alt="Una Erlín" src="https://imgur.com/li9QtyC.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/bluebonnetmilk/">
+            <img alt="Viktoría Söring" src="https://imgur.com/mCFTepv.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/eirikurlynch/">
+            <img alt="Eiríkur Lynch" src="https://imgur.com/eGRC7zT.png"/>
+           </a>
+           <a class="author-link" href="https://myndarsogur.is">
+            <img alt="Ingi Jensson" src="https://imgur.com/rgXcljj.png"/>
+           </a>
+           <a class="author-link" href="https://myndarsogur.is">
+            <img alt="Rakki móri úr mýri Reykjavíkur" src="https://imgur.com/ynK4ZV2.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/addimarvin/">
+            <img alt="Arnar Marvin Kristjánsson" src="https://imgur.com/ewGfNvW.png"/>
+           </a>
+           <a class="author-link" href="https://myndarsogur.is">
+            <img alt="Egill Jónasson" src="https://imgur.com/dvabOzH.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/unndeadcat/">
+            <img alt="Unndeadcat" src="https://imgur.com/cteaR6B.png"/>
+           </a>
+           <a class="author-link" href="https://www.forlagid.is/vara/bannad-ad-vekja-grylu/">
+            <img alt="Dagur Sævarsson" src="https://imgur.com/zhQ36xh.png"/>
+           </a>
+           <a class="author-link" href="https://smjorfluga.com">
+            <img alt="Lilja Björg Jökulsdóttir" src="https://imgur.com/gefHgoV.png"/>
+           </a>
+           <a class="author-link" href="https://myndarsogur.is">
+            <img alt="Hrafnsunna Ross" src="https://imgur.com/UxCz2tm.png"/>
+           </a>
+           <a class="author-link" href="https://myndarsogur.is">
+            <img alt="Arnar Þór Sigurlaugar-Kristjánsson" src="https://imgur.com/5nHBP2J.png"/>
+           </a>
+           <a class="author-link" href="https://www.sigurduramundason.com/?fbclid=PAZXh0bgNhZW0CMTEAAaa9AvD3Q898xxeq9p1PCVWfoPoeeCKyOvxtHmt3kkdWui7DZCYvAoOS5YA_aem_g1JalJ8t3hgv096bOUxvYQ">
+            <img alt="Sigurður Ámundason" src="https://imgur.com/bLdhnIx.png "/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/myndarsogur/?hl=en">
+            <img alt="Myndarsögur" src="https://imgur.com/vlacKnM.png"/>
+           </a>
+           <a class="author-link" href="https://myndarsogur.is">
+            <img alt="Taylor Garcia van Biljon" src="https://imgur.com/pq4Yazz.png"/>
+           </a>
+           <a class="author-link" href="https://www.fluoro.life/2023/06/unnur-snorradottir/">
+            <img alt="Unnur Snorradóttir" src="https://imgur.com/XP9wdHJ.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/hig_peculiart/">
+            <img alt="Hermann Ingi Guðbrandsson" src="https://imgur.com/eYNCG4v.png"/>
+           </a>
+           <a class="author-link" href="https://www.forlagid.is/vara/einstakt-jolatre/">
+            <img alt="Linn Janssen" src="https://imgur.com/dOIbCtE.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/myndarsogur/?hl=en">
+            <img alt="Myndarsögur" src="https://imgur.com/vlacKnM.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/ymirarnarson/">
+            <img alt="Ymir Arnarson" src="https://imgur.com/guAdvMr.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/kallikailashyouzeartandmusic/">
+            <img alt="Kailash Youze" src="https://imgur.com/W1U4ko2.png"/>
+           </a>
+           <a class="author-link" href="https://www.artstation.com/j_rundur">
+            <img alt="Jörundur Óskarsson" src="https://imgur.com/MoIN7ZK.jpg"/>
+           </a>
+          <a class="author-link" href="https://www.instagram.com/elinelisabete/?hl=en">
+            <img alt="Elín Elísabet Einarsdóttir" src="https://imgur.com/o8pL7uh.png"/>
+           </a>
+           <a class="author-link" href="https://myndarsogur.is">
+            <img alt="Dýrfinna Benita" src="https://imgur.com/CueoYfQ.png"/>
+           </a>
+           <a class="author-link" href="teiknari.is">
+            <img alt="Ari Hlynur Yates" src="https://imgur.com/YIiGfN9.png"/>
+           </a>
+           <a class="author-link" href="https://www.jolaljosamadurinn.com/leiðin-upp-hallgrímskirkju">
+            <img alt="Jólaljósamaðurinn" src="https://imgur.com/xSDkZKY.png"/>
+           </a>
+           <a class="author-link" href="https://www.kosmonatka.net">
+            <img alt="Natka Klimowicz" src="https://imgur.com/3aMdrhH.gif"/>
+           </a>
+           <a class="author-link" href="https://bjornheimir.com">
+            <img alt="Björn Heimir Önundarson" src="https://imgur.com/NY687Xc.png"/>
+           </a>
         </div>
     </div>
 </div>
 <!-- Yellow section moved here, under blue section -->
 <div class="yellow-section">
-    <a href="#"><img src="https://i.imgur.com/VHhTzEv.png" alt="Big Button"></a>
+  <a href="https://www.myndarsogur.is/stora"><img src="https://imgur.com/dmsyTRU.png" alt="Mynd 1"></a>
 </div>
 </div>
   <!-- Rauði hlutinn með stórum hnappi -->
-       <div class="mid-section">
-        <a href="https://myndarsogur.is/stora">
-            <img src="https://i.imgur.com/Y1RHJzX.jpg" alt="Mynd 1">
-          </a>        <a href="#"><img src="https://i.imgur.com/l3T90tQ.jpg" alt="Mynd 3"></a>
-        <a href="#"><img src="https://i.imgur.com/Xlo3eQN.jpg" alt="Mynd 4"></a>
+  <div class="mid-section">
+    <div class="mid-scroll-container">
+      <div class="mid-scroll-content">
+        <div class="tooltip">
+          <a href="https://www.comicsfestival.is"><img src="https://www.comicsfestival.is/themes/custom/siklo/img/logo-animated-2.gif" alt="Mynd 1"></a>
+          <span class="tooltip-text">15.-17.Ágúst</span>
+        </div>
+        <div class="tooltip">
+          <a href="https://www.facebook.com/events/672629485521447/?acontext=%7B%22event_action_history%22%3A[%7B%22surface%22%3A%22external_search_engine%22%7D%2C%7B%22mechanism%22%3A%22attachment%22%2C%22surface%22%3A%22newsfeed%22%7D]%2C%22ref_notif_type%22%3Anull%7D&locale=is_IS"><img src="https://imgur.com/fBdqHJJ.png" alt="Mynd 1"></a>
+          <span class="tooltip-text">27. Maí</span>
+        </div>
+        <div class="tooltip">
+          <a href="https://www.facebook.com/events/672629485521447/?acontext=%7B%22event_action_history%22%3A[%7B%22surface%22%3A%22external_search_engine%22%7D%2C%7B%22mechanism%22%3A%22attachment%22%2C%22surface%22%3A%22newsfeed%22%7D]%2C%22ref_notif_type%22%3Anull%7D&locale=is_IS"><img src="https://imgur.com/Q4Y1fhw.png" alt="Mynd 1"></a>
+          <span class="tooltip-text">7. Júní</span>
+        </div>
+        <!-- Bættu við fleiri hnöppum ef vill -->
+      </div>
     </div>
+  </div>
 
   <!-- Græni hlutinn með scrollbox -->
   <div class="right-col">
     <div class="right-scroll-container">
       <div class="right-scroll-content">
-        <a href="#"><img src="https://i.imgur.com/Y1RHJzX.jpg" alt="Hægri 1"></a>
-        <a href="#"><img src="https://i.imgur.com/l3T90tQ.jpg" alt="Mynd 3"></a>
-          <a href="#"><img src="https://i.imgur.com/Xlo3eQN.jpg" alt="Mynd 4"></a>
-          <a href="#"><img src="https://i.imgur.com/LxAyvyt.jpg" alt="Mynd 5"></a>
-          <a href="#"><img src="https://i.imgur.com/YzUdYLe.jpg" alt="Mynd 6"></a>
-          <a href="#"><img src="https://i.imgur.com/IVzKRoV.jpg" alt="Mynd 7"></a>
-          <a href="#"><img src="https://i.imgur.com/6i98csm.jpg" alt="Mynd 8"></a>
-          <a href="#"><img src="https://i.imgur.com/Y1RHJzX.jpg" alt="Mynd 1"></a>
-          <a href="#"><img src="https://i.imgur.com/WkICy3T.jpg" alt="Mynd 2"></a>
-          <a href="#"><img src="https://i.imgur.com/l3T90tQ.jpg" alt="Mynd 3"></a>
-          <a href="#"><img src="https://i.imgur.com/Xlo3eQN.jpg" alt="Mynd 4"></a>
-          <a href="#"><img src="https://i.imgur.com/LxAyvyt.jpg" alt="Mynd 5"></a>
-          <a href="#"><img src="https://i.imgur.com/YzUdYLe.jpg" alt="Mynd 6"></a>
-          <a href="#"><img src="https://i.imgur.com/IVzKRoV.jpg" alt="Mynd 7"></a>
-          <a href="#"><img src="https://i.imgur.com/6i98csm.jpg" alt="Mynd 8"></a> <a href="#"><img src="https://i.imgur.com/l3T90tQ.jpg" alt="Mynd 3"></a>
-          <a href="#"><img src="https://i.imgur.com/Xlo3eQN.jpg" alt="Mynd 4"></a>
-          <a href="#"><img src="https://i.imgur.com/LxAyvyt.jpg" alt="Mynd 5"></a>
-          <a href="#"><img src="https://i.imgur.com/YzUdYLe.jpg" alt="Mynd 6"></a>
-          <a href="#"><img src="https://i.imgur.com/IVzKRoV.jpg" alt="Mynd 7"></a>
-          <a href="#"><img src="https://i.imgur.com/6i98csm.jpg" alt="Mynd 8"></a>
-          <a href="#"><img src="https://i.imgur.com/Y1RHJzX.jpg" alt="Mynd 1"></a>
-          <a href="#"><img src="https://i.imgur.com/WkICy3T.jpg" alt="Mynd 2"></a>
-          <a href="#"><img src="https://i.imgur.com/l3T90tQ.jpg" alt="Mynd 3"></a>
-          <a href="#"><img src="https://i.imgur.com/Xlo3eQN.jpg" alt="Mynd 4"></a>
-          <a href="#"><img src="https://i.imgur.com/LxAyvyt.jpg" alt="Mynd 5"></a>
-          <a href="#"><img src="https://i.imgur.com/YzUdYLe.jpg" alt="Mynd 6"></a>
-          <a href="#"><img src="https://i.imgur.com/IVzKRoV.jpg" alt="Mynd 7"></a>
-          <a href="#"><img src="https://i.imgur.com/6i98csm.jpg" alt="Mynd 8"></a>
+        <a class="stuff-link" href="https://myndarsogur.is/myndasogugerd/teiknitol">
+          🎨
+         </a>       <a class="stuff-link" href="https://myndarsogur.is/myndasogugerd/teiknitol">
+          🖌️
+         </a> <a class="stuff-link" href="https://myndarsogur.is/myndasogugerd/teiknitol">
+          🖍️
+         </a> <a class="stuff-link" href="https://myndarsogur.is/myndasogugerd/teiknitol">
+          ✏️
+         </a> <a class="stuff-link" href="https://myndarsogur.is/myndasogugerd/teiknitol">
+          🖊️
+         </a> <a class="stuff-link" href="https://myndarsogur.is/myndasogugerd/teiknitol">
+          🖍️
+         </a> <a class="stuff-link" href="https://myndarsogur.is/myndasogugerd/teiknitol">
+          🖌️
+         </a> <a class="stuff-link" href="https://myndarsogur.is/myndasogugerd/teiknitol">
+          ✏️
+         </a> <a class="stuff-link" href="https://myndarsogur.is/myndasogugerd/teiknitol">
+          🎨
+         </a> <a class="stuff-link" href="https://myndarsogur.is/myndasogugerd/teiknitol">
+          🎨
+         </a> <a class="stuff-link" href="https://myndarsogur.is/myndasogugerd/teiknitol">
+          🎨
+         </a> <a class="stuff-link" href="https://myndarsogur.is/myndasogugerd/teiknitol">
+          🎨
+         </a> 
+
+          <script>
+            const container = document.querySelector('.blue-section .scroll-content');
+            const items = Array.from(container.querySelectorAll('.author-link'));
+          
+            // Hrista röðina
+            for (let i = items.length - 1; i > 0; i--) {
+              const j = Math.floor(Math.random() * (i + 1));
+              container.appendChild(items[j]);
+              [items[i], items[j]] = [items[j], items[i]];
+            }
+          
+            // Gefa hverjum mismunandi stærð
+            const sizes = [60, 80, 100, 120];
+            items.forEach(link => {
+              const img = link.querySelector('img');
+              const size = sizes[Math.floor(Math.random() * sizes.length)];
+              img.style.width = size + 'px';
+              img.style.height = size + 'px';
+              img.style.borderRadius = '100%';
+              img.style.objectFit = 'cover';
+            });
+
+            // Bætir við lífrænu skrolli með JavaScript
+            const scrollContainer = document.querySelector('.scroll-container');
+
+            scrollContainer.addEventListener('wheel', (event) => {
+                event.preventDefault();
+                scrollContainer.scrollBy({
+                    top: event.deltaY * 0.5, // Hægir á skrollinu
+                    behavior: 'smooth'
+                });
+            });
+
+            // Hreyfing og árekstraráhrif
+            const items = document.querySelectorAll('.scroll-content a img');
+
+            items.forEach((item) => {
+                // Randomize initial position
+                const randomX = Math.random() * 10 - 5; // Milli -5px og 5px
+                const randomY = Math.random() * 10 - 5;
+                item.style.transform = `translate(${randomX}px, ${randomY}px)`;
+
+                // Mousemove áhrif
+                item.addEventListener('mousemove', (event) => {
+                    const rect = item.getBoundingClientRect();
+                    const offsetX = (event.clientX - rect.left) / rect.width - 0.5;
+                    const offsetY = (event.clientY - rect.top) / rect.height - 0.5;
+                    item.style.transform = `translate(${offsetX * 20}px, ${offsetY * 20}px) scale(1.2)`;
+                });
+
+                // Mouseleave til að endurstilla
+                item.addEventListener('mouseleave', () => {
+                    item.style.transform = '';
+                });
+            });
+
+            const items = document.querySelectorAll('.scroll-content a img');
+
+            // Fjórar mismunandi stærðir
+            const sizes = [60, 80, 100, 120];
+
+            // Fjórar mismunandi hreyfingar
+            const animations = ['move1', 'move2', 'move3', 'move4'];
+
+            items.forEach((item) => {
+                // Úthluta handahófskenndri stærð
+                const size = sizes[Math.floor(Math.random() * sizes.length)];
+                item.style.width = size + 'px';
+                item.style.height = size + 'px';
+                item.style.borderRadius = '100%';
+                item.style.objectFit = 'cover';
+
+                // Úthluta handahófskenndri hreyfingu
+                const animation = animations[Math.floor(Math.random() * animations.length)];
+                item.style.animation = `${animation} 3s infinite ease-in-out`;
+
+                // Randomize initial position
+                const randomX = Math.random() * 10 - 5; // Milli -5px og 5px
+                const randomY = Math.random() * 10 - 5;
+                item.style.transform = `translate(${randomX}px, ${randomY}px)`;
+
+                // Mousemove áhrif
+                item.addEventListener('mousemove', (event) => {
+                    const rect = item.getBoundingClientRect();
+                    const offsetX = (event.clientX - rect.left) / rect.width - 0.5;
+                    const offsetY = (event.clientY - rect.top) / rect.height - 0.5;
+                    item.style.transform = `translate(${offsetX * 20}px, ${offsetY * 20}px) scale(1.2)`;
+                });
+
+                // Mouseleave til að endurstilla
+                item.addEventListener('mouseleave', () => {
+                    item.style.transform = `translate(${randomX}px, ${randomY}px)`; // Endurstillir í upphafsstöðu
+                });
+            });
+
+            // Úthluta handahófskenndri stærð fyrir grænu myndirnar
+            const greenItems = document.querySelectorAll('.right-scroll-content a img');
+            greenItems.forEach((item) => {
+                const size = sizes[Math.floor(Math.random() * sizes.length)];
+                item.style.width = size + 'px';
+                item.style.height = size + 'px';
+                item.style.borderRadius = '100%';
+                item.style.objectFit = 'cover';
+            });
+
+            // Úthluta handahófskenndri stærð fyrir grænu myndirnar
+            window.addEventListener('DOMContentLoaded', () => {
+                const greenItems = document.querySelectorAll('.right-scroll-content a img');
+                greenItems.forEach((item) => {
+                    const size = sizes[Math.floor(Math.random() * sizes.length)];
+                    item.style.width = size + 'px';
+                    item.style.height = size + 'px';
+                    item.style.borderRadius = '100%';
+                    item.style.objectFit = 'cover';
+                });
+            });
+          </script>
