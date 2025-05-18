@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Your Own Comic! – Open Workshop</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      line-height: 1.6;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      color: #111;
+    }
+    .top-image {
+      width: 100%;
+      display: block;
+    }
+    main {
+      max-width: 700px;
+      margin: 2em auto;
+      padding: 1.5em;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 0.75em;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    h1, h2 {
+      margin-top: 0;
+      color: #1f2e35;
+    }
+    ul li {
+      margin-bottom: 0.5em;
+    }
+    p, li {
+      color: #2d2d2d;
+    }
+  </style>
+</head>
+<body onclick="switchLanguage()">
+  <img src="https://i.imgur.com/p9LJjof.png" alt="Workshop banner" class="top-image">
+
+  <main>
+    <h1 id="title">Búðu til þína eigin myndasögu – 7.júní opin vinnustofa allan daginn</h1>
+    <div id="content">
+      <p>Komdu og búðu til myndasögu! Þessi opna vinnustofa stendur yfir allan daginn og er fyrir alla. Hvort sem sagan þín fjallar um mikilvægt málefni, tilfinningu, ástríðu eða eitthvað fáránlegt og skemmtilegt, þá er þetta vettvangurinn til að láta hana verða að veruleika.</p>
+
+      <p>Innblástur, leiðbeiningar og tæki til að teikna verða í boði. Þú mátt líka koma með allskonar dót. Á staðnum verða bækur og efni fyrir þá sem vilja læra sjálfir á sínum eigin hraða.</p>
+
+      <h2>Hvað færðu að læra eða upplifa?</h2>
+      <ul>
+        <li>Hvernig þú segir þína eigin sögu í myndasöguformi</li>
+        <li>Tækifæri til að teikna, prófa þig áfram og skemmta þér</li>
+        <li>Innblástur og upplýsingar fyrir ef þú hefur áhuga</li>
+      </ul>
+
+      <h2>Fyrir hvern?</h2>
+      <p>Allir eru velkomnir. Engin þekking eða kunnátta nauðsynleg.</p>
+
+      <h2>Þarf að koma með eitthvað?</h2>
+      <p>Nei, en þú mátt það alveg. Það verða öll helstu tól á staðnum.</p>
+
+      <h2>Hversu lengi stendur þetta?</h2>
+      <p>Opin vinnustofa allan daginn, þú getur komið og farið eins og þér hentar.</p>
+    </div>
+  </main>
+
+  <script>
+    const titleEl = document.getElementById("title");
+    const contentEl = document.getElementById("content");
+
+    const en = {
+      title: "Create Your Own Comic! –7th of June Open all day Workshop",
+      content: `
+        <p>Come make your own comic! An open, all-day workshop invites you to explore the comics medium in your storytelling. Whether your story is about a serious issue, a deep emotion, a passion, or just something totally silly, this is the space to bring it to life.</p>
+
+        <p>The workshop offers tools for drawing, inspiration, and guidance. You can also bring your own materials or ideas, anything goes. There will be books, tips, and resources available if you prefer to learn at your own pace.</p>
+
+        <h2>What you’ll experience:</h2>
+        <ul>
+          <li>Learn how to tell your own story through comics</li>
+          <li>Get inspired by others and available materials</li>
+          <li>Hands-on time to create, experiment, and have fun</li>
+        </ul>
+
+        <h2>Who is it for?</h2>
+        <p>Everyone! No prior experience is needed. Open to all ages. No language requirements.</p>
+
+        <h2>What to bring?</h2>
+        <p>Just your imagination. Tools will be available, but you’re welcome to bring anything you want to use.</p>
+
+        <h2>How long is it?</h2>
+        <p>Drop in anytime! The workshop is open all day.</p>
+      `
+    };
+
+    const is = {
+      title: "Búðu til þína eigin myndasögu – opin vinnustofa",
+      content: `
+        <p>Komdu og búðu til myndasögu! Þessi opna vinnustofa stendur yfir allan daginn og er fyrir alla. Hvort sem sagan þín fjallar um mikilvægt málefni, tilfinningu, ástríðu eða eitthvað fáránlegt og skemmtilegt, þá er þetta vettvangurinn til að láta hana verða að veruleika.</p>
+
+        <p>Innblástur, leiðbeiningar og tæki til að teikna verða í boði. Þú mátt líka koma með allskonar dót. Á staðnum verða bækur og efni fyrir þá sem vilja læra sjálfir á sínum eigin hraða.</p>
+
+        <h2>Hvað færðu að læra eða upplifa?</h2>
+        <ul>
+          <li>Hvernig þú segir þína eigin sögu í myndasöguformi</li>
+          <li>Tækifæri til að teikna, prófa þig áfram og skemmta þér</li>
+          <li>Innblástur og upplýsingar fyrir ef þú hefur áhuga</li>
+        </ul>
+
+        <h2>Fyrir hvern?</h2>
+        <p>Allir eru velkomnir. Engin þekking eða kunnátta nauðsynleg.</p>
+
+        <h2>Þarf að koma með eitthvað?</h2>
+        <p>Nei, en þú mátt það alveg. Það verða öll helstu tól á staðnum.</p>
+
+        <h2>Hversu lengi stendur þetta?</h2>
+        <p>Opin vinnustofa allan daginn, þú getur komið og farið eins og þér hentar.</p>
+      `
+    };
+
+    let currentLang = 'is';
+
+    function switchLanguage() {
+      if (currentLang === 'is') {
+        titleEl.textContent = en.title;
+        contentEl.innerHTML = en.content;
+        currentLang = 'en';
+      } else {
+        titleEl.textContent = is.title;
+        contentEl.innerHTML = is.content;
+        currentLang = 'is';
+      }
+    }
+  </script>
+</body>
+</html>
