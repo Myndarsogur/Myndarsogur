@@ -47,41 +47,50 @@
   <div class="click-zone left-zone" onclick="previousImage()"></div>
   <div class="click-zone right-zone" onclick="nextImage()"></div>
 
-    <!-- Myndhnappur sem vísar á aðra síðu -->
-    <a href="https://myndarsogur.is/solusida" style="position: absolute; bottom: 20px; right: 20px; z-index: 20;">
-      <img src="Login/logo.png" alt="Heim" style="height: 60px; cursor: pointer;">
-    </a>
-  
+  <!-- Myndhnappur sem vísar á aðra síðu -->
+  <a href="https://myndarsogur.is/solusida" style="position: absolute; bottom: 20px; right: 20px; z-index: 20;">
+    <img src="Login/logo.png" alt="Heim" style="height: 60px; cursor: pointer;">
+  </a>
+
   <script>
-    const totalImages = 196; // Fjöldi mynda í Adal
+    const totalImages = 196;
     let currentImage = 1;
     const image = document.getElementById('image');
+    let isTransitioning = false; // Lás til að forðast tvöfaldar flettingar
 
     function preloadNextImage(imageNumber) {
-      const img = new Image();
-      img.src = `Adal/mynd${imageNumber}.jpeg`;
+      if (imageNumber <= totalImages) {
+        const img = new Image();
+        img.src = `Adal/mynd${imageNumber}.jpeg`;
+      }
     }
 
     function updateImage() {
+      isTransitioning = true;
       image.src = `Adal/mynd${currentImage}.jpeg`;
-      preloadNextImage(currentImage + 5); // Preloada næstu mynd
+      preloadNextImage(currentImage + 1);
+      
+      // Bíða aðeins áður en leyfilegt er að fletta aftur
+      setTimeout(() => {
+        isTransitioning = false;
+      }, 150); // 50ms - getur verið lengra ef þörf er á meiri öryggi
     }
 
     function nextImage() {
-      if (currentImage < totalImages) {
+      if (!isTransitioning && currentImage < totalImages) {
         currentImage++;
         updateImage();
       }
     }
 
     function previousImage() {
-      if (currentImage > 1) {
+      if (!isTransitioning && currentImage > 1) {
         currentImage--;
         updateImage();
       }
     }
 
-    // Add keyboard navigation
+    // Lyklaborð
     document.addEventListener('keydown', (event) => {
       if (event.key === 'ArrowRight' || event.key === ' ' || event.key === 'Enter') {
         nextImage();
@@ -90,7 +99,7 @@
       }
     });
 
-    // Add click/touch navigation
+    // Snertismellur
     document.querySelector('.right-zone').addEventListener('click', nextImage);
     document.querySelector('.left-zone').addEventListener('click', previousImage);
   </script>
