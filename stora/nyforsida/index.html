@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+  <meta charset="UTF-8">
+  <title>Hnappasíða</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #fff;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .button-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .circle-btn {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: none;
+      padding: 0;
+      background-color: transparent;
+      cursor: pointer;
+    }
+
+    .circle-btn img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Skrollsvæði fyrir einstaklingana */
+    .scroll-section {
+      padding: 2rem;
+      background-color: #e0f0ff;
+    }
+
+    .scroll-container {
+      overflow-x: auto;
+      white-space: nowrap;
+      padding: 1rem 0;
+    }
+
+    .scroll-items {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .scroll-items .circle-btn {
+      flex: 0 0 auto;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Hverjir eru hér?</h1>
+  </header>
+
+  <section class="button-grid">
+    <!-- Almennir hnappar með myndum -->
+    <button class="circle-btn"><img src="https://i.imgur.com/u5vXyPf.jpg" alt="Nafn 1"></button>
+    <button class="circle-btn"><img src="https://i.imgur.com/w1UrwJE.jpg" alt="Nafn 2"></button>
+    <button class="circle-btn"><img src="https://i.imgur.com/BK8X7Pa.jpg" alt="Nafn 3"></button>
+    <button class="circle-btn"><img src="https://i.imgur.com/R4D1rYF.jpg" alt="Nafn 4"></button>
+  </section>
+
+  <section class="scroll-section">
+    <h2>30 einstaklingar</h2>
+    <div class="scroll-container">
+      <div class="scroll-items">
+        <!-- Hnappar fyrir 30 einstaklinga (bara nokkrir sýnishorn hér) -->
+        <button class="circle-btn"><img src="https://i.imgur.com/1.jpg" alt="Persóna 1"></button>
+        <button class="circle-btn"><img src="https://i.imgur.com/2.jpg" alt="Persóna 2"></button>
+        <button class="circle-btn"><img src="https://i.imgur.com/3.jpg" alt="Persóna 3"></button>
+        <button class="circle-btn"><img src="https://i.imgur.com/4.jpg" alt="Persóna 4"></button>
+        <button class="circle-btn"><img src="https://i.imgur.com/5.jpg" alt="Persóna 5"></button>
+        <button class="circle-btn"><img src="https://i.imgur.com/6.jpg" alt="Persóna 6"></button>
+        <button class="circle-btn"><img src="https://i.imgur.com/7.jpg" alt="Persóna 7"></button>
+        <button class="circle-btn"><img src="https://i.imgur.com/8.jpg" alt="Persóna 8"></button>
+        <button class="circle-btn"><img src="https://i.imgur.com/9.jpg" alt="Persóna 9"></button>
+        <!-- Þú getur bætt við allt að 30 einstaklingum -->
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
