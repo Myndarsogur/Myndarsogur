@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="is">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>3D heimur – tölva & sími</title>
+  <style>
+    html, body { height:100%; margin:0; overflow:hidden; background:#000; touch-action:none; }
+    #hud {
+      position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
+      color:white; font-family:system-ui, sans-serif; text-align:center; padding:24px;
+      background:radial-gradient(ellipse at center, rgba(0,0,0,.6), rgba(0,0,0,.85));
+      cursor:pointer; user-select:none;
+    }
+    #hint { opacity:.85; font-size:14px; margin-top:8px }
+
+    /* Mobile UI */
+    .mobile-ui { position:fixed; inset:0; pointer-events:none; }
+    #stick {
+      position:absolute; left:18px; bottom:18px; width:130px; height:130px; border-radius:50%;
+      background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.18), rgba(255,255,255,.06));
+      border:1px solid rgba(255,255,255,.25); pointer-events:auto; display:none;
+    }
+    #nub {
+      position:absolute; left:50%; top:50%; width:56px; height:56px; border-radius:50%;
+      transform:translate(-50%, -50%); background:rgba(255,255,255,.35);
+      border:1px solid rgba(255,255,255,.6);
+    }
+    #jumpBtn {
+      position:absolute; right:18px; bottom:24px; width:88px; height:88px; border-radius:50%;
+      background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.18), rgba(255,255,255,.06));
+      border:1px solid rgba(255,255,255,.25); pointer-events:auto; display:none;
+      color:#fff; font-weight:600; display:flex; align-items:center; justify-content:center;
+      user-select:none;
+    }
+    @media (hover:none) and (pointer:coarse) {
+      #stick, #jumpBtn { display:flex; }
+      #hud h1 { font-size:20px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="hud">
+    <div>
+      <h1>Klikkaðu til að byrja</h1>
+      <div id="hint">Tölva: WASD/örvar • Mús = líta • Space = hoppa • Esc = losa mús<br>
+        Sími/spjald: vinstri hringur = ganga • hægri hlið = líta • Hoppa-hnappur</div>
+    </div>
+  </div>
+
+  <!-- Mobile controls UI -->
+  <div class="mobile-ui">
+    <div id="stick"><div id="nub"></div></div>
+    <div id="jumpBtn">Hoppa</div>
+  </div>
+
+  <script type="module">
+    import * as THREE from "https://unpkg.com/three@0.159.0/build/three.module.js";
+    import { PointerLockControls } from "https://unpkg.com/three@0.159.0/examples/jsm/controls/PointerLockControls.js";
+
+    const isMobile = /Mobi|Android|iPhone|iPad|iPod|Touch/.test(navigator.userAgent);
+
+    // --- Basic scene ---
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.Fog(0x88ccee, 50, 600);
+
+    const camera = new THREE.PerspectiveCamera(75, innerWidth/innerHeight, 0.1, 2000);
+    camera.position.set(0, 1.8, 5);
+
+    const renderer = new THREE.WebGLRenderer({ antialias:true, powerPreference:"high-performance" });
+    renderer.setSize(innerWidth, innerHeight);
+    renderer.setPixelRatio(Math.min(2, devicePixelRatio || 1));
+    document.body.appendChild(renderer.domElement);
+
+    // --- Lights & sky ---
+    const hemi = new THREE.HemisphereLight(0xbbeeff, 0x446655, 0.8); scene.add(hemi);
+    const sun = new THREE.DirectionalLight(0xffffff, 0.8); sun.position.set(50,100,-30); scene.add(sun);
+
+    // Clouds
+    const cloudMat = new THREE.MeshBasicMaterial({ color:0xffffff, transparent:true, opacity:0.7, depthWrite:false });
+    const clouds = new THREE.Group(); scene.add(clouds);
+    for (let i=0;i<12;i++){
+      const w = 20 + Math.random()*30, h = 8 + Math.random()*10;
+      const geo = new THREE.PlaneGeometry(w, h);
+      const cloud = new THREE.Mesh(geo, cloudMat.clone());
+      cloud.position.set((Math.random()-0.5)*500, 30+Math.random()*40, (Math.random()-0.5)*500);
+      cloud.rotation.y = Math.random()*Math.PI*2;
+      clouds.add(cloud);
+    }
+
+    // Ground
+    const ground = new THREE.Mesh(
+      new THREE.PlaneGeometry(2000, 2000),
+      new THREE.MeshLambertMaterial({ color:0x6fa86f })
+    );
+    ground.rotation.x = -Math.PI/2; ground.receiveShadow = true; scene.add(ground);
+
+    // Trees
+    const trees = new THREE.Group(); scene.add(trees);
+    const trunkGeo = new THREE.CylinderGeometry(0.3, 0.5, 6, 8);
+    const foliageGeo = new THREE.ConeGeometry(3, 8, 12);
+    for (let i=0;i<120;i++){
+      const trunkMat = new THREE.MeshStandardMaterial({ color:0x8b5a2b, roughness:0.9 });
+      const foliageMat = new THREE.MeshStandardMaterial({ color:0x2f6f31, roughness:1 });
+      const trunk = new THREE.Mesh(trunkGeo, trunkMat);
+      const top = new THREE.Mesh(foliageGeo, foliageMat);
+      const x = (Math.random()-0.5)*1600, z = (Math.random()-0.5)*1600;
+      trunk.position.set(x, 3, z); top.position.set(x, 10, z);
+      trees.add(trunk, top);
+    }
+
+    // --- Controls ---
+    // We'll always create PointerLockControls for desktop.
+    // On mobile we'll skip locking, but still manipulate the underlying object (yaw) + camera pitch manually.
+    const controls = new PointerLockControls(camera, document.body);
+    const player = controls.getObject(); // holder for position & yaw
+    scene.add(player);
+
+    const hud = document.getElementById('hud');
+    hud.addEventListener('click', () => { if (!isMobile) controls.lock(); hud.style.display='none'; });
+    controls.addEventListener('unlock', () => { if (!isMobile) hud.style.display='flex'; });
+
+    // --- Movement state ---
+    const keys = { forward:false, backward:false, left:false, right:false, jump:false };
+    document.addEventListener('keydown', (e)=>{
+      switch(e.code){
+        case 'ArrowUp': case 'KeyW': keys.forward=true; break;
+        case 'ArrowDown': case 'KeyS': keys.backward=true; break;
+        case 'ArrowLeft': case 'KeyA': keys.left=true; break;
+        case 'ArrowRight': case 'KeyD': keys.right=true; break;
+        case 'Space': keys.jump=true; break;
+      }
+    }, {passive:true});
+    document.addEventListener('keyup', (e)=>{
+      switch(e.code){
+        case 'ArrowUp': case 'KeyW': keys.forward=false; break;
+        case 'ArrowDown': case 'KeyS': keys.backward=false; break;
+        case 'ArrowLeft': case 'KeyA': keys.left=false; break;
+        case 'ArrowRight': case 'KeyD': keys.right=false; break;
+        case 'Space': keys.jump=false; break;
+      }
+    }, {passive:true});
+
+    // --- Physics-ish ---
+    const velocity = new THREE.Vector3();
+    const direction = new THREE.Vector3();
+    let canJump = true;
+    const GRAVITY = 30;
+    const WALK_SPEED = isMobile ? 10 : 14;
+    const FRICTION = 10;
+
+    function updateMovement(dt, moveX=0, moveZ=0){
+      // moveX/moveZ from joystick (mobile), else from keys
+      direction.set(0,0,0);
+      if (!isMobile){
+        if (keys.forward) direction.z -= 1;
+        if (keys.backward) direction.z += 1;
+        if (keys.left) direction.x -= 1;
+        if (keys.right) direction.x += 1;
+      } else {
+        direction.x = moveX;
+        direction.z = -moveZ; // screen up is forward
+      }
+      if (direction.lengthSq()>1) direction.normalize();
+
+      // build forward/right from player yaw
+      const yaw = player.rotation.y;
+      const cos = Math.cos(yaw), sin = Math.sin(yaw);
+      const worldX = direction.x * cos - direction.z * sin;
+      const worldZ = direction.x * sin + direction.z * cos;
+
+      velocity.x += worldX * WALK_SPEED * dt;
+      velocity.z += worldZ * WALK_SPEED * dt;
+
+      velocity.x -= velocity.x * Math.min(FRICTION*dt, 1);
+      velocity.z -= velocity.z * Math.min(FRICTION*dt, 1);
+
+      // vertical
+      velocity.y -= GRAVITY * dt;
+      if ((keys.jump || mobileJumping) && canJump){
+        velocity.y = 9; canJump = false;
+      }
+
+      player.position.x += velocity.x * dt;
+      player.position.y += velocity.y * dt;
+      player.position.z += velocity.z * dt;
+
+      if (player.position.y < 1.8){
+        velocity.y = 0; player.position.y = 1.8; canJump = true;
+      }
+    }
+
+    // --- Mobile: virtual joystick + look by drag on right half ---
+    const stick = document.getElementById('stick');
+    const nub = document.getElementById('nub');
+    const jumpBtn = document.getElementById('jumpBtn');
+
+    let moveTouchId = null, lookTouchId = null;
+    let stickCenter = {x:0, y:0}, nubMax = 48;
+    let joyX = 0, joyY = 0;
+    let mobileJumping = false;
+
+    // look angles for mobile (pitch limited)
+    let pitch = 0; // camera.rotation.x
+    let sensitivity = 0.0025; // touch look sensitivity
+
+    function setNub(dx, dy){
+      const len = Math.hypot(dx, dy);
+      const clamped = Math.min(len, nubMax);
+      const angle = Math.atan2(dy, dx);
+      const nx = Math.cos(angle)*clamped, ny = Math.sin(angle)*clamped;
+      nub.style.transform = `translate(${nx}px, ${ny}px) translate(-50%, -50%)`;
+      const norm = clamped === 0 ? 0 : (clamped / nubMax);
+      joyX = (nx / nubMax);
+      joyY = (ny / nubMax);
+    }
+
+    function resetNub(){
+      nub.style.transform = `translate(-50%, -50%)`;
+      joyX = 0; joyY = 0;
+    }
+
+    function screenIsRightHalf(x){ return x > innerWidth * 0.5; }
+
+    if (isMobile){
+      // hide desktop HUD text tap-to-start
+      hud.addEventListener('click', ()=> { hud.style.display='none'; });
+
+      const rectStick = ()=> stick.getBoundingClientRect();
+
+      window.addEventListener('touchstart', (e)=>{
+        for (const t of e.changedTouches){
+          if (moveTouchId === null && t.clientX < innerWidth*0.5){
+            moveTouchId = t.identifier;
+            const r = rectStick();
+            stickCenter.x = r.left + r.width/2;
+            stickCenter.y = r.top + r.height/2;
+            setNub(t.clientX - stickCenter.x, t.clientY - stickCenter.y);
+          } else if (lookTouchId === null && screenIsRightHalf(t.clientX)){
+            lookTouchId = t.identifier;
+          }
+        }
+      }, {passive:false});
+
+      window.addEventListener('touchmove', (e)=>{
+        for (const t of e.changedTouches){
+          if (t.identifier === moveTouchId){
+            e.preventDefault();
+            setNub(t.clientX - stickCenter.x, t.clientY - stickCenter.y);
+          } else if (t.identifier === lookTouchId){
+            e.preventDefault();
+            // update yaw/pitch
+            player.rotation.y -= t.movementX !== undefined ? t.movementX*sensitivity : 0;
+            // movementX not standard on touch; compute manually
+          }
+        }
+      }, {passive:false});
+
+      // manual tracking for look deltas
+      const lastPos = {};
+      window.addEventListener('touchmove', (e)=>{
+        for (const t of e.touches){
+          if (t.identifier === lookTouchId){
+            const id = t.identifier;
+            const lp = lastPos[id] || {x:t.clientX, y:t.clientY};
+            const dx = t.clientX - lp.x;
+            const dy = t.clientY - lp.y;
+            lastPos[id] = {x:t.clientX, y:t.clientY};
+            player.rotation.y -= dx * sensitivity;
+            pitch -= dy * sensitivity;
+            const maxPitch = Math.PI/2 - 0.01;
+            pitch = Math.max(-maxPitch, Math.min(maxPitch, pitch));
+            camera.rotation.x = pitch;
+          } else {
+            lastPos[t.identifier] = {x:t.clientX, y:t.clientY};
+          }
+        }
+      }, {passive:false});
+
+      window.addEventListener('touchend', (e)=>{
+        for (const t of e.changedTouches){
+          if (t.identifier === moveTouchId){ moveTouchId = null; resetNub(); }
+          if (t.identifier === lookTouchId){ lookTouchId = null; }
+        }
+      }, {passive:true});
+
+      jumpBtn.addEventListener('touchstart', (e)=>{ e.preventDefault(); mobileJumping = true; }, {passive:false});
+      jumpBtn.addEventListener('touchend',   (e)=>{ e.preventDefault(); mobileJumping = false; }, {passive:false});
+    }
+
+    // --- Animate ---
+    let last = performance.now();
+    function animate(){
+      requestAnimationFrame(animate);
+      const now = performance.now();
+      const dt = Math.min(0.05, (now - last)/1000);
+      last = now;
+
+      clouds.children.forEach((c)=>{ c.position.x += 0.4*dt; if (c.position.x > 900) c.position.x = -900; });
+
+      if (!isMobile){
+        if (controls.isLocked) updateMovement(dt);
+      } else {
+        updateMovement(dt, joyX, joyY);
+      }
+
+      renderer.setClearColor(0x88ccee);
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // resize
+    addEventListener('resize', ()=>{
+      camera.aspect = innerWidth/innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(innerWidth, innerHeight);
+    }, {passive:true});
+
+    // iOS Safari: prevent double-tap zoom
+    document.addEventListener('gesturestart', (e)=> e.preventDefault());
+  </script>
+</body>
+</html>
