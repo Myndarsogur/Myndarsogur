@@ -1,158 +1,98 @@
 <!DOCTYPE html>
 <html lang="is">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ULTramEgasíðan</title>
   <style>
-    body {
-      margin: 0;
-      font-family: sans-serif;
-      background: yellow;
-    }
+    *,*::before,*::after{box-sizing:border-box}
+    body{margin:0;font-family:sans-serif;background:yellow}
+    img{max-width:100%;height:auto;display:block}
 
-    .page-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr; /* tveir dálkar */
-      gap: 20px;
-      padding: 20px;
-    }
-    .red-section {
-      background: red;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  height: 700px; /* <-- setjum fasta hæð (helmingur af því sem var) */
-  overflow: auto; /* ef myndirnar eru fleiri en passa, þá skrollast */
-  grid-column: 2;
-  grid-row: 2;
-}
-.white-section {
-  background: white;
-  color: black;
-  padding: 40px;
-  margin-top: 20px;
-  border-radius: 12px;
-  grid-column: span 2; /* tekur báða dálka */
-  font-size: 18px;
-  line-height: 1.6;
-}
-.white-section h2 {
-  font-size: 28px;
-  margin-bottom: 20px;
-}
-
-.authors-section {
-  background: blue;
-  margin-top: 20px;
-  height: 100%;
-  position: relative;
-  top: -450px; /* færir reitinn upp um ca 700px */
-}
-
-
-    section {
-      padding: 20px;
-      text-align: center;
-      background: white;
-      border-radius: 12px;
-    }
-
-    /* Gula hlutinn: spannar tvo reiti niður í vinstri dálk */
-    .yellow-section {
-      background: yellow;
-      grid-row: span 2;
-    }
-    .yellow-section img {
-      width: 100%;
-      height: auto;
-      border-radius: 12px;
-
-      .yellow-section a {
-        display: block;
-        text-decoration: none;
-        color: black;
-        font-size: 64px;
-        margin-top: 10px;
-      }
-      
-      
-    }
-
-    .green-section {
-  background: green;
-  padding: 20px;
-}
-
-.green-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 4 dálkar */
-  grid-template-rows: repeat(2, 1fr);   /* 4 raðir */
-  gap: 20px;
-  justify-items: center;
-  align-items: center;
-}
-
-.green-grid a {
-  font-size: 64px;
-  text-decoration: none;
-  color: white;
-  transition: transform 0.2s;
-}
-
-.green-grid a:hover {
-  transform: scale(1.2);
-}
-
-    /* Rauði hlutinn: einn reitur */
-    .red-section {
-      background: red;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-    }
-    .red-section img {
-      width: 150px;
-      height: 200px;
-      border-radius: 8px;
-      object-fit: cover;
-    }
-
- 
-
-
-    /* Höfundar neðst */
-    .authors-section {
-      background: blue;
-      margin-top: 20px; /* Add gap between red and blue sections */
-      height: 100%;
-    }
-    .authors-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: repeat(2, 1fr);
-      gap: 10px;
-      padding: 20px;
-      justify-items: center;
-    }
-    .authors-grid img {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-
-    .right-column {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .side-by-side {
-      display: grid;
+    /* --- GRID LAYOUT LÆST MEÐ AREAS --- */
+    .page-grid{
+      display:grid;
       grid-template-columns: 1fr 1fr;
-      gap: 20px;
+      grid-template-rows: auto auto auto; /* 2 raðir efst + höfundar */
+      grid-template-areas:
+        "yellow green"
+        "yellow red"
+        "authors authors";
+      gap:20px;
+      padding:20px;
+      align-items:start;
+    }
+
+    section{background:#fff;border-radius:12px}
+
+    /* GULI (2 raðir vinstra megin) */
+    .yellow-section{grid-area:yellow;background:yellow;padding:0}
+    .yellow-section .cover{border-radius:12px}
+    .yellow-links{display:grid;gap:8px;padding:16px}
+    .yellow-links a{font-weight:700;font-size:48px;text-decoration:none;color:#000;line-height:1.1}
+
+    /* ——— HÉR ER DOM-RÖÐ: RAUÐUR ÁÐUR EN GRÆNN ——— */
+    /* RAUÐI (alltaf einbreiður) */
+    .red-section{
+      grid-area:red;
+      background:red;
+      display:flex;
+      flex-direction:column;      /* ein mynd í röð */
+      align-items:center;
+      gap:10px;
+      padding:20px;
+      height:700px;               /* heldur “glugga” á desktop */
+      overflow:auto;              /* innri skroll á desktop */
+    }
+    .red-section img{
+      width:300px;height:400px;object-fit:cover;border-radius:8px
+    }
+
+    /* GRÆNI (þéttari icons) */
+    .green-section{grid-area:green;background:green;padding:16px}
+    .green-grid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0,1fr)); /* þrír dálkar */
+      gap:10px;                                        /* minna bil */
+      justify-items:center;align-items:center
+    }
+    .green-grid a{
+      font-size:124px;line-height:1;text-decoration:none;color:#fff
+    }
+
+    /* HÖFUNDAR (fyrir neðan, yfir báða dálka) */
+    .authors-section{grid-area:authors;background:blue;color:#fff}
+    .authors-grid{
+      display:grid;grid-template-columns:repeat(1,1fr);
+      gap:10px;padding:20px;justify-items:center
+    }
+    .authors-grid img{
+      width:120px;height:120px;border-radius:50%;object-fit:cover;background:#fff
+    }
+
+    /* ——— RESPONSIVE ——— */
+    @media (max-width: 900px){
+      .yellow-links a{font-size:40px}
+      .green-grid a{font: size 124px;px}
+      .authors-grid{grid-template-columns:repeat(2,2fr)}
+    }
+    @media (max-width: 700px){
+      .page-grid{
+        grid-template-columns:1fr;
+        grid-template-areas:
+          "yellow"
+          "green"   /* heldur röðinni skýrt á síma */
+          "red"
+          "authors";
+      }
+      .red-section{height:auto;overflow:visible} /* enginn innri skroll á síma */
+      .authors-grid{grid-template-columns:repeat(3,1fr)}
+    }
+    @media (max-width: 420px){
+      .yellow-links a{font-size:32px}
+      .green-grid{grid-template-columns:repeat(3,1fr);gap:8px}
+      .green-grid a{font-size:34px}
+      .authors-grid{grid-template-columns:repeat(3,1fr)}
     }
   </style>
 </head>
