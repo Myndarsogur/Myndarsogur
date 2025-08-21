@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ULTramEgasíðan</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: yellow;
+    }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* tveir dálkar */
+      gap: 20px;
+      padding: 20px;
+    }
+
+    section {
+      padding: 20px;
+      text-align: center;
+      background: white;
+      border-radius: 12px;
+    }
+
+    /* Gula hlutinn: spannar tvo reiti niður í vinstri dálk */
+    .yellow-section {
+      background: yellow;
+      grid-row: span 2;
+    }
+    .yellow-section img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+
+      .yellow-section a {
+        display: block;
+        text-decoration: none;
+        color: black;
+        font-size: 64px;
+        margin-top: 10px;
+      }
+      
+      
+    }
+
+    .green-section {
+  background: green;
+  padding: 20px;
+}
+
+.green-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 4 dálkar */
+  grid-template-rows: repeat(2, 1fr);   /* 4 raðir */
+  gap: 20px;
+  justify-items: center;
+  align-items: center;
+}
+
+.green-grid a {
+  font-size: 64px;
+  text-decoration: none;
+  color: white;
+  transition: transform 0.2s;
+}
+
+.green-grid a:hover {
+  transform: scale(1.2);
+}
+
+    /* Rauði hlutinn: einn reitur */
+    .red-section {
+      background: red;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+    .red-section img {
+      width: 150px;
+      height: 200px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+ 
+
+
+    /* Höfundar neðst */
+    .authors-section {
+      background: blue;
+      grid-column: 1 / span 2; /* fer yfir báða dálka */
+    }
+    .authors-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+      gap: 10px;
+      justify-items: center;
+    }
+    .authors-grid img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-grid">
+    <!-- guli hlutinn (vinstri, 2 röð) -->
+    <section class="yellow-section">
+      <a href="https://www.myndarsogur.is/stora">
+        <img src="https://imgur.com/dmsyTRU.png" alt="Mynd 1">
+        <a href="https://www.myndasogur.app">
+            <a class="stuff-link" href="https://myndarsogur.is/leikjasidan/" style="font-size: 64px; font-weight: bold; text-decoration: none;">Samfélagið</a>
+      </a>
+    </section>
+
+    <!-- græni hlutinn (hægri, efri reitur) -->
+    <section class="green-section">
+      <div class="green-grid">
+        <a class="stuff-link" href="https://myndarsogur.is/leikjasidan/">🧸</a>
+        <a class="stuff-link" href="https://myndarsogur.is/Solusida">🛒</a>
+        <a class="stuff-link" href="https://myndarsogur.is/myndasogugerd/teiknitol">🎨</a>
+        <a class="stuff-link" href="https://apps.apple.com/is/app/myndars%C3%B6gur/id6740549070">📖</a>
+        <a class="stuff-link" href="https://podcasts.apple.com/is/podcast/myndars%C3%B6gur-hla%C3%B0varp-um-myndas%C3%B6gur-myndarf%C3%B3lk-og-myndarm%C3%A1l/id1712230449">🎧</a>
+        <a class="stuff-link" href="mailto:myndarsogur@gmail.com">📩</a>
+        <a class="stuff-link" href="https://myndarsogur.is/leikjasidan/">🕹️</a>
+        <a class="stuff-link" href="https://myndarsogur.is/myndasogugerd/teiknitol">✏️</a>
+      </div>
+    </section>
+    
+    </section>
+
+    <!-- rauði hlutinn (hægri, næsti reitur) -->
+    <section class="red-section">
+      <a href="#"><img src="https://www.comicsfestival.is/themes/custom/siklo/img/logo-animated-2.gif"></a>
+      <a href="#"><img src="https://imgur.com/fBdqHJJ.png"></a>
+      <a href="#"><img src="https://i.imgur.com/MYJssUY.png"></a>
+    </section>
+
+ 
+
+    <!-- höfundar, fer yfir báða dálka -->
+    <section class="authors-section">
+      <div class="authors-grid">
+        <a href="#"><img src="https://imgur.com/TT0qd2D.png"></a>
+        <a href="#"><img src="https://imgur.com/ONZEjLM.png"></a>
+        <a href="#"><img src="https://imgur.com/T9FOxoZ.png"></a>
+        <a href="#"><img src="https://imgur.com/uF7YSms.png"></a>
+        <!-- ... allir hinir höfundarnir koma hér í sama formi -->
+      </div>
+    </section>
+  </div>
+</body>
+</html>
