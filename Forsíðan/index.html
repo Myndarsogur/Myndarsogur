@@ -28,12 +28,29 @@
   grid-column: 2;
   grid-row: 2;
 }
+.white-section {
+  background: white;
+  color: black;
+  padding: 40px;
+  margin-top: 20px;
+  border-radius: 12px;
+  grid-column: span 2; /* tekur báða dálka */
+  font-size: 18px;
+  line-height: 1.6;
+}
+.white-section h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
 
 .authors-section {
-  grid-column: 1;  /* blái hægra megin */
-  grid-row: 3;     /* sama röð og rauði */
-  margin-top: 0;   /* fjarlægjum aukabil svo sitji hlið við hlið */
+  background: blue;
+  margin-top: 20px;
+  height: 100%;
+  position: relative;
+  top: -450px; /* færir reitinn upp um ca 700px */
 }
+
 
     section {
       padding: 20px;
@@ -121,8 +138,8 @@
       justify-items: center;
     }
     .authors-grid img {
-      width: 60px;
-      height: 60px;
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
       object-fit: cover;
     }
