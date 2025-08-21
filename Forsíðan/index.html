@@ -63,8 +63,8 @@
     /* HÖFUNDAR (fyrir neðan, yfir báða dálka) */
     .authors-section{grid-area:authors;background:blue;color:#fff}
     .authors-grid{
-      display:grid;grid-template-columns:repeat(1,1fr);
-      gap:10px;padding:20px;justify-items:center
+      display:grid;grid-template-columns:repeat(3,6fr);
+      gap:20px;padding:20px;justify-items:center
     }
     .authors-grid img{
       width:120px;height:120px;border-radius:50%;object-fit:cover;background:#fff
@@ -74,8 +74,8 @@
     @media (max-width: 900px){
       .yellow-links a{font-size:40px}
       .green-grid a{font: size 124px;px}
-      .authors-grid{grid-template-columns:repeat(2,2fr)}
-    }
+      .authors-grid{grid-template-columns:repeat(3,6fr)}
+    
     @media (max-width: 700px){
       .page-grid{
         grid-template-columns:2fr;
@@ -86,13 +86,13 @@
           "authors";
       }
       .red-section{height:auto;overflow:visible} /* enginn innri skroll á síma */
-      .authors-grid{grid-template-columns:repeat(3,1fr)}
+      .authors-grid{grid-template-columns:repeat(3fr)}
     }
     @media (max-width: 420px){
       .yellow-links a{font-size:32px}
       .green-grid{grid-template-columns:repeat(3,1fr);gap:8px}
       .green-grid a{font-size:34px}
-      .authors-grid{grid-template-columns:repeat(3,1fr)}
+      .authors-grid{grid-template-columns:repeat(3,6fr)}
     }
   </style>
 </head>
@@ -102,9 +102,9 @@
     <section class="yellow-section">
       <a href="https://www.myndarsogur.is/stora">
         <img src="https://i.imgur.com/fb1ubuS.jpeg" alt="Mynd 1">
-        <a class="stuff-link" href="https://www.myndasogur.app" style="font-size: 64px; font-weight: bold; text-decoration: none;">Samfélagið</a>
-        <a class="stuff-link" href="https://www.myndasogur.app" style="font-size: 64px; font-weight: bold; text-decoration: none;">Samfélagið</a>
-        <a class="stuff-link" href="https://www.myndasogur.app" style="font-size: 64px; font-weight: bold; text-decoration: none;">Samfélagið</a>
+        <a class="stuff-link" href="https://myndasogur.app" style="font-size: 64px; font-weight: bold; text-decoration: none;">Samfélagið</a>
+        <a class="stuff-link" href="https://myndasogur.app" style="font-size: 64px; font-weight: bold; text-decoration: none;">Samfélagið</a>
+        <a class="stuff-link" href="https://myndasogur.app" style="font-size: 64px; font-weight: bold; text-decoration: none;">Samfélagið</a>
       </a>
     </section>
 
