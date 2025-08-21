@@ -17,6 +17,23 @@
       gap: 20px;
       padding: 20px;
     }
+    .red-section {
+      background: red;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  height: 700px; /* <-- setjum fasta hæð (helmingur af því sem var) */
+  overflow: auto; /* ef myndirnar eru fleiri en passa, þá skrollast */
+  grid-column: 2;
+  grid-row: 3;
+}
+
+.authors-section {
+  grid-column: 1;  /* blái hægra megin */
+  grid-row: 3;     /* sama röð og rauði */
+  margin-top: 0;   /* fjarlægjum aukabil svo sitji hlið við hlið */
+}
 
     section {
       padding: 20px;
@@ -92,19 +109,33 @@
     /* Höfundar neðst */
     .authors-section {
       background: blue;
-      grid-column: 1 / span 2; /* fer yfir báða dálka */
+      margin-top: 20px; /* Add gap between red and blue sections */
+      height: 100%;
     }
     .authors-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
       gap: 10px;
+      padding: 20px;
       justify-items: center;
     }
     .authors-grid img {
-      width: 80px;
-      height: 80px;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
       object-fit: cover;
+    }
+
+    .right-column {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .side-by-side {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
     }
   </style>
 </head>
@@ -147,10 +178,169 @@
     <!-- höfundar, fer yfir báða dálka -->
     <section class="authors-section">
       <div class="authors-grid">
-        <a href="#"><img src="https://imgur.com/TT0qd2D.png"></a>
-        <a href="#"><img src="https://imgur.com/ONZEjLM.png"></a>
-        <a href="#"><img src="https://imgur.com/T9FOxoZ.png"></a>
-        <a href="#"><img src="https://imgur.com/uF7YSms.png"></a>
+        <a href="https://www.forlagid.is/vara/mer-list-ekkert-a-thetta/" class="author-link"><img src="https://static.wixstatic.com/media/738beb_c952018e7b894fdc876001a0f4f6ccc8~mv2.jpeg/v1/fill/w_920,h_690,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/IMG_4295.jpeg" alt="Alex Steinþórsdóttir"></a>
+          <a class="author-link" href="https://linktr.ee/adda_bjagga_art">
+            <img alt="Arndís Björk Marinósdóttir" src="https://imgur.com/TT0qd2D.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/addinabblakusk/">
+            <img alt="Arnfinnur Rúnar Sigmundsson" src="https://imgur.com/ONZEjLM.png"/>
+           </a>
+           <a class="author-link" href="https://www.dileydiflorez.com/about-me-contact">
+            <img alt="Dileydi Florez" src="https://imgur.com/T9FOxoZ.png"/>
+           </a>
+           <a class="author-link" href="https://linktr.ee/icecomics">
+            <img alt="Fannar Gilbertsson" src="https://imgur.com/uF7YSms.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/fannar_draw/">
+            <img alt="Fannar Már Skarphéðinsson" src="https://imgur.com/xWPAOV3.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/greenfinnur/">
+            <img alt="Finnur Matteo Bettaglio" src="https://imgur.com/TbPNTP6.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/glytta/">
+            <img alt="Glytta" src="https://imgur.com/hGwXxrz.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/dagsson/">
+            <img alt="Hugleikur Dagsson" src="https://imgur.com/CHJTagy.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/i.r.kjartansson_/">
+            <img alt="Ingi Rúnar Kjartansson" src="https://imgur.com/0MP0awL.png"/>
+           </a>
+           <a class="author-link" href="https://www.webtoons.com/en/canvas/smásögur-/krummafótur/viewer?title_no=860721&amp;episode_no=3&amp;webtoonType=CHALLENGE&amp;fbclid=PAZXh0bgNhZW0CMTEAAablgaMpcNGX33pPzSW2fKKHVt90-H7B7UDg7WAM2pZht7vEttkdwyo85eI_aem_6xfD56ROam2Gx2zz4HurIw&amp;webtoon-platform-redirect=true">
+            <img alt="Ísold Davíðsdóttir" src="https://imgur.com/WBzTUVH.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/kris_helga_art/">
+            <img alt="jj mancho" src="https://imgur.com/Lbansfp.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/furdu_leg/">
+            <img alt="Klara Rosatti" src="https://imgur.com/4zAMLcO.png"/>
+           </a>
+           <a class="author-link" href="https://myndarsogur.is">
+            <img alt="Kris Helga" src="https://imgur.com/FTV6rrG.png"/>
+           </a>
+           <a class="author-link" href="https://kruzidula.neocities.org">
+            <img alt="Krummi" src="https://imgur.com/cQHs8f3.png"/>
+           </a>
+           <a class="author-link" href="https://loaboratorium.com">
+            <img alt="Lóa Hlín Hjálmtýsdóttir" src="https://imgur.com/mGubx0m.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/lukas_regal/">
+            <img alt="Lúkas Regal" src="https://imgur.com/Nc37AID.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/robotic_turtle/">
+            <img alt="Ómar Smári Sigurgeirsson" src="https://imgur.com/2OjbgU7.png"/>
+           </a>
+           <a class="author-link" href="https://www.valadraws.com">
+            <img alt="Vala Steingrímsdóttir" src="https://imgur.com/I4noZOf.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/thorey_mjallhvit/">
+            <img alt="Þórey Mjallhvít" src="https://imgur.com/vnN8TLo.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/hlifuna/">
+            <img alt="Hlíf Una" src="https://imgur.com/Ke4asUn.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/huqljuf">
+            <img alt="Hugljúf Jósefsdóttir" src="https://imgur.com/joc1cIh.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/izzy.aster/?hl=en">
+            <img alt="Martyna Laura" src="https://imgur.com/lxCH8x0.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/herdill.art">
+            <img alt="Herdís Þorvaldsdóttir" src="https://imgur.com/3IRZTos.png"/>
+           </a>
+           <a class="author-link" href="https://www.emassonart.com">
+            <img alt="Einar Másson" src="https://imgur.com/FPR8I1E.png"/>
+           </a>
+           <a class="author-link" href="https://eliasruni.com">
+            <img alt="Elías Rúni" src="https://imgur.com/vJE0VhO.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/dumb.loves.svali/">
+            <img alt="Una Erlín" src="https://imgur.com/li9QtyC.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/bluebonnetmilk/">
+            <img alt="Viktoría Söring" src="https://imgur.com/mCFTepv.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/eirikurlynch/">
+            <img alt="Eiríkur Lynch" src="https://imgur.com/eGRC7zT.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/ingidraws/">
+            <img alt="Ingi Jensson" src="https://imgur.com/rgXcljj.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/rakkadimus/">
+            <img alt="Rakki móri úr mýri Reykjavíkur" src="https://imgur.com/ynK4ZV2.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/addimarvin/">
+            <img alt="Arnar Marvin Kristjánsson" src="https://imgur.com/ewGfNvW.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/drengurinn_fengurinn/">
+            <img alt="Egill Jónasson" src="https://imgur.com/dvabOzH.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/unndeadcat/">
+            <img alt="Unndeadcat" src="https://imgur.com/cteaR6B.png"/>
+           </a>
+           <a class="author-link" href="https://www.forlagid.is/vara/bannad-ad-vekja-grylu/">
+            <img alt="Dagur Sævarsson" src="https://imgur.com/zhQ36xh.png"/>
+           </a>
+           <a class="author-link" href="https://smjorfluga.com">
+            <img alt="Lilja Björg Jökulsdóttir" src="https://imgur.com/gefHgoV.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/hrafnsunnaart/">
+            <img alt="Hrafnsunna Ross" src="https://imgur.com/UxCz2tm.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/arnarthorkristjansson/">
+            <img alt="Arnar Þór Sigurlaugar-Kristjánsson" src="https://imgur.com/5nHBP2J.png"/>
+           </a>
+           <a class="author-link" href="https://www.sigurduramundason.com/?fbclid=PAZXh0bgNhZW0CMTEAAaa9AvD3Q898xxeq9p1PCVWfoPoeeCKyOvxtHmt3kkdWui7DZCYvAoOS5YA_aem_g1JalJ8t3hgv096bOUxvYQ">
+            <img alt="Sigurður Ámundason" src="https://imgur.com/bLdhnIx.png "/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/myndarsogur/">
+            <img alt="Myndarsögur" src="https://imgur.com/vlacKnM.png"/>
+           </a>
+           <a class="author-link" href="https://myndarsogur.is">
+            <img alt="Taylor Garcia van Biljon" src="https://imgur.com/pq4Yazz.png"/>
+           </a>
+           <a class="author-link" href="https://www.fluoro.life/2023/06/unnur-snorradottir/">
+            <img alt="Unnur Snorradóttir" src="https://imgur.com/XP9wdHJ.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/hig_peculiart/">
+            <img alt="Hermann Ingi Guðbrandsson" src="https://imgur.com/eYNCG4v.png"/>
+           </a>
+           <a class="author-link" href="https://www.forlagid.is/vara/einstakt-jolatre/">
+            <img alt="Linn Janssen" src="https://imgur.com/dOIbCtE.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/myndarsogur/">
+            <img alt="Myndarsögur" src="https://imgur.com/vlacKnM.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/ymirarnarson/">
+            <img alt="Ymir Arnarson" src="https://imgur.com/guAdvMr.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/kallikailashyouzeartandmusic/">
+            <img alt="Kailash Youze" src="https://imgur.com/W1U4ko2.png"/>
+           </a>
+           <a class="author-link" href="https://www.artstation.com/j_rundur">
+            <img alt="Jörundur Óskarsson" src="https://imgur.com/MoIN7ZK.jpg"/>
+           </a>
+          <a class="author-link" href="https://www.instagram.com/elinelisabete/">
+            <img alt="Elín Elísabet Einarsdóttir" src="https://imgur.com/o8pL7uh.png"/>
+           </a>
+           <a class="author-link" href="https://www.instagram.com/dyrfinnabenita/">
+            <img alt="Dýrfinna Benita" src="https://imgur.com/CueoYfQ.png"/>
+           </a>
+           <a class="author-link" href="teiknari.is">
+            <img alt="Ari Hlynur Yates" src="https://imgur.com/YIiGfN9.png"/>
+           </a>
+           <a class="author-link" href="https://www.jolaljosamadurinn.com/leiðin-upp-hallgrímskirkju">
+            <img alt="Jólaljósamaðurinn" src="https://imgur.com/xSDkZKY.png"/>
+           </a>
+           <a class="author-link" href="https://www.kosmonatka.net">
+            <img alt="Natka Klimowicz" src="https://imgur.com/3aMdrhH.gif"/>
+           </a>
+           <a class="author-link" href="https://bjornheimir.com">
+            <img alt="Björn Heimir Önundarson" src="https://imgur.com/NY687Xc.png"/>
+           </a>
+        </div>
+    </div>
+</div>
         <!-- ... allir hinir höfundarnir koma hér í sama formi -->
       </div>
     </section>
