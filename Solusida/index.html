@@ -80,17 +80,33 @@
             color: green;
             display: none;
         }
-
+    
         /* Sérsniðinn cursor fyrir lykil */
         .key-cursor {
             cursor: '🔑', auto; /* Breyttu í eigin lykilmynd */
         }
+        #skilabod {
+        position: absolute;
+        top: calc(50% - 150px); /* Position above car */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 100px;
+        background-image: url('https://i.imgur.com/cSvtkgq.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        text-indent: -9999px;
+        pointer-events: none; /* Remove interaction */
+        z-index: 1000;
+    }
     </style>
 </head>
 <body>
     <div id="car-container">
         <img src="https://i.imgur.com/PzG3IS6.png" alt="Bíll" id="car-image" />
     </div>
+    <div id="skilabod"></div>
+
 
     <div id="message">
         <p>Þú getur nú verslað!</p>
@@ -207,3 +223,4 @@
     </script>
 </body>
 </html>
+
