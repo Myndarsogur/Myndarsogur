@@ -284,6 +284,16 @@
         text-shadow: 6px 6px 8px rgba(0, 0, 0, 0.7); /* Skuggi fyrir betri læsileika */
         pointer-events: none; /* Leyfir ekki að smella á textann */
     }
+  .water-emoji {
+    animation: fadeOut 3s forwards;
+  }
+
+  @keyframes fadeOut {
+    0% { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: scale(2); }
+  }
+</style>
+    }
   </style>
 </head>
 <body>
@@ -659,3 +669,29 @@
                 });
             });
           </script>
+          <script>
+            document.body.addEventListener('click', function (event) {
+              // Athuga hvort við smellum á eitthvað sem er ekki body sjálft (t.d. hnappa, myndir, tengla)
+              if (event.target.closest('a, button, img, .water-emoji')) return;
+          
+              // Búa til nýjan emoji div
+              const emoji = document.createElement('div');
+              emoji.className = 'water-emoji';
+              emoji.textContent = '💧';
+              emoji.style.position = 'absolute';
+              emoji.style.left = `${event.clientX}px`;
+              emoji.style.top = `${event.clientY}px`;
+              emoji.style.fontSize = '40px';
+              emoji.style.pointerEvents = 'none';
+              emoji.style.zIndex = '9999';
+          
+              document.body.appendChild(emoji);
+          
+              // Fjarlægja eftir 3 sek
+              setTimeout(() => {
+                emoji.remove();
+              }, 3000);
+            });
+          </script>
+          </body>
+          

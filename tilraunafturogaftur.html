@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="is">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Flipar & hringhlekkir — frumgerð</title>
+  <meta name="description" content="Síða með stórum flipum (hlekkjum) og fjölda lítilla hringmynda sem hlekkja á efni." />
+  <style>
+    :root{
+      --bg:#0c0c0f; --surface:#121218; --ink:#f5f6f8; --muted:#c9cad1;
+      --brand:#8ef3d2; --brand2:#7ab7ff; --accent:#ffd86b; --radius:18px;
+      --shadow:0 10px 30px rgba(0,0,0,.25); --maxw:1200px; --space: clamp(12px, 1.6vw, 20px);
+    }
+    @media (prefers-color-scheme: light){
+      :root{ --bg:#f7f7fb; --surface:#ffffff; --ink:#101217; --muted:#394150; --shadow:0 8px 18px rgba(0,0,0,.08); }
+    }
+    *{box-sizing:border-box} html,body{height:100%}
+    body{margin:0; background:var(--bg); color:var(--ink); font:16px/1.55 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;}
+    img{max-width:100%; display:block}
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:var(--maxw); margin-inline:auto; padding: calc(var(--space)*1.2)}
+    header{position:sticky; top:0; z-index:10; background:rgba(0,0,10,.35); backdrop-filter: blur(8px) saturate(1.2); border-bottom:1px solid rgba(255,255,255,.08)}
+    @media (prefers-color-scheme: light){ header{background:rgba(255,255,255,.7); border-bottom-color: rgba(0,0,0,.08);} }
+    .topbar{display:flex; align-items:center; gap:14px}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:800}
+    .logo{inline-size:34px; block-size:34px; border-radius:50%; background: radial-gradient(80% 80% at 30% 30%, var(--brand), var(--brand2)); box-shadow: var(--shadow)}
+    .skip-link{position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden}
+    .skip-link:focus{left:var(--space); top:var(--space); width:auto; height:auto; padding:8px 12px; background:var(--accent); color:#111; border-radius:10px}
+    :focus-visible{outline:2px solid var(--brand2); outline-offset:3px}
+
+    /* --- STÓRIR FLIPAR (hlekkir) --- */
+    .tabs-wrap{margin-top: clamp(10px,1.5vw,18px)}
+    .tabs-scroller{display:flex; gap:14px; overflow:auto; padding: 8px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch}
+    .tabs-scroller::-webkit-scrollbar{height:8px}
+    .tabs-scroller::-webkit-scrollbar-thumb{background: linear-gradient(90deg, var(--brand), var(--brand2)); border-radius:999px}
+    .tab{flex: 0 0 auto; min-inline-size: clamp(200px, 28vw, 320px); aspect-ratio: 5/2; scroll-snap-align: start; background:var(--surface); border-radius: var(--radius); display:grid; grid-template-rows: 1fr auto; align-items:end; box-shadow: var(--shadow); position:relative; isolation:isolate; border:1px solid rgba(255,255,255,.08)}
+    @media (prefers-color-scheme: light){ .tab{ border-color: rgba(0,0,0,.08); } }
+    .tab:focus-within{outline:2px solid var(--brand2)}
+    .tab-media{position:absolute; inset:0; background: linear-gradient(160deg, rgba(142,243,210,.25), rgba(122,183,255,.16));}
+    .tab img{width:100%; height:100%; object-fit:cover; border-radius: inherit; opacity:.92}
+    .tab-label{position:relative; padding:14px; display:flex; justify-content:space-between; align-items:center; gap:10px}
+    .tab-title{font-size: clamp(16px, 2vw, 22px); font-weight:800}
+    .tab-kicker{font-size:12px; color: var(--muted); letter-spacing:.3px}
+    .tab .chip{padding:6px 10px; border-radius:999px; background:rgba(0,0,0,.5); color:#fff; font-size:12px}
+    @media (prefers-color-scheme: light){ .tab .chip{background:rgba(0,0,0,.65);} }
+
+    /* --- Hnappar til hliðar á borðtölvu --- */
+    .tabs-hint{display:flex; justify-content:flex-end; gap:8px; font-size:12px; color:var(--muted); margin-top:6px}
+
+    /* --- LÍTILIR HRINGHLEKKIR --- */
+    .rings{margin-top: clamp(18px, 3vw, 36px)}
+    .rings h2{margin:0 0 10px 2px; font-size: clamp(16px, 1.6vw, 20px); color:var(--muted)}
+    .ring-grid{display:grid; grid-template-columns: repeat(auto-fill, minmax(78px, 1fr)); gap: clamp(10px, 1vw, 14px)}
+    .ring{display:grid; gap:6px; justify-items:center; text-align:center}
+    .ring a{display:grid; place-items:center; inline-size:78px; block-size:78px; border-radius:50%; overflow:hidden; background: radial-gradient(70% 70% at 30% 30%, var(--brand), var(--brand2)); box-shadow: var(--shadow); border:1px solid rgba(255,255,255,.08)}
+    @media (prefers-color-scheme: light){ .ring a{border-color: rgba(0,0,0,.08);} }
+    .ring img{width:100%; height:100%; object-fit:cover}
+    .ring span{font-size:12px; color:var(--muted)}
+
+    /* --- Smá hreyfingar --- */
+    @keyframes hoverFloat{from{transform:translateY(0)}50%{transform:translateY(-4px)}to{transform:translateY(0)}}
+    .tab:hover{transform: translateY(-2px)}
+    .ring a:hover{animation: hoverFloat 2s ease-in-out infinite}
+    @media (prefers-reduced-motion: reduce){ .tab, .ring a{ transition:none; animation:none } }
+
+    footer{margin-top: clamp(30px, 5vw, 60px); color:var(--muted); border-top:1px dashed rgba(255,255,255,.12)}
+    @media (prefers-color-scheme: light){ footer{border-top-color: rgba(0,0,0,.12);} }
+  </style>
+</head>
+<body>
+  <a href="#efni" class="skip-link">Fara beint í efni</a>
+  <header>
+    <div class="wrap topbar">
+      <div class="brand" aria-label="Heim">
+        <div class="logo" aria-hidden="true"></div>
+        <span>Myndasögur</span>
+      </div>
+    </div>
+  </header>
+
+  <main id="efni" class="wrap" role="main">
+    <!-- STÓRIR FLIPAR: hver flipi er hlekkur á efni -->
+    <section class="tabs-wrap" aria-label="Stórir flipar">
+      <div class="tabs-scroller" aria-live="polite">
+        <!-- Dæmi um 6 stór flipa (bæta eða fækka að vild) -->
+        <a class="tab" href="#saga1" aria-label="Villt — byrja hér">
+          <div class="tab-media" aria-hidden="true"></div>
+          <div class="tab-label">
+            <div>
+              <div class="tab-kicker">Ný saga</div>
+              <div class="tab-title">Villt — kafli #01</div>
+            </div>
+            <span class="chip">Byrja</span>
+          </div>
+        </a>
+        <a class="tab" href="#kort" aria-label="Kort — leita eftir staðsetningu">
+          <div class="tab-media" aria-hidden="true"></div>
+          <div class="tab-label">
+            <div>
+              <div class="tab-kicker">Leiðarkerfi</div>
+              <div class="tab-title">Kort af norðurslóðum</div>
+            </div>
+            <span class="chip">Skoða</span>
+          </div>
+        </a>
+        <a class="tab" href="#greinar" aria-label="Greinar og viðtöl">
+          <div class="tab-media" aria-hidden="true"></div>
+          <div class="tab-label">
+            <div>
+              <div class="tab-kicker">Innsýn</div>
+              <div class="tab-title">Greinar & viðtöl</div>
+            </div>
+            <span class="chip">Lesa</span>
+          </div>
+        </a>
+        <a class="tab" href="#leikir" aria-label="Leikir og tilraunir">
+          <div class="tab-media" aria-hidden="true"></div>
+          <div class="tab-label">
+            <div>
+              <div class="tab-kicker">Tilraunasvæði</div>
+              <div class="tab-title">Leikir & verkfæri</div>
+            </div>
+            <span class="chip">Opna</span>
+          </div>
+        </a>
+        <a class="tab" href="#hofundar" aria-label="Höfundar og sýningar">
+          <div class="tab-media" aria-hidden="true"></div>
+          <div class="tab-label">
+            <div>
+              <div class="tab-kicker">Sýningar</div>
+              <div class="tab-title">Höfundar & safn</div>
+            </div>
+            <span class="chip">Kíkja</span>
+          </div>
+        </a>
+        <a class="tab" href="#um" aria-label="Um og samstarf">
+          <div class="tab-media" aria-hidden="true"></div>
+          <div class="tab-label">
+            <div>
+              <div class="tab-kicker">Um okkur</div>
+              <div class="tab-title">Samstarf & verkefni</div>
+            </div>
+            <span class="chip">Hafa samband</span>
+          </div>
+        </a>
+      </div>
+      <div class="tabs-hint" aria-hidden="true">Dragðu til &middot; Shift + scroll til að renna</div>
+    </section>
+
+    <!-- LÍTILAR HRINGMYNDIR: 12 dæmi (auðvelt að stækka í ~30) -->
+    <section class="rings" aria-labelledby="rings-title">
+      <h2 id="rings-title">Flýtileiðir</h2>
+      <div class="ring-grid">
+        <!-- DÆMI: Settu þínar slóðir & myndir á <a href> og <img src> -->
+        <div class="ring">
+          <a href="#h1" aria-label="Hlekkur 1"><img src="https://i.imgur.com/8Km9tLL.jpg" alt="" loading="lazy"></a>
+          <span>Hlekkur 1</span>
+        </div>
+        <div class="ring">
+          <a href="#h2" aria-label="Hlekkur 2"><img src="https://i.imgur.com/4AiXzf8.jpeg" alt="" loading="lazy"></a>
+          <span>Hlekkur 2</span>
+        </div>
+        <div class="ring">
+          <a href="#h3" aria-label="Hlekkur 3"><img src="https://i.imgur.com/0ZfQZ5M.jpeg" alt="" loading="lazy"></a>
+          <span>Hlekkur 3</span>
+        </div>
+        <div class="ring">
+          <a href="#h4" aria-label="Hlekkur 4"><img src="https://i.imgur.com/9b5f6nD.jpeg" alt="" loading="lazy"></a>
+          <span>Hlekkur 4</span>
+        </div>
+        <div class="ring">
+          <a href="#h5" aria-label="Hlekkur 5"><img src="https://i.imgur.com/Mh6iQ0G.jpeg" alt="" loading="lazy"></a>
+          <span>Hlekkur 5</span>
+        </div>
+        <div class="ring">
+          <a href="#h6" aria-label="Hlekkur 6"><img src="https://i.imgur.com/0rKkS2K.jpeg" alt="" loading="lazy"></a>
+          <span>Hlekkur 6</span>
+        </div>
+        <div class="ring">
+          <a href="#h7" aria-label="Hlekkur 7"><img src="https://i.imgur.com/2yAfK.jpeg" alt="" loading="lazy"></a>
+          <span>Hlekkur 7</span>
+        </div>
+        <div class="ring">
+          <a href="#h8" aria-label="Hlekkur 8"><img src="https://i.imgur.com/1A1tZ.jpeg" alt="" loading="lazy"></a>
+          <span>Hlekkur 8</span>
+        </div>
+        <div class="ring">
+          <a href="#h9" aria-label="Hlekkur 9"><img src="https://i.imgur.com/Km4Q7.jpeg" alt="" loading="lazy"></a>
+          <span>Hlekkur 9</span>
+        </div>
+        <div class="ring">
+          <a href="#h10" aria-label="Hlekkur 10"><img src="https://i.imgur.com/4KeKX.jpeg" alt="" loading="lazy"></a>
+          <span>Hlekkur 10</span>
+        </div>
+        <div class="ring">
+          <a href="#h11" aria-label="Hlekkur 11"><img src="https://i.imgur.com/3tV8N.jpeg" alt="" loading="lazy"></a>
+          <span>Hlekkur 11</span>
+        </div>
+        <div class="ring">
+          <a href="#h12" aria-label="Hlekkur 12"><img src="https://i.imgur.com/j5bRz.jpeg" alt="" loading="lazy"></a>
+          <span>Hlekkur 12</span>
+        </div>
+      </div>
+    </section>
+
+    <footer class="wrap" style="padding-left:0;padding-right:0">
+      <p>© 2025 Myndasögur. <a href="#">Hafa samband</a></p>
+    </footer>
+  </main>
+
+  <script>
+    // Stækkanlegt: ef þú vilt ~30 hringi, bara límdu inn fleiri .ring kubba.
+    // Aðgengi: gera .tab "tökkum" með lyklaborði (Enter/Space)
+    document.querySelectorAll('.tab').forEach(t=>{
+      t.setAttribute('tabindex','0');
+      t.addEventListener('keydown', e=>{
+        if(e.key==='Enter' || e.key===' '){ e.preventDefault(); t.click(); }
+      });
+    });
+
+    // Snjallforðhleðsla: forgangsraða myndum þegar nálægt viewport
+    const lazyImgs = document.querySelectorAll('img[loading="lazy"]');
+    if('IntersectionObserver' in window){
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(en=>{
+          if(en.isIntersecting){
+            const im = en.target; im.decoding = 'async'; io.unobserve(im);
+          }
+        });
+      }, {rootMargin: '300px'});
+      lazyImgs.forEach(im=>io.observe(im));
+    }
+  </script>
+</body>
+</html>

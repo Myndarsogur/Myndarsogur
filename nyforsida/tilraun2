@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+  <meta charset="UTF-8">
+  <title>Þrír dálkar með hnöppum</title>
+  <style>
+    body {
+      margin: 0;
+      display: grid;
+      grid-template-columns: 37% 40% 23%;
+    }
+    .blue-section {
+      background: blue;
+      max-height: 450px;
+      overflow-y: auto;
+    }
+    .yellow-section {
+      background: yellow;
+    }
+    .mid-section {
+      background: red;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      align-items: flex-start;
+    }
+    .right-col {
+      background: green;
+    }
+    /* Lóðrétt röðun fyrir bláa, gula og græna hluta */
+    .blue-section, .yellow-section, .right-col {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 5px;
+    }
+    /* Stíll fyrir alla hnappa (anchor tags) */
+    .blue-section a, .yellow-section a, .mid-section a, .right-col a {
+      text-decoration: none;
+    }
+    /* Stíll fyrir myndefni hnappa (img tags) */
+    .blue-section a img, .yellow-section a img, .mid-section a img, .right-col a img {
+      border-radius: 50%;
+      max-width: 100%;
+      height: auto;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    /* Hover-áhrif á hnappa */
+    .blue-section a:hover img, .yellow-section a:hover img, .mid-section a:hover img, .right-col a:hover img {
+      transform: scale(1.1);
+      box-shadow: 0 0 8px rgba(0,0,0,0.5);
+    }
+  </style>
+</head>
+<body>
+  <div class="left-col">
+    <!-- Blái hlutinn (10 hnappar) -->
+    <div class="blue-section">
+      <a href="https://example.com/link1"><img src="https://via.placeholder.com/80" alt="Placeholder"></a>
+      <a href="https://example.com/link2"><img src="https://via.placeholder.com/90" alt="Placeholder"></a>
+      <a href="https://example.com/link3"><img src="https://via.placeholder.com/100" alt="Placeholder"></a>
+      <a href="https://example.com/link4"><img src="https://via.placeholder.com/110" alt="Placeholder"></a>
+      <a href="https://example.com/link5"><img src="https://via.placeholder.com/120" alt="Placeholder"></a>
+      <a href="https://example.com/link6"><img src="https://via.placeholder.com/90" alt="Placeholder"></a>
+      <a href="https://example.com/link7"><img src="https://via.placeholder.com/100" alt="Placeholder"></a>
+      <a href="https://example.com/link8"><img src="https://via.placeholder.com/110" alt="Placeholder"></a>
+      <a href="https://example.com/link9"><img src="https://via.placeholder.com/120" alt="Placeholder"></a>
+      <a href="https://example.com/link10"><img src="https://via.placeholder.com/80" alt="Placeholder"></a>
+    </div>
+    <!-- Guli hlutinn (6 hnappar) -->
+    <div class="yellow-section">
+      <a href="https://example.com/link11"><img src="https://via.placeholder.com/100" alt="Placeholder"></a>
+      <a href="https://example.com/link12"><img src="https://via.placeholder.com/80" alt="Placeholder"></a>
+      <a href="https://example.com/link13"><img src="https://via.placeholder.com/110" alt="Placeholder"></a>
+      <a href="https://example.com/link14"><img src="https://via.placeholder.com/100" alt="Placeholder"></a>
+      <a href="https://example.com/link15"><img src="https://via.placeholder.com/90" alt="Placeholder"></a>
+      <a href="https://example.com/link16"><img src="https://via.placeholder.com/120" alt="Placeholder"></a>
+    </div>
+  </div>
+  <!-- Rauði miðjuhlutinn (3 hnappar) -->
+  <div class="mid-section">
+    <a href="https://example.com/link17"><img src="https://via.placeholder.com/90" alt="Placeholder"></a>
+    <a href="https://example.com/link18"><img src="https://via.placeholder.com/120" alt="Placeholder"></a>
+    <a href="https://example.com/link19"><img src="https://via.placeholder.com/100" alt="Placeholder"></a>
+  </div>
+  <!-- Græni hlutinn (8 hnappar) -->
+  <div class="right-col">
+    <a href="https://example.com/link20"><img src="https://via.placeholder.com/100" alt="Placeholder"></a>
+    <a href="https://example.com/link21"><img src="https://via.placeholder.com/110" alt="Placeholder"></a>
+    <a href="https://example.com/link22"><img src="https://via.placeholder.com/90" alt="Placeholder"></a>
+    <a href="https://example.com/link23"><img src="https://via.placeholder.com/100" alt="Placeholder"></a>
+    <a href="https://example.com/link24"><img src="https://via.placeholder.com/80" alt="Placeholder"></a>
+    <a href="https://example.com/link25"><img src="https://via.placeholder.com/120" alt="Placeholder"></a>
+    <a href="https://example.com/link26"><img src="https://via.placeholder.com/100" alt="Placeholder"></a>
+    <a href="https://example.com/link27"><img src="https://via.placeholder.com/110" alt="Placeholder"></a>
+  </div>
+</body>
+</html>

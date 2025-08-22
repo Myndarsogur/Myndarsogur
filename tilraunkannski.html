@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Myndarsögur – teiknimyndasögur, leikjarými og skapandi verkfæri</title>
+  <meta name="description" content="Myndarsögur er sjónrænn heimur fyrir íslenskar myndasögur: sögur, viðburðir, leikjatól, námskeið, hlaðvarp og app." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Myndarsögur – myndasögur, leikjatól og viðburðir" />
+  <meta property="og:description" content="Kannaðu sögur, hlustaðu, teiknaðu og spilaðu. Myndarsögur safnar saman öllu á einum stað." />
+  <meta property="og:image" content="https://i.imgur.com/COCCKrc.png" />
+  <link rel="icon" href="https://myndarsogur.is/Myndarsogur-Merki.png" />
+
+  <style>
+    /* --- Grunnbreytur --- */
+    :root{
+      --bg: #0b0b0b;
+      --fg: #ffffff;
+      --muted: #b9b9b9;
+      --brand: #ffd000; /* gult */
+      --brand2: #0d53ff; /* blátt */
+      --card: #141414;
+      --radius: 18px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    @media (prefers-color-scheme: light){
+      :root{ --bg:#ffffff; --fg:#111; --muted:#444; --card:#f4f4f5; }
+    }
+
+    *{ box-sizing:border-box }
+    html{ scroll-behavior:smooth }
+    body{
+      margin:0; background:var(--bg); color:var(--fg); font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, Noto Sans, sans-serif;
+      line-height:1.4;
+    }
+    .container{ max-width:1100px; margin-inline:auto; padding: clamp(16px, 4vw, 32px); }
+
+    /* --- Aðgengi --- */
+    .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0 }
+    a{ color:inherit; text-decoration:none }
+    a:focus-visible, button:focus-visible{ outline: 3px solid var(--brand2); outline-offset: 3px }
+
+    /* --- Haus --- */
+    header{ position:sticky; top:0; z-index:100; backdrop-filter:saturate(160%) blur(6px); background: color-mix(in oklab, var(--bg) 92%, transparent);
+      border-bottom:1px solid color-mix(in oklab, var(--fg) 10%, transparent);
+    }
+    .topbar{ display:flex; align-items:center; gap:14px; }
+    .logo{ display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.4px; }
+    .logo img{ width:42px; height:42px; border-radius:50% }
+    .tagline{ color:var(--muted); font-size:clamp(14px, 1.6vw, 16px) }
+
+    nav{ margin-left:auto; display:flex; gap:10px; flex-wrap:wrap }
+    .chip{
+      display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border-radius:999px; background:var(--card); border:1px solid color-mix(in oklab, var(--fg) 10%, transparent);
+      font-weight:600; white-space:nowrap
+    }
+    .chip:hover{ transform: translateY(-2px); box-shadow: var(--shadow) }
+
+    /* --- Kynning/Hero --- */
+    .hero{ display:grid; grid-template-columns: 1.1fr .9fr; gap: clamp(16px, 4vw, 36px); align-items:center; margin-top: clamp(8px, 2vw, 16px) }
+    .hero h1{ font-size: clamp(28px, 5vw, 54px); line-height:1.05; margin:0 }
+    .hero p{ font-size:clamp(16px, 2vw, 20px); color:var(--muted) }
+    .cta{ display:flex; gap:12px; margin-top: 16px }
+    .btn{ background:var(--brand); color:#111; font-weight:800; padding:12px 18px; border-radius:12px; border:none; box-shadow:var(--shadow) }
+    .btn.secondary{ background:var(--card); color:var(--fg) }
+    .poster{ aspect-ratio: 4/3; border-radius: var(--radius); background:linear-gradient(125deg, var(--brand) 0%, #fff06a 40%, var(--brand2) 100%); display:grid; place-items:center }
+    .poster img{ width:100%; height:100%; object-fit:cover; border-radius: var(--radius) }
+
+    /* --- Flýtival myndakort --- */
+    .grid{ display:grid; gap: clamp(12px, 2vw, 18px); grid-template-columns: repeat( auto-fit, minmax(220px, 1fr)); margin-top: clamp(22px, 4vw, 40px) }
+    .card{
+      background:var(--card); border:1px solid color-mix(in oklab, var(--fg) 10%, transparent); border-radius: var(--radius); overflow:hidden; box-shadow:var(--shadow);
+      display:grid; grid-template-rows: 150px auto; transition: transform .15s ease;
+    }
+    .card:hover{ transform: translateY(-4px) }
+    .thumb{ position:relative }
+    .thumb img{ width:100%; height:100%; object-fit:cover; display:block }
+    .label{ position:absolute; left:10px; bottom:10px; background: color-mix(in oklab, black 30%, transparent); color:#fff; padding:6px 10px; border-radius:999px; font-weight:700; font-size:14px }
+    .body{ padding:14px }
+    .body h3{ margin:0 0 6px; font-size:18px }
+    .body p{ margin:0; color:var(--muted); font-size:14px }
+
+    /* --- Röð listamanna – skrun með snap --- */
+    .artists{ margin-top: clamp(28px, 5vw, 50px) }
+    .artists h2{ font-size: clamp(20px, 3.2vw, 28px); margin-bottom:8px }
+    .rail{ display:flex; gap:12px; overflow:auto; scroll-snap-type: x mandatory; padding-bottom:10px }
+    .avatar{ flex:0 0 auto; width:72px; height:72px; border-radius:50%; overflow:hidden; scroll-snap-align:center; border:2px solid #fff3; background:#222 }
+    .avatar img{ width:100%; height:100%; object-fit:cover }
+
+    /* --- Fótur --- */
+    footer{ margin-top: clamp(30px, 6vw, 70px); border-top:1px solid color-mix(in oklab, var(--fg) 10%, transparent); color:var(--muted) }
+    footer .wrap{ display:flex; gap:12px; align-items:center; justify-content:space-between; padding-top:14px }
+
+    /* Hreyfingar minnkaðar ef notandi kýs það */
+    @media (prefers-reduced-motion: reduce){
+      *{ transition:none !important; animation:none !important }
+      html{ scroll-behavior:auto }
+    }
+  </style>
+</head>
+<body>
+  <a class="sr-only" href="#main">Hoppa yfir í efni</a>
+  
+  <header>
+    <div class="container topbar" role="navigation" aria-label="Aðalvalmynd">
+      <a class="logo" href="#" aria-label="Heim">
+        <img src="https://myndarsogur.is/Myndarsogur-Merki.png" alt="Merki Myndarsagna" width="84" height="84" />
+        <span>Myndarsögur</span>
+      </a>
+      <p class="tagline">Sögur, leikjatól og skapandi samfélag</p>
+      <nav>
+        <a class="chip" href="#efni">Efni</a>
+        <a class="chip" href="#verkfaeri">Verkfæri</a>
+        <a class="chip" href="#vidburdir">Viðburðir</a>
+        <a class="chip" href="#hafdu-samband">Hafðu samband</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container" aria-label="Aðalefni">
+    <section class="hero" aria-labelledby="hero-title">
+      <div>
+        <h1 id="hero-title">Myndasögur fyrir alla – teiknaðu, lestu og uppgötvaðu</h1>
+        <p>Hér safnast saman íslenskar myndasögur og skyld efni. Kíktu á nýjar sögur, skoðaðu viðburði og prófaðu verkfæri sem hjálpa þér að skapa.</p>
+        <div class="cta" role="group" aria-label="Flýtihnappar">
+          <a class="btn" href="/arctic/">Arctic Comics Journal</a>
+          <a class="btn secondary" href="#efni">Sjá allt efni</a>
+        </div>
+      </div>
+      <div class="poster" aria-hidden="true">
+        <!-- Þú mátt skipta út fyrir öfluga mynd/animation -->
+        <img loading="lazy" src="https://i.imgur.com/MYJssUY.png" alt="Sýnishorn úr ACJ" width="800" height="600" />
+      </div>
+    </section>
+
+    <!-- Myndræn kort sem skýra til hvers hver hluti er -->
+    <section id="efni" class="grid" aria-label="Flýtival">
+      <a class="card" href="/arctic/" aria-label="Arctic Comics Journal – kort">
+        <div class="thumb">
+          <img loading="lazy" src="https://i.imgur.com/MYJssUY.png" alt="Arctic Comics Journal" width="640" height="420" />
+          <span class="label">Nýtt</span>
+        </div>
+        <div class="body">
+          <h3>Arctic Comics Journal</h3>
+          <p>Vefrit með frásögnum af Norðurslóðum.</p>
+        </div>
+      </a>
+
+      <a class="card" href="/Leikjasidan/">
+        <div class="thumb"><img loading="lazy" src="https://imgur.com/fBdqHJJ.png" alt="Leikjasíða" width="640" height="420" /></div>
+        <div class="body"><h3>Leikir</h3><p>Smáforrit og tilraunaverk.</p></div>
+      </a>
+
+      <a class="card" href="/Myndasogugerd/teiknitol">
+        <div class="thumb"><img loading="lazy" src="https://imgur.com/Q4Y1fhw.png" alt="Teiknitól" width="640" height="420" /></div>
+        <div class="body"><h3>Teiknitól</h3><p>Óvenjuleg pensilverkfæri og pallettur.</p></div>
+      </a>
+
+      <a class="card" href="/Solusida">
+        <div class="thumb"><img loading="lazy" src="https://imgur.com/dOIbCtE.png" alt="Verslun" width="640" height="420" /></div>
+        <div class="body"><h3>Verslun</h3><p>Bækur, prent og stuðningur.</p></div>
+      </a>
+
+      <a class="card" href="https://podcasts.apple.com/is/podcast/myndarsögur-hlaðvarp-um-myndasögur-myndarfólk-og-myndarmál/id1712230449">
+        <div class="thumb"><img loading="lazy" src="https://imgur.com/vlacKnM.png" alt="Hlaðvarp" width="640" height="420" /></div>
+        <div class="body"><h3>Hlaðvarp</h3><p>Viðtöl og frásagnir.</p></div>
+      </a>
+
+      <a class="card" href="https://apps.apple.com/is/app/myndarsögur/id6740549070">
+        <div class="thumb"><img loading="lazy" src="https://imgur.com/pq4Yazz.png" alt="App" width="640" height="420" /></div>
+        <div class="body"><h3>App</h3><p>Lestrar- og leikjaupplifun fyrir síma.</p></div>
+      </a>
+
+      <a class="card" href="/namskeid">
+        <div class="thumb"><img loading="lazy" src="https://imgur.com/FTV6rrG.png" alt="Námskeið" width="640" height="420" /></div>
+        <div class="body"><h3>Námskeið</h3><p>Verkstæði og leiðsögn.</p></div>
+      </a>
+
+      <a class="card" href="mailto:myndarsogur@gmail.com" id="hafdu-samband">
+        <div class="thumb"><img loading="lazy" src="https://imgur.com/Ke4asUn.png" alt="Hafðu samband" width="640" height="420" /></div>
+        <div class="body"><h3>Hafðu samband</h3><p>Sendu okkur línu.</p></div>
+      </a>
+    </section>
+
+    <!-- Listamenn / samfélagið -->
+    <section class="artists" aria-label="Listafólk">
+      <h2>Hverjir eru með?</h2>
+      <div class="rail" aria-label="Skrunsvæði listafólks">
+        <!-- Dæmi – þú getur límt inn fleiri myndir; helst 1:1 myndir -->
+        <div class="avatar"><img loading="lazy" src="https://imgur.com/0MP0awL.png" alt="Ingi Rúnar" width="144" height="144" /></div>
+        <div class="avatar"><img loading="lazy" src="https://imgur.com/hGwXxrz.png" alt="Glytta" width="144" height="144" /></div>
+        <div class="avatar"><img loading="lazy" src="https://imgur.com/CHJTagy.png" alt="Hugleikur Dagsson" width="144" height="144" /></div>
+        <div class="avatar"><img loading="lazy" src="https://imgur.com/TbPNTP6.png" alt="Finnur Matteo" width="144" height="144" /></div>
+        <div class="avatar"><img loading="lazy" src="https://imgur.com/Nc37AID.png" alt="Lúkas Regal" width="144" height="144" /></div>
+        <div class="avatar"><img loading="lazy" src="https://imgur.com/I4noZOf.png" alt="Vala Steingrímsdóttir" width="144" height="144" /></div>
+        <div class="avatar"><img loading="lazy" src="https://imgur.com/WBzTUVH.png" alt="Ísold Davíðsdóttir" width="144" height="144" /></div>
+        <div class="avatar"><img loading="lazy" src="https://imgur.com/dOIbCtE.png" alt="Linn Janssen" width="144" height="144" /></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container" role="contentinfo">
+    <div class="wrap">
+      <small>© Myndarsögur · <a href="/um/">Um verkefnið</a></small>
+      <small id="vidburdir">Fylgstu með: <a href="https://www.comicsfestival.is">Comics Festival</a></small>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+  <meta charset="UTF-8">
+  <title>Teppt Lyfting</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    canvas {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    #bakgrunnur {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Mynd af manni -->
+<img id="bakgrunnur" src="https://saberplasticsurgery.com/wp-content/uploads/2024/04/Want-a-Better-Butt.jpeg" alt="Maðurinn bakvið" />
+
+<canvas id="tauCanvas"></canvas>
+<audio id="hljod" src="DittHljod.mp3" preload="auto"></audio>
+
+<script>
+  const canvas = document.getElementById("tauCanvas");
+  const ctx = canvas.getContext("2d");
+  const audio = document.getElementById("hljod");
+
+  function stillaStærð() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  stillaStærð();
+  window.addEventListener("resize", stillaStærð);
+
+  const points = [];
+  const cols = 30;
+  const rows = 20;
+  const spacing = 25;
+
+  const originX = canvas.width / 2 - cols * spacing / 2;
+  const originY = 80;
+
+  let rippleX = null;
+  let rippleY = null;
+  let rippleTime = 0;
+
+  class Point {
+    constructor(x, y, fixed = false) {
+      this.x = x;
+      this.y = y;
+      this.oldx = x;
+      this.oldy = y;
+      this.fixed = fixed;
+    }
+
+    update() {
+      if (this.fixed) return;
+      let vx = (this.x - this.oldx) * 0.985;
+      let vy = (this.y - this.oldy) * 0.985 + 0.08;
+      this.oldx = this.x;
+      this.oldy = this.y;
+      this.x += vx;
+      this.y += vy;
+    }
+
+    constrain() {
+      const bounce = 0.9;
+      if (this.x > canvas.width) {
+        this.x = canvas.width;
+        this.oldx = this.x + (this.x - this.oldx) * bounce;
+      }
+      if (this.x < 0) {
+        this.x = 0;
+        this.oldx = this.x + (this.x - this.oldx) * bounce;
+      }
+      if (this.y > canvas.height) {
+        this.y = canvas.height;
+        this.oldy = this.y + (this.y - this.oldy) * bounce;
+      }
+      if (this.y < 0) {
+        this.y = 0;
+        this.oldy = this.y + (this.y - this.oldy) * bounce;
+      }
+    }
+  }
+
+  class Stick {
+    constructor(p1, p2, x, y) {
+      this.p1 = p1;
+      this.p2 = p2;
+      this.length = spacing;
+      this.x = x;
+      this.y = y;
+    }
+
+    update() {
+      const dx = this.p2.x - this.p1.x;
+      const dy = this.p2.y - this.p1.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const diff = this.length - dist;
+      const percent = diff / dist / 2;
+      const offsetX = dx * percent;
+      const offsetY = dy * percent;
+
+      if (!this.p1.fixed) {
+        this.p1.x -= offsetX;
+        this.p1.y -= offsetY;
+      }
+      if (!this.p2.fixed) {
+        this.p2.x += offsetX;
+        this.p2.y += offsetY;
+      }
+    }
+
+    draw(ctx) {
+      let color = "#111";
+      if (rippleTime > 0 && rippleX !== null && rippleY !== null) {
+        const cx = (this.p1.x + this.p2.x) / 2;
+        const cy = (this.p1.y + this.p2.y) / 2;
+        const dist = Math.sqrt((cx - rippleX) ** 2 + (cy - rippleY) ** 2);
+        const wave = Math.abs(Math.sin((dist / 50) - rippleTime));
+        if (wave > 0.2) {
+          const hue = (dist + rippleTime * 100) % 360;
+          color = `hsl(${hue}, 80%, 50%)`;
+        }
+      }
+
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.moveTo(this.p1.x, this.p1.y);
+      ctx.lineTo(this.p2.x, this.p2.y);
+      ctx.stroke();
+    }
+  }
+
+  const sticks = [];
+  for (let y = 0; y < rows; y++) {
+    for (let x = 0; x < cols; x++) {
+      const fixed = y === 0 && x % 4 === 0;
+      const p = new Point(originX + x * spacing, originY + y * spacing, fixed);
+      points.push(p);
+
+      if (x > 0) {
+        sticks.push(new Stick(p, points[points.length - 2], x, y));
+      }
+      if (y > 0) {
+        sticks.push(new Stick(p, points[(y - 1) * cols + x], x, y));
+      }
+    }
+  }
+
+  function kveikjaRipple(x, y) {
+    rippleX = x;
+    rippleY = y;
+    rippleTime = 0;
+    audio.currentTime = 0;
+    audio.play();
+  }
+
+  let dragPoint = null;
+  canvas.addEventListener("mousedown", e => {
+    const mx = e.clientX;
+    const my = e.clientY;
+    dragPoint = points.find(p => {
+      const dx = p.x - mx;
+      const dy = p.y - my;
+      return dx * dx + dy * dy < 400;
+    });
+    kveikjaRipple(mx, my);
+  });
+
+  canvas.addEventListener("mouseup", () => dragPoint = null);
+  canvas.addEventListener("mousemove", e => {
+    if (dragPoint && !dragPoint.fixed) {
+      dragPoint.x = e.clientX;
+      dragPoint.y = e.clientY;
+    }
+  });
+
+  canvas.addEventListener("touchstart", e => {
+    const touch = e.touches[0];
+    const mx = touch.clientX;
+    const my = touch.clientY;
+    dragPoint = points.find(p => {
+      const dx = p.x - mx;
+      const dy = p.y - my;
+      return dx * dx + dy * dy < 400;
+    });
+    kveikjaRipple(mx, my);
+  });
+
+  canvas.addEventListener("touchend", () => dragPoint = null);
+  canvas.addEventListener("touchmove", e => {
+    if (dragPoint && !dragPoint.fixed) {
+      const touch = e.touches[0];
+      dragPoint.x = touch.clientX;
+      dragPoint.y = touch.clientY;
+    }
+  });
+
+  function animate() {
+    for (let i = 0; i < 10; i++) {
+      sticks.forEach(s => s.update());
+      points.forEach(p => p.update());
+    }
+    points.forEach(p => p.constrain());
+
+    rippleTime += 0.05;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Fyllir meshið
+    ctx.fillStyle = "rgba(0, 0, 0, 1)"; // Svart fylling, ógegnsætt
+    ctx.beginPath();
+    points.forEach((p, index) => {
+      if (index === 0) {
+        ctx.moveTo(p.x, p.y);
+      } else {
+        ctx.lineTo(p.x, p.y);
+      }
+    });
+    ctx.closePath();
+    ctx.fill();
+
+    sticks.forEach(s => s.draw(ctx));
+
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+</script>
+</body>
+</html>

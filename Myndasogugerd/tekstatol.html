@@ -12,6 +12,7 @@
       height: 100%;
       margin: 0;
       padding: 0;
+      font-family: Monospace;
     }
 
     /* Quill-editor fyllir síðan gluggann */
@@ -89,6 +90,28 @@
       }
     });
 
+   // Niðurhalshnappur
+   const downloadBtn = document.getElementById('download-btn');
+    downloadBtn.addEventListener('click', () => {
+      // Sækja bara innihaldið úr Quill
+      const quillContent = quill.root.innerHTML;
+
+      
+
+      // Búa til Blob með UTF-8
+      const blob = new Blob([quillContent], { type: 'text/html;charset=utf-8' });
+
+      // Búa til niðurhalslink
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'texti.html';
+      document.body.appendChild(a);
+      a.click();
+
+      // Hreinsa upp
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
     });
   </script>
 </body>

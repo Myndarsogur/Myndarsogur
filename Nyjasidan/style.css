@@ -32,7 +32,7 @@ body {
 .umhverfi,
 .meiragras {
   position: absolute;
-  z-index: 2;
+  z-index: none;
   opacity: 0.7; /* aðeins gegnsætt, t.d. */
   pointer-events: none; /* Slökkva á smellum */
   cursor: default; /* Gakktu úr skugga um að músabendillinn breytist ekki */
@@ -42,7 +42,7 @@ body {
 .vatn   { top: 80%; left: 0%; width: 650px; background: url("imgs/vatn.png") no-repeat center center; background-size: cover; }
 .steinar{ top: 65%; left: 0%; width: 650px; background: url("imgs/steinar.png") no-repeat center center; background-size: cover; }
 .meiragras { top: 35%; left: 0%; width: 650px; background: url("imgs/meiragras.png") no-repeat center center; background-size: cover; }
-.umhverfi { top: 43%; left: 0%; width: 1228px; background: url("imgs/umhverfi.png") no-repeat center center; background-size: cover; }
+.umhverfi { top: 56%; left: 0%; width: 1228px; background: url("imgs/umhverfi.png") no-repeat center center; background-size: cover; }
 
 /* Fela strond, vatn, steinar og meiragras */
 .strond,
@@ -54,7 +54,7 @@ body {
 /* Sameiginlegar stillingar fyrir hnappa */
 .button-container {
   position: absolute;
-  z-index: 5;    /* ofan á bakgrunni */
+  z-index: none;    /* ofan á bakgrunni */
   transition: transform 0.3s ease-in-out; /* smá “smooth” */
   display: flex;
   align-items: center;
@@ -65,24 +65,34 @@ body {
 #btn1 {
   top: 15%;
   left: 10%;
-  width: 110px;  /* Stilltu breiddina fyrir hnapp 1 */
-  height: 110px; /* Stilltu hæðina fyrir hnapp 1 */
+  width: 100px;  /* Stilltu breiddina fyrir hnapp 1 */
+  height: 100px; /* Stilltu hæðina fyrir hnapp 1 */
+  pointer-events: auto; /* Virkja pointer events */
+  z-index: none; /* Gera hnappinn ofan á öðrum elementum */
+
 }
 
 /* Stillingar fyrir hnapp 2 */
 #btn2 {
   top: 30%;
-  left: 14%;
-  width: 140px;  /* Stilltu breiddina fyrir hnapp 2 */
-  height: 140px; /* Stilltu hæðina fyrir hnapp 2 */
+  left: 10%;
+  width: 130px;  /* Stilltu breiddina fyrir hnapp 2 */
+  height: 130px; /* Stilltu hæðina fyrir hnapp 2 */
+  pointer-events: auto; /* Virkja pointer events */
+  z-index: none; /* Gera hnappinn ofan á öðrum elementum */
+
+
 }
 
 /* Stillingar fyrir hnapp 3 */
 #btn3 {
-  top: 40%;
-  left: 0%;
-  width: 220px;  /* Stilltu breiddina fyrir hnapp 3 */
-  height: 200px; /* Stilltu hæðina fyrir hnapp 3 */
+  top: 29%;
+  left: -25%;
+  width: 370px;  /* Stilltu breiddina fyrir hnapp 3 */
+  height: 370px; /* Stilltu hæðina fyrir hnapp 3 */
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.9)); /* Bæta við skugga sem fylgir lögun PNG myndarinnar */
+  pointer-events: none; /* Slökkva á smellum fyrir þetta element */
+
 }
 
 .button-container:hover {
@@ -110,7 +120,7 @@ body {
   top: 35%;
   left: 15%;
   width: 100%;
-  pointer-events: none; /* Enable pointer events */
+  pointer-events: auto; /* Enable pointer events */
 }
 .hnappur-overlay:hover {
   animation: float 1.5s ease-in-out infinite; /* Use the new float animation */
@@ -133,15 +143,18 @@ body {
 /* Minnstu ikon (teningur, rammi, skrifa, palletta) á hnapp #3 */
 .mini-icon {
   position: absolute;
-  width: 80px;
+  width: 60px;
   cursor: pointer;
   transition: transform 0.3s ease-in-out; /* Add transition for smooth hover effect */
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2)); /* Bæta við skugga sem fylgir lögun PNG myndarinnar */
+
+}
+arctic.button-container
+#btn1 .mini-icon {
+  pointer-events: auto; /* Enable pointer events */
 }
 
-/* Make the teningur icon larger */
-#teningur {
-  width: 80px; /* Adjust the size as needed */
-}
+
 
 /* Hover effect for mini icons */
 .mini-icon:hover {
@@ -150,17 +163,17 @@ body {
 }
 
 /* Þá getum við raðað þeim inni í .button-container #btn3 */
-#teningur { top: 47%; left: 10%; }
-#rammi    { top: 6%; right: 10%; }
-#skrifa   { bottom: 50%; left: 23%; }
-#palletta { bottom: 20%; right: 15%; }
+#rammi    { top: 41%; right: 20%; }
+#skrifa   { bottom: 50%; left: 40%; }
+#teningur { top: 42%; left: 31%; }
+#palletta { bottom: 42%; right: 33%; }
 
 /* Fiskarnir neðarlega á skjánum */
 .fiskur {
   position: absolute;
   width: 100px;  /* stilla að vild */
   bottom: 0%;   /* vera neðarlega */
-  z-index: 4;
+  z-index: none;
 }
 
 /* Fiskur 1 syndir frá vinstri til hægri og til baka endalaust */
@@ -187,12 +200,19 @@ body {
   100% { transform: translateX(0) rotate(0deg) scaleX(-1); }
 }
 
+/* Tryggja að hnappur 1 og 2 séu smellanleg */
+#btn1, #btn2 {
+  pointer-events: auto; /* Virkja pointer events */
+  cursor: pointer; /* Breyta bendli í vísir */
+  z-index: none; /* Gera þau ofan á öðrum elementum */
+}
+
 /* Hundurinn (hund.gif) sem ferðast eftir "leið" - 
    sem er til dæmis frá hægri neðst => upp til vinstri => til baka */
 .hundur {
   position: absolute;
   width: 150px;
-  z-index: 4; /* Set z-index lower than buttons */
+  z-index: none; /* Set z-index lower than buttons */
   /* Setjum startpunkt nálægt neðri/hægri brún */
   bottom: 0;
   right: 0;

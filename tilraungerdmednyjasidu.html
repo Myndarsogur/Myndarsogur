@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="is">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Myndasögur — lifandi & faglegt</title>
+  <meta name="description" content="Lífleg og aðgengileg vefsíða fyrir myndasögur: myndrænir hlekkir, smámyndir, vektorar og litlar hreyfingar." />
+  <style>
+    /* --- Kerfisletur, litaspjald og grunnstillingar --- */
+    :root{
+      --bg: #e039e6;
+      --surface: #e317e7;
+      --text: #3ee2a9;
+      --muted: #1313c1;
+      --brand: #08e296;
+      --brand-2: #ad290c;
+      --accent: #ffdd57;
+      --radius: 16px;
+      --shadow: 0 8px 24px rgba(0,0,0,.28);
+      --space: clamp(12px, 1.6vw, 20px);
+      --maxw: 1200px;
+    }
+    @media (prefers-color-scheme: light){
+      :root{ --bg:#f7f7f9; --surface:#ffffff; --text:#111114; --muted:#3d3d45; --shadow: 0 6px 16px rgba(10,10,20,.08);} 
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0; background:var(--bg); color:var(--text); font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";}
+    img{max-width:100%; display:block}
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:var(--maxw); margin-inline:auto; padding: calc(var(--space)*1.2);}
+
+    /* --- Aðgengi --- */
+    .skip-link{position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden}
+    .skip-link:focus{left:var(--space); top:var(--space); width:auto; height:auto; padding:8px 12px; background:var(--accent); color:#111; border-radius:8px}
+    :focus-visible{outline:2px solid var(--brand-2); outline-offset:3px}
+
+    /* --- Haus --- */
+    header{position:sticky; top:0; z-index:10; background:rgba(18,18,20,.7); backdrop-filter:saturate(1.2) blur(8px); border-bottom:1px solid rgba(255,255,255,.06)}
+    @media (prefers-color-scheme: light){ header{background:rgba(255,255,255,.7); border-bottom-color: rgba(0,0,0,.06);} }
+    .topbar{display:flex; align-items:center; gap:16px;}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.2px}
+    .logo{inline-size:36px; block-size:36px; border-radius:50%; background: radial-gradient(80% 80% at 30% 30%, var(--brand), var(--brand-2)); box-shadow: var(--shadow)}
+    nav{margin-left:auto;}
+    .nav-list{display:flex; gap:10px; flex-wrap:wrap}
+    .nav-btn{padding:10px 14px; border-radius:999px; background:transparent; border:1px solid rgba(255,255,255,.12)}
+    @media (prefers-color-scheme: light){ .nav-btn{border-color: rgba(0,0,0,.12);} }
+    .nav-btn:hover{transform: translateY(-1px)}
+
+    /* --- Kynningarsvæði (Hero) --- */
+    .hero{display:grid; grid-template-columns: 1.1fr .9fr; align-items:center; gap: clamp(16px, 4vw, 40px); margin-top: clamp(10px, 2vw, 20px);}
+    .hero h1{font-size: clamp(28px, 4.6vw, 52px); line-height:1.05; margin:0}
+    .hero p{font-size: clamp(16px, 1.6vw, 20px); color: var(--muted); margin: 10px 0 0}
+    .cta{display:flex; gap:12px; margin-top:18px}
+    .btn{padding:12px 16px; border-radius:12px; background:linear-gradient(135deg, var(--brand), var(--brand-2)); color:#0b1020; font-weight:700; box-shadow: var(--shadow);}
+    .btn.secondary{background:transparent; color:var(--text); border:1px solid rgba(255,255,255,.14)}
+    @media (max-width: 880px){ .hero{grid-template-columns: 1fr} }
+
+    /* --- Myndræn hlekkjaflís (Cards) --- */
+    .grid{display:grid; grid-template-columns: repeat(12, 1fr); gap: clamp(10px, 1.4vw, 18px); margin-top: clamp(24px, 3vw, 40px)}
+    .card{grid-column: span 4; background:var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); overflow:hidden; position:relative; isolation:isolate; transition: transform .2s ease}
+    .card:hover{transform: translateY(-3px)}
+    .thumb{aspect-ratio: 16/10; background: linear-gradient(180deg, rgba(124,240,200,.25), rgba(10,10,20,.2)); display:grid; place-items:center; position:relative}
+    .thumb img{width:100%; height:100%; object-fit:cover}
+    .thumb svg{width: 36%; height:auto; opacity:.9}
+    .badge{position:absolute; top:10px; left:10px; padding:6px 10px; border-radius:999px; background: rgba(0,0,0,.5); color:#fff; font-size:12px}
+    .content{padding: 14px 14px 16px}
+    .content h3{margin: 0 0 6px; font-size: clamp(16px, 1.6vw, 20px)}
+    .content p{margin: 0; color: var(--muted); font-size: 14px}
+    @media (max-width: 1024px){ .card{grid-column: span 6} }
+    @media (max-width: 640px){ .card{grid-column: span 12} }
+
+    /* --- Smáhreyfingar (öruggar m.t.t. reduced-motion) --- */
+    @keyframes floaty{ from{ transform: translateY(0)} 50%{ transform: translateY(-6px)} to{ transform: translateY(0)} }
+    .floaty{ animation: floaty 3s ease-in-out infinite }
+    @media (prefers-reduced-motion: reduce){
+      .card, .nav-btn, .btn{ transition: none }
+      .floaty{ animation: none }
+    }
+
+    /* --- Fótur --- */
+    footer{margin-top: clamp(36px, 5vw, 64px); padding: 24px 0; color: var(--muted); border-top:1px dashed rgba(255,255,255,.14)}
+    @media (prefers-color-scheme: light){ footer{border-top-color: rgba(0,0,0,.1)} }
+
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Fara beint í efni</a>
+  <header role="banner">
+    <div class="wrap topbar">
+      <div class="brand" aria-label="Myndasögur — heimasíða">
+        <div class="logo floaty" aria-hidden="true"></div>
+        <span>Myndasögur</span>
+      </div>
+      <nav aria-label="Aðalvalmynd">
+        <div class="nav-list">
+          <a class="nav-btn" href="#nytt">Nýtt</a>
+          <a class="nav-btn" href="#verk">Verk</a>
+          <a class="nav-btn" href="#leikur">Leikir</a>
+          <a class="nav-btn" href="#um">Um</a>
+          <a class="nav-btn" href="#hafa-samband">Hafa samband</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="wrap" role="main">
+    <!-- Hero: stutt skilaboð + tvær aðgerðir -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div>
+        <h1 id="hero-title">Lífleg vefsíða fyrir myndasögur — skýr, skemmtileg og fagleg.</h1>
+        <p>Við setjum áherslu á góðan lestur á síma og tölvu, myndræna hlekki (vektorar/smámyndir) og litlar hreyfingar sem lífga upp án þess að trufla.</p>
+        <div class="cta">
+          <a class="btn" href="#verk">Skoða sögur</a>
+          <a class="btn secondary" href="#um">Hvernig við vinnum</a>
+        </div>
+      </div>
+      <!-- Lítil sýnishornshreyfing (SVG vektor) -->
+      <div aria-hidden="true">
+        <svg viewBox="0 0 300 220" role="img" aria-label="Vektormynd" style="width:100%; height:auto">
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1">
+              <stop offset="0" stop-color="var(--brand)" />
+              <stop offset="1" stop-color="var(--brand-2)" />
+            </linearGradient>
+          </defs>
+          <rect x="0" y="0" width="300" height="220" rx="18" fill="url(#g1)" opacity=".22" />
+          <g class="floaty">
+            <circle cx="70" cy="90" r="26" fill="url(#g1)" />
+            <rect x="110" y="70" width="120" height="40" rx="10" fill="url(#g1)" opacity=".8" />
+            <rect x="110" y="120" width="160" height="10" rx="5" fill="url(#g1)" opacity=".6" />
+            <rect x="110" y="140" width="100" height="10" rx="5" fill="url(#g1)" opacity=".6" />
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Myndræn svæði / hlekkir: skipta í áherslur -->
+    <section id="nytt" class="grid" aria-label="Myndræn hlekkjasvæði">
+      <!-- DÆMI 1: Smámynd úr Imgur (skipta út src) -->
+      <a class="card" href="https://example.com/saga-01" aria-label="Ný saga: Villt #01">
+        <div class="thumb">
+          <img src="https://i.imgur.com/8Km9tLL.jpg" alt="Forsíða sögunnar Villt #01" loading="lazy" />
+          <span class="badge">NÝTT</span>
+        </div>
+        <div class="content">
+          <h3>Villt — kafli #01</h3>
+          <p>Samfélag á barmi breytinga. Byrja hér.</p>
+        </div>
+      </a>
+
+      <!-- DÆMI 2: Vektor-ikona sem smávægileg hreyfing -->
+      <a class="card" href="https://example.com/kort" aria-label="Kort af norðurslóðum með tenglum í sögur">
+        <div class="thumb">
+          <svg viewBox="0 0 160 100" role="img" aria-label="Ikona korts">
+            <rect x="4" y="4" width="152" height="92" rx="12" fill="currentColor" opacity=".08"/>
+            <path d="M12 50 C30 20, 50 20, 70 50 S110 80, 148 50" fill="none" stroke="url(#g1)" stroke-width="4"/>
+            <g class="floaty">
+              <circle cx="70" cy="50" r="6" fill="url(#g1)" />
+              <circle cx="110" cy="65" r="6" fill="url(#g1)" />
+            </g>
+          </svg>
+        </div>
+        <div class="content">
+          <h3>Kort — smelltu á staði</h3>
+          <p>Finndu sögur eftir landfræðilegum tengingum.</p>
+        </div>
+      </a>
+
+      <!-- DÆMI 3: Lítil hreyfimynd (GIF/WebP) sem lifnar við -->
+      <a class="card" href="https://example.com/leikir" aria-label="Smelltu í leikjasvæði">
+        <div class="thumb">
+          <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExaGk0cHp3d2x0aGtiZmVweXNhcTJ5ZWJzNzNibmM0aGk0NGxjY2xqOSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/gw3IWyGkC0rsazTi/giphy.gif" alt="Lítil hreyfimynd sem boðar leikjaskap" loading="lazy"/>
+        </div>
+        <div class="content">
+          <h3>Leikir & tilraunir</h3>
+          <p>Óvenjuleg verkfæri og skemmtilegar tilraunir.</p>
+        </div>
+      </a>
+
+      <!-- DÆMI 4: Greinar / fróðleikur -->
+      <a class="card" href="https://example.com/greinar" aria-label="Greinar um skapandi ferli">
+        <div class="thumb">
+          <svg viewBox="0 0 160 100" role="img" aria-label="Ikona greina">
+            <rect x="12" y="16" width="136" height="68" rx="12" fill="currentColor" opacity=".08"/>
+            <rect x="24" y="28" width="96" height="10" rx="5" fill="url(#g1)" opacity=".8"/>
+            <rect x="24" y="46" width="112" height="10" rx="5" fill="url(#g1)" opacity=".6"/>
+            <rect x="24" y="64" width="72" height="10" rx="5" fill="url(#g1)" opacity=".6"/>
+          </svg>
+        </div>
+        <div class="content">
+          <h3>Greinar & viðtöl</h3>
+          <p>Skapandi ferli, ráð og innsýn.</p>
+        </div>
+      </a>
+
+      <!-- DÆMI 5: Verkfæri fyrir höfunda/lesendur -->
+      <a class="card" href="https://example.com/verkfaeri" aria-label="Verkfæri fyrir lesendur og höfunda">
+        <div class="thumb">
+          <svg viewBox="0 0 160 100" role="img" aria-label="Verkfæri">
+            <g class="floaty">
+              <rect x="34" y="30" width="92" height="40" rx="10" fill="url(#g1)" opacity=".85"/>
+            </g>
+            <rect x="40" y="36" width="80" height="6" rx="3" fill="#000" opacity=".12"/>
+            <rect x="40" y="46" width="68" height="6" rx="3" fill="#000" opacity=".12"/>
+            <rect x="40" y="56" width="54" height="6" rx="3" fill="#000" opacity=".12"/>
+          </svg>
+        </div>
+        <div class="content">
+          <h3>Verkfæri</h3>
+          <p>Teikna, skrifa, raða ramma og deila.</p>
+        </div>
+      </a>
+
+      <!-- DÆMI 6: Um okkur / samstarf -->
+      <a class="card" href="https://example.com/um" aria-label="Um Myndasögur og samstarf">
+        <div class="thumb">
+          <svg viewBox="0 0 160 100" role="img" aria-label="Um okkur">
+            <circle cx="50" cy="50" r="18" fill="url(#g1)"/>
+            <circle cx="98" cy="50" r="18" fill="url(#g1)" opacity=".7"/>
+          </svg>
+        </div>
+        <div class="content">
+          <h3>Um & samstarf</h3>
+          <p>Vinnulag, gildi og leiðir til að taka þátt.</p>
+        </div>
+      </a>
+    </section>
+
+    <footer role="contentinfo">
+      <div class="wrap" style="padding-top:0">
+        <p>© 2025 Myndasögur. Allt efni í eigu höfunda. <a href="#hafa-samband">Hafa samband</a>.</p>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // Dæmi: litlar hjálparaðgerðir
+    // 1) Snerting: stækka smellsvæði á síma
+    document.querySelectorAll('.card, .nav-btn, .btn').forEach(el=>{
+      el.style.touchAction = 'manipulation';
+    });
+
+    // 2) Ef myndir hlaðast hægt, bæta við forhlöðunarklasa
+    const imgs = document.querySelectorAll('img[loading="lazy"]');
+    imgs.forEach(img=>{
+      img.addEventListener('load', ()=> img.classList.add('is-loaded'));
+    });
+
+    // 3) Fínna fókus-röð með lyklaborði (enter virkar á .card)
+    document.querySelectorAll('.card').forEach(card=>{
+      card.setAttribute('tabindex','0');
+      card.addEventListener('keydown', e=>{
+        if(e.key === 'Enter' || e.key === ' '){ card.click(); e.preventDefault(); }
+      });
+    });
+  </script>
+</body>
+</html>

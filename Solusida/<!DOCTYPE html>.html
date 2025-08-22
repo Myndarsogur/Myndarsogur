@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+  <meta charset="UTF-8">
+  <title>Bíll og Lykill</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+    }
+
+    #car-container {
+      position: absolute;
+      width: 500px; /* Stækkað stærð bílsins */
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    #car-image {
+      width: 100%;
+      display: block;
+      transition: transform 0.5s;
+      outline: none;
+      user-select: none;
+    }
+
+    /* Shake animation */
+    @keyframes shake {
+      0% { transform: translate(1px, 1px) rotate(0deg); }
+      10% { transform: translate(-1px, -2px) rotate(-1deg); }
+      20% { transform: translate(-3px, 0px) rotate(1deg); }
+      30% { transform: translate(3px, 2px) rotate(0deg); }
+      40% { transform: translate(1px, -1px) rotate(1deg); }
+      50% { transform: translate(-1px, 2px) rotate(-1deg); }
+      60% { transform: translate(-3px, 1px) rotate(0deg); }
+      70% { transform: translate(3px, 1px) rotate(-1deg); }
+      80% { transform: translate(-1px, -1px) rotate(1deg); }
+      90% { transform: translate(1px, 2px) rotate(0deg); }
+      100% { transform: translate(1px, -2px) rotate(-1deg); }
+    }
+
+    .shake {
+      animation: shake 0.5s;
+    }
+
+    #key {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 50px;
+      cursor: grab;
+      user-select: none;
+      z-index: 1000;
+      outline: none;
+      background-image: url('https://i.imgur.com/oRGbyqH.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      width: 100px;
+      height: 100px;
+      text-indent: -9999px; /* Hide the text */
+    }
+
+    #message {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
+      font-size: 24px;
+      color: green;
+      display: none;
+    }
+
+    /* Sérsniðinn cursor fyrir lykil */
+    .key-cursor {
+      cursor: '🔑', auto; /* Breyttu í eigin lykilmynd */
+    }
+  </style>
+</head>
+<body>
+  <div id="car-container">
+    <img id="car-image" src="car.png" alt="Bíll">
+  </div>
+  <div id="key" draggable="true">🔑</div>
+  <div id="message">Lykillinn hefur verið settur á bílinn!</div>
+
+  <script>
+    const carImage = document.getElementById('car-image');
+    const key = document.getElementById('key');
+    const message = document.getElementById('message');
+
+    key.addEventListener('dragstart', (e) => {
+      e.dataTransfer.setData('text/plain', 'key');
+    });
+
+    carImage.addEventListener('dragover', (e) => {
+      e.preventDefault();
+    });
+
+    carImage.addEventListener('drop', (e) => {
+      e.preventDefault();
+      const data = e.dataTransfer.getData('text/plain');
+      if (data === 'key') {
+        carImage.classList.add('shake');
+        message.style.display = 'block';
+        setTimeout(() => {
+          carImage.classList.remove('shake');
+          message.style.display = 'none';
+        }, 500);
+      }
+    });
+  </script>
+</body>
+</html>

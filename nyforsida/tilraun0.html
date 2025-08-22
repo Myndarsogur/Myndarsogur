@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+  <meta charset="UTF-8">
+  <title>Hverjir eru hér?</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #fff;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1, h2 {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin: 2rem auto;
+      max-width: 1000px;
+    }
+
+    .circle-btn {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: none;
+      background-color: transparent;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    .circle-btn img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Blái hlutinn */
+    .blue-section {
+      background-color: #dceeff;
+      padding: 2rem 1rem;
+    }
+
+    .scroll-container {
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .scroll-items {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem 0;
+    }
+
+    .scroll-items .circle-btn {
+      flex: 0 0 auto;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Hverjir eru hér?</h1>
+
+  <!-- Flokkur 1: Tákna- og andlitsblanda -->
+  <div class="button-group">
+    <button class="circle-btn"><img src="https://i.imgur.com/VHhTzEv.png" alt="Tákni 1"></button>
+    <button class="circle-btn"><img src="https://i.imgur.com/Xlo3eQN.jpg" alt="Andlit 1"></button>
+    <button class="circle-btn"><img src="https://i.imgur.com/WkICy3T.jpg" alt="Andlit 2"></button>
+    <button class="circle-btn"><img src="https://i.imgur.com/l3T90tQ.jpg" alt="Andlit 3"></button>
+    <button class="circle-btn"><img src="https://i.imgur.com/dyRUyFb.png" alt="Tákni 2"></button>
+    <button class="circle-btn"><img src="https://i.imgur.com/LxAyvyt.jpg" alt="Andlit 4"></button>
+    <button class="circle-btn"><img src="https://i.imgur.com/6Rt3jqD.png" alt="Tákni 3"></button>
+    <button class="circle-btn"><img src="https://i.imgur.com/LjD3VjJ.png" alt="Tákni 4"></button>
+  </div>
+
+  <!-- Blái hlutinn: 30 manns -->
+  <div class="blue-section">
+    <h2>Hvað er um að vera á næstunni?</h2>
+    <div class="scroll-container">
+      <div class="scroll-items">
+        <!-- Sýnishorn af andlitum (8 sjáanlegir í einu, hægt að bæta við upp í 30) -->
+        <button class="circle-btn"><img src="https://i.imgur.com/Y1RHJzX.jpg" alt="Persóna 1"></button>
+        <button class="circle-btn"><img src="https://i.imgur.com/WkICy3T.jpg" alt="Persóna 2"></button>
+        <button class="circle-btn"><img src="https://i.imgur.com/l3T90tQ.jpg" alt="Persóna 3"></button>
+        <button class="circle-btn"><img src="https://i.imgur.com/Xlo3eQN.jpg" alt="Persóna 4"></button>
+        <button class="circle-btn"><img src="https://i.imgur.com/LxAyvyt.jpg" alt="Persóna 5"></button>
+        <button class="circle-btn"><img src="https://i.imgur.com/YzUdYLe.jpg" alt="Persóna 6"></button>
+        <button class="circle-btn"><img src="https://i.imgur.com/IVzKRoV.jpg" alt="Persóna 7"></button>
+        <button class="circle-btn"><img src="https://i.imgur.com/6i98csm.jpg" alt="Persóna 8"></button>
+        <!-- Bættu við fleiri myndum hér með sömu formi -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Aðrir hnappaflokkar koma hér ef þú vilt t.d. 3 aðrir flokkar með nöfnum eða hlutverkum -->
+  <h2>Aðrir hnappaflokkar</h2>
+
+  <div class="button-group">
+    <button class="circle-btn"><img src="https://i.imgur.com/WkICy3T.jpg" alt="Andlit A"></button>
+    <button class="circle-btn"><img src="https://i.imgur.com/l3T90tQ.jpg" alt="Andlit B"></button>
+    <button class="circle-btn"><img src="https://i.imgur.com/Y1RHJzX.jpg" alt="Andlit C"></button>
+    <button class="circle-btn"><img src="https://i.imgur.com/IVzKRoV.jpg" alt="Andlit D"></button>
+  </div>
+
+</body>
+</html>

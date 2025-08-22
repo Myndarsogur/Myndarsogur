@@ -1,0 +1,615 @@
+[
+  {
+    "id": 1,
+    "name": "Alex Steinþórsdóttir",
+    "img": "https://static.wixstatic.com/media/738beb_c952018e7b894fdc876001a0f4f6ccc8~mv2.jpeg/v1/fill/w_920,h_690,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/IMG_4295.jpeg",
+    "bio": "Alexandra Dögg Steinþórsdóttir is an illustrator and writer currently living and working in Iceland. She works in various mediums but specializes in watercolours and gouache. Her main influences are Icelandic nature, folklore, social issues and the occult.",
+    "links": [
+      {
+        "img": "https://imgur.com/VQFhycf.png",
+        "url": "https://www.forlagid.is/vara/mer-list-ekkert-a-thetta/"
+      },
+      {
+        "img": "https://imgur.com/rgrMCHz",
+        "url": "https://www.alexsteinthorsdottir.com/copy-of-svartur-á-leik-1"
+      },
+      {
+        "img": "https://imgur.com/9ig1flj.png",
+        "url": "https://www.instagram.com/alexsteinthorsdottir"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Arndís Björk Marinósdóttir",
+    "img": "https://imgur.com/TT0qd2D.png",
+    "bio": "An icelandic horror-,fantasy-,and videogame fan that just happens to love the human body, cats, coffee and to draw. 🐙🦄🏳️‍🌈",
+    "links": [
+      {
+        "img": "https://imgur.com/TT0qd2D.png",
+        "url": "linktr.ee/adda_bjagga_art"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Arnfinnur Rúnar Sigmundsson",
+    "img": "https://imgur.com/ONZEjLM.png",
+    "bio": "Addi nabblakusk 🎨 Teiknari | Animator | Myndbandsbúatilari ✨ Ég fanga hugmyndir og fylli þær af lífi með sköpunarkrafti og hreyfingu!",
+    "links": [
+      {
+        "img": "https://imgur.com/ONZEjLM.png",
+        "url": "https://www.instagram.com/addinabblakusk/"
+      },
+      {
+        "img": "https://imgur.com/l5WEARA.png",
+        "url": "https://vimeo.com/nabblakusk?fbclid=PAZXh0bgNhZW0CMTEAAaZlO5Oi-LMihhS1su2IV_veSV-PvOMNRZtNV_6iu6wyNAQ9w5ZFZ_t6Q7k_aem_eX_zIjUUgUCvrSDOp6bI8w"
+      }
+    ],
+    "Interview": "https://www.youtube.com/embed/BeaKiD0Q1Os"
+  },
+  {
+    "id": 4,
+    "name": "Dileydi Florez",
+    "img": "https://imgur.com/T9FOxoZ.png",
+    "bio": "Hello! My name is Dileydi Florez. I'm a Visual Artist and Storyteller, specialized in Editorial Design, Drawing & Comics. I love using drawing and painting as a tool to express my creativity, and comics as a way to communicate my beliefs and knowledge to our society.",
+    "links": [
+      {
+        "img": "https://imgur.com/8jRmkH3.png",
+        "url": "https://www.dileydiflorez.com/about-me-contact"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Fannar Gilbertsson",
+    "img": "https://imgur.com/uF7YSms.png",
+    "bio": "Based in iceland 🇮🇸 Author/Artist of the comic Gen-01.🧪 Artist of the book: Landverðirnir Contact me: icecomics1@gmail.com My store and other links:",
+    "links": [
+      {
+        "img": "https://imgur.com/sVZsMGZ.png",
+        "url": "linktr.ee/icecomics"
+      },
+      {
+        "img": "https://imgur.com/mrhy72M.png",
+        "url": "https://www.forlagid.is/vara/gen-01-2/"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Fannar Már Skarphéðinsson",
+    "img": "https://imgur.com/xWPAOV3.png",
+    "bio": "Myndlistaskólinn í Reykjavík 2020-2022 WDKA 2022-",
+    "links": [
+      {
+        "img": "https://imgur.com/88UJcsq.png",
+        "url": "https://www.instagram.com/fannar_draw/"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Finnur Matteo Bettaglio",
+    "img": "https://imgur.com/TbPNTP6.png",
+    "bio": "Animator/Illustrator🌸🌴🇮🇹 🇮🇸 🐧 Personal acc: @finnurmatteo",
+    "links": [
+      {
+        "img": "https://imgur.com/TbPNTP6.png",
+        "url": "https://www.instagram.com/greenfinnur/"
+      },
+      {
+        "img": "https://imgur.com/a3jphjg.png",
+        "url": "finnurmatteo.myportfolio.com"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Glytta",
+    "img": "https://imgur.com/hGwXxrz.png",
+    "bio": "Ceramisist in Gufunes Reykjavík - Iceland 🇮🇸🏳️‍⚧️\n",
+    "links": [
+      {
+        "img": "https://imgur.com/e7PWib5.png",
+        "url": "https://www.instagram.com/glytta/"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Hugleikur Dagsson",
+    "img": "https://imgur.com/CHJTagy.png",
+    "bio": "Icelandic cartoonist/comedian/person.\ndagsson@dagsson.com",
+    "links": [
+      {
+        "img": "https://imgur.com/ciVATdn.png",
+        "url": "https://www.instagram.com/dagsson/"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Ingi Rúnar Kjartansson",
+    "img": "https://imgur.com/0MP0awL.png",
+    "bio": "Myndasögur teiknari frá Íslandi\nListagallerí @ingisnakeface\nHöfundur: Hreindýrið og Stríðsvélin og Manndýra Hópurinn",
+    "links": [
+      {
+        "img": "https://imgur.com/HO3CeOU.png",
+        "url": "https://www.instagram.com/i.r.kjartansson_/"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Ísold Davíðsdóttir",
+    "img": "https://imgur.com/WBzTUVH.png",
+    "bio": "Ísold Davíðsdóttir er uppeldis- og menntunarfræðingur auk þess að vera myndasöguhöfundur. Hún hefur gefið út þrjár myndasögur og bæði myndskreytt og skrifað barnabækur. Hún starfar sem kennari en þetta er annað sumarið sem hún stýrir námskeiðum í listsköpun með börnum.",
+    "links": [
+      {
+        "img": "https://imgur.com/gSJdrre.png",
+        "url": "https://www.webtoons.com/en/canvas/smásögur-/krummafótur/viewer?title_no=860721&episode_no=3&webtoonType=CHALLENGE&fbclid=PAZXh0bgNhZW0CMTEAAablgaMpcNGX33pPzSW2fKKHVt90-H7B7UDg7WAM2pZht7vEttkdwyo85eI_aem_6xfD56ROam2Gx2zz4HurIw&webtoon-platform-redirect=true"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "name": "jj mancho",
+    "img": "https://imgur.com/Lbansfp.png",
+    "links": []
+  },
+  {
+    "id": 13,
+    "name": "Klara Rosatti",
+    "img": "https://imgur.com/4zAMLcO.png",
+    "links": []
+  },
+  {
+    "id": 14,
+    "name": "Kris Helga",
+    "img": "https://imgur.com/FTV6rrG.png",
+    "links": []
+  },
+  {
+    "id": 15,
+    "name": "Krummi",
+    "img": "https://imgur.com/cQHs8f3.png",
+    "links": [
+      {
+        "img": "https://imgur.com/yBgryZf.png",
+        "url": "https://kruzidula.neocities.org"
+      }
+    ],
+    "Interview": "https://www.youtube.com/embed/cPjMQ9e0CaQ"
+  },
+  {
+    "id": 16,
+    "name": "Lóa Hlín Hjálmtýsdóttir",
+    "img": "https://imgur.com/mGubx0m.png",
+    "links": []
+  },
+  {
+    "id": 17,
+    "name": "Lúkas Regal",
+    "img": "https://imgur.com/Nc37AID.png",
+    "links": []
+  },
+  {
+    "id": 18,
+    "name": "Ómar Smári Sigurgeirsson",
+    "img": "https://imgur.com/2OjbgU7.png",
+    "bio": "„Ég hef alltaf farið mín­ar eig­in leiðir, en hef gam­an af því að prófa mig áfram í mis­mun­andi teikn­ing­um og aðferðum,“ seg­ir Ómar Smári Sig­ur­geirs­son, teikn­ari og söngv­ari í teikni­mynda­hljóm­sveit­inni Boil­ing Sna­kes",
+    "links": [
+      {
+        "img": "https://imgur.com/ePCpkBQ.png",
+        "url": "https://www.instagram.com/robotic_turtle/"
+      },
+      {
+        "img": "https://imgur.com/0GfmXBM.png",
+        "url": "https://www.instagram.com/boilingsnakes/"
+      }
+    ],
+    "Interview": "https://www.youtube.com/watch?v=COqbWshrJIM"
+  },
+  {
+    "id": 19,
+    "name": "Vala Steingrímsdóttir",
+    "img": "https://imgur.com/I4noZOf.png",
+    "bio": "Vala Steingrimsdóttir is an Icelandic illustrator, comic artist and writer that has a special knack for depicting the beauty of nature and people.\n\nHaving spent a lot of time in the countryside of Iceland, she has strong ties with nature and environmental activism. It is reflected in her passion for painting ‘’otherworldly’’ environments and visuals that border on the poetic with vibrant colours and soft rendering. Moreover, climate action and human rights activism regularly carries into her storytelling and collaborations.\n\nShe puts a big emphasis on writing impactful stories with grounded and believable characters and also has a passion for the genre of fantasy, which tends to creep into her work. From beautiful escapist adventures ranging from tales of fantastical realms to mythology and folklore from our world, to children's stories about countryside life and her poignant non-fiction adult comics, she makes engaging stories for all ages.\n\nVala is based in Denmark at this moment in time, but is a child of the world at heart, and hopes that life will take her many places. As this portfolio reveals Iceland will always have the warmest place in her heart and will be an eternal source of inspiration.\n\nFeel free to get in touch! : )",
+    "links": [
+      {
+        "img": "https://imgur.com/O5IdXky.png",
+        "url": "https://www.valadraws.com"
+      },
+      {
+        "img": "https://imgur.com/ESKJ5ql.png",
+        "url": "https://www.instagram.com/valalabala_art/?hl=en"
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "name": "Þórey Mjallhvít",
+    "img": "https://imgur.com/vnN8TLo.png",
+    "links": []
+  },
+  {
+    "id": 21,
+    "name": "Hlíf Una",
+    "img": "https://imgur.com/Ke4asUn.png",
+    "links": []
+  },
+  {
+    "id": 22,
+    "name": "Hugljúf Jósefsdóttir",
+    "img": "https://imgur.com/joc1cIh.png",
+    "links": []
+  },
+  {
+    "id": 23,
+    "name": "Martyna Laura",
+    "img": "https://imgur.com/lxCH8x0.png",
+    "links": []
+  },
+  {
+    "id": 24,
+    "name": "Herdís Þorvaldsdóttir",
+    "img": "https://imgur.com/3IRZTos.png",
+    "links": []
+  },
+  {
+    "id": 25,
+    "name": "Einar Másson",
+    "img": "https://imgur.com/FPR8I1E.png",
+    "links": []
+  },
+  {
+    "id": 26,
+    "name": "Elías Rúni",
+    "img": "https://imgur.com/vJE0VhO.png",
+    "links": []
+  },
+  {
+    "id": 27,
+    "name": "Una Erlín",
+    "img": "https://imgur.com/li9QtyC.png",
+    "links": [
+      {
+        "img": "https://imgur.com/DHQqhFG.png",
+        "url": "https://www.instagram.com/dumb.loves.svali/"
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "name": "Viktoría Söring",
+    "img": "https://imgur.com/mCFTepv.png",
+    "links": [
+      {
+        "url": "https://www.instagram.com/bluebonnetmilk/"
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "name": "Eiríkur Lynch",
+    "img": "https://imgur.com/eGRC7zT.png",
+    "links": [
+      {
+        "url": "https://www.instagram.com/eirikurlynch/"
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "name": "Ingi Jensson",
+    "img": "https://imgur.com/rgXcljj.png",
+    "links": []
+  },
+  {
+    "id": 31,
+    "name": "Rakki móri úr mýri Reykjavíkur",
+    "img": "https://imgur.com/ynK4ZV2.png",
+    "links": []
+  },
+  {
+    "id": 32,
+    "name": "Arnar Marvin Kristjánsson",
+    "img": "https://imgur.com/ewGfNvW.png",
+    "bio": "Icelandic Comic book artist and illustrator. Happily married father of two. Currently working on @whatinhellcomic",
+    "links": [
+      {
+        "img": "https://imgur.com/ewGfNvW.png",
+        "url": "https://www.instagram.com/addimarvin/"
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "name": "Egill Jónasson",
+    "img": "https://imgur.com/dvabOzH.png",
+    "links": []
+  },
+  {
+    "id": 34,
+    "name": "Unndeadcat",
+    "img": "https://imgur.com/cteaR6B.png",
+    "bio": "Kasper\nhe/him\nArtist\nI'm on Cara\n\ncara.app/unndeadcat",
+    "links": [
+      {
+        "img": "https://imgur.com/4ZuMZLf.png",
+        "url": "https://www.instagram.com/unndeadcat/"
+      }
+    ]
+  },
+  {
+    "id": 35,
+    "name": "Dagur Sævarsson",
+    "img": "https://imgur.com/zhQ36xh.png",
+    "bio": "Fjör á hrekkjavöku! Jólasveinarnir hafa verið ósköp prúðir síðustu áratugina. En þegar Stekkjastaur fréttir af hrekkjavökunni rifjast upp fyrir honum hvað þeir bræður voru áður miklir hrekkjalómar. Ó, þvílíkt fjör hjá þeim ... en bæjarbúar eru ekki eins ánægðir ...",
+    "links": [
+      {
+        "img": "https://imgur.com/AwoP1TX.png",
+        "url": "https://www.forlagid.is/vara/bannad-ad-vekja-grylu/"
+      }
+    ]
+  },
+  {
+    "id": 36,
+    "name": "Lilja Björg Jökulsdóttir",
+    "img": "https://imgur.com/gefHgoV.png",
+    "bio": "Hi there! \nI’m updating this page, so feel free to either check out my instagram or to send me an email. If you’re so inclined you can even do both. ",
+    "links": [
+      {
+        "img": "https://imgur.com/KJY0sVy",
+        "url": "https://smjorfluga.com"
+      }
+    ]
+  },
+  {
+    "id": 37,
+    "name": "Hrafnsunna Ross",
+    "img": "https://imgur.com/UxCz2tm.png",
+    "bio": "Art: @hrafnsunnaart\nScreaming: @grafnargrind\nPets: @kvik.yndi\nSomber tunes: @dyfliza\n",
+    "links": []
+  },
+  {
+    "id": 38,
+    "name": "Arnar Þór Sigurlaugar-Kristjánsson",
+    "img": "https://imgur.com/5nHBP2J.png",
+    "links": []
+  },
+  {
+    "id": 39,
+    "name": "Sigurður Ámundason",
+    "img": "https://imgur.com/bLdhnIx.png ",
+    "bio": "Currently: After the Sun: @kunstglstrand\nUpcoming: Listasafn ASÍ @listasafn_asi_artmuseum",
+    "links": [
+      {
+        "img": "https://imgur.com/VqrkEOm.png",
+        "url": "https://www.sigurduramundason.com/?fbclid=PAZXh0bgNhZW0CMTEAAaa9AvD3Q898xxeq9p1PCVWfoPoeeCKyOvxtHmt3kkdWui7DZCYvAoOS5YA_aem_g1JalJ8t3hgv096bOUxvYQ"
+      }
+    ]
+  },
+  {
+    "id": 40,
+    "name": "Myndarsögur",
+    "img": "https://imgur.com/vlacKnM.png",
+    "bio": "📚 Myndarsöguframleiðsla🎨\n🌊 🔥 🐅- Ný kvikmynd í framleiðslu 2025-🏋️‍♂️ 🍏🍯\nHafðu samband í skilaboðum💭",
+    "links": [
+      {
+        "img": "https://imgur.com/dkjDxuZ.png",
+        "url": "https://www.instagram.com/myndarsogur/?hl=en"
+      },
+      {
+        "img": "https://imgur.com/EWKmZvN.png",
+        "url": "myndarsogur.is"
+      },
+      {
+        "img": "https://imgur.com/f8rg8hl.png",
+        "url": "https://www.forlagid.is/vara/myndarsogur-1/"
+      }
+    ]
+  },
+  {
+    "id": 41,
+    "name": "Taylor Garcia van Biljon",
+    "img": "https://imgur.com/pq4Yazz.png",
+    "links": []
+  },
+  {
+    "id": 42,
+    "name": "Unnur Snorradóttir",
+    "img": "https://imgur.com/XP9wdHJ.png",
+    "bio": "Unnur Snorradóttir, an Icelandic artist known for intricate hand sketches and gothic narratives explores modern life, fantasy, and raises awareness of global warming. Snorradóttir’s fast-paced drawing style, heavy on black, brings life to her work. She questions the necessity of perfection, valuing self-expression and creative freedom. Influenced by Iceland’s landscape, her art reflects the urgency of climate change. She spoke with Fluoro.",
+    "links": [
+      {
+        "img": "https://imgur.com/4wTyB9L.png",
+        "url": "https://www.fluoro.life/2023/06/unnur-snorradottir/"
+      }
+    ]
+  },
+  {
+    "id": 43,
+    "name": "Hermann Ingi Guðbrandsson",
+    "img": "https://imgur.com/eYNCG4v.png",
+    "bio": "Pure hearted Icelandic artist: “ I articulate my thoughts / emotions with creations. “\nDm for prints.",
+    "links": [
+      {
+        "img": "https://imgur.com/qvMf5mJ.png",
+        "url": "https://www.instagram.com/hig_peculiart/"
+      },
+      {
+        "img": "https://imgur.com/oMM3ta7.png",
+        "url": "https://www.instagram.com/hig_peculiart/"
+      }
+    ]
+  },
+  {
+    "id": 44,
+    "name": "Linn Janssen",
+    "img": "https://imgur.com/dOIbCtE.png",
+    "bio": "she/her\nArtist\n* Illustrator living in Reykjavík\n* From Hamburg\n* Open for commissions 🐦",
+    "links": [
+      {
+        "img": "https://imgur.com/6aN3TYa.png",
+        "url": "https://www.forlagid.is/vara/einstakt-jolatre/"
+      },
+      {
+        "img": "https://imgur.com/ZspSVbR.png",
+        "url": "https://www.instagram.com/linn.illustrates/"
+      }
+    ]
+  },
+  {
+    "id": 45,
+    "name": "Myndarsögur",
+    "img": "https://imgur.com/vlacKnM.png",
+    "bio": "📚 Myndarsöguframleiðsla🎨\n🌊 🔥 🐅- Ný kvikmynd í framleiðslu 2025-🏋️‍♂️ 🍏🍯\nHafðu samband í skilaboðum💭",
+    "links": [
+      {
+        "img": "https://imgur.com/dkjDxuZ.png",
+        "url": "https://www.instagram.com/myndarsogur/?hl=en"
+      },
+      {
+        "img": "https://imgur.com/EWKmZvN.png",
+        "url": "myndarsogur.is"
+      },
+      {
+        "img": "https://imgur.com/f8rg8hl.png",
+        "url": "https://www.forlagid.is/vara/myndarsogur-1/"
+      }
+    ]
+  },
+  {
+    "id": 46,
+    "name": "Ymir Arnarson",
+    "img": "https://imgur.com/guAdvMr.png",
+    "bio": "I am an Icelandic American cartoonist/graphic novelist with a fierce passion for American cartoons.\n\nI have studied Graphic Storytelling in Denmark and worked with Italian, French, Australian, Portuguese, Finnish, Swedish, German, and Australian story artists for the last five years leading up to my graduation. I think the stories I tell are reflective of these international friends and the intricate connections between our cultures.\n\nComparing cultures has inspired me to write stories ranging from friends struggling with student debt during their weekly roleplaying game, to exploring the hearts of an isolated father and angry son through a portal world in the woods.\n\nIn my own life, living in America, I sometimes felt like a foreigner in my own country. But in moving between these various worlds, I've found a voice that people can relate to as we all become more and more connected with the world and each other.\n\nEmail: ymirarnarson@gmail.com\n\nSocial: @ymirarnarson",
+    "links": [
+      {
+        "url": "https://www.instagram.com/ymirarnarson/"
+      }
+    ]
+  },
+  {
+    "id": 47,
+    "name": "Kailash Youze",
+    "img": "https://imgur.com/W1U4ko2.png",
+    "bio": "\nNamaskar, i am an artist from Reykjavik Iceland. I focus on painting both murals and other material. Take care and God bless you.",
+    "links": [
+      {
+        "img": "https://imgur.com/yJ2x0g8.png",
+        "url": "https://www.instagram.com/kallikailashyouzeartandmusic/"
+      },
+      {
+        "img": "https://imgur.com/WpLr6mx.png",
+        "url": "https://www.ucartwork.com"
+      }
+    ]
+  },
+  {
+    "id": 48,
+    "name": "Jörundur Óskarsson",
+    "img": "https://imgur.com/MoIN7ZK.jpg",
+    "bio": "-I have been drawing for almost 5 years and still studying.",
+    "links": [
+      {
+        "img": "https://imgur.com/zEi78bb.png",
+        "url": "https://www.artstation.com/j_rundur"
+      },
+      {
+        "img": "https://imgur.com/waYHkQF.png",
+        "url": "https://www.instagram.com/j_rundur/"
+      },
+      {
+        "img": "https://imgur.com/AkT56ra.png",
+        "url": "https://myndlistaskolinn.is/utskriftarverk/jorundur-oskarsson"
+      }
+    ]
+  },
+  {
+    "id": 49,
+    "name": "Elín Elísabet Einarsdóttir",
+    "img": "https://imgur.com/o8pL7uh.png",
+    "bio": "✏️ Artist | Illustrator\n📬 elinelisa@gmail.com\n\nwww.elinelisabet.com\n",
+    "links": [
+      {
+        "img": "https://imgur.com/VDKD2Iq.png",
+        "url": "https://www.instagram.com/elinelisabete/?hl=en"
+      }
+    ]
+  },
+  {
+    "id": 50,
+    "name": "Dýrfinna Benita",
+    "img": "https://imgur.com/CueoYfQ.png",
+    "bio": "„Ég sæki innblástur úr öllum áttum og vinir mínir veita mér mikinn innblástur. Ég er svo heppin með vini. En ég vinn mikið út frá lífi mínu og reynslu í verkum mínum svo innblásturinn er allstaðar. Sjónvarp hefur sömuleiðis mikil áhrif á mig, þar get ég nefnt td. The Powerpuff Girls sem mótaði mig og barnæsku mína Listin er eitt af því sem heldur mér gangandi, ég læri alltaf eitthvað nýtt og þroskast með hverju verki. Ég elska að skapa þó svo það geti verið erfitt. Svo dýrka að eyða tíma með vinum mínum í JPT stál, þeir eru algjörir snillingar og hafa veitt mér ómetanlegan stuðning, lærdóm og innblástur í gegnum ferðalagið mitt með stálið […] Besta ráðið er: ímyndaðu þér hvað manneskja með sjálfstraust myndi gera og gerðu það“",
+    "links": []
+  },
+  {
+    "id": 51,
+    "name": "Ari Hlynur Yates",
+    "img": "https://imgur.com/YIiGfN9.png",
+    "bio": "I'm an Icelandic illustrator, author and designer living and working in Denmark. I specialize children's books.",
+    "links": [
+      {
+        "img": "https://imgur.com/VyxqkUI.png",
+        "url": "teiknari.is"
+      }
+    ]
+  },
+  {
+    "id": 52,
+    "name": "Jólaljósamaðurinn",
+    "img": "https://imgur.com/xSDkZKY.png",
+    "bio": "Á æskuárum sínum var Jólaljósamaðurinn með ofurhetjur á heilanum. Dag einn í aðdraganda jóla féll hann af þaki þar sem hann var að setja upp jólaljós en það vildi honum til happs að flækjast í ljósasnúrunum. Í kjölfarið ákvað hann að gerast ofurhetja sjálfur..",
+    "links": [
+      {
+        "img": "https://imgur.com/aidAc8y.png",
+        "url": "https://www.jolaljosamadurinn.com/leiðin-upp-hallgrímskirkju"
+      },
+      {
+        "img": "https://imgur.com/hO9mjzQ.png",
+        "url": "https://www.jolaljosamadurinn.com/copy-of-leiðin-upp-hallgrímskirkju"
+      },
+      {
+        "img": "https://imgur.com/FehJOTD.png",
+        "url": "https://www.jolaljosamadurinn.com/copy-of-of-gamall-til-að-sníkja"
+      }
+    ]
+  },
+  {
+    "id": 53,
+    "name": "Natka Klimowicz",
+    "img": "https://imgur.com/3aMdrhH.gif",
+    "bio": "My name is Natka Klimowicz and I'm a poster designer and an illustrator based in Reykjavik. \n\nGraduated from University of Arts in Poznan, with MA in graphic design and BA in printmaking.\n\nThey say less is more, I say more (color!) is more.\n\nHere to speak visual language for grassroots organizations, minorities and anyone who likes things to look fun. Art + good cause = say no more! Ask me for a poster anytime (✧ᴥ✧)\n\nTurn on. Tune in. Drop me a line.  klimowicz.nat@gmail.com",
+    "links": [
+      {
+        "img": "https://imgur.com/dPsbwTN.png",
+        "url": "https://www.kosmonatka.net"
+      }
+    ]
+  },
+  {
+    "id": 54,
+    "name": "Björn Heimir Önundarson",
+    "img": "https://imgur.com/NY687Xc.png",
+    "bio": "Björn Heimir Önundarson (b. 1996) is a cartoonist, illustrator, animator and a painter.\nBjörn has mainly been making animation short films and doing cartoons for the Morgunblaðið newspaper the past few years, but has also worked in various areas such as making and releasing comics, posters, album covers and other assignments.\nBjörn graduated from the Reykjavík School of visual arts in 2018.",
+    "links": [
+      {
+        "img": "https://imgur.com/9KNDKyZ.png",
+        "url": "https://bjornheimir.com"
+      },
+      {
+        "img": "https://imgur.com/gHdWygj.png",
+        "url": "https://bjornheimir.com/wp-content/uploads/2023/10/larfur-lauks-myndasaga-1.pdf"
+      },
+      {
+        "img": "https://imgur.com/DrjPFYh.png",
+        "url": "https://bjornheimir.com/wp-content/uploads/2023/10/askell-1.pdf"
+      }
+    ],
+    "Interview": "https://www.youtube.com/embed/fHfgq_exjH4"
+  }
+]
