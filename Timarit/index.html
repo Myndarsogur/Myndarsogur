@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="is">
-<head>
-  <meta charset="utf-8" />
-  <title>Tímarit – snertilesari</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
-  <meta name="theme-color" content="#000000" />
-  <style>
+<style>
     :root { --anim-ms: 280ms; }
     * { box-sizing: border-box; }
     html, body {
@@ -16,24 +9,24 @@
       -webkit-user-select: none;
       user-select: none;
       -webkit-touch-callout: none;
-      touch-action: none; /* við tökum yfir snertingu */
+      touch-action: none;
       overscroll-behavior: contain;
     }
-    /* Aðalsvæði – fyllir skjá, virðir "notch" öruggs svæði */
     #viewer {
       position: fixed;
       inset: 0;
+      /* tryggjum 100% hæð á mismunandi vöfrum */
+      height: 100dvh;
+      height: 100svh;
+      height: 100vh;
       padding: env(safe-area-inset-top) env(safe-area-inset-right)
                env(safe-area-inset-bottom) env(safe-area-inset-left);
-      height: 100dvh;
       background: #000;
       overflow: hidden;
       display: grid;
       place-items: center;
-      touch-action: none; /* pointer events fyrir pinch/pan */
+      touch-action: none;
     }
-
-    /* Tvö lög til að ná snyrtilegri síðu-anim */
     .layer {
       position: absolute;
       inset: 0;
@@ -41,230 +34,205 @@
       place-items: center;
       will-change: transform, opacity;
       contain: paint;
-      pointer-events: none; /* við hlustum bara á #viewer */
+      pointer-events: none;
       transform: translate3d(0,0,0);
     }
-    /* Myndin sjálf – fyllir sem mest án skekkju */
     .page {
       max-width: 100%;
       max-height: 100%;
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: contain;         /* tryggir að myndin sjáist */
+      object-position: center;     /* miðjuð */
       backface-visibility: hidden;
       transform: translate3d(0,0,0) scale(1);
       will-change: transform;
-      image-rendering: auto;
       -webkit-user-drag: none;
       pointer-events: none;
     }
-
-    /* Fletti-anim (sleek slide), virkt bara við síðuaskipti */
+  
     .slide-in-next   { transform: translateX(100%); }
     .slide-in-prev   { transform: translateX(-100%); }
     .slide-in-active { transition: transform var(--anim-ms) ease; transform: translateX(0%); }
-
-    .slide-out-next   { transform: translateX(0%); }
-    .slide-out-prev   { transform: translateX(0%); }
     .slide-out-active-next { transition: transform var(--anim-ms) ease, opacity var(--anim-ms) ease; transform: translateX(-30%); opacity: .6; }
     .slide-out-active-prev { transition: transform var(--anim-ms) ease, opacity var(--anim-ms) ease; transform: translateX(30%);  opacity: .6; }
-
-    /* Virða stillingu notanda */
-    @media (prefers-reduced-motion: reduce) {
-      :root { --anim-ms: 0ms; }
-    }
-
-    /* Aðgengis-uppf: falin en lestrartæki sjá */
+  
+    @media (prefers-reduced-motion: reduce) { :root { --anim-ms: 0ms; } }
+  
     .sr-only {
       position: absolute !important;
       width: 1px; height: 1px;
       padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,1px,1px); white-space: nowrap; border: 0;
     }
+    /* Fín villukort ef ekkert fannst */
+    .error {
+      font: 500 14px system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: #bbb;
+      text-align: center;
+      padding: 24px;
+    }
+    .error b { color: #fff; }
   </style>
-</head>
-<body>
-  <main id="viewer" aria-label="Tímarit" role="main">
-    <div id="layerA" class="layer"></div>
-    <div id="layerB" class="layer" hidden></div>
-    <div aria-live="polite" class="sr-only" id="status"></div>
-  </main>
-
+  
   <script>
-    /* =======================
-       STILLINGAR – AÐLAGA ÞÚ
-       ======================= */
-    const TOTAL_PAGES = 24; // <- breyttu mér
-    const IMAGE_PATH = i => `/pages/${String(i).padStart(3,'0')}.jpg`; // 001.jpg, 002.jpg, ...
-
-    /* =======================
-       INNVIÐIR
-       ======================= */
+    /* ====== STILLINGAR ====== */
+    const TOTAL_PAGES = 24;
+    const BASE_DIR = 'pages';    // mappan við hliðina á index.html (EKKI með fremri skástrik)
+  
+    /* Búum til lista af líklegum skráarnöfnum fyrir síðu i */
+    function candidatePaths(i) {
+      const pad3 = String(i).padStart(3,'0');   // 001
+      const raw  = String(i);                   // 1
+      const exts = ['avif','webp','jpg','jpeg','png'];
+  
+      const rels = [
+        `${BASE_DIR}/${pad3}`, `${BASE_DIR}/${raw}`,
+        `./${BASE_DIR}/${pad3}`, `./${BASE_DIR}/${raw}`,
+      ];
+  
+      const out = [];
+      for (const stem of rels) for (const ext of exts) out.push(`${stem}.${ext}`);
+      return out;
+    }
+  
     const viewer  = document.getElementById('viewer');
     const layerA  = document.getElementById('layerA');
     const layerB  = document.getElementById('layerB');
     const status  = document.getElementById('status');
-
-    let currentLayer = layerA;
-    let backLayer    = layerB;
-
+  
+    let currentLayer = layerA, backLayer = layerB;
     let pageIndex = 1;
-
-    // Sýnilegur "hlutur" sem við zoom-um/pönnum: img innan active layer
     let imgEl = null;
-
-    // Snertistig
-    const pointers = new Map(); // id -> {x,y}
+  
+    /* zoom/pan breytur (óbreyttar frá fyrri útgáfu) */
+    const pointers = new Map();
     let startMid = null, startDist = 0, startScale = 1, startTx = 0, startTy = 0;
     let scale = 1, tx = 0, ty = 0;
-
-    // Fyrir swipe
-    let oneStart = null; // {x,y,t}
-
-    // Hraðari teikning
+    let oneStart = null;
     let rafPending = false;
-
-    function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
-
-    function setTransform() {
-      if (!imgEl) return;
-      imgEl.style.transform = `translate3d(${tx}px, ${ty}px, 0px) scale(${scale})`;
-    }
-
-    function scheduleDraw() {
-      if (rafPending) return;
-      rafPending = true;
-      requestAnimationFrame(() => { setTransform(); rafPending = false; });
-    }
-
-    function resetTransform(animateBack=false) {
-      scale = 1; tx = 0; ty = 0;
-      if (!imgEl) return;
-      if (animateBack) {
-        imgEl.style.transition = 'transform 180ms ease';
-        setTransform();
-        imgEl.addEventListener('transitionend', () => { imgEl.style.transition = 'none'; }, { once: true });
-      } else {
-        imgEl.style.transition = 'none';
-        setTransform();
+  
+    const clamp = (v,min,max)=>Math.max(min,Math.min(max,v));
+    function setTransform(){ if(!imgEl) return; imgEl.style.transform=`translate3d(${tx}px, ${ty}px, 0px) scale(${scale})`; }
+    function scheduleDraw(){ if(rafPending) return; rafPending=true; requestAnimationFrame(()=>{ setTransform(); rafPending=false; }); }
+    function resetTransform(animate=false){ scale=1; tx=0; ty=0; if(!imgEl) return; imgEl.style.transition=animate?'transform 180ms ease':'none'; setTransform(); if(animate) imgEl.addEventListener('transitionend',()=>{imgEl.style.transition='none';},{once:true}); }
+    function containerSize(){ const r = viewer.getBoundingClientRect(); return {w:r.width,h:r.height}; }
+    function clampPan(){ const {w,h}=containerSize(); const maxX=(w*(scale-1))/2; const maxY=(h*(scale-1))/2; tx=clamp(tx,-maxX,maxX); ty=clamp(ty,-maxY,maxY); }
+    function announce(msg){ status.textContent = msg; }
+  
+    /* Reynir að hlaða fyrstu virku slóðinni úr candidates[] */
+    function loadBestImage(index, candidates, onload, onfail){
+      const layer = document.createElement('div'); // notað tímabundið
+      let k = 0;
+      function tryNext(){
+        if (k >= candidates.length) { onfail && onfail(); return; }
+        const src = candidates[k++];
+        const im = new Image();
+        im.decoding = 'async';
+        im.loading = 'eager';
+        im.alt = `Síða ${index} af ${TOTAL_PAGES}`;
+        im.className = 'page';
+        im.src = src;
+        im.onload = ()=> onload && onload(im, src);
+        im.onerror = ()=> tryNext(); // prófa næstu slóð
+        layer.replaceChildren(im); // halda eina til að losa minnið
       }
+      tryNext();
     }
-
-    function containerSize() {
-      const r = viewer.getBoundingClientRect();
-      return { w: r.width, h: r.height };
+  
+    function renderError(layer, index){
+      const card = document.createElement('div');
+      card.className = 'error';
+      card.innerHTML = `
+        🤷‍♂️ Gat ekki fundið <b>síðu ${index}</b>.<br>
+        Prófaði margar skrár (AVIF/WebP/JPG/PNG).<br><br>
+        Athugaðu:<br>
+        • Er mappan <b>${BASE_DIR}/</b> til?<br>
+        • Heitir skráin <b>${String(index).padStart(3,'0')}.jpg</b> eða sambærilegt?<br>
+        • Er há/lág stafsetning rétt (t.d. .JPG vs .jpg)?<br>
+        • Er vefurinn keyrður yfir <b>http(s)</b> frekar en file:// á iOS?
+      `;
+      layer.replaceChildren(card);
     }
-
-    function clampPan() {
-      // Einföld pan-takmörk miðað við skjástærð – „nóg gott“ fyrir clean upplifun
-      const { w, h } = containerSize();
-      const maxX = (w * (scale - 1)) / 2;
-      const maxY = (h * (scale - 1)) / 2;
-      tx = clamp(tx, -maxX, maxX);
-      ty = clamp(ty, -maxY, maxY);
-    }
-
-    function loadInto(layer, index, onload) {
+  
+    function loadInto(layer, index, done){
       layer.innerHTML = '';
-      const img = new Image();
-      img.decoding = 'async';
-      img.loading  = 'eager';
-      img.alt = `Síða ${index} af ${TOTAL_PAGES}`;
-      img.className = 'page';
-      img.src = IMAGE_PATH(index);
-      img.addEventListener('load', () => onload && onload(img), { once: true });
-      layer.appendChild(img);
+      const candidates = candidatePaths(index);
+      loadBestImage(index, candidates, (img, src)=>{
+        layer.replaceChildren(img);
+        done && done(img, src);
+      }, ()=>{
+        renderError(layer, index);
+        done && done(null, null);
+      });
     }
-
-    function announce(msg) { status.textContent = msg; }
-
-    function preloadNeighbors(i) {
-      const next = i + 1 <= TOTAL_PAGES ? IMAGE_PATH(i+1) : null;
-      const prev = i - 1 >= 1 ? IMAGE_PATH(i-1) : null;
-      [next, prev].filter(Boolean).forEach(src => { const im = new Image(); im.src = src; });
+  
+    function preloadNeighbors(i){
+      const next = i+1<=TOTAL_PAGES ? candidatePaths(i+1)[0] : null;
+      const prev = i-1>=1 ? candidatePaths(i-1)[0] : null;
+      [next, prev].filter(Boolean).forEach(src => { const im=new Image(); im.src=src; });
     }
-
-    function showPage(index, direction = null) {
+  
+    function showPage(index, direction=null){
       index = clamp(index, 1, TOTAL_PAGES);
       if (index === pageIndex && !direction) return;
-
+  
       const oldLayer = currentLayer;
       const newLayer = backLayer;
       newLayer.hidden = false;
-
-      loadInto(newLayer, index, (newImg) => {
-        // undirbúningur
-        // ný mynd verður virka „canvas-ið“
-        imgEl = newImg;
+  
+      loadInto(newLayer, index, (newImg, usedSrc)=>{
+        imgEl = newImg; // getur verið null ef allt brást
         resetTransform(false);
-
-        // animation classes
-        const enterClass = direction === 'next' ? 'slide-in-next' : direction === 'prev' ? 'slide-in-prev' : '';
-        const exitActive = direction === 'next' ? 'slide-out-active-next' : direction === 'prev' ? 'slide-out-active-prev' : '';
-
+  
+        const enterClass = direction==='next' ? 'slide-in-next' : direction==='prev' ? 'slide-in-prev' : '';
+        const exitActive = direction==='next' ? 'slide-out-active-next' : direction==='prev' ? 'slide-out-active-prev' : '';
+  
         if (direction) {
           newLayer.classList.add(enterClass);
-          // Force reflow
-          newLayer.getBoundingClientRect();
+          newLayer.getBoundingClientRect(); // reflow
           newLayer.classList.add('slide-in-active');
-          oldLayer.classList.add(direction === 'next' ? 'slide-out-next' : 'slide-out-prev', exitActive);
+          oldLayer.classList.add(direction==='next' ? 'slide-out-next' : 'slide-out-prev', exitActive);
         }
-
-        const finalize = () => {
-          // hreinsa klasa og skipta á lögum
+  
+        const finalize = ()=>{
           oldLayer.className = 'layer';
           newLayer.className = 'layer';
           oldLayer.hidden = true;
-
-          // víxla
           [currentLayer, backLayer] = [newLayer, oldLayer];
-
           pageIndex = index;
-          announce(`Síða ${pageIndex} af ${TOTAL_PAGES}`);
+          announce(`Síða ${pageIndex} af ${TOTAL_PAGES}${usedSrc?` – ${usedSrc}`:''}`);
           preloadNeighbors(pageIndex);
         };
-
+  
         if (direction) {
-          const onEnd = (ev) => {
-            if (ev.target !== newLayer) return;
-            newLayer.removeEventListener('transitionend', onEnd);
-            finalize();
-          };
+          const onEnd = (ev)=>{ if (ev.target!==newLayer) return; newLayer.removeEventListener('transitionend', onEnd); finalize(); };
           newLayer.addEventListener('transitionend', onEnd);
         } else {
           finalize();
         }
       });
     }
-
-    // Fyrsta hleðsla
+  
+    // Byrja á síðu 1
     showPage(pageIndex);
-
-    /* =======================
-       GESTURES
-       ======================= */
+  
+    /* ====== GESTURES (óbreytt að mestu) ====== */
     viewer.addEventListener('pointerdown', (e) => {
       viewer.setPointerCapture(e.pointerId);
       pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
-
-      if (pointers.size === 1) {
-        oneStart = { x: e.clientX, y: e.clientY, t: performance.now() };
-      }
-
+      if (pointers.size === 1) oneStart = { x: e.clientX, y: e.clientY, t: performance.now() };
       if (pointers.size === 2) {
-        // init pinch
         const pts = Array.from(pointers.values());
         startDist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
-        startMid  = { x: (pts[0].x + pts[1].x) / 2, y: (pts[0].y + pts[1].y) / 2 };
-        startScale = scale;
-        startTx = tx; startTy = ty;
+        startMid  = { x: (pts[0].x + pts[1].x) / 2, y: (pts[1].y + pts[0].y) / 2 }; // miðja
+        startScale = scale; startTx = tx; startTy = ty;
       }
     }, { passive: true });
-
+  
     viewer.addEventListener('pointermove', (e) => {
       if (!pointers.has(e.pointerId)) return;
       pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
-
-      // PINCH-ZOOM
+  
       if (pointers.size === 2) {
         e.preventDefault();
         const pts = Array.from(pointers.values());
@@ -272,24 +240,17 @@
         if (startDist > 0) {
           const raw = startScale * (dist / startDist);
           const newScale = clamp(raw, 1, 4);
-          // halda miðpunkti stöðugum
-          const cx = startMid.x;
-          const cy = startMid.y;
-          // punktur í „innihaldi“ sem var undir miðju í upphafi
+          const cx = startMid.x, cy = startMid.y;
           const contentX = (cx - startTx) / startScale;
           const contentY = (cy - startTy) / startScale;
-
           scale = newScale;
           tx = cx - contentX * scale;
           ty = cy - contentY * scale;
-
-          clampPan();
-          scheduleDraw();
+          clampPan(); scheduleDraw();
         }
         return;
       }
-
-      // ONE-FINGER – PAN ef zoomað, annars leyfum „swipe“ á pointerup
+  
       if (pointers.size === 1 && scale > 1.01) {
         e.preventDefault();
         const p = pointers.get(e.pointerId);
@@ -297,64 +258,38 @@
         const dy = p.y - oneStart.y;
         tx = startTx + dx;
         ty = startTy + dy;
-        clampPan();
-        scheduleDraw();
+        clampPan(); scheduleDraw();
       }
     }, { passive: false });
-
-    function clearPointer(e) {
+  
+    function clearPointer(e){
       if (!pointers.has(e.pointerId)) return;
       pointers.delete(e.pointerId);
-
-      // Enda pinch
-      if (pointers.size < 2) {
-        startDist = 0; startMid = null;
-        startScale = scale; startTx = tx; startTy = ty;
-      }
-
-      // ONE-FINGER swipe detection
+      if (pointers.size < 2) { startDist = 0; startMid = null; startScale = scale; startTx = tx; startTy = ty; }
       if (pointers.size === 0 && oneStart) {
         const dx = e.clientX - oneStart.x;
         const dy = e.clientY - oneStart.y;
         const dt = performance.now() - oneStart.t;
         oneStart = null;
-
-        // Ef ekki zoomað, túlka sem blaðsíðuflettingu
         if (scale <= 1.03) {
           const horiz = Math.abs(dx) > 60 && Math.abs(dy) < 80;
           const quick = dt < 500;
           if (horiz && quick) {
-            if (dx < 0 && pageIndex < TOTAL_PAGES) {
-              showPage(pageIndex + 1, 'next');
-              return;
-            } else if (dx > 0 && pageIndex > 1) {
-              showPage(pageIndex - 1, 'prev');
-              return;
-            }
+            if (dx < 0 && pageIndex < TOTAL_PAGES)      showPage(pageIndex + 1, 'next');
+            else if (dx > 0 && pageIndex > 1)           showPage(pageIndex - 1, 'prev');
           }
-          // ef lítil hreyfing – ekkert
-        } else {
-          // ef zoomað og lítil hreyfing – smá snap til baka innan marka
-          clampPan();
-          scheduleDraw();
-        }
+        } else { clampPan(); scheduleDraw(); }
       }
     }
-
-    ['pointerup','pointercancel','pointerleave'].forEach(type => {
-      viewer.addEventListener(type, clearPointer, { passive: true });
-    });
-
-    // Tvöfalt pikki = toggla hrað-zoom (valkvætt, engin sýnileg stjórntæki)
+    ['pointerup','pointercancel','pointerleave'].forEach(t=>viewer.addEventListener(t, clearPointer, { passive:true }));
+  
+    // double-tap zoom
     let lastTap = 0;
     viewer.addEventListener('pointerdown', (e) => {
       const now = performance.now();
       if (now - lastTap < 280 && pointers.size === 1) {
-        // double tap
-        if (scale > 1.01) {
-          resetTransform(true);
-        } else {
-          // zoom-a hraðað inn að snertipunkti
+        if (scale > 1.01) resetTransform(true);
+        else {
           const targetScale = 2;
           const cx = e.clientX, cy = e.clientY;
           const contentX = (cx - tx) / scale;
@@ -363,37 +298,22 @@
           tx = cx - contentX * scale;
           ty = cy - contentY * scale;
           clampPan();
-          imgEl.style.transition = 'transform 180ms ease';
+          imgEl && (imgEl.style.transition = 'transform 180ms ease');
           setTransform();
-          imgEl.addEventListener('transitionend', () => { imgEl.style.transition = 'none'; }, { once: true });
+          imgEl && imgEl.addEventListener('transitionend', ()=>{ imgEl.style.transition='none'; }, { once:true });
         }
       }
       lastTap = now;
     }, { passive: true });
-
-    // Lyklaborð (fyrir tölvupróf)
+  
     window.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight' || e.key === 'PageDown') {
-        if (pageIndex < TOTAL_PAGES && scale <= 1.03) showPage(pageIndex + 1, 'next');
-      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
-        if (pageIndex > 1 && scale <= 1.03) showPage(pageIndex - 1, 'prev');
-      } else if (e.key === 'Escape') {
-        resetTransform(true);
-      }
+      if ((e.key==='ArrowRight'||e.key==='PageDown') && pageIndex<TOTAL_PAGES && scale<=1.03) showPage(pageIndex+1,'next');
+      else if ((e.key==='ArrowLeft'||e.key==='PageUp') && pageIndex>1 && scale<=1.03) showPage(pageIndex-1,'prev');
+      else if (e.key==='Escape') resetTransform(true);
     });
-
-    // Forða okkur frá back-swipe í vafra að mestu (ekki 100% á iOS)
+  
     document.addEventListener('gesturestart', (e) => e.preventDefault());
-
-    // Halda utan um pan-byrjun þegar zoomað er
-    viewer.addEventListener('pointerdown', (e) => {
-      if (scale > 1.01) {
-        startTx = tx; startTy = ty;
-      }
-    }, { passive: true });
-
-    // Uppfæra status fyrst
+    viewer.addEventListener('pointerdown', () => { if (scale>1.01){ startTx=tx; startTy=ty; } }, { passive:true });
+  
     announce(`Síða ${pageIndex} af ${TOTAL_PAGES}`);
   </script>
-</body>
-</html>
