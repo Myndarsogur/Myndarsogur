@@ -1,319 +1,354 @@
-<style>
-    :root { --anim-ms: 280ms; }
-    * { box-sizing: border-box; }
-    html, body {
-      height: 100%;
-      margin: 0;
-      background: #000;
-      color: #fff;
-      -webkit-user-select: none;
-      user-select: none;
-      -webkit-touch-callout: none;
-      touch-action: none;
-      overscroll-behavior: contain;
+<!DOCTYPE html>
+<html lang="is">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Myndablogg</title>
+
+  <!-- ====== Letur ====== -->
+  <!-- Settu þínar eigin slóðir í src: hér fyrir neðan -->
+  <style>
+    @font-face{
+      font-family:"ccbooþ";
+      src: url("fonts/ccbooth.woff2") format("woff2"),
+           url("fonts/ccbooth.woff") format("woff");
+      font-display: swap;
     }
-    #viewer {
-      position: fixed;
-      inset: 0;
-      /* tryggjum 100% hæð á mismunandi vöfrum */
-      height: 100dvh;
-      height: 100svh;
-      height: 100vh;
-      padding: env(safe-area-inset-top) env(safe-area-inset-right)
-               env(safe-area-inset-bottom) env(safe-area-inset-left);
-      background: #000;
-      overflow: hidden;
-      display: grid;
-      place-items: center;
-      touch-action: none;
+    @font-face{
+      font-family:"cckissandtell";
+      src: url("fonts/cckissandtell.woff2") format("woff2"),
+           url("fonts/cckissandtell.woff") format("woff");
+      font-display: swap;
     }
-    .layer {
-      position: absolute;
-      inset: 0;
-      display: grid;
-      place-items: center;
-      will-change: transform, opacity;
-      contain: paint;
-      pointer-events: none;
-      transform: translate3d(0,0,0);
-    }
-    .page {
-      max-width: 100%;
-      max-height: 100%;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;         /* tryggir að myndin sjáist */
-      object-position: center;     /* miðjuð */
-      backface-visibility: hidden;
-      transform: translate3d(0,0,0) scale(1);
-      will-change: transform;
-      -webkit-user-drag: none;
-      pointer-events: none;
-    }
-  
-    .slide-in-next   { transform: translateX(100%); }
-    .slide-in-prev   { transform: translateX(-100%); }
-    .slide-in-active { transition: transform var(--anim-ms) ease; transform: translateX(0%); }
-    .slide-out-active-next { transition: transform var(--anim-ms) ease, opacity var(--anim-ms) ease; transform: translateX(-30%); opacity: .6; }
-    .slide-out-active-prev { transition: transform var(--anim-ms) ease, opacity var(--anim-ms) ease; transform: translateX(30%);  opacity: .6; }
-  
-    @media (prefers-reduced-motion: reduce) { :root { --anim-ms: 0ms; } }
-  
-    .sr-only {
-      position: absolute !important;
-      width: 1px; height: 1px;
-      padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,1px,1px); white-space: nowrap; border: 0;
-    }
-    /* Fín villukort ef ekkert fannst */
-    .error {
-      font: 500 14px system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      color: #bbb;
-      text-align: center;
-      padding: 24px;
-    }
-    .error b { color: #fff; }
   </style>
-  
+
+  <!-- ====== Stílar ====== -->
+  <style>
+    /* LITAPALLETTAN (úr myndinni) */
+    :root{
+      --bg:      #F6CF75; /* gulleitur bakgrunnur */
+      --paper:   #F3E1C4; /* ljós-beige */
+      --off:     #FCFAF5; /* mjúkt hvítt */
+      --green:   #A9C3B3; /* mildur grænn */
+      --blue-1:  #DFE7ED; /* ljósblár 1 */
+      --blue-2:  #CFE0E8; /* ljósblár 2 */
+      --orange:  #F2A31C; /* appelsínugulur (accent) */
+      --red:     #D62839; /* rauður – nota sparlega */
+      --ink:     #1A1A1A; /* svartur texti */
+      --shadow:  0 8px 24px rgba(0,0,0,.08);
+      --radius:  14px;
+      --maxw:    940px;
+    }
+
+    html,body{
+      background: var(--bg);
+      color: var(--ink);
+      margin: 0;
+      padding: 0;
+      font-family: "cckissandtell", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* Haus */
+    .site{
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 18px clamp(16px, 4vw, 28px) 48px;
+    }
+    header.site-head{
+      display:flex; align-items:center; justify-content:space-between;
+      gap: 12px; padding: 12px 0 6px;
+    }
+    .brand{
+      font-family: "ccbooþ", Georgia, "Times New Roman", serif;
+      font-size: clamp(28px, 5vw, 56px);
+      line-height: 1.05;
+      letter-spacing:.3px;
+      margin: 0;
+      color: #000;
+      text-wrap: balance;
+    }
+    .tagline{
+      font-size: .98rem;
+      margin: 0;
+      opacity: .8;
+    }
+
+    /* RENNINGUR (8 myndir, snerting + lyklaborð) */
+    .carousel{
+      position: relative;
+      margin: 18px 0 28px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      background: var(--off);
+    }
+    .carousel__track{
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 100%;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .carousel__track::-webkit-scrollbar{ display:none; }
+
+    .slide{
+      position: relative;
+      scroll-snap-align: center;
+      display: grid;
+      place-items: center;
+      padding: clamp(8px, 2vw, 12px);
+    }
+    /* B5 hlutfall (176x250 ~ 0.704) */
+    .frame{
+      width: min(100%, 520px);
+      aspect-ratio: 176 / 250;
+      background: var(--paper);
+      border-radius: calc(var(--radius) - 6px);
+      overflow: hidden;
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,.04);
+      display: grid; place-items: center;
+    }
+    .frame img{
+      width:100%; height:100%; object-fit: cover;
+      display:block;
+    }
+
+    .carousel__dots{
+      position: absolute; inset: auto 0 10px 0;
+      display:flex; justify-content:center; gap:8px;
+      pointer-events: none;
+    }
+    .dot{
+      width:8px; height:8px; border-radius:999px;
+      background: rgba(0,0,0,.18);
+      outline: none; border: 0;
+      pointer-events: auto;
+    }
+    .dot[aria-current="true"]{ background: var(--orange); }
+
+    .carousel__buttons{
+      position:absolute; inset:0;
+      display:flex; align-items:center; justify-content:space-between;
+      pointer-events:none;
+    }
+    .btn{
+      pointer-events:auto;
+      border:0; background:rgba(0,0,0,.0); color:#000;
+      width:46px; height:46px; border-radius:999px;
+      margin: 0 6px;
+      display:grid; place-items:center;
+      transition: transform .12s ease;
+    }
+    .btn:hover{ transform: scale(1.04); }
+    .btn svg{ width:22px; height:22px; }
+
+    /* Kort / greinar */
+    .grid{
+      display:grid;
+      gap: clamp(14px, 2.6vw, 22px);
+      margin-top: 8px;
+    }
+    article.card{
+      background: var(--paper);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: clamp(16px, 3vw, 24px);
+    }
+    .card--white{ background: var(--off); color: var(--ink); }
+    .card--red{ background: var(--red); color: #fff; }
+    .card h2{
+      font-family: "ccbooþ", Georgia, "Times New Roman", serif;
+      font-weight: 700;
+      font-size: clamp(22px, 3.6vw, 34px);
+      line-height: 1.15;
+      margin: 0 0 8px;
+    }
+    .meta{ opacity:.75; font-size:.95rem; margin-bottom: 10px; }
+    .card p{ margin: 0 0 10px; }
+    .card a{ color: inherit; text-decoration-thickness: .1em; text-underline-offset: .18em; }
+    .chip{
+      display:inline-block; font-size:.8rem; font-weight:600;
+      background: var(--blue-2); color:#0b1c22;
+      padding:.32em .66em; border-radius:999px;
+      margin-right:.4em;
+    }
+    .chip--red{ background: var(--red); color:#fff; } /* rauður – nota sparlega */
+
+    /* Smá „prófessional polish“ */
+    .bar{
+      height: 6px; width: 100%;
+      background: linear-gradient(90deg, var(--green), var(--blue-1), var(--blue-2), var(--orange));
+      border-radius: 999px;
+      opacity:.55; margin: 10px 0 18px;
+    }
+
+    /* Aðgengi + fínstillingar */
+    @media (prefers-reduced-motion: reduce){
+      *{ animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    }
+    @media (min-width: 760px){
+      .grid{ grid-template-columns: repeat(12, 1fr); }
+      .card{ grid-column: span 12; }
+      .card--white{ grid-column: span 7; }
+      .card--red{ grid-column: span 5; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="site">
+    <header class="site-head" role="banner">
+      <h1 class="brand">Myndablogg</h1>
+      <p class="tagline">Ljósmyndir &amp; sögur í snyrtilegri umgjörð</p>
+    </header>
+
+    <div class="bar" aria-hidden="true"></div>
+
+    <!-- ====== MYNDARENNA (8 myndir frá Imgur) ====== -->
+    <section class="carousel" aria-label="Myndasafn – strjúktu til að fletta">
+      <div class="carousel__track" id="track" role="group" aria-roledescription="slide">
+        <!-- Skiptu út imgur-slóðum eins og þú vilt -->
+        <div class="slide"><figure class="frame"><img src="https://i.imgur.com/8pZ9F6M.jpg" alt="Mynd 1" loading="lazy" /></figure></div>
+        <div class="slide"><figure class="frame"><img src="https://i.imgur.com/Zp3bFke.jpg" alt="Mynd 2" loading="lazy" /></figure></div>
+        <div class="slide"><figure class="frame"><img src="https://i.imgur.com/1H5c2bN.jpg" alt="Mynd 3" loading="lazy" /></figure></div>
+        <div class="slide"><figure class="frame"><img src="https://i.imgur.com/7c4s1lQ.jpg" alt="Mynd 4" loading="lazy" /></figure></div>
+        <div class="slide"><figure class="frame"><img src="https://i.imgur.com/0n2mQ6D.jpg" alt="Mynd 5" loading="lazy" /></figure></div>
+        <div class="slide"><figure class="frame"><img src="https://i.imgur.com/3Q8y2sS.jpg" alt="Mynd 6" loading="lazy" /></figure></div>
+        <div class="slide"><figure class="frame"><img src="https://i.imgur.com/4aYwJpZ.jpg" alt="Mynd 7" loading="lazy" /></figure></div>
+        <div class="slide"><figure class="frame"><img src="https://i.imgur.com/9mVgJkE.jpg" alt="Mynd 8" loading="lazy" /></figure></div>
+      </div>
+
+      <!-- stýringar -->
+      <div class="carousel__buttons" aria-hidden="true">
+        <button class="btn" id="prev" aria-label="Fara á fyrri mynd">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button class="btn" id="next" aria-label="Fara á næstu mynd">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+
+      <div class="carousel__dots" id="dots" aria-label="Stillingar renningar"></div>
+    </section>
+
+    <!-- ====== BLOGG – 3 dæmi (allar myndir frá Imgur) ====== -->
+    <main class="grid" id="blogg" role="main">
+      <article class="card card--white">
+        <header>
+          <span class="chip">Ljósmyndadagbók</span>
+          <h2>Gulir tónar og mjúkt ljós</h2>
+          <p class="meta">8. september 2025 · 3 mín. lestur</p>
+        </header>
+        <p>
+          Tilraun með hlýja litatóna þar sem bakgrunnur og efni tala saman.
+          Myndin hér að neðan er í blaðastærð B5 svo hún fellur fallega að renningnum.
+        </p>
+        <figure class="frame" style="margin:12px 0;">
+          <img src="https://i.imgur.com/7c4s1lQ.jpg" alt="Gulleit mynd í mjúku ljósi" loading="lazy">
+        </figure>
+        <p>
+          Litapallettan á síðunni styður söguna: <em>mjúkir bláir</em> og <em>grænir</em> tónar
+          fyrir ró, <strong>appelsínugulur</strong> sem hressandi áherslulitur og
+          <strong>rauður</strong> mjög sparlega þegar þarf að draga sérstaklega fram atriði.
+        </p>
+        <footer><small>Merki: <span class="chip">Litur</span> <span class="chip">Ljós</span></small></footer>
+      </article>
+
+      <article class="card">
+        <header>
+          <span class="chip">Bak við tjöldin</span>
+          <h2>Uppsetning &amp; flæði</h2>
+          <p class="meta">1. september 2025 · 2 mín. lestur</p>
+        </header>
+        <p>
+          Vefsíðan er hugsuð fyrir farsíma: strjúktu til að fletta á milli mynda,
+          eða notaðu örvatakka. Kortin (greinarnar) halda textanum léttum og aðgengilegum.
+        </p>
+        <figure class="frame" style="margin:12px 0;">
+          <img src="https://i.imgur.com/4aYwJpZ.jpg" alt="Mynd af uppsetningu og flæði" loading="lazy">
+        </figure>
+        <p>
+          Allt er útbúið með vandaðri leturgerð:
+          titlar nota <strong>ccbooþ</strong> en megintexti <strong>cckissandtell</strong>.
+          Ef letur vantar skiptir vefurinn yfir í örugg varaletur.
+        </p>
+      </article>
+
+      <article class="card card--red">
+        <header>
+          <span class="chip chip--red" aria-label="Áherslumerki">Áhersla</span>
+          <h2>Stundum þarf rauðan ramma</h2>
+          <p class="meta">23. ágúst 2025 · 1 mín. lestur</p>
+        </header>
+        <p>
+          Rauði liturinn er notaður sparlega til að leggja áherslu – til dæmis á
+          stuttar tilkynningar eða fyrirsagnir. Textinn er hvítur fyrir skýran
+          lestur og gott andstæðurhlutfall.
+        </p>
+        <figure class="frame" style="margin:12px 0;">
+          <img src="https://i.imgur.com/9mVgJkE.jpg" alt="Rauður rammi með hvítum texta" loading="lazy">
+        </figure>
+        <p><a href="#track" style="text-decoration: underline;">Sjá meira í renninum hér að ofan</a>.</p>
+      </article>
+    </main>
+  </div>
+
+  <!-- ====== Hegðun renningar ====== -->
   <script>
-    /* ====== STILLINGAR ====== */
-    const TOTAL_PAGES = 24;
-    const BASE_DIR = 'pages';    // mappan við hliðina á index.html (EKKI með fremri skástrik)
-  
-    /* Búum til lista af líklegum skráarnöfnum fyrir síðu i */
-    function candidatePaths(i) {
-      const pad3 = String(i).padStart(3,'0');   // 001
-      const raw  = String(i);                   // 1
-      const exts = ['avif','webp','jpg','jpeg','png'];
-  
-      const rels = [
-        `${BASE_DIR}/${pad3}`, `${BASE_DIR}/${raw}`,
-        `./${BASE_DIR}/${pad3}`, `./${BASE_DIR}/${raw}`,
-      ];
-  
-      const out = [];
-      for (const stem of rels) for (const ext of exts) out.push(`${stem}.${ext}`);
-      return out;
-    }
-  
-    const viewer  = document.getElementById('viewer');
-    const layerA  = document.getElementById('layerA');
-    const layerB  = document.getElementById('layerB');
-    const status  = document.getElementById('status');
-  
-    let currentLayer = layerA, backLayer = layerB;
-    let pageIndex = 1;
-    let imgEl = null;
-  
-    /* zoom/pan breytur (óbreyttar frá fyrri útgáfu) */
-    const pointers = new Map();
-    let startMid = null, startDist = 0, startScale = 1, startTx = 0, startTy = 0;
-    let scale = 1, tx = 0, ty = 0;
-    let oneStart = null;
-    let rafPending = false;
-  
-    const clamp = (v,min,max)=>Math.max(min,Math.min(max,v));
-    function setTransform(){ if(!imgEl) return; imgEl.style.transform=`translate3d(${tx}px, ${ty}px, 0px) scale(${scale})`; }
-    function scheduleDraw(){ if(rafPending) return; rafPending=true; requestAnimationFrame(()=>{ setTransform(); rafPending=false; }); }
-    function resetTransform(animate=false){ scale=1; tx=0; ty=0; if(!imgEl) return; imgEl.style.transition=animate?'transform 180ms ease':'none'; setTransform(); if(animate) imgEl.addEventListener('transitionend',()=>{imgEl.style.transition='none';},{once:true}); }
-    function containerSize(){ const r = viewer.getBoundingClientRect(); return {w:r.width,h:r.height}; }
-    function clampPan(){ const {w,h}=containerSize(); const maxX=(w*(scale-1))/2; const maxY=(h*(scale-1))/2; tx=clamp(tx,-maxX,maxX); ty=clamp(ty,-maxY,maxY); }
-    function announce(msg){ status.textContent = msg; }
-  
-    /* Reynir að hlaða fyrstu virku slóðinni úr candidates[] */
-    function loadBestImage(index, candidates, onload, onfail){
-      const layer = document.createElement('div'); // notað tímabundið
-      let k = 0;
-      function tryNext(){
-        if (k >= candidates.length) { onfail && onfail(); return; }
-        const src = candidates[k++];
-        const im = new Image();
-        im.decoding = 'async';
-        im.loading = 'eager';
-        im.alt = `Síða ${index} af ${TOTAL_PAGES}`;
-        im.className = 'page';
-        im.src = src;
-        im.onload = ()=> onload && onload(im, src);
-        im.onerror = ()=> tryNext(); // prófa næstu slóð
-        layer.replaceChildren(im); // halda eina til að losa minnið
-      }
-      tryNext();
-    }
-  
-    function renderError(layer, index){
-      const card = document.createElement('div');
-      card.className = 'error';
-      card.innerHTML = `
-        🤷‍♂️ Gat ekki fundið <b>síðu ${index}</b>.<br>
-        Prófaði margar skrár (AVIF/WebP/JPG/PNG).<br><br>
-        Athugaðu:<br>
-        • Er mappan <b>${BASE_DIR}/</b> til?<br>
-        • Heitir skráin <b>${String(index).padStart(3,'0')}.jpg</b> eða sambærilegt?<br>
-        • Er há/lág stafsetning rétt (t.d. .JPG vs .jpg)?<br>
-        • Er vefurinn keyrður yfir <b>http(s)</b> frekar en file:// á iOS?
-      `;
-      layer.replaceChildren(card);
-    }
-  
-    function loadInto(layer, index, done){
-      layer.innerHTML = '';
-      const candidates = candidatePaths(index);
-      loadBestImage(index, candidates, (img, src)=>{
-        layer.replaceChildren(img);
-        done && done(img, src);
-      }, ()=>{
-        renderError(layer, index);
-        done && done(null, null);
+    (function(){
+      const track = document.getElementById('track');
+      const slides = Array.from(track.children);
+      const dotsWrap = document.getElementById('dots');
+      const prev = document.getElementById('prev');
+      const next = document.getElementById('next');
+
+      // Búa til punkta
+      slides.forEach((_, i) => {
+        const b = document.createElement('button');
+        b.className = 'dot';
+        b.type = 'button';
+        b.setAttribute('aria-label', `Fara á mynd ${i+1}`);
+        b.addEventListener('click', () => goTo(i));
+        dotsWrap.appendChild(b);
       });
-    }
-  
-    function preloadNeighbors(i){
-      const next = i+1<=TOTAL_PAGES ? candidatePaths(i+1)[0] : null;
-      const prev = i-1>=1 ? candidatePaths(i-1)[0] : null;
-      [next, prev].filter(Boolean).forEach(src => { const im=new Image(); im.src=src; });
-    }
-  
-    function showPage(index, direction=null){
-      index = clamp(index, 1, TOTAL_PAGES);
-      if (index === pageIndex && !direction) return;
-  
-      const oldLayer = currentLayer;
-      const newLayer = backLayer;
-      newLayer.hidden = false;
-  
-      loadInto(newLayer, index, (newImg, usedSrc)=>{
-        imgEl = newImg; // getur verið null ef allt brást
-        resetTransform(false);
-  
-        const enterClass = direction==='next' ? 'slide-in-next' : direction==='prev' ? 'slide-in-prev' : '';
-        const exitActive = direction==='next' ? 'slide-out-active-next' : direction==='prev' ? 'slide-out-active-prev' : '';
-  
-        if (direction) {
-          newLayer.classList.add(enterClass);
-          newLayer.getBoundingClientRect(); // reflow
-          newLayer.classList.add('slide-in-active');
-          oldLayer.classList.add(direction==='next' ? 'slide-out-next' : 'slide-out-prev', exitActive);
-        }
-  
-        const finalize = ()=>{
-          oldLayer.className = 'layer';
-          newLayer.className = 'layer';
-          oldLayer.hidden = true;
-          [currentLayer, backLayer] = [newLayer, oldLayer];
-          pageIndex = index;
-          announce(`Síða ${pageIndex} af ${TOTAL_PAGES}${usedSrc?` – ${usedSrc}`:''}`);
-          preloadNeighbors(pageIndex);
-        };
-  
-        if (direction) {
-          const onEnd = (ev)=>{ if (ev.target!==newLayer) return; newLayer.removeEventListener('transitionend', onEnd); finalize(); };
-          newLayer.addEventListener('transitionend', onEnd);
-        } else {
-          finalize();
-        }
+
+      function index(){
+        const w = track.clientWidth;
+        const i = Math.round(track.scrollLeft / w);
+        return Math.max(0, Math.min(slides.length-1, i));
+      }
+      function goTo(i){
+        track.scrollTo({ left: track.clientWidth * i, behavior: 'smooth' });
+        paint(i);
+      }
+      function paint(i = index()){
+        dotsWrap.querySelectorAll('.dot').forEach((d, n) =>
+          d.setAttribute('aria-current', n === i ? 'true' : 'false')
+        );
+      }
+      function nextSlide(){ goTo(Math.min(index()+1, slides.length-1)); }
+      function prevSlide(){ goTo(Math.max(index()-1, 0)); }
+
+      // Atburðir
+      track.addEventListener('scroll', () => { window.requestAnimationFrame(paint); });
+      next.addEventListener('click', nextSlide);
+      prev.addEventListener('click', prevSlide);
+
+      // Lyklaborð
+      track.tabIndex = 0;
+      track.addEventListener('keydown', (e)=>{
+        if(e.key === 'ArrowRight') nextSlide();
+        if(e.key === 'ArrowLeft')  prevSlide();
       });
-    }
-  
-    // Byrja á síðu 1
-    showPage(pageIndex);
-  
-    /* ====== GESTURES (óbreytt að mestu) ====== */
-    viewer.addEventListener('pointerdown', (e) => {
-      viewer.setPointerCapture(e.pointerId);
-      pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
-      if (pointers.size === 1) oneStart = { x: e.clientX, y: e.clientY, t: performance.now() };
-      if (pointers.size === 2) {
-        const pts = Array.from(pointers.values());
-        startDist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
-        startMid  = { x: (pts[0].x + pts[1].x) / 2, y: (pts[1].y + pts[0].y) / 2 }; // miðja
-        startScale = scale; startTx = tx; startTy = ty;
-      }
-    }, { passive: true });
-  
-    viewer.addEventListener('pointermove', (e) => {
-      if (!pointers.has(e.pointerId)) return;
-      pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
-  
-      if (pointers.size === 2) {
-        e.preventDefault();
-        const pts = Array.from(pointers.values());
-        const dist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
-        if (startDist > 0) {
-          const raw = startScale * (dist / startDist);
-          const newScale = clamp(raw, 1, 4);
-          const cx = startMid.x, cy = startMid.y;
-          const contentX = (cx - startTx) / startScale;
-          const contentY = (cy - startTy) / startScale;
-          scale = newScale;
-          tx = cx - contentX * scale;
-          ty = cy - contentY * scale;
-          clampPan(); scheduleDraw();
-        }
-        return;
-      }
-  
-      if (pointers.size === 1 && scale > 1.01) {
-        e.preventDefault();
-        const p = pointers.get(e.pointerId);
-        const dx = p.x - oneStart.x;
-        const dy = p.y - oneStart.y;
-        tx = startTx + dx;
-        ty = startTy + dy;
-        clampPan(); scheduleDraw();
-      }
-    }, { passive: false });
-  
-    function clearPointer(e){
-      if (!pointers.has(e.pointerId)) return;
-      pointers.delete(e.pointerId);
-      if (pointers.size < 2) { startDist = 0; startMid = null; startScale = scale; startTx = tx; startTy = ty; }
-      if (pointers.size === 0 && oneStart) {
-        const dx = e.clientX - oneStart.x;
-        const dy = e.clientY - oneStart.y;
-        const dt = performance.now() - oneStart.t;
-        oneStart = null;
-        if (scale <= 1.03) {
-          const horiz = Math.abs(dx) > 60 && Math.abs(dy) < 80;
-          const quick = dt < 500;
-          if (horiz && quick) {
-            if (dx < 0 && pageIndex < TOTAL_PAGES)      showPage(pageIndex + 1, 'next');
-            else if (dx > 0 && pageIndex > 1)           showPage(pageIndex - 1, 'prev');
-          }
-        } else { clampPan(); scheduleDraw(); }
-      }
-    }
-    ['pointerup','pointercancel','pointerleave'].forEach(t=>viewer.addEventListener(t, clearPointer, { passive:true }));
-  
-    // double-tap zoom
-    let lastTap = 0;
-    viewer.addEventListener('pointerdown', (e) => {
-      const now = performance.now();
-      if (now - lastTap < 280 && pointers.size === 1) {
-        if (scale > 1.01) resetTransform(true);
-        else {
-          const targetScale = 2;
-          const cx = e.clientX, cy = e.clientY;
-          const contentX = (cx - tx) / scale;
-          const contentY = (cy - ty) / scale;
-          scale = targetScale;
-          tx = cx - contentX * scale;
-          ty = cy - contentY * scale;
-          clampPan();
-          imgEl && (imgEl.style.transition = 'transform 180ms ease');
-          setTransform();
-          imgEl && imgEl.addEventListener('transitionend', ()=>{ imgEl.style.transition='none'; }, { once:true });
-        }
-      }
-      lastTap = now;
-    }, { passive: true });
-  
-    window.addEventListener('keydown', (e) => {
-      if ((e.key==='ArrowRight'||e.key==='PageDown') && pageIndex<TOTAL_PAGES && scale<=1.03) showPage(pageIndex+1,'next');
-      else if ((e.key==='ArrowLeft'||e.key==='PageUp') && pageIndex>1 && scale<=1.03) showPage(pageIndex-1,'prev');
-      else if (e.key==='Escape') resetTransform(true);
-    });
-  
-    document.addEventListener('gesturestart', (e) => e.preventDefault());
-    viewer.addEventListener('pointerdown', () => { if (scale>1.01){ startTx=tx; startTy=ty; } }, { passive:true });
-  
-    announce(`Síða ${pageIndex} af ${TOTAL_PAGES}`);
+
+      // Upphaf
+      paint(0);
+    })();
   </script>
+</body>
+</html>
