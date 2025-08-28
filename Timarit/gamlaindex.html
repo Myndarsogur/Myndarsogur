@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Myndablogg</title>
+
+  <!-- ====== Letur ====== -->
+  <!-- Settu þínar eigin slóðir í src: hér fyrir neðan -->
+  <style>
+   @font-face {
+  font-family: "CCBiffBamBoom W00 Regular";
+  src: url("https://db.onlinewebfonts.com/t/61e13817d1cc1fcfc870b062e2d09646.eot");
+  src: url("https://db.onlinewebfonts.com/t/61e13817d1cc1fcfc870b062e2d09646.eot?#iefix") format("embedded-opentype"),
+       url("https://db.onlinewebfonts.com/t/61e13817d1cc1fcfc870b062e2d09646.woff2") format("woff2"),
+       url("https://db.onlinewebfonts.com/t/61e13817d1cc1fcfc870b062e2d09646.woff") format("woff"),
+       url("https://db.onlinewebfonts.com/t/61e13817d1cc1fcfc870b062e2d09646.ttf") format("truetype"),
+       url("https://db.onlinewebfonts.com/t/61e13817d1cc1fcfc870b062e2d09646.svg#CCBiffBamBoom W00 Regular") format("svg");
+  font-display: swap;
+}
+   /* Comic Book Normal */
+   @font-face {
+    font-family: "Comic Book Normal";
+    src: url("https://db.onlinewebfonts.com/t/e47b24293d67a1c431010d26d708494b.eot");
+    src: url("https://db.onlinewebfonts.com/t/e47b24293d67a1c431010d26d708494b.eot?#iefix") format("embedded-opentype"),
+         url("https://db.onlinewebfonts.com/t/e47b24293d67a1c431010d26d708494b.woff2") format("woff2"),
+         url("https://db.onlinewebfonts.com/t/e47b24293d67a1c431010d26d708494b.woff") format("woff"),
+         url("https://db.onlinewebfonts.com/t/e47b24293d67a1c431010d26d708494b.ttf") format("truetype"),
+         url("https://db.onlinewebfonts.com/t/e47b24293d67a1c431010d26d708494b.svg#Comic Book Normal") format("svg");
+    font-display: swap;
+  }
+  </style>
+
+  <!-- ====== Stílar ====== -->
+  <style>
+    /* LITAPALLETTAN (úr myndinni) */
+    :root{
+      --bg:      #F6CF75; /* gulleitur bakgrunnur */
+      --paper:   #F3E1C4; /* ljós-beige */
+      --off:     #FCFAF5; /* mjúkt hvítt */
+      --green:   #A9C3B3; /* mildur grænn */
+      --blue-1:  #DFE7ED; /* ljósblár 1 */
+      --blue-2:  #CFE0E8; /* ljósblár 2 */
+      --orange:  #F2A31C; /* appelsínugulur (accent) */
+      --red:     #D62839; /* rauður – nota sparlega */
+      --ink:     #1A1A1A; /* svartur texti */
+      --shadow:  0 8px 24px rgba(0,0,0,.08);
+      --radius:  14px;
+      --maxw:    940px;
+    }
+
+    html,body{
+      background: var(--bg);
+      color: var(--ink);
+      margin: 0;
+      padding: 0;
+      font-family: "Comic Book Normal", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* Haus */
+    .site{
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 18px clamp(16px, 4vw, 28px) 48px;
+    }
+    header.site-head{
+      display:flex; align-items:center; justify-content:space-between;
+      gap: 12px; padding: 12px 0 6px;
+    }
+    .brand{
+      font-family: "CCBiffBamBoom W00 Regular", Georgia, "Times New Roman", serif;
+      font-size: clamp(100px, 5vw, 56px);
+      line-height: 1.05;
+      letter-spacing:.3px;
+      margin: 0;
+      color: #FCFAF5;
+      text-wrap: balance;
+      /* Add these new properties */
+    -webkit-text-stroke: 2px #000; /* Stroke width and color */
+    text-: -8px 8px 2px rgba(3, 4, 2, 1); /* Drop shadow: x-offset y-offset blur color */
+    }
+    .tagline{
+      font-size: .98rem;
+      margin: 0;
+      opacity: .8;
+    }
+
+    /* RENNINGUR (8 myndir, snerting + lyklaborð) */
+    .carousel{
+      position: relative;
+      margin: 18px 0 28px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      background: var(--off);
+    }
+    .carousel__track{
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 100%;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .carousel__track::-webkit-scrollbar{ display:none; }
+
+    .slide{
+      position: relative;
+      scroll-snap-align: center;
+      display: grid;
+      place-items: center;
+      padding: clamp(8px, 2vw, 12px);
+    }
+    /* B5 hlutfall (176x250 ~ 0.704) */
+    .frame{
+      width: min(100%, 520px);
+      aspect-ratio: 176 / 250;
+      background: var(--paper);
+      border-radius: calc(var(--radius) - 6px);
+      overflow: hidden;
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,.04);
+      display: grid; place-items: center;
+    }
+    .frame img{
+      width:100%; height:100%; object-fit: cover;
+      display:block;
+    }
+
+    .carousel__dots{
+      position: absolute; inset: auto 0 10px 0;
+      display:flex; justify-content:center; gap:8px;
+      pointer-events: none;
+    }
+    .dot{
+      width:8px; height:8px; border-radius:999px;
+      background: rgba(0,0,0,.18);
+      outline: none; border: 0;
+      pointer-events: auto;
+    }
+    .dot[aria-current="true"]{ background: var(--orange); }
+
+    .carousel__buttons{
+      position:absolute; inset:0;
+      display:flex; align-items:center; justify-content:space-between;
+      pointer-events:none;
+    }
+    .btn{
+      pointer-events:auto;
+      border:0; background:rgba(0,0,0,.0); color:#000;
+      width:46px; height:46px; border-radius:999px;
+      margin: 0 6px;
+      display:grid; place-items:center;
+      transition: transform .12s ease;
+    }
+    .btn:hover{ transform: scale(1.04); }
+    .btn svg{ width:22px; height:22px; }
+
+    /* Kort / greinar */
+    .grid{
+      display:grid;
+      gap: clamp(14px, 2.6vw, 22px);
+      margin-top: 8px;
+    }
+    article.card{
+      background: var(--paper);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: clamp(16px, 3vw, 24px);
+    }
+    .card--white{ background: var(--off); color: var(--ink); }
+    .card--red{ background: var (--red); color: #fff; }
+    .card h2{
+      font-family: "CCBiffBamBoom W00 Regular", Georgia, "Times New Roman", serif;
+      font-weight: 700;
+      font-size: clamp(22px, 3.6vw, 34px);
+      line-height: 1.15;
+      margin: 0 0 8px;
+    }
+    .meta{ opacity:.75; font-size:.95rem; margin-bottom: 10px; }
+    .card p{ margin: 0 0 10px; }
+    .card a{ color: inherit; text-decoration-thickness: .1em; text-underline-offset: .18em; }
+    .chip{
+      display:inline-block; font-size:.8rem; font-weight:600;
+      background: var(--blue-2); color:#0b1c22;
+      padding:.32em .66em; border-radius:999px;
+      margin-right:.4em;
+    }
+    .chip--red{ background: var(--red); color:#fff; } /* rauður – nota sparlega */
+
+    /* Smá „prófessional polish“ */
+    .bar{
+      height: 6px; width: 100%;
+      background: linear-gradient(90deg, var(--green), var(--blue-1), var(--blue-2), var(--orange));
+      border-radius: 999px;
+      opacity:.55; margin: 10px 0 18px;
+    }
+
+    /* Aðgengi + fínstillingar */
+    @media (prefers-reduced-motion: reduce){
+      *{ animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    }
+    @media (min-width: 760px){
+      .grid{ grid-template-columns: repeat(12, 1fr); }
+      .card{ grid-column: span 12; }
+      .card--white{ grid-column: span 7; }
+      .card--red{ grid-column: span 5; }
+    }
+    h1 {
+  font-family: "CCBiffBamBoom W00 Regular", sans-serif;
+}
+
+  </style>
+</head>
+
+<body>
+  <div class="site">
+    <header class="site-head" role="banner">
+      <h1 class="brand">Ull</h1>
+      
+      <p class="tagline">Myndasögur  fræðandi &amp; fróðlegar frásagnir</p>
+    </header>
+
+    <div class="bar" aria-hidden="true"></div>
+
+    <!-- ====== MYNDARENNA (8 myndir frá Imgur) ====== -->
+    <section class="carousel" aria-label="Safnið – strjúktu til að fletta">
+      <div class="carousel__track" id="track" role="group" aria-roledescription="slide">
+        <!-- Skiptu út imgur-slóðum eins og þú vilt -->
+        <div class="slide"><figure class="frame"><img src="myndir/mynd7.png" alt="Einar" loading="lazy" /></figure></div>
+        <div class="slide"><figure class="frame"><img src="myndir/mynd3.jpeg" alt="Lóa" loading="lazy" /></figure></div>
+        <div class="slide"><figure class="frame"><img src="myndir/mynd4.jpeg" alt="Alex" loading="lazy" /></figure></div>
+        <div class="slide"><figure class="frame"><img src="myndir/mynd5.png" alt="Moira" loading="lazy" /></figure></div>
+        <div class="slide"><figure class="frame"><img src="myndir/mynd6.png" alt="Mynd 5" loading="lazy" /></figure></div>
+        <div class="slide"><figure class="frame"><img src="myndir/mynd7.png" alt="Mynd 6" loading="lazy" /></figure></div>
+        <div class="slide"><figure class="frame"><img src="myndir/mynd8.png" alt="Mynd 7" loading="lazy" /></figure></div>
+        <div class="slide"><figure class="frame"><img src="myndir/mynd2.png" alt="Mynd 8" loading="lazy" /></figure></div>
+      </div>
+
+      <!-- stýringar -->
+      <div class="carousel__buttons" aria-hidden="true">
+        <button class="btn" id="prev" aria-label="Fara á fyrri mynd">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button class="btn" id="next" aria-label="Fara á næstu mynd">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+
+      <div class="carousel__dots" id="dots" aria-label="Stillingar renningar"></div>
+    </section>
+
+    <!-- ====== BLOGG – 3 dæmi (allar myndir frá Imgur) ====== -->
+    <main class="grid" id="blogg" role="main">
+      <article class="card card--white">
+        <header>
+          <span class="chip">Myndasögur</span>
+          <h2>Gulir tónar og mjúkt ljós</h2>
+          <p class="meta">8. september 2025 · 3 mín. lestur</p>
+        </header>
+        <p>
+          Tilraun með hlýja litatóna þar sem bakgrunnur og efni tala saman.
+          Myndin hér að neðan er í blaðastærð B5 svo hún fellur fallega að renningnum.
+        </p>
+        <figure class="frame" style="margin:12px 0;">
+          <img src="https://i.imgur.com/7c4s1lQ.jpg" alt="Gulleit mynd í mjúku ljósi" loading="lazy">
+        </figure>
+        <p>
+          Litapallettan á síðunni styður söguna: <em>mjúkir bláir</em> og <em>grænir</em> tónar
+          fyrir ró, <strong>appelsínugulur</strong> sem hressandi áherslulitur og
+          <strong>rauður</strong> mjög sparlega þegar þarf að draga sérstaklega fram atriði.
+        </p>
+        <footer><small>Merki: <span class="chip">Litur</span> <span class="chip">Ljós</span></small></footer>
+      </article>
+
+      <article class="card">
+        <header>
+          <span class="chip">Bak við tjöldin</span>
+          <h2>Uppsetning &amp; flæði</h2>
+          <p class="meta">1. september 2025 · 2 mín. lestur</p>
+        </header>
+        <p>
+          Vefsíðan er hugsuð fyrir farsíma: strjúktu til að fletta á milli mynda,
+          eða notaðu örvatakka. Kortin (greinarnar) halda textanum léttum og aðgengilegum.
+        </p>
+        <figure class="frame" style="margin:12px 0;">
+          <img src="https://i.imgur.com/4aYwJpZ.jpg" alt="Mynd af uppsetningu og flæði" loading="lazy">
+        </figure>
+        <p>
+          Allt er útbúið með vandaðri leturgerð:
+          titlar nota <strong>CCBiffBamBoom</strong> en megintexti <strong>cckissandtell</strong>.
+          Ef letur vantar skiptir vefurinn yfir í örugg varaletur.
+        </p>
+      </article>
+
+      <article class="card card--red">
+        <header>
+          <span class="chip chip--red" aria-label="Áherslumerki">Nýtt blað!</span>
+          <h2>Nýtt blað nú loksins komið út</h2>
+          <p class="meta">23. ágúst 2025 · 1 mín. lestur</p>
+        </header>
+        <p>
+          Nú loksins í fyrsta sinn á íslandi er komið af stað mánaðarlegt rit með íslenskum myndasögum. Vá hvað við tökum því fagnandi að koma því loksins af stað.  
+          Á næstu vikum munu svo birtast hérna sögurnar úr þessu fyrsta blaði og svo loks mun koma út annað blað eftir þrjá mánuði. Við hlökkum til að fá þig inn í áskrift.
+          Skráðu þig núna og fáðu þitt eintak sent beint heim að dyrum.
+        </p>
+        <figure class="frame" style="margin:12px 0;">
+          <img src="myndir/mynd1.png" alt="Rauður rammi með hvítum texta" loading="lazy">
+        </figure>
+        <p><a href="#track" style="text-decoration: underline;">Sjáðu yfirlit yfir allar sögurnar hér efst á síðunni</a>.</p>
+      </article>
+    </main>
+  </div>
+
+  <!-- ====== Hegðun renningar ====== -->
+  <script>
+    (function(){
+      const track = document.getElementById('track');
+      const slides = Array.from(track.children);
+      const dotsWrap = document.getElementById('dots');
+      const prev = document.getElementById('prev');
+      const next = document.getElementById('next');
+
+      // Búa til punkta
+      slides.forEach((_, i) => {
+        const b = document.createElement('button');
+        b.className = 'dot';
+        b.type = 'button';
+        b.setAttribute('aria-label', `Fara á mynd ${i+1}`);
+        b.addEventListener('click', () => goTo(i));
+        dotsWrap.appendChild(b);
+      });
+
+      function index(){
+        const w = track.clientWidth;
+        const i = Math.round(track.scrollLeft / w);
+        return Math.max(0, Math.min(slides.length-1, i));
+      }
+      function goTo(i){
+        track.scrollTo({ left: track.clientWidth * i, behavior: 'smooth' });
+        paint(i);
+      }
+      function paint(i = index()){
+        dotsWrap.querySelectorAll('.dot').forEach((d, n) =>
+          d.setAttribute('aria-current', n === i ? 'true' : 'false')
+        );
+      }
+      function nextSlide(){ goTo(Math.min(index()+1, slides.length-1)); }
+      function prevSlide(){ goTo(Math.max(index()-1, 0)); }
+
+      // Atburðir
+      track.addEventListener('scroll', () => { window.requestAnimationFrame(paint); });
+      next.addEventListener('click', nextSlide);
+      prev.addEventListener('click', prevSlide);
+
+      // Lyklaborð
+      track.tabIndex = 0;
+      track.addEventListener('keydown', (e)=>{
+        if(e.key === 'ArrowRight') nextSlide();
+        if(e.key === 'ArrowLeft')  prevSlide();
+      });
+
+      // Upphaf
+      paint(0);
+    })();
+  </script>
+</body>
+</html>
