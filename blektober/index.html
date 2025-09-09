@@ -6,12 +6,12 @@
   <title>Inktober – Margir listamenn • Mánuðaryfirlit</title>
   <style>
     :root {
-      --bg: #0f1115;
-      --panel: #151821;
-      --ink: #e6e6e6;
-      --accent: #7aa2f7;
-      --muted: #8b8fa3;
-      --ring: #2b3245;
+      --bg: #ffffff;
+      --panel: #ffffff;
+      --ink: #000000;
+      --accent: #ffffff;
+      --muted: #ffffff;
+      --ring: #ffffff;
     }
     * { box-sizing: border-box; }
     html, body { height: 100%; }
@@ -21,7 +21,7 @@
     }
     header {
       position: sticky; top: 0; z-index: 10;
-      background: linear-gradient(180deg, rgba(15,17,21,.98), rgba(15,17,21,.9));
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.9));
       border-bottom: 1px solid var(--ring);
       padding: 12px clamp(12px, 4vw, 28px);
       display: grid; gap: 10px;
@@ -79,17 +79,17 @@
     /* Modal */
     .modal {
       position: fixed; inset: 0; display: none; align-items: center; justify-content: center;
-      background: rgba(0,0,0,.84); z-index: 50; padding: 18px; backdrop-filter: blur(2px);
+      background: rgba(252, 251, 251, 0.84); z-index: 50; padding: 18px; backdrop-filter: blur(2px);
     }
     .modal.open { display: flex; }
     .modal-card {
-      width: min(100%, 1100px); background: #0b0d12; border: 1px solid var(--ring); border-radius: 16px; overflow: hidden;
+      width: min(100%, 1100px); background: #ffffff; border: 1px solid var(--ring); border-radius: 16px; overflow: hidden;
       display: grid; grid-template-rows: auto 1fr auto; max-height: 90vh;
     }
-    .modal-header, .modal-footer { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 12px; background: #0f131b; }
+    .modal-header, .modal-footer { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 12px; background: #ffffff; }
     .modal-body { position: relative; overflow: hidden; }
     .viewer {
-      position: relative; width: 100%; height: 100%; display: grid; place-items: center; overflow: auto; background: #0b0d12;
+      position: relative; width: 100%; height: 100%; display: grid; place-items: center; overflow: auto; background: #ffffff;
     }
     .viewer img { max-width: 100%; max-height: 80vh; transition: transform .15s ease; }
     .viewer img.zoomed { transform: scale(1.8); transform-origin: center center; }
@@ -106,8 +106,8 @@
 <body>
   <header>
     <div class="title">
-      <h1>Inktober – Mánuðaryfirlit</h1>
-      <div class="legend"><span class="dot"></span><span class="sub">Smelltu á dag til að opna mynd • Smelltu á mynd til að stækka/minnka</span></div>
+        <img src="inktoberlogo.png" width="300" height="100" alt="Inktober – Mánuðaryfirlit" style="display:block" />
+        <div class="legend"><span class=""></span><span class="sub"></span></div>
     </div>
     <div class="row">
       <label class="sub" for="artistSelect">Veldu listamann:</label>
@@ -128,8 +128,8 @@
           <h2 style="margin:.2rem 0 0;font-size:1.25rem" id="artistTitle">&nbsp;</h2>
         </div>
         <div class="kbar">
-          <button id="openAll" class="ghost">Opna dagatal í spretti</button>
-          <button id="closeAll" class="ghost">Loka öllum</button>
+          <button id="openAll" class="ghost"></button>
+          <button id="closeAll" class="ghost"></button>
         </div>
       </div>
       <div class="calendar" id="calendarGrid" role="grid" aria-label="Dagatal – Október"></div>
@@ -142,10 +142,11 @@
       <div class="modal-header">
         <strong id="modalTitle">&nbsp;</strong>
         <div class="kbar">
-          <button id="zoomBtn">Stækka/Minnka</button>
-          <button id="openImgBtn" class="ghost">Opna á Imgur</button>
-          <button id="closeBtn">Loka</button>
-        </div>
+          <button id="zoomBtn" class="ghost"hidden>🔎</button>
+          <button id="openImgBtn" class="ghost"hidden>Opna á Imgur</button>
+          <button id="closeBtn" class="icon-btn" aria-label="Loka">
+            <img src="lokax.png" width="40" height="40" alt="Loka">
+          </button>        </div>
       </div>
       <div class="modal-body">
         <div class="viewer" id="viewer">
@@ -155,8 +156,8 @@
       <div class="modal-footer">
         <span class="hint">Tvísmelltu eða notaðu hnapp til að stækka/minnka. Dragðu til að skoða þegar stækkað.</span>
         <div class="kbar">
-          <button id="prevBtn" class="ghost" title="Fyrri dagur">◀</button>
-          <button id="nextBtn" class="ghost" title="Næsti dagur">▶</button>
+          <button id="prevBtn" class="ghost" title="Fyrri dagur"> <img src="vinstrior.png" width="40" height="40" alt="Loka"></button>
+          <button id="nextBtn" class="ghost" title="Næsti dagur"><img src="haegrior.png" width="40" height="40" alt="Loka"></button>
         </div>
       </div>
     </div>
