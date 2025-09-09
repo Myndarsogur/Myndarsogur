@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Inktober – Margir listamenn • Mánuðaryfirlit</title>
+  <style>
+    :root {
+      --bg: #0f1115;
+      --panel: #151821;
+      --ink: #e6e6e6;
+      --accent: #7aa2f7;
+      --muted: #8b8fa3;
+      --ring: #2b3245;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0; background: var(--bg); color: var(--ink);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+    header {
+      position: sticky; top: 0; z-index: 10;
+      background: linear-gradient(180deg, rgba(15,17,21,.98), rgba(15,17,21,.9));
+      border-bottom: 1px solid var(--ring);
+      padding: 12px clamp(12px, 4vw, 28px);
+      display: grid; gap: 10px;
+    }
+    .title {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    h1 { font-size: clamp(18px, 2.4vw, 26px); margin: 0; letter-spacing: .3px; }
+    .sub { color: var(--muted); font-size: .95rem; }
+    .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+    select, button, input[type="search"] {
+      appearance: none; border: 1px solid var(--ring); background: var(--panel);
+      color: var(--ink); padding: 10px 12px; border-radius: 12px; font-size: .95rem;
+    }
+    button { cursor: pointer; }
+
+    .layout {
+      display: grid; grid-template-columns: 280px 1fr; gap: 16px;
+      padding: 16px clamp(12px, 4vw, 28px); max-width: 1400px; margin: 0 auto;
+    }
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+    }
+
+    /* Sidebar */
+    .sidebar { background: var(--panel); border: 1px solid var(--ring); border-radius: 16px; padding: 12px; }
+    .artist-card { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center; padding: 10px; border-radius: 12px; border: 1px solid transparent; }
+    .artist-card.active { border-color: var(--accent); background: rgba(122,162,247,.07); }
+    .artist-card:hover { background: rgba(255,255,255,.04); cursor: pointer; }
+    .avatar { width: 36px; height: 36px; border-radius: 50%; background: #2a2f3f; display: grid; place-items: center; font-weight: 700; }
+    .muted { color: var(--muted); font-size: .9rem; }
+    .add-slot { opacity: .6; border: 1px dashed var(--ring); }
+
+    /* Calendar */
+    .panel { background: var(--panel); border: 1px solid var(--ring); border-radius: 16px; padding: 12px; }
+    .panel-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 6px 12px; }
+    .calendar {
+      display: grid; gap: 8px; grid-template-columns: repeat(7, 1fr);
+    }
+    @media (max-width: 700px) {
+      .calendar { grid-template-columns: repeat(5, 1fr); }
+    }
+    .day {
+      position: relative; border: 1px solid var(--ring); border-radius: 12px; overflow: hidden;
+      background: #0c0e13; aspect-ratio: 1/1; display: grid; place-items: center; text-align: center;
+      padding: 6px; isolation: isolate; cursor: pointer;
+      transition: transform .12s ease, border-color .12s ease, box-shadow .12s ease;
+    }
+    .day:hover { transform: translateY(-2px); border-color: var(--accent); box-shadow: 0 6px 18px rgba(0,0,0,.35); }
+    .day.disabled { cursor: default; opacity: .5; }
+    .badge { position: absolute; top: 6px; left: 6px; font-size: .8rem; color: var(--muted); background: rgba(255,255,255,.04); padding: 3px 6px; border-radius: 8px; }
+    .thumb { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); mix-blend-mode: screen; opacity: .9; }
+    .thumb.missing { object-fit: contain; opacity: .5; filter: none; }
+
+    /* Modal */
+    .modal {
+      position: fixed; inset: 0; display: none; align-items: center; justify-content: center;
+      background: rgba(0,0,0,.84); z-index: 50; padding: 18px; backdrop-filter: blur(2px);
+    }
+    .modal.open { display: flex; }
+    .modal-card {
+      width: min(100%, 1100px); background: #0b0d12; border: 1px solid var(--ring); border-radius: 16px; overflow: hidden;
+      display: grid; grid-template-rows: auto 1fr auto; max-height: 90vh;
+    }
+    .modal-header, .modal-footer { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 12px; background: #0f131b; }
+    .modal-body { position: relative; overflow: hidden; }
+    .viewer {
+      position: relative; width: 100%; height: 100%; display: grid; place-items: center; overflow: auto; background: #0b0d12;
+    }
+    .viewer img { max-width: 100%; max-height: 80vh; transition: transform .15s ease; }
+    .viewer img.zoomed { transform: scale(1.8); transform-origin: center center; }
+    .hint { color: var(--muted); font-size: .9rem; }
+
+    .kbar { display: flex; gap: 8px; }
+    .kbar button { border-radius: 10px; }
+    .ghost { background: transparent; border-color: var(--ring); }
+
+    .legend { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .dot { width: 10px; height: 10px; border-radius: 99px; background: var(--accent); box-shadow: 0 0 0 3px rgba(122,162,247,.2); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="title">
+      <h1>Inktober – Mánuðaryfirlit</h1>
+      <div class="legend"><span class="dot"></span><span class="sub">Smelltu á dag til að opna mynd • Smelltu á mynd til að stækka/minnka</span></div>
+    </div>
+    <div class="row">
+      <label class="sub" for="artistSelect">Veldu listamann:</label>
+      <select id="artistSelect" aria-label="Veldu listamann"></select>
+      <div class="sub" id="artistMeta"></div>
+    </div>
+  </header>
+
+  <main class="layout">
+    <!-- Sidebar: artists (3 ready + 6 empty slots) -->
+    <aside class="sidebar" id="artistList" aria-label="Listi af listamönnum"></aside>
+
+    <!-- Calendar panel -->
+    <section class="panel">
+      <div class="panel-header">
+        <div>
+          <div class="sub">Október</div>
+          <h2 style="margin:.2rem 0 0;font-size:1.25rem" id="artistTitle">&nbsp;</h2>
+        </div>
+        <div class="kbar">
+          <button id="openAll" class="ghost">Opna dagatal í spretti</button>
+          <button id="closeAll" class="ghost">Loka öllum</button>
+        </div>
+      </div>
+      <div class="calendar" id="calendarGrid" role="grid" aria-label="Dagatal – Október"></div>
+    </section>
+  </main>
+
+  <!-- Modal viewer -->
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Myndasýsla">
+    <div class="modal-card">
+      <div class="modal-header">
+        <strong id="modalTitle">&nbsp;</strong>
+        <div class="kbar">
+          <button id="zoomBtn">Stækka/Minnka</button>
+          <button id="openImgBtn" class="ghost">Opna á Imgur</button>
+          <button id="closeBtn">Loka</button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="viewer" id="viewer">
+          <img id="viewerImg" alt="Inktober mynd" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <span class="hint">Tvísmelltu eða notaðu hnapp til að stækka/minnka. Dragðu til að skoða þegar stækkað.</span>
+        <div class="kbar">
+          <button id="prevBtn" class="ghost" title="Fyrri dagur">◀</button>
+          <button id="nextBtn" class="ghost" title="Næsti dagur">▶</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ---- DÆMI GÖGN ---------------------------------------------------------
+    // ATH: Allar slóðir verða að vera IMGUR hlekkir (https://i.imgur.com/...).
+    // Þú getur skipt þeim út síðar. Til að sýna "fullan lista" eru hér settar
+    // tilviks-slóðir (margar endurnýttar). Ef slóð vantar, sýnir dagurinn bara númer.
+
+    const img = (id) => `https://i.imgur.com/${id}.jpg`; // hjálparfall
+
+    const artists = [
+      {
+        id: 'artist-aurora',
+        name: 'Auróra Aðalsteins',
+        handle: '@aurora_ink',
+        avatar: 'A',
+        // 31 mynd – skipta út eftir þörfum
+        days: Array.from({length:31}, (_,i)=> img([
+          'QZ8e7uV','R3YF3fS','I2h8r9L','tK1mN2b','nP3xQ7w','xYz12Ab','4LmNopQ','Zx91Klv','cDe45Fg','hIj67Kl',
+          'Mn89Opq','Rs12Tuv','Wx34Yza','Bc56Def','Gh78Ijk','Lm90Nop','Qr12Stu','Vw34Xyz','Ab56Cde','Fg78Hij',
+          'Kl90Mno','Pq12Rst','Uv34Wxy','Za56Bcd','Ef78Ghi','Jk90Lmn','Op12Qrs','Tu34Vwx','Yz56Abc','De78Fgh','Hi90Jkl'
+        ][i] || 'QZ8e7uV'))
+      },
+      {
+        id: 'artist-bjorn',
+        name: 'Björn Blýantsson',
+        handle: '@bjorn_doodles',
+        avatar: 'B',
+        days: Array.from({length:31}, (_,i)=> img([
+          'uzRijsH','XRLaFO1','d5S6tUv','e7W8xYz','f9A1bC2','g3D4eF5','h6G7hI8','i9J1kL2','j3M4nO5','k6P7qR8',
+          'l9S1tU2','m3V4wX5','n6Y7zA8','o9B1cD2','p3E4fG5','q6H7iJ8','r9K1lM2','s3N4oP5','t6Q7rS8','u9T1uV2',
+          'v3W4xY5','w6Z7aB8','x9C1dE2','y3F4gH5','z6I7jK8','A9L1mN2','B3O4pQ5','C6R7sT8','D9U1vW2','E3X4yZ5','F6A7bC8'
+        ][i] || 'b1H2kLm'))
+      },
+      {
+        id: 'artist-katla',
+        name: 'Katla Kolbeins',
+        handle: '@katla.inkt',
+        avatar: 'K',
+        days: Array.from({length:31}, (_,i)=> img([
+          '1a2b3cD','2b3c4dE','3c4d5eF','4d5e6fG','5e6f7gH','6f7g8hI','7g8h9iJ','8h9i1jK','9i1j2kL','1j2k3lM',
+          '2k3l4mN','3l4m5nO','4m5n6oP','5n6o7pQ','6o7p8qR','7p8q9rS','8q9r1sT','9r1s2tU','1s2t3uV','2t3u4vW',
+          '3u4v5wX','4v5w6xY','5w6x7yZ','6x7y8zA','7y8z1aB','8z1a2bC','9a2b3cD','1b3c4dE','2c4d5eF','3d5e6fG','4e6f7gH'
+        ][i] || '1a2b3cD'))
+      }
+    ];
+
+    // 6 tómar raufar (fyrir framtíðar listamenn)
+    const EMPTY_SLOTS = 6;
+
+    // ---- APP ---------------------------------------------------------------
+    const artistListEl = document.getElementById('artistList');
+    const artistSelectEl = document.getElementById('artistSelect');
+    const artistMetaEl = document.getElementById('artistMeta');
+    const artistTitleEl = document.getElementById('artistTitle');
+
+    const calendarGridEl = document.getElementById('calendarGrid');
+
+    const modalEl = document.getElementById('modal');
+    const viewerImg = document.getElementById('viewerImg');
+    const modalTitle = document.getElementById('modalTitle');
+    const openImgBtn = document.getElementById('openImgBtn');
+    const zoomBtn = document.getElementById('zoomBtn');
+    const closeBtn = document.getElementById('closeBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    let currentArtistIndex = 0;
+    let currentDay = 1;
+
+    function renderSidebar() {
+      artistListEl.innerHTML = '';
+
+      // Fyllt með 3 virkum + 6 tómu
+      artists.forEach((a, idx) => {
+        const card = document.createElement('div');
+        card.className = 'artist-card' + (idx===currentArtistIndex ? ' active' : '');
+        card.innerHTML = `
+          <div class="avatar" aria-hidden="true">${a.avatar}</div>
+          <div>
+            <div><strong>${a.name}</strong></div>
+            <div class="muted">${a.handle}</div>
+          </div>
+          <div class="muted">31/31</div>
+        `;
+        card.addEventListener('click', () => { setArtist(idx); });
+        artistListEl.appendChild(card);
+      });
+
+      for (let i=0; i<EMPTY_SLOTS; i++) {
+        const card = document.createElement('div');
+        card.className = 'artist-card add-slot';
+        card.innerHTML = `
+          <div class="avatar" aria-hidden="true">+</div>
+          <div>
+            <div><strong>Bæta við listamanni</strong></div>
+            <div class="muted">Tómt sæti</div>
+          </div>
+          <div class="muted">0/31</div>
+        `;
+        artistListEl.appendChild(card);
+      }
+    }
+
+    function renderSelect() {
+      artistSelectEl.innerHTML = '';
+      artists.forEach((a, idx) => {
+        const opt = document.createElement('option');
+        opt.value = String(idx); opt.textContent = `${a.name} (${a.handle})`;
+        if (idx===currentArtistIndex) opt.selected = true;
+        artistSelectEl.appendChild(opt);
+      });
+      artistSelectEl.addEventListener('change', (e)=>{
+        setArtist(Number(e.target.value));
+      });
+    }
+
+    function setArtist(idx) {
+      currentArtistIndex = idx;
+      const a = artists[idx];
+      artistTitleEl.textContent = `${a.name} – ${a.handle}`;
+      artistMetaEl.textContent = `Listamaður #${idx+1} af ${artists.length}`;
+      renderSidebar();
+      renderCalendar(a);
+      // Sync dropdown
+      artistSelectEl.value = String(idx);
+    }
+
+    function renderCalendar(artist) {
+      calendarGridEl.innerHTML = '';
+      // 1–31 dagar
+      for (let d=1; d<=31; d++) {
+        const url = artist.days[d-1];
+        const hasImg = Boolean(url);
+        const cell = document.createElement('button');
+        cell.className = 'day' + (hasImg ? '' : ' disabled');
+        cell.setAttribute('role','gridcell');
+        cell.setAttribute('aria-label', `Dagur ${d}${hasImg?' – mynd til':' – engin mynd'}`);
+        cell.innerHTML = `
+          <span class="badge">${d}</span>
+          ${hasImg ? `<img class="thumb" src="${url}" alt="Smámynd dags ${d}" loading="lazy" />` : `<img class="thumb missing" alt="Engin mynd" src="" />`}
+        `;
+        if (hasImg) {
+          cell.addEventListener('click', ()=> openModal(d, url));
+        }
+        calendarGridEl.appendChild(cell);
+      }
+    }
+
+    function openModal(day, url) {
+      currentDay = day;
+      const artist = artists[currentArtistIndex];
+      modalTitle.textContent = `${artist.name} • Dagur ${day}`;
+      viewerImg.src = url; viewerImg.classList.remove('zoomed');
+      openImgBtn.onclick = () => window.open(url, '_blank');
+      modalEl.classList.add('open');
+    }
+
+    function closeModal() { modalEl.classList.remove('open'); }
+
+    // Keyboard + nav
+    document.addEventListener('keydown', (e)=>{
+      if (!modalEl.classList.contains('open')) return;
+      if (e.key === 'Escape') closeModal();
+      if (e.key === 'ArrowLeft') nav(-1);
+      if (e.key === 'ArrowRight') nav(1);
+    });
+
+    function nav(delta) {
+      const a = artists[currentArtistIndex];
+      let d = currentDay + delta; if (d < 1) d = 31; if (d > 31) d = 1;
+      const url = a.days[d-1];
+      if (url) openModal(d, url);
+    }
+
+    prevBtn.onclick = () => nav(-1);
+    nextBtn.onclick = () => nav(1);
+
+    // Zoom toggling
+    function toggleZoom() { viewerImg.classList.toggle('zoomed'); }
+    zoomBtn.onclick = toggleZoom;
+    viewerImg.ondblclick = toggleZoom;
+
+    // Drag-to-pan when zoomed
+    let isDown=false, startX=0, startY=0, scrollLeft=0, scrollTop=0;
+    const viewer = document.getElementById('viewer');
+    viewer.addEventListener('mousedown', (e)=>{
+      if (!viewerImg.classList.contains('zoomed')) return;
+      isDown = true; startX = e.pageX - viewer.offsetLeft; startY = e.pageY - viewer.offsetTop;
+      scrollLeft = viewer.scrollLeft; scrollTop = viewer.scrollTop; viewer.style.cursor = 'grabbing';
+    });
+    viewer.addEventListener('mouseleave', ()=>{ isDown=false; viewer.style.cursor='default'; });
+    viewer.addEventListener('mouseup', ()=>{ isDown=false; viewer.style.cursor='default'; });
+    viewer.addEventListener('mousemove', (e)=>{
+      if(!isDown) return; e.preventDefault();
+      const x = e.pageX - viewer.offsetLeft; const y = e.pageY - viewer.offsetTop;
+      const walkX = (x - startX); const walkY = (y - startY);
+      viewer.scrollLeft = scrollLeft - walkX; viewer.scrollTop = scrollTop - walkY;
+    });
+
+    // Close mechanics
+    closeBtn.onclick = closeModal;
+    modalEl.addEventListener('click', (e)=>{ if (e.target === modalEl) closeModal(); });
+
+    // Batch open/close helpers
+    document.getElementById('openAll').onclick = () => {
+      // Fókuserar á fyrsta dag (sýnir) – sprengihamur væri custom ef vilt
+      const url = artists[currentArtistIndex].days[0];
+      if (url) openModal(1, url);
+    };
+    document.getElementById('closeAll').onclick = closeModal;
+
+    // Init
+    renderSidebar();
+    renderSelect();
+    setArtist(0);
+  </script>
+</body>
+</html>
