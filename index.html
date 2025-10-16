@@ -3,6 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+ <!-- Litur á vafra-toppi (Android/Chrome, iOS 15+, o.fl.) -->
+<meta name="theme-color" content="#F1E910" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#F1E910" media="(prefers-color-scheme: dark)">
+<meta name="msapplication-TileColor" content="#F1E910">
+
   <title>Meindarsögur — Forsíða</title>
   <style>
     :root{
@@ -163,51 +168,45 @@
     <ul>
       <li><a href="/lesefni">{ Myndarsögur }</a></li>
       <li><a href="/hlusta">{ Hlaðvarpið }</a></li>
-      <li><a href="www.myndasogur.app">{ Spjallborðið }</a></li>
+      <li><a href="https://www.myndasogur.app">{ Spjallborðið }</a></li>
       <li><a href="/hlekkir">{ Hlekkir } </a></li>
     </ul>
   </nav>
 
   <script>
-    // ===== Intro logic =====
-    (function(){
-      const intro = document.getElementById('intro');
-      const gif = document.getElementById('introGif');
-      const main = document.getElementById('main');
+     // ===== Intro logic: spilar einu sinni og fer sjálfkrafa inn =====
+  (function(){
+    const intro = document.getElementById('intro');
+    const gif   = document.getElementById('introGif');
 
-      // Configure how long one loop of your GIF takes (in seconds):
-      // ⚠️ Set this to the actual length of your intro.avif for correct 5× loop limiting.
-      const GIF_DURATION_SEC = 5; // ← breyttu þessu ef þarf
-      const MAX_LOOPS = 5;
+    // Lengd GIF senunnar í sekúndum:
+    const GIF_DURATION_SEC = 10;
 
-      // After MAX_LOOPS, stop the motion by swapping to a still frame
-      // (place an `intro-still.png` next to this file; otherwise we just keep the GIF).
-      const STILL_SRC = './intro-still.png';
+    let done = false;
+    function goIn(){
+      if (done) return;
+      done = true;
+      intro.setAttribute('hidden',''); // felur opnunarmyndina
+    }
 
-      // If user clicks anywhere on the intro overlay, hide it and reveal main.
-      function exitIntro(){
-        intro.setAttribute('hidden','');
+    // Smella eða Enter/Space => inn
+    intro.addEventListener('click', goIn, { once:true });
+    intro.tabIndex = 0;
+    intro.addEventListener('keydown', (e)=>{
+      if(e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        goIn();
       }
-      intro.addEventListener('click', exitIntro);
+    }, { once:true });
 
-      // Auto-limit to 5 loops if the user doesn't click.
-      if (Number.isFinite(GIF_DURATION_SEC) && GIF_DURATION_SEC > 0) {
-        const totalMs = GIF_DURATION_SEC * MAX_LOOPS * 1000;
-        setTimeout(() => {
-          // Replace the GIF with a still image to prevent more looping
-          // (keeps the requirement that user must click to proceed).
-          if (STILL_SRC) {
-            gif.src = STILL_SRC;
-          }
-        }, totalMs);
-      }
+    // Sjálfvirkt inn eftir eina spilun (10 sek.)
+    setTimeout(goIn, GIF_DURATION_SEC * 1400);
 
-      // Optional: allow pressing Enter/Space to continue for accessibility.
-      intro.tabIndex = 0;
-      intro.addEventListener('keydown', (e)=>{
-        if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); exitIntro(); }
-      });
-    })();
+    // Ef notandi vill „reduced motion“ => sleppa intro og fara beint inn
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      goIn();
+    }
+  })();
 
     // ===== Logo pop-menu toggle =====
     (function(){
