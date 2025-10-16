@@ -145,13 +145,21 @@
 </head>
 <body>
 
-  <!-- Intro overlay: click to continue. If not clicked, we swap to a still image after N loops. -->
-  <div class="intro" id="intro" aria-label="Opnunar-mynd. Smelltu til að halda áfram." role="button">
-    <div class="intro-wrap">
-      <img id="introGif" src="./intro.avif" alt="Opnunar-mynd (GIF)" />
-      <div class="tap-hint">Smelltu á myndina til að halda áfram</div>
-    </div>
+ <!-- Intro overlay: reyna MP4; ef mistekst → skipta í GIF (engin play-takki) -->
+ <div class="intro" id="intro" aria-label="Opnunar-myndband. Smelltu til að halda áfram." role="button">
+  <div class="intro-wrap">
+    <video id="introVid"
+           autoplay
+           muted
+           playsinline
+           webkit-playsinline
+           preload="auto">
+      <source src="./intro.mp4" type="video/mp4">
+    </video>
+    <div class="tap-hint" id="tapHint">Snertu til að sleppa</div>
   </div>
+</div>
+
 
   <!-- Main content -->
   <main class="wrap" id="main" aria-live="polite">
@@ -173,41 +181,84 @@
     <ul>
       <li><a href="/lesefni">{ Myndarsögur }</a></li>
       <li><a href="/hlusta">{ Hlaðvarpið }</a></li>
-      <li><a href="https://www.myndasogur.app">{ Spjallborðið }</a></li>
+      <li><a href="https://myndasogur.app">{ Spjallborðið }</a></li>
       <li><a href="/hlekkir">{ Hlekkir } </a></li>
     </ul>
   </nav>
 
   <script>
-     // ===== Intro logic: spilar einu sinni og fer sjálfkrafa inn =====
-  (function(){
+ (function(){
     const intro = document.getElementById('intro');
-    const gif   = document.getElementById('introGif');
+    const vid   = document.getElementById('introVid');
+    const hint  = document.getElementById('tapHint');
+    let done = false, usingGif = false;
 
-    // Lengd GIF senunnar í sekúndum:
-    const GIF_DURATION_SEC = 10;
-
-    let done = false;
     function goIn(){
       if (done) return;
       done = true;
-      intro.setAttribute('hidden',''); // felur opnunarmyndina
+      intro.setAttribute('hidden','');
     }
 
-    // Smella eða Enter/Space => inn
-    intro.addEventListener('click', goIn, { once:true });
+    // skipta yfir í GIF án play-takka
+    function swapToGif(){
+      if (usingGif) return;
+      usingGif = true;
+      const gif = document.createElement('img');
+      gif.src = './intro.gif';         // ← settu intro.gif í möppuna
+      gif.alt = '';
+      gif.setAttribute('aria-hidden','true');
+      gif.style.width = '100vw';
+      gif.style.height = '100vh';
+      gif.style.objectFit = 'cover';
+
+      vid.replaceWith(gif);
+      if (hint) hint.textContent = 'Snertu til að sleppa';
+
+      // fara sjálfkrafa inn eftir 10 sek (lengd GIF)
+      setTimeout(goIn, 13 * 1000);
+    }
+
+    // reyna að spila MP4 án play-takka
+    function tryPlay(){
+      if (!vid) { swapToGif(); return; }
+      vid.muted = true;
+      vid.loop = false;
+
+      const p = vid.play();
+      if (p && typeof p.then === 'function') {
+        p.then(()=>{
+          // allt í lagi – MP4 er í gangi
+        }).catch(()=>{
+          // autoplay hafnað → skipta strax í GIF (engin play-takki)
+          swapToGif();
+        });
+      }
+    }
+
+    // atburðir
+    if (vid){
+      vid.addEventListener('loadedmetadata', tryPlay, { once:true });
+      vid.addEventListener('ended', goIn, { once:true });
+    }
+
+    // smellur: ef GIF/paused → reyna spila; annars sleppa
+    intro.addEventListener('click', ()=>{
+      if (usingGif) { goIn(); return; }
+      if (vid.paused || vid.readyState < 2) tryPlay();
+      else goIn();
+    });
+
     intro.tabIndex = 0;
     intro.addEventListener('keydown', (e)=>{
-      if(e.key === 'Enter' || e.key === ' '){
+      if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        goIn();
+        if (usingGif) { goIn(); return; }
+        if (vid.paused || vid.readyState < 2) tryPlay();
+        else goIn();
       }
-    }, { once:true });
+    });
 
-    // Sjálfvirkt inn eftir eina spilun (10 sek.)
-    setTimeout(goIn, GIF_DURATION_SEC * 1400);
-
-    // Ef notandi vill „reduced motion“ => sleppa intro og fara beint inn
+    // Virða reduced motion: sleppa intro strax
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       goIn();
     }
