@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#b00000" id="themeColor">
   <title>Höfundar</title>
   <style>
     /* Letur */
@@ -168,7 +169,10 @@
       portraitEl.src = a.img;
       portraitEl.alt = `Höfundamynd: ${a.name}`;
 
+      const bg = redShade(i, authors.length);
       document.body.style.background = redShade(i, authors.length);
+      document.getElementById("themeColor").setAttribute("content", bg);
+
       document.title = `${a.name} — Höfundar`;
 
       renderDots();
