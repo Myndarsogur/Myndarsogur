@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+  <meta charset="UTF-8">
+  <title>stora</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      background-color: rgb(213, 204, 26);
+      background-image: url('Bakgrunnsmyndir/mynd1.png'); /* Eina bakgrunnsmyndin */
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    img {
+      max-width: 85vw; /* 85% nýting á skjánum */
+      max-height: 85vh;
+      object-fit: contain;
+      display: block;
+      z-index: 5;
+      background: transparent;
+    }
+    .click-zone {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      width: 50%;
+      z-index: 10;
+    }
+    .left-zone {
+      left: 0;
+    }
+    .right-zone {
+      right: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <img id="image" src="Adal/mynd1.avif" alt="mynd">
+
+  <div class="click-zone left-zone" onclick="previousImage()"></div>
+  <div class="click-zone right-zone" onclick="nextImage()"></div>
+
+  <!-- Myndhnappur sem vísar á aðra síðu -->
+  <a href="https://myndarsogur.is" style="position: absolute; bottom: 20px; right: 20px; z-index: 20;">
+    <img src="Login/logo.png" alt="Heim" style="height: 60px; cursor: pointer;">
+  </a>
+
+  <script>
+    const totalImages = 28;
+    let currentImage = 1;
+    const image = document.getElementById('image');
+    let isTransitioning = false; // Lás til að forðast tvöfaldar flettingar
+
+    function preloadNextImage(imageNumber) {
+      if (imageNumber <= totalImages) {
+        const img = new Image();
+        img.src = `Adal/mynd${imageNumber}.avif`;
+      }
+    }
+
+    function updateImage() {
+      isTransitioning = true;
+      image.src = `Adal/mynd${currentImage}.avif`;
+      preloadNextImage(currentImage + 1);
+      
+      // Bíða aðeins áður en leyfilegt er að fletta aftur
+      setTimeout(() => {
+        isTransitioning = false;
+      }, 150); // 50ms - getur verið lengra ef þörf er á meiri öryggi
+    }
+
+    function nextImage() {
+      if (!isTransitioning && currentImage < totalImages) {
+        currentImage++;
+        updateImage();
+      }
+    }
+
+    function previousImage() {
+      if (!isTransitioning && currentImage > 1) {
+        currentImage--;
+        updateImage();
+      }
+    }
+
+    // Lyklaborð
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowRight' || event.key === ' ' || event.key === 'Enter') {
+        nextImage();
+      } else if (event.key === 'ArrowLeft' || event.key === 'Backspace') {
+        previousImage();
+      }
+    });
+
+    // Snertismellur
+    document.querySelector('.right-zone').addEventListener('click', nextImage);
+    document.querySelector('.left-zone').addEventListener('click', previousImage);
+  </script>
+
+</body>
+</html>

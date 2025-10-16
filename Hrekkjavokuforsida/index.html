@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Meindarsögur — Forsíða</title>
+  <style>
+    :root{
+      --bg: rgb(255,25,0); /* R255 G25 B0 */
+      --ink: #0a0a0a;
+      --paper: #fff7ef;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--ink);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Helvetica, Arial, "Noto Sans", sans-serif;
+    }
+
+    /* Custom display fonts (drop the .woff2 files next to this HTML) */
+    @font-face{
+      font-family: 'CCBiffBamBoom';
+      src: url('./CCBiffBamBoom.woff2') format('woff2');
+      font-display: swap;
+    }
+    @font-face{
+      font-family: 'CCKissAndTell';
+      src: url('./CCKissAndTell-Regular.woff2') format('woff2');
+      font-display: swap;
+    }
+
+    /* Intro overlay */
+    .intro{
+  position:fixed;
+  inset:0;
+  display:grid;
+  place-items:center;
+  background:var(--bg);
+  z-index:50;
+  cursor:pointer;
+  transition: opacity .4s ease;
+}
+    .intro[hidden]{opacity:0; pointer-events:none;}
+
+    .intro-wrap{
+  position:relative;
+  width:100vw;
+  height:100vh;
+  display:grid;
+  place-items:center;
+  
+}    
+.intro img{
+  width:100vw;
+  height:100vh;
+  object-fit:cover; /* preserves aspect, crops when needed */
+  display:block;
+  transform:none !important; /* ensure no rotation on small screens */
+}
+
+    /* On narrow/mobile screens, rotate the intro GIF 90° so it plays "á hlið" */
+    @media (max-width: 700px){
+  .intro-wrap{ width:100vw; height:100vh; }
+  .intro img{ transform:none !important; }
+}
+
+    /* Main layout */
+    .wrap{ min-height:100%; display:grid; place-items:center; padding:40px; }
+
+    .center-stack{ display:grid; gap:18px; justify-items:center; text-align:center; }
+
+    /* B5 aspect holder for the front image */
+    .b5{
+      width: min(76vw, 560px);
+      aspect-ratio: 176 / 250; /* B5 portrait */
+      background: var(--paper);
+      border-radius: 10px;
+      display:grid; place-items:center;
+      box-shadow: 0 8px 30px rgba(0,0,0,.25);
+      overflow:hidden;
+    }
+    .b5 img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .b5 a{ display:contents; }
+
+    .authors-link{
+      font-family: 'CCBiffBamBoom', ui-sans-serif, system-ui;
+      font-size: clamp(48px, 2.6vw, 28px);
+      text-decoration: none;
+      color: #000; /* svartur texti */
+      background: transparent
+      padding: 6px 12px;
+      border-radius: 10px;
+    }
+
+    /* Logo button (bottom-right) */
+    .logo-btn{
+      position: fixed; right: 16px; bottom: 16px; z-index: 20;
+      width: clamp(48px, 8vw, 80px); height: clamp(48px, 8vw, 80px);
+      border-radius: 22%;
+      display:grid; place-items:center;
+      background: rgba(255,255,255,.0);
+      border:none; padding:0; cursor:pointer;
+    }
+    .logo-btn img{ width:100%; height:100%; object-fit:contain; display:block; }
+
+    /* Pop menu (text-only) */
+    .pop{
+      position: fixed; right: 16px; bottom: calc(16px + clamp(48px, 8vw, 80px) + 10px);
+      z-index: 25;
+      display: none;
+    }
+    .pop.open{ display:block; }
+    .pop ul{
+      list-style:none; margin:0; padding:10px 12px; background: rgba(255,25,0);
+      backdrop-filter: blur(2px);
+      border-radius: 14px; box-shadow: 0 8px 24px rgba(0,0,0,.25);
+    }
+    .pop a{
+      font-family: 'CCKissAndTell', ui-sans-serif, system-ui;
+      font-size: clamp(18px, 2.5vw, 28px);
+      color:#ffffff; text-decoration:none; display:block; padding:6px 4px;
+    }
+
+    /* Accessibility hint over intro */
+    .tap-hint{
+      position:absolute; inset:auto 0 -36px 0; text-align:center; color:#000; opacity:.85;
+      font-size:clamp(14px, 2.2vw, 18px);
+      background: transparent;
+      padding:6px 10px; border-radius:10px;
+      width:max-content; margin-inline:auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Intro overlay: click to continue. If not clicked, we swap to a still image after N loops. -->
+  <div class="intro" id="intro" aria-label="Opnunar-mynd. Smelltu til að halda áfram." role="button">
+    <div class="intro-wrap">
+      <img id="introGif" src="./intro.avif" alt="Opnunar-mynd (GIF)" />
+      <div class="tap-hint">Smelltu á myndina til að halda áfram</div>
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <main class="wrap" id="main" aria-live="polite">
+    <div class="center-stack">
+      <div class="b5">
+        <a href="https://Myndarsogur.is/Meindarsogur" aria-label="Fara á Meindarsogur síðu">
+          <img src="./forsida.png" alt="Forsíða — Meindarsögur (B5)" />
+        </a>
+      </div>
+      <a class="authors-link" href="https://Myndarsogur.is/Hofundar">Höfundar</a>
+    </div>
+  </main>
+
+  <!-- Floating logo that toggles a text-only menu -->
+  <button class="logo-btn" id="logoBtn" aria-expanded="false" aria-controls="popMenu">
+    <img src="./logo.png" alt="Opna valmynd" />
+  </button>
+  <nav class="pop" id="popMenu" aria-hidden="true">
+    <ul>
+      <li><a href="myndarsogur.is/lesefni">{ Myndarsögur }</a></li>
+      <li><a href="myndarsogur.is/hlusta">{ Hlaðvarpið }</a></li>
+      <li><a href="myndasogur.app">{ Spjallborðið }</a></li>
+      <li><a href="myndarsogur.is&">{ Hlekkir } </a></li>
+    </ul>
+  </nav>
+
+  <script>
+    // ===== Intro logic =====
+    (function(){
+      const intro = document.getElementById('intro');
+      const gif = document.getElementById('introGif');
+      const main = document.getElementById('main');
+
+      // Configure how long one loop of your GIF takes (in seconds):
+      // ⚠️ Set this to the actual length of your intro.avif for correct 5× loop limiting.
+      const GIF_DURATION_SEC = 5; // ← breyttu þessu ef þarf
+      const MAX_LOOPS = 5;
+
+      // After MAX_LOOPS, stop the motion by swapping to a still frame
+      // (place an `intro-still.png` next to this file; otherwise we just keep the GIF).
+      const STILL_SRC = './intro-still.png';
+
+      // If user clicks anywhere on the intro overlay, hide it and reveal main.
+      function exitIntro(){
+        intro.setAttribute('hidden','');
+      }
+      intro.addEventListener('click', exitIntro);
+
+      // Auto-limit to 5 loops if the user doesn't click.
+      if (Number.isFinite(GIF_DURATION_SEC) && GIF_DURATION_SEC > 0) {
+        const totalMs = GIF_DURATION_SEC * MAX_LOOPS * 1000;
+        setTimeout(() => {
+          // Replace the GIF with a still image to prevent more looping
+          // (keeps the requirement that user must click to proceed).
+          if (STILL_SRC) {
+            gif.src = STILL_SRC;
+          }
+        }, totalMs);
+      }
+
+      // Optional: allow pressing Enter/Space to continue for accessibility.
+      intro.tabIndex = 0;
+      intro.addEventListener('keydown', (e)=>{
+        if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); exitIntro(); }
+      });
+    })();
+
+    // ===== Logo pop-menu toggle =====
+    (function(){
+      const btn = document.getElementById('logoBtn');
+      const menu = document.getElementById('popMenu');
+      btn.addEventListener('click', ()=>{
+        const open = menu.classList.toggle('open');
+        btn.setAttribute('aria-expanded', String(open));
+        menu.setAttribute('aria-hidden', String(!open));
+      });
+    })();
+  </script>
+</body>
+</html>
+
+
+<div>Fonts made from <a href="http://www.onlinewebfonts.com">Web Fonts</a> is licensed by CC BY 4.0</div>

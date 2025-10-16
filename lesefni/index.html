@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lesefni — ein síða, 4 myndir</title>
+  <style>
+    :root{
+      --bg: #d4ff00; /* bakgrunnur */
+      --ratio: 2 / 3; /* 2:3 hlutfall */
+    }
+
+    *{box-sizing:border-box;}
+    html,body{height:100%;}
+    body{
+      margin:2; background:var(--bg);
+      display:flex; justify-content:center; align-items:flex-start;
+    }
+
+    .fit{ transform-origin: top center; }
+
+    .top{
+      display:grid;
+      justify-items: center;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1vw;
+      width:120%;
+      margin:auto;
+    }
+
+    .bottom{
+      display:grid;
+      justify-items:center;
+      margin-top: 1vw;
+    }
+
+    .card{
+      position:relative;
+      overflow:hidden;
+      aspect-ratio: var(--ratio);
+      border-radius: 16px;
+      box-shadow: 0 6px 18px rgba(0,0,0,.1);
+    }
+
+    .card>img{
+      width:100%; height:100%; object-fit:cover; display:block;
+    }
+
+    .bottom .card{ width:min(80%, 880px); }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <main class="wrap fit" id="fitTarget" aria-hidden="true">
+      <section class="top">
+        <a class="card" href="https://myndarsogur.is/myndar"><img src="myndarsogur.png" alt="Verk 1" loading="lazy" /></a>
+        <a class="card" href="https://myndarsogur.is/omyndar"><img src="omyndarsogur.png" alt="Verk 2" loading="lazy" /></a>
+        <a class="card" href="https://myndarsogur.is/jola"><img src="jola.png" alt="Verk 3" loading="lazy" /></a>
+      </section>
+      <section class="bottom">
+        <a class="card" href="https://myndarsogur.is/stora"><img src="stora.png" alt="Stóra myndin" loading="lazy" /></a>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const target = document.getElementById('fitTarget');
+
+    function fitToViewport(){
+      target.style.transform='none';
+      const rect = target.getBoundingClientRect();
+      const avail = window.innerHeight;
+      const scale = Math.min(1, avail / rect.height);
+      target.style.transform=`scale(${scale})`;
+    }
+
+    function onReady(fn){ document.readyState!=='loading'?fn():document.addEventListener('DOMContentLoaded',fn); }
+
+    onReady(()=>{
+      const imgs = target.querySelectorAll('img');
+      let left=imgs.length; if(left===0) fitToViewport();
+      imgs.forEach(img=>{
+        if(img.complete){ if(--left===0) fitToViewport(); }
+        else{
+          img.addEventListener('load',()=>{ if(--left===0) fitToViewport(); });
+          img.addEventListener('error',()=>{ if(--left===0) fitToViewport(); });
+        }
+      });
+    });
+
+    let to; window.addEventListener('resize',()=>{clearTimeout(to);to=setTimeout(fitToViewport,120);});
+  </script>
+</body>
+</html>
