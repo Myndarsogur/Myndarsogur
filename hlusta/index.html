@@ -109,6 +109,32 @@
     footer{
       margin-top:36px; color:var(--muted); font-size:.9rem; text-align:center;
     }
+    header h1 .subtitle{
+  font-size: clamp(14px, 1.8vw, 20px);
+  font-weight: 600;
+  color: var(--muted);
+}
+
+/* Fín stilling: á síma fer undir á nýja línu, á stærri skjám helst í sömu línu */
+@media (max-width: 719px){
+  header h1 .subtitle{ display:block; margin-top:.15em }
+}
+@media (min-width: 720px){
+  header h1 .subtitle{ display:inline; margin-left:.35ch }
+}
+#feedTagline{
+  margin:.35rem 0 0;
+  color:var(--muted);
+  font-size:clamp(14px, 1.8vw, 18px);
+  font-weight:600;
+}
+
+#feedDesc.lede{
+  margin:.6rem 0 0;     /* meira bil milli tagline og lýsingar */
+  max-width:75ch;       /* þægileg lína fyrir langan texta */
+}
+
+
   </style>
 </head>
 <body>
@@ -116,8 +142,10 @@
     <header>
       <img id="feedImage" src="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/39373029/39373029-1697755438322-7d82cbc948701.jpg" alt="Myndarsögur — forsíða">
       <div>
-        <h1 id="feedTitle">Myndarsögur — Hlaðvarp</h1>
-        <p id="feedDesc">Hlaðvarp um myndasögur, myndarfólk og myndarmál á dagskrá.</p>
+        <h1 id="feedTitle">Myndarsögur</h1>
+        <p id="feedTagline">Hlaðvarp um myndasögur, myndarfólk og myndarmál á dagskrá.</p>
+        <p id="feedDesc" class="lede"></p>
+        
         <div class="topbar">
           <a class="btn btn--accent" href="https://anchor.fm/s/eb470ff4/podcast/rss" target="_blank" rel="noopener">Gerast áskrifandi (RSS)</a>
           <a class="btn" href="https://podcasters.spotify.com/pod/show/myndarsogur" target="_blank" rel="noopener">Hlusta á Spotify</a>
@@ -224,13 +252,15 @@
 
   <script>
     const FEED_URL = 'https://anchor.fm/s/eb470ff4/podcast/rss';
-
-    const $episodes = document.getElementById('episodes');
-    const $feedTitle = document.getElementById('feedTitle');
-    const $feedDesc  = document.getElementById('feedDesc');
-    const $feedImage = document.getElementById('feedImage');
+  
+    const $episodes   = document.getElementById('episodes');
+    const $feedTitle  = document.getElementById('feedTitle');
+    const $feedTagline= document.getElementById('feedTagline'); // tagline (minni texti)
+    const $feedDesc   = document.getElementById('feedDesc');    // löng lýsing
+    const $feedImage  = document.getElementById('feedImage');
+  
     document.getElementById('copyYear').textContent = new Date().getFullYear();
-
+  
     async function getFeedText() {
       try {
         const res = await fetch(FEED_URL, { mode: 'cors' });
@@ -241,7 +271,7 @@
         return document.getElementById('rss-fallback').textContent.trim();
       }
     }
-
+  
     function text(el, sel, fallback=''){
       const n = el.querySelector(sel);
       return n ? (n.textContent || '').trim() : fallback;
@@ -267,16 +297,16 @@
       const h = Math.floor(sec/3600), m = Math.floor((sec%3600)/60);
       return h ? `${h} klst ${m} mín` : `${m} mín`;
     }
-
+  
     function renderEpisode(item){
-      const title = text(item, 'title');
-      const descHTML = text(item, 'description');
-      const link = text(item, 'link');
-      const pub  = text(item, 'pubDate');
-      const audio = attr(item, 'enclosure', 'url');
-      const cover = attr(item, 'itunes\\:image', 'href') || $feedImage.src;
-      const dur = text(item, 'itunes\\:duration');
-
+      const title   = text(item, 'title');
+      const descHTML= text(item, 'description');
+      const link    = text(item, 'link');
+      const pub     = text(item, 'pubDate');
+      const audio   = attr(item, 'enclosure', 'url');
+      const cover   = attr(item, 'itunes\\:image', 'href') || $feedImage.src;
+      const dur     = text(item, 'itunes\\:duration');
+  
       const card = document.createElement('article');
       card.className = 'ep';
       card.innerHTML = `
@@ -292,44 +322,52 @@
         </div>
         ${audio ? `<audio controls preload="none" src="${audio}"></audio>` : ''}
         <div class="notes"></div>
-        <div class="more">
-          ${link ? `<a class="pill" href="${link}" target="_blank" rel="noopener">Upprunaleg þáttasíða</a>` : ''}
-          <a class="pill" href="${FEED_URL}" target="_blank" rel="noopener">RSS</a>
-        </div>
+        <div class="more"></div>
       `;
-      card.querySelector('.notes').innerHTML = descHTML; // RSS lýsing er HTML; setjum inn
+      card.querySelector('.notes').innerHTML = descHTML; // RSS lýsing er HTML
       return card;
     }
-
+  
     (async function init(){
       const xmlText = await getFeedText();
       const doc = new DOMParser().parseFromString(xmlText, 'application/xml');
-
+  
       const chan = doc.querySelector('channel');
       if (chan){
-        const title = text(chan, 'title');
-        const desc = text(chan, 'description');
-        const img = attr(chan, 'itunes\\:image', 'href');
-
-        if (title) $feedTitle.textContent = title.replace(/^(.+?)\s*-\s*/,'$1');
-        if (desc)  $feedDesc.textContent = desc;
-        if (img)   $feedImage.src = img;
+        const rawTitle = text(chan, 'title');           // t.d. "Myndarsögur - Hlaðvarp um ..."
+        const longDesc = text(chan, 'description');     // langa lýsingin
+        const img      = attr(chan, 'itunes\\:image', 'href');
+  
+        // H1: aðeins fyrri hlutinn (fyrir band-/tengdustrik) – ENGIN strik
+        if (rawTitle){
+          const first = rawTitle.split(/\s*[-–—]\s*/)[0].trim();
+          $feedTitle.textContent = first || rawTitle.trim();
+        }
+  
+        // Tagline: við notum það sem er í HTML (#feedTagline).
+        // Ef þú vilt draga „seinni hlutann“ úr titlinum í staðinn, opnaðu þessar línur:
+        // const rest = rawTitle.split(/\s*[-–—]\s*/).slice(1).join(' — ').trim();
+        // if (rest) $feedTagline.textContent = rest;
+  
+        if (longDesc) $feedDesc.textContent = longDesc;
+        if (img) $feedImage.src = img;
       }
-
+  
       const items = [...doc.querySelectorAll('channel > item')];
       if (!items.length){
         $episodes.innerHTML = `<p>Engir þættir fundust í straumnum.</p>`;
         return;
       }
-
-      // Raða nýjast fyrst (ef það er ekki nú þegar)
+  
+      // Raða nýjast fyrst
       items.sort((a,b)=> new Date(text(b,'pubDate')) - new Date(text(a,'pubDate')));
-
+  
       const frag = document.createDocumentFragment();
       items.forEach(item => frag.appendChild(renderEpisode(item)));
       $episodes.innerHTML='';
       $episodes.appendChild(frag);
     })();
   </script>
+  
 </body>
 </html>
