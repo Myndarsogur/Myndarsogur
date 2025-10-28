@@ -119,7 +119,7 @@
     header.top{
       display:flex;
       align-items:center;
-      justify-content:space-between;
+      justify-content:center;
       gap:clamp(10px, 2vw, 18px);
       padding:clamp(14px, 3.2vw, 20px) clamp(24px, 5vw, 34px) clamp(18px, 4vw, 26px);
       background:transparent;
@@ -427,16 +427,13 @@
 
     @media (max-width: 720px){
       .landing > .wrap{
-        width:calc(var(--page-max-width) * 0.9);
-        bottom:26%;
+        width:min(calc(var(--page-max-width) * 0.96), 620px);
+        bottom:clamp(14%, 24vw, 30%);
+        transform:translateX(-50%);
       }
       header.top{
-        max-width:320px;
-      }
-      header.top::after{
-        bottom:-22px;
-        left:50%;
-        transform:translateX(-50%) skewX(-12deg) rotate(45deg);
+        max-width:none;
+        width:100%;
       }
     }
 
@@ -444,14 +441,18 @@
       header.top{
         flex-direction:column;
         text-align:center;
-        gap:12px;
-        padding:14px 18px;
+        gap:clamp(10px, 4vw, 14px);
+        padding:clamp(16px, 5vw, 22px) clamp(20px, 6vw, 28px) clamp(22px, 7vw, 30px);
       }
       .landing > .wrap{
-        width:calc(var(--page-max-width) * 0.78);
-        bottom:calc(26% + 10px);
-        transform:translateX(-50%) scale(0.85);
-        transform-origin:center bottom;
+        width:min(calc(var(--page-max-width) * 0.96), 92vw);
+        bottom:clamp(18%, 36vw, 44%);
+        transform:translateX(-50%);
+        aspect-ratio:720 / 240;
+        padding-top:clamp(20px, 6vw, 26px);
+        padding-right:clamp(26px, 7vw, 34px);
+        padding-bottom:clamp(28px, 8vw, 36px);
+        padding-left:clamp(26px, 7vw, 34px);
       }
       .pillBtn{
         width:100%;
@@ -477,11 +478,7 @@
     <div class="landing" id="landing">
       <div class="wrap">
         <img src="../Speech_balloon.svg" alt="" class="speech-bubble" aria-hidden="true" />
-        <header class="top" aria-label="Language and brand bar">
-          <div class="brand">
-            <!-- Optional logo; replace src if you have a logo.png -->
-            <img src="logo.png" alt="Meindarsögur logo" class="logo" onerror="this.style.display='none'">
-          </div>
+        <header class="top" aria-label="Language switcher">
           <div class="lang" role="tablist" aria-label="Language switcher">
             <button class="pillBtn" id="btnIS" aria-pressed="true" aria-label="Icelandic">Íslenska</button>
             <button class="pillBtn" id="btnEN" aria-pressed="false" aria-label="English">Enska</button>
