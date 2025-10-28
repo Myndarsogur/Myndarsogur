@@ -66,6 +66,52 @@
       justify-content:center;
     }
 
+    .swipe-hint{
+      position:absolute;
+      top:clamp(6%, 12vw, 20%);
+      right:clamp(20px, 5vw, 60px);
+      max-width:clamp(200px, 34vw, 260px);
+      background:var(--bubble-bg);
+      color:var(--ink-dark);
+      border:3px solid var(--bubble-border);
+      border-radius:28px;
+      padding:clamp(10px, 2vw, 16px) clamp(18px, 3vw, 22px);
+      font-family:'CC Kiss And Tell', 'Trebuchet MS', Arial, sans-serif;
+      font-size:clamp(16px, 3vw, 20px);
+      letter-spacing:.2px;
+      box-shadow:0 14px 36px rgba(0,0,0,0.38);
+      display:flex;
+      align-items:center;
+      gap:clamp(6px, 1.8vw, 12px);
+      pointer-events:none;
+      opacity:0;
+      transform:translateY(-6px);
+      transition:opacity .35s ease;
+      z-index:4;
+    }
+    .swipe-hint::after{
+      content:'';
+      position:absolute;
+      bottom:-20px;
+      right:26px;
+      width:24px;
+      height:24px;
+      background:var(--bubble-bg);
+      border:3px solid var(--bubble-border);
+      border-left-width:0;
+      border-top-width:0;
+      transform:skewX(-10deg) rotate(45deg);
+      border-bottom-right-radius:12px;
+      box-shadow:0 12px 30px rgba(0,0,0,0.28);
+    }
+    .swipe-hint.visible{
+      opacity:1;
+    }
+    .swipe-hint__arrow{
+      font-size:1.4em;
+      line-height:1;
+    }
+
     header.top{
       display:flex;
       align-items:center;
@@ -382,8 +428,19 @@
         width:calc(var(--page-max-width) * 0.95);
         bottom:22%;
       }
-      .pillBtn{
-        width:100%;
+    .pillBtn{
+      width:100%;
+    }
+    }
+
+    @media (max-width: 640px){
+      .swipe-hint{
+        top:clamp(10%, 20vw, 30%);
+        right:clamp(16px, 6vw, 32px);
+        font-size:clamp(15px, 4vw, 18px);
+      }
+      .swipe-hint::after{
+        right:22px;
       }
     }
   </style>
@@ -416,6 +473,10 @@
 
     <div class="edge-hint left"></div>
     <div class="edge-hint right"></div>
+    <div class="swipe-hint" id="swipeHint" hidden>
+      <span class="swipe-hint__text" id="swipeHintText">Smelltu til að fletta</span>
+      <span class="swipe-hint__arrow" aria-hidden="true">→</span>
+    </div>
   </div>
 
   <!-- HUD / info -->
@@ -447,11 +508,13 @@
       const TOTAL = 44;
       let index = 1; // 1-based
       let unlocked = false; // becomes true after correct password
+      let swipeHintTimer = null;
       const LANGS = /** i18n text */ {
         is: {
           htmlLang: 'is',
           title: 'Meindarsögur',
           hudHint: 'Smelltu vinstra/hægri eða notaðu',
+          swipeHint: 'Smelltu til að fletta',
           ariaPrev: 'Fara til baka', ariaNext: 'Fara áfram',
           modalPlaceholder: 'Sláðu inn lykilorð til að lesa meira',
           btnConfirmIcon: '✓',
@@ -469,6 +532,7 @@
           htmlLang: 'en',
           title: 'Meindarsögur',
           hudHint: 'Click left/right or use',
+          swipeHint: 'Tap to flip',
           ariaPrev: 'Go back', ariaNext: 'Go forward',
           modalPlaceholder: 'Enter password to keep reading',
           btnConfirmIcon: '✓',
@@ -491,6 +555,8 @@
       const stage = document.getElementById('stage');
       const landing = document.getElementById('landing');
       const hint = document.getElementById('hint');
+      const swipeHint = document.getElementById('swipeHint');
+      const swipeHintText = document.getElementById('swipeHintText');
 
       const btnIS = document.getElementById('btnIS');
       const btnEN = document.getElementById('btnEN');
@@ -502,6 +568,31 @@
       const requestPw = document.getElementById('requestPw');
       const mHelp = document.getElementById('mHelp');
       const modalLogo = document.getElementById('modalLogo');
+
+      function hideSwipeHint(){
+        if(swipeHintTimer){
+          clearTimeout(swipeHintTimer);
+          swipeHintTimer = null;
+        }
+        if(!swipeHint) return;
+        swipeHint.setAttribute('hidden','');
+        swipeHint.classList.remove('visible');
+      }
+
+      function scheduleSwipeHint(){
+        if(!swipeHint) return;
+        hideSwipeHint();
+        if(index !== 1) return;
+        swipeHintTimer = window.setTimeout(()=>{
+          swipeHintTimer = null;
+          swipeHint.removeAttribute('hidden');
+          swipeHint.classList.add('visible');
+        }, 3600);
+      }
+
+      function markInteracted(){
+        hideSwipeHint();
+      }
 
       // Language state
       let lang = (localStorage.getItem('lang') || 'is');
@@ -520,9 +611,11 @@
         counter.textContent = `${index} / ${TOTAL}`;
         zoneLeft.classList.toggle('disabled', index === 1);
         zoneRight.classList.toggle('disabled', index === TOTAL);
+        scheduleSwipeHint();
       }
 
       function go(delta){
+        markInteracted();
         const next = index + delta;
         if(next < 1 || next > TOTAL) return;
         if(next > 5 && !unlocked){
@@ -607,6 +700,9 @@
         document.title = LANGS[lang].title;
         // HUD text
         hint.innerHTML = `${LANGS[lang].hudHint} <span class="kbd">←</span> / <span class="kbd">→</span>`;
+        if(swipeHintText){
+          swipeHintText.textContent = LANGS[lang].swipeHint;
+        }
         // ARIA labels
         zoneLeft.setAttribute('aria-label', LANGS[lang].ariaPrev);
         zoneRight.setAttribute('aria-label', LANGS[lang].ariaNext);
@@ -657,10 +753,25 @@
           }
           return;
         }
-        if(e.key === 'ArrowRight' || e.key === ' '){ go(1); }
-        if(e.key === 'ArrowLeft'){ go(-1); }
-        if(e.key === 'Home'){ index = 1; updateView(); }
-        if(e.key === 'End'){ index = TOTAL; updateView(); }
+        if(e.key === 'ArrowRight' || e.key === ' '){
+          go(1);
+          return;
+        }
+        if(e.key === 'ArrowLeft'){
+          go(-1);
+          return;
+        }
+        if(e.key === 'Home'){
+          markInteracted();
+          index = 1;
+          updateView();
+          return;
+        }
+        if(e.key === 'End'){
+          markInteracted();
+          index = TOTAL;
+          updateView();
+        }
       });
 
       // Modal buttons
@@ -670,6 +781,7 @@
       // Touch swipe support
       let touchStartX = null;
       stage.addEventListener('touchstart', (e)=>{
+        markInteracted();
         touchStartX = e.changedTouches[0].clientX;
       }, {passive:true});
       stage.addEventListener('touchend', (e)=>{
