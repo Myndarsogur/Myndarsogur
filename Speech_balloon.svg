@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="592" height="242" viewBox="0 0 592 242" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Talk bubble">
+  <path
+    d="M72 18H520C546.51 18 568 39.4903 568 66V146C568 172.51 546.51 194 520 194H208L140 230L156 194H72C45.4903 194 24 172.51 24 146V66C24 39.4903 45.4903 18 72 18Z"
+    fill="#FFFFFF"
+    stroke="#333333"
+    stroke-width="12"
+    stroke-linejoin="round"
+    stroke-linecap="round" />
+</svg>
