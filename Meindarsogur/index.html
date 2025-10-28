@@ -57,18 +57,19 @@
     .landing > .wrap{
       position:absolute;
       left:50%;
-      bottom:clamp(12%, 26vw, 30%);
+      bottom:clamp(12%, 24vw, 28%);
       transform:translateX(-50%);
-      width:clamp(var(--bubble-min), calc(var(--page-max-width) * 0.34), var(--bubble-max) * 0.6);
+      width:min(calc(var(--page-max-width) * 0.8), 560px);
       pointer-events:auto;
       margin:0;
       display:flex;
       justify-content:center;
       align-items:center;
-      padding-top:clamp(14px, 3.2vw, 20px);
-      padding-right:clamp(16px, 3.6vw, 24px);
-      padding-bottom:clamp(28px, 6vw, 42px);
-      padding-left:clamp(18px, 3.8vw, 26px);
+      aspect-ratio:720 / 200;
+      padding-top:clamp(16px, 3vw, 22px);
+      padding-right:clamp(30px, 5.6vw, 46px);
+      padding-bottom:clamp(26px, 5.6vw, 34px);
+      padding-left:clamp(30px, 5.6vw, 46px);
     }
 
     .landing .speech-bubble{
@@ -120,7 +121,7 @@
       align-items:center;
       justify-content:space-between;
       gap:clamp(10px, 2vw, 18px);
-      padding:clamp(16px, 4vw, 24px) clamp(26px, 5.4vw, 42px) clamp(24px, 6vw, 36px);
+      padding:clamp(14px, 3.2vw, 20px) clamp(24px, 5vw, 34px) clamp(18px, 4vw, 26px);
       background:transparent;
       border:0;
       border-radius:0;
@@ -130,6 +131,8 @@
       color:var(--ink-dark);
       position:relative;
       z-index:1;
+      margin-top:clamp(6px, 1.2vw, 12px);
+      margin-bottom:clamp(6px, 1.2vw, 12px);
     }
     header.top::after{ content:none; }
 
