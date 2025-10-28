@@ -457,12 +457,16 @@
       .lang{
         flex-direction:row;
         justify-content:center;
+        align-items:stretch;
         gap:clamp(8px, 4vw, 16px);
+        width:100%;
+        flex-wrap:nowrap;
       }
       .pillBtn{
+        flex:1 1 0;
+        min-width:0;
         width:auto;
-        min-width:clamp(120px, 35vw, 160px);
-        padding:clamp(10px, 3.6vw, 14px) clamp(18px, 6vw, 24px);
+        padding:clamp(10px, 3.4vw, 14px) clamp(12px, 4.6vw, 20px);
       }
     }
 
