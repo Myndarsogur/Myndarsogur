@@ -29,6 +29,8 @@
         calc(100vw - var(--stage-pad) * 2),
         calc((100vh - var(--stage-pad) * 2) * 176 / 250)
       );
+      --bubble-min: 10px;
+      --bubble-max: 240px;
       --bubble-bg: rgba(255, 255, 255, 0.95);
       --bubble-border: rgba(17,17,17,0.85);
     }
@@ -55,9 +57,9 @@
     .landing > .wrap{
       position:absolute;
       left:50%;
-      bottom:30%;
+      bottom:clamp(12%, 26vw, 30%);
       transform:translateX(-50%);
-      width:calc(var(--page-max-width) * 0.8);
+      width:clamp(var(--bubble-min), calc(var(--page-max-width) * 0.6), var(--bubble-max));
       pointer-events:auto;
       margin:0;
       display:flex;
@@ -68,8 +70,8 @@
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:16px;
-      padding:18px 26px;
+      gap:clamp(10px, 2vw, 18px);
+      padding:clamp(14px, 3vw, 20px) clamp(18px, 4vw, 28px);
       background:var(--bubble-bg);
       border:3px solid var(--bubble-border);
       border-radius:32px;
@@ -95,12 +97,10 @@
       box-shadow:0 18px 40px rgba(0,0,0,0.35);
     }
 
-    .brand{ display:flex; align-items:center; gap:10px; }
-    .brand .logo{ display:block; max-height:42px; width:auto; }
 
     .lang{
       display:flex;
-      gap:12px;
+      gap:clamp(8px, 3vw, 14px);
       align-items:center;
       justify-content:center;
       flex-wrap:wrap;
@@ -112,7 +112,7 @@
       cursor:pointer;
       font-weight:500;
       border-radius:999px;
-      padding:.55rem 1.1rem;
+      padding:clamp(8px, 1.4vw, 12px) clamp(16px, 3vw, 22px);
       background:rgba(17,17,17,0.1);
       color:var(--ink-dark);
       box-shadow:0 6px 16px rgba(0,0,0,.15);
@@ -120,8 +120,8 @@
       align-items:center;
       justify-content:center;
       font-family:'CC Kiss And Tell', 'Trebuchet MS', Arial, sans-serif;
-      font-size:18px;
-      font-weight: bold;
+      font-size:clamp(15px, 2.2vw, 18px);
+      font-weight:bold;
       letter-spacing:.4px;
       text-transform:uppercase;
     }
