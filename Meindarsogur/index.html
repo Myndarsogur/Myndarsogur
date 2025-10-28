@@ -407,15 +407,17 @@
         flex-direction:column;
         text-align:center;
         gap:12px;
-        padding:16px 20px;
+        padding:14px 18px;
       }
       .landing > .wrap{
-        width:calc(var(--page-max-width) * 0.95);
-        bottom:22%;
+        width:calc(var(--page-max-width) * 0.78);
+        bottom:calc(26% + 50px);
+        transform:translateX(-50%) scale(0.85);
+        transform-origin:center bottom;
       }
-    .pillBtn{
-      width:100%;
-    }
+      .pillBtn{
+        width:100%;
+      }
     }
 
     @media (max-width: 640px){
