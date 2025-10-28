@@ -5,19 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Meindarsögur</title>
   <style>
+    @font-face{
+      font-family:'CC Kiss And Tell';
+      src:url('../CCKissAndTell-Regular.woff2') format('woff2');
+      font-weight:400;
+      font-style:normal;
+      font-display:swap;
+    }
+
     /* ===== Theme ===== */
     :root{
-      /* Reader (from index.html) */
       --bg:#0b0b0b;
       --ink:#ffffff;
       --muted:#bdbdbd;
-      --accent:#ffd166;
+      --accent:rgb(241, 63, 46);
       --danger:#d7263d;
-      /* Landing bar / language skins (from kannski.html) */
-      --is-bg:#b00000; /* Icelandic background */
-      --en-bg:#e90d31; /* English background */
-      --paper:#fff7ef;
+      --is-bg:#b00000;
+      --en-bg:#e90d31;
       --ink-dark:#0e0e0e;
+      --page-ratio: 176 / 250;
+      --page-max-width: min(88vw, 560px, calc(92vh * 176 / 250));
+      --bubble-bg: rgba(255, 255, 255, 0.95);
+      --bubble-border: rgba(17,17,17,0.85);
     }
 
     *{box-sizing:border-box}
@@ -27,47 +36,143 @@
       color:var(--ink);
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Helvetica, Arial, "Noto Sans", sans-serif;
       overflow:hidden;
-      /* language skin colors behind reader */
       background:var(--is-bg);
     }
     body.en{ background:var(--en-bg); color:#111; }
 
-    /* ===== Top bar (only visible on first page) ===== */
-    .wrap{ width:min(50px, 96vw); padding:18px 0 10px; margin-inline:auto; }
-    header.top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 10px 12px;
-  background: rgba(0, 0, 0, 0.45);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(8px);
-  border-radius: 14px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-}    .brand{ font-weight:800; letter-spacing:.3px; display:flex; align-items:center; gap:12px; }
-    .brand .logo{ display:block; max-height:40px; width:auto; }
-    .lang{ display:flex; gap:8px; }
-    .pillBtn{
-      appearance:none; border:0; cursor:pointer; font-weight:800; border-radius:999px; padding:.5rem .9rem;
-      background:#fff; color:#111; box-shadow:0 6px 16px rgba(0,0,0,.25);
+    /* ===== Landing bubble ===== */
+    .landing{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      z-index:3;
     }
-    .pillBtn[aria-pressed="true"]{ outline:2px solid rgba(255,255,255,.8) }
+    .landing.hidden{ display:none; }
+    .landing > .wrap{
+      position:absolute;
+      left:50%;
+      bottom:30%;
+      transform:translateX(-50%);
+      width:calc(var(--page-max-width) * 0.8);
+      pointer-events:auto;
+      margin:0;
+      display:flex;
+      justify-content:center;
+    }
 
-    /* ===== Reader (from index.html) ===== */
+    header.top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:18px 26px;
+      background:var(--bubble-bg);
+      border:3px solid var(--bubble-border);
+      border-radius:32px;
+      box-shadow:0 18px 40px rgba(0,0,0,0.45);
+      width:100%;
+      font-family:'CC Kiss And Tell', 'Trebuchet MS', Arial, sans-serif;
+      color:var(--ink-dark);
+      position:relative;
+    }
+    header.top::after{
+      content:'';
+      position:absolute;
+      bottom:-22px;
+      left:50%;
+      width:28px;
+      height:28px;
+      background:var(--bubble-bg);
+      border:3px solid var(--bubble-border);
+      border-left-width:0;
+      border-top-width:0;
+      transform:translateX(-50%) skewX(-10deg) rotate(45deg);
+      border-bottom-right-radius:12px;
+      box-shadow:0 18px 40px rgba(0,0,0,0.35);
+    }
+
+    .brand{ display:flex; align-items:center; gap:10px; }
+    .brand .logo{ display:block; max-height:42px; width:auto; }
+
+    .lang{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+
+    .pillBtn{
+      appearance:none;
+      border:0;
+      cursor:pointer;
+      font-weight:500;
+      border-radius:999px;
+      padding:.55rem 1.1rem;
+      background:rgba(17,17,17,0.1);
+      color:var(--ink-dark);
+      box-shadow:0 6px 16px rgba(0,0,0,.15);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      font-family:'CC Kiss And Tell', 'Trebuchet MS', Arial, sans-serif;
+      font-size:18px;
+      font-weight: bold;
+      letter-spacing:.4px;
+      text-transform:uppercase;
+    }
+    .pillBtn[aria-pressed="true"]{
+      background:var(--accent);
+      color:#111;
+      box-shadow:0 10px 22px rgba(0,0,0,0.25);
+    }
+
+    /* ===== Reader ===== */
     .stage{
-      position:fixed; inset:0; display:grid; place-items:center; user-select:none; background:var(--bg);
-      box-shadow:none; border:none; border-radius:0;
+      position:fixed;
+      inset:0;
+      display:grid;
+      place-items:center;
+      user-select:none;
+      background:var(--bg);
+      box-shadow:none;
+      border:none;
+      border-radius:0;
       z-index:1;
+      padding:clamp(16px, 4vw, 48px);
+      touch-action:pan-y;
     }
     body.en .stage{ border-color: rgba(0,0,0,.12); }
 
-    img#frame{
-      max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; display:block;
-      box-shadow: 0 10px 40px rgba(0,0,0,.45);
+    .page-frame{
+      width:var(--page-max-width);
+      aspect-ratio:var(--page-ratio);
+      background:transparent;
+      box-shadow:0 12px 46px rgba(0,0,0,0.55);
+      position:relative;
+      z-index:1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:0;
     }
 
-    .zone{position:absolute; top:0; bottom:0; width:50%;}
+    img#frame{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      border-radius:0;
+      box-shadow:0 8px 30px rgba(0,0,0,0.35);
+      background:#000;
+    }
+
+    .zone{
+      position:absolute;
+      top:0;
+      bottom:0;
+      width:50%;
+      z-index:2;
+    }
     .zone.left{left:0; cursor:w-resize;}
     .zone.right{right:0; cursor:e-resize;}
     .zone.disabled{cursor:not-allowed;}
@@ -80,143 +185,224 @@
     .pill{background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.2); padding:6px 10px; border-radius:999px; font-size:13px}
     .muted{color:var(--muted)}
 
-  /* Modal */
-.modal-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.6);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  z-index: 10;
-}
-
-.modal {
-  width: min(480px, 96vw);
-  background: #111;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 16px;
-  box-shadow: 0 12px 60px rgba(0, 0, 0, 0.5);
-  overflow: hidden;
-  color: #fff; /* <-- allt inni í glugganum verður hvítt */
-}
-
-.modal header {
-  padding: 16px 18px;
-  font-weight: 700;
-  border-bottom: 1px solid rgba(243, 232, 232, 0.1);
-  background: rgba(255, 255, 255, 0.04);
-  color: #fff; /* titillinn hvítur */
-}
-
-.modal .content {
-  padding: 18px;
-  color: #fff; /* almennur texti hvítur */
-}
-
-.modal label {
-  display: block;
-  font-size: 14px;
-  margin-bottom: 8px;
-  color: #fff; /* textinn "Password" hvítur */
-}
-
-.modal input[type="password"] {
-  width: 100%;
-  padding: 12px 14px;
-  font-size: 16px;
-  background: #0b0b0b;
-  color: #fff; /* texti í reitnum hvítur */
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
-  outline: none;
-}
-
-/* placeholder textinn hvítleitur */
-.modal input::placeholder {
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.modal .row {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 14px;
-}
-
-.btn {
-  appearance: none;
-  border: none;
-  border-radius: 999px;
-  padding: 10px 14px;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.btn.primary {
-  background: var(--accent);
-}
-
-.btn.ghost {
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  color: #fff;
-}
-
-.btn.danger {
-  background: transparent;
-  border: 1px solid var(--danger);
-  color: var(--danger);
-}
-
-.help {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.8);
-  margin-top: 10px;
-}
-
-.kbd {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
-  font-size: 12px;
-  padding: 0.2em 0.5em;
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #fff;
-}
-
-    /* Container that holds the top bar (visible only on page 1) */
-    .landing{
-      position:fixed; inset:0; display:flex; align-items:flex-end; justify-content:flex-start; padding:0 0 200px 50px;
-      pointer-events:none; /* clicks pass through except on the bar itself */
-      z-index:20;
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(20px, 4vw, 48px);
+      z-index: 10;
     }
-    .landing > .wrap{ pointer-events:auto; width:auto; display:flex; justify-content:center; }{ pointer-events:auto; }
-    .landing.hidden{ display:none; }
+
+    .modal {
+      position: relative;
+      width: min(420px, 90vw);
+      background: var(--bubble-bg);
+      border: 3px solid var(--bubble-border);
+      border-radius: 28px;
+      box-shadow: 0 24px 70px rgba(0,0,0,0.55);
+      padding: clamp(28px, 7vw, 38px);
+      font-family:'CC Kiss And Tell', 'Trebuchet MS', Arial, sans-serif;
+      color: var(--ink-dark);
+      overflow: visible;
+    }
+
+    .modal-close{
+      position:absolute;
+      top:16px;
+      right:18px;
+      appearance:none;
+      border:0;
+      background:transparent;
+      font-family:'CC Kiss And Tell','Trebuchet MS',Arial,sans-serif;
+      font-size:32px;
+      line-height:1;
+      color:#111;
+      cursor:pointer;
+      transition:color .2s ease, transform .2s ease;
+    }
+    .modal-close:hover,
+    .modal-close:focus{
+      color:var(--accent);
+      transform:scale(1.08);
+      outline:none;
+    }
+
+    .modal-logo{
+      width:72px;
+      border:0;
+      background:transparent;
+      padding:0;
+      display:block;
+      align-self:flex-start;
+      cursor:pointer;
+      margin-bottom:18px;
+      transition:transform .2s ease;
+    }
+    .modal-logo:hover,
+    .modal-logo:focus{
+      transform:scale(1.05);
+      outline:none;
+    }
+    .modal-logo.is-active{
+      transform:scale(1.08);
+    }
+    .modal-logo img{
+      width:100%;
+      height:auto;
+      display:block;
+    }
+
+    .modal .content{
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+      align-items:flex-start;
+    }
+
+    .modal-input{
+      width:100%;
+      border:0;
+      border-bottom:3px solid rgba(17,17,17,0.9);
+      padding:14px 0 8px;
+      background:transparent;
+      color:var(--ink-dark);
+      font-family:'CC Kiss And Tell','Trebuchet MS',Arial,sans-serif;
+      font-size:14px;
+      letter-spacing:.4px;
+      outline:none;
+    }
+    .modal-input::placeholder{
+      color:rgba(17,17,17,0.54);
+    }
+
+    .modal-actions{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-top:6px;
+    }
+
+    .btn{
+      appearance:none;
+      border:none;
+      background:transparent;
+      border-radius:999px;
+      padding:0;
+      font-family:'CC Kiss And Tell','Trebuchet MS',Arial,sans-serif;
+      cursor:pointer;
+      transition:color .2s ease, background .2s ease, border-color .2s ease, transform .2s ease;
+    }
+
+    .modal-confirm{
+      border:3px solid var(--bubble-border);
+      padding:8px 22px;
+      font-size:26px;
+      color:var(--ink-dark);
+      display:none;
+    }
+    .modal-confirm.is-visible{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .modal-confirm:hover,
+    .modal-confirm:focus{
+      color:var(--accent);
+      border-color:var(--accent);
+    }
+
+    .modal-request{
+      border:3px solid var(--bubble-border);
+      padding:10px 22px;
+      color:var(--ink-dark);
+      text-decoration:none;
+      font-size:18px;
+    }
+    .modal-request:hover,
+    .modal-request:focus{
+      color:#111;
+      background:var(--accent);
+      border-color:var(--accent);
+    }
+
+    .help{
+      font-family:'CC Kiss And Tell','Trebuchet MS',Arial,sans-serif;
+      font-size:14px;
+      color:rgba(17,17,17,0.75);
+      margin-top:6px;
+      line-height:1.45;
+    }
+    .help[hidden]{ display:none; }
+
+    .kbd {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+        "Liberation Mono", "Courier New", monospace;
+      font-size: 12px;
+      padding: 0.2em 0.5em;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+    }
+
+    @media (max-width: 720px){
+      .landing > .wrap{
+        width:calc(var(--page-max-width) * 0.9);
+        bottom:26%;
+      }
+      header.top{
+        max-width:320px;
+      }
+      header.top::after{
+        bottom:-22px;
+        left:50%;
+        transform:translateX(-50%) skewX(-12deg) rotate(45deg);
+      }
+    }
+
+    @media (max-width: 480px){
+      header.top{
+        flex-direction:column;
+        text-align:center;
+        gap:12px;
+        padding:16px 20px;
+      }
+      .landing > .wrap{
+        width:calc(var(--page-max-width) * 0.95);
+        bottom:22%;
+      }
+      .pillBtn{
+        width:100%;
+      }
+    }
   </style>
 </head>
 <body>
-  <!-- Landing layer with language switcher; shown ONLY on page 1 -->
-  <div class="landing" id="landing">
-    <div class="wrap">
-      <header class="top" aria-label="Language and brand bar">
-        <div class="brand">
-          <!-- Optional logo; replace src if you have a logo.png -->
-          <img src="logo.png" alt="Meindarsögur logo" class="logo" onerror="this.style.display='none'">
-        </div>
-        <div class="lang" role="tablist" aria-label="Language switcher">
-          <button class="pillBtn" id="btnIS" aria-pressed="true" aria-label="Icelandic">Íslenska</button>
-          <button class="pillBtn" id="btnEN" aria-pressed="false" aria-label="English">Enska</button>
-        </div>
-      </header>
-    </div>
-  </div>
-
   <!-- Reader stage -->
   <div class="stage" id="stage" aria-live="polite">
-    <img id="frame" src="is/mynd1.avif" alt="Mynd 1" draggable="false" />
+    <div class="page-frame">
+      <img id="frame" src="is/mynd1.avif" alt="Mynd 1" draggable="false" />
+    </div>
+    <!-- Landing layer with language switcher; shown ONLY on page 1 -->
+    <div class="landing" id="landing">
+      <div class="wrap">
+        <header class="top" aria-label="Language and brand bar">
+          <div class="brand">
+            <!-- Optional logo; replace src if you have a logo.png -->
+            <img src="logo.png" alt="Meindarsögur logo" class="logo" onerror="this.style.display='none'">
+          </div>
+          <div class="lang" role="tablist" aria-label="Language switcher">
+            <button class="pillBtn" id="btnIS" aria-pressed="true" aria-label="Icelandic">Íslenska</button>
+            <button class="pillBtn" id="btnEN" aria-pressed="false" aria-label="English">Enska</button>
+          </div>
+        </header>
+      </div>
+    </div>
 
     <!-- Clickable halves -->
     <div class="zone left" id="zoneLeft" aria-label="Fara til baka" role="button" tabindex="0"></div>
@@ -233,19 +419,19 @@
   </div>
 
   <!-- Password modal -->
-  <div class="modal-backdrop" id="passwordModal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
-    <div class="modal">
-      <header id="mTitle">Lykilorð vantar</header>
+  <div class="modal-backdrop" id="passwordModal" role="dialog" aria-modal="true">
+    <div class="modal" aria-label="Lykilorðsgluggi">
+      <button class="modal-close" id="cancelPw" type="button" aria-label="Loka">×</button>
+      <button class="modal-logo" id="modalLogo" type="button" aria-label="Sýna leiðbeiningar" aria-expanded="false">
+        <img src="logo.png" alt="" onerror="this.closest('button').style.display='none'">
+      </button>
       <div class="content">
-        <p id="mIntro">Til að halda áfram að lesa þarftu að slá inn lykilorð.</p>
-        <label for="pw" id="mLabel">Lykilorð</label>
-        <input type="password" id="pw" placeholder="Sláðu inn lykilorð" autocomplete="current-password" />
-        <div class="row">
-          <button class="btn primary" id="confirmPw">Staðfesta</button>
-          <button class="btn ghost" id="cancelPw">Hætta við</button>
-          <a class="btn danger" id="requestPw" href="#">Panta lykilorð</a>
+        <input type="password" id="pw" class="modal-input" placeholder="Sláðu inn lykilorð til að lesa meira" autocomplete="current-password" />
+        <div class="modal-actions">
+          <button class="btn modal-confirm" id="confirmPw" type="button" aria-label="Staðfesta" hidden>✓</button>
+          <a class="btn modal-request" id="requestPw" href="#">Panta lykilorð</a>
         </div>
-        <p class="help" id="mHelp">Vinsamlega skrifaðu inn <em>lykilorðið</em> til að halda áfram að lesa. Þú getur pantað það hér fyrir ofan. Eða sent okkur póst á <strong>myndarsogur@gmail.com</strong>.</p>
+        <p class="help" id="mHelp" hidden>Vinsamlega skrifaðu inn <em>lykilorðið</em> til að halda áfram að lesa. Þú getur pantað það hér fyrir ofan. Eða sent okkur póst á <strong>myndarsogur@gmail.com</strong>.</p>
       </div>
     </div>
   </div>
@@ -261,11 +447,13 @@
           title: 'Meindarsögur',
           hudHint: 'Smelltu vinstra/hægri eða notaðu',
           ariaPrev: 'Fara til baka', ariaNext: 'Fara áfram',
-          modalTitle: 'Lykilorð vantar',
-          modalIntro: 'Til að halda áfram að lesa þarftu að slá inn lykilorð.',
-          modalLabel: 'Lykilorð',
-          modalPlaceholder: 'Sláðu inn lykilorð',
-          btnConfirm: 'Staðfesta', btnCancel: 'Hætta við', btnRequest: 'Panta lykilorð',
+          modalPlaceholder: 'Sláðu inn lykilorð til að lesa meira',
+          btnConfirmIcon: '✓',
+          ariaConfirm: 'Staðfesta lykilorð',
+          ariaClose: 'Loka glugga',
+          helpToggle: 'Sýna leiðbeiningar',
+          btnRequest: 'Panta lykilorð',
+          dialogLabel: 'Lykilorðsgluggi',
           help: 'Vinsamlega skrifaðu inn <em>lykilorðið</em> til að halda áfram að lesa. Þú getur pantað það hér fyrir ofan. Eða sent okkur póst á <strong>myndarsogur@gmail.com</strong>.',
           wrongPw: 'Rangt lykilorð. Reyndu aftur eða pantaðu lykilorð.',
           mailtoSubject: 'Beiðni um lykilorð',
@@ -276,11 +464,13 @@
           title: 'Meindarsögur',
           hudHint: 'Click left/right or use',
           ariaPrev: 'Go back', ariaNext: 'Go forward',
-          modalTitle: 'Password required',
-          modalIntro: 'To continue reading, please enter the password.',
-          modalLabel: 'Password',
-          modalPlaceholder: 'Enter password',
-          btnConfirm: 'Confirm', btnCancel: 'Cancel', btnRequest: 'Request password',
+          modalPlaceholder: 'Enter password to keep reading',
+          btnConfirmIcon: '✓',
+          ariaConfirm: 'Confirm password',
+          ariaClose: 'Close dialog',
+          helpToggle: 'Toggle help message',
+          btnRequest: 'Request password',
+          dialogLabel: 'Password dialog',
           help: 'Please type the <em>password</em> to continue reading. You can request it above, or email us at <strong>myndarsogur@gmail.com</strong>.',
           wrongPw: 'Wrong password. Try again or request the password.',
           mailtoSubject: 'Password request',
@@ -303,11 +493,9 @@
       const pwInput = document.getElementById('pw');
       const confirmPw = document.getElementById('confirmPw');
       const cancelPw = document.getElementById('cancelPw');
-      const mTitle = document.getElementById('mTitle');
-      const mIntro = document.getElementById('mIntro');
-      const mLabel = document.getElementById('mLabel');
       const requestPw = document.getElementById('requestPw');
       const mHelp = document.getElementById('mHelp');
+      const modalLogo = document.getElementById('modalLogo');
 
       // Language state
       let lang = (localStorage.getItem('lang') || 'is');
@@ -347,17 +535,49 @@
         i.src = assetPath(n);
       }
 
+      function toggleConfirmVisibility(){
+        const hasValue = pwInput.value.trim().length > 0;
+        confirmPw.hidden = !hasValue;
+        confirmPw.classList.toggle('is-visible', hasValue);
+        confirmPw.disabled = !hasValue;
+      }
+
+      function setHelpVisibility(show){
+        if(!mHelp || !modalLogo) return;
+        if(show){
+          mHelp.removeAttribute('hidden');
+        } else {
+          mHelp.setAttribute('hidden', '');
+        }
+        modalLogo.classList.toggle('is-active', show);
+        modalLogo.setAttribute('aria-expanded', show ? 'true' : 'false');
+      }
+
+      function toggleHelp(){
+        if(!mHelp || !modalLogo) return;
+        const shouldShow = mHelp.hasAttribute('hidden');
+        setHelpVisibility(shouldShow);
+      }
+
       function openModal(){
         modal.style.display = 'flex';
+        pwInput.value = '';
+        toggleConfirmVisibility();
+        setHelpVisibility(false);
         setTimeout(()=>pwInput.focus(), 50);
       }
       function closeModal(){
         modal.style.display = 'none';
         pwInput.value='';
+        toggleConfirmVisibility();
+        setHelpVisibility(false);
       }
 
       function checkPw(){
         const val = pwInput.value.trim().toLowerCase();
+        if(!val){
+          return;
+        }
         if(val === 'banani'){
           unlocked = true;
           closeModal();
@@ -385,12 +605,13 @@
         zoneLeft.setAttribute('aria-label', LANGS[lang].ariaPrev);
         zoneRight.setAttribute('aria-label', LANGS[lang].ariaNext);
         // Modal text
-        mTitle.textContent = LANGS[lang].modalTitle;
-        mIntro.textContent = LANGS[lang].modalIntro;
-        mLabel.textContent = LANGS[lang].modalLabel;
+        modal.setAttribute('aria-label', LANGS[lang].dialogLabel);
         pwInput.setAttribute('placeholder', LANGS[lang].modalPlaceholder);
-        confirmPw.textContent = LANGS[lang].btnConfirm;
-        cancelPw.textContent = LANGS[lang].btnCancel;
+        confirmPw.textContent = LANGS[lang].btnConfirmIcon;
+        confirmPw.setAttribute('aria-label', LANGS[lang].ariaConfirm);
+        cancelPw.textContent = '×';
+        cancelPw.setAttribute('aria-label', LANGS[lang].ariaClose);
+        modalLogo.setAttribute('aria-label', LANGS[lang].helpToggle);
         requestPw.textContent = LANGS[lang].btnRequest;
         requestPw.href = `mailto:myndarsogur@gmail.com?subject=${encodeURIComponent(LANGS[lang].mailtoSubject)}&body=${LANGS[lang].mailtoBody}`;
         mHelp.innerHTML = LANGS[lang].help;
@@ -406,6 +627,12 @@
       btnIS.addEventListener('click', ()=> applyLang('is'));
       btnEN.addEventListener('click', ()=> applyLang('en'));
 
+      // Modal interactions
+      pwInput.addEventListener('input', toggleConfirmVisibility);
+      if(modalLogo){
+        modalLogo.addEventListener('click', toggleHelp);
+      }
+
       // Click handlers
       zoneLeft.addEventListener('click', ()=> go(-1));
       zoneRight.addEventListener('click', ()=> go(1));
@@ -413,8 +640,15 @@
       // Keyboard arrows and space
       window.addEventListener('keydown', (e)=>{
         if(modal.style.display === 'flex'){
-          if(e.key === 'Enter'){ checkPw(); }
-          if(e.key === 'Escape'){ closeModal(); }
+          if(e.key === 'Escape'){
+            closeModal();
+            return;
+          }
+          if(e.key === 'Enter' && document.activeElement === pwInput){
+            if(pwInput.value.trim()){ checkPw(); }
+            e.preventDefault();
+            return;
+          }
           return;
         }
         if(e.key === 'ArrowRight' || e.key === ' '){ go(1); }
@@ -440,6 +674,8 @@
       });
 
       // Init
+      toggleConfirmVisibility();
+      setHelpVisibility(false);
       updateView();
       preload(2);
     })();

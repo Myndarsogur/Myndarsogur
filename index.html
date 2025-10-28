@@ -47,7 +47,7 @@
   inset:0;
   display:grid;
   place-items:center;
-  background:var(--bg);
+  background: rgb(252,237,225); /* Updated background color */
   z-index:50;
   cursor:pointer;
   transition: opacity .4s ease;
@@ -67,15 +67,18 @@
   height:100vh;
   object-fit:cover; /* preserves aspect, crops when needed */
   display:block;
-  transform:none !important; /* ensure no rotation on small screens */
 }
 
-    /* On narrow/mobile screens, rotate the intro GIF 90° so it plays "á hlið" */
-    @media (max-width: 700px){
-  .intro-wrap{ width:100vw; height:100vh; }
-  .intro img{ transform:none !important; }
+ /* Add rotation for mobile */
+@media (max-width: 700px) {
+  
+    .intro img {
+        transform: rotate(-90deg);
+        object-fit: contain;
+        width: 100vh; /* Switch dimensions */
+        height: 100vw;
 }
-
+}
     /* Main layout */
     .wrap{ min-height:100%; display:grid; place-items:center; padding:40px; }
 
