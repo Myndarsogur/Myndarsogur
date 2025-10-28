@@ -89,21 +89,6 @@
       transition:opacity .35s ease;
       z-index:4;
     }
-    .swipe-hint::after{
-      content:'';
-      position:absolute;
-      bottom:-20px;
-      right:26px;
-      width:24px;
-      height:24px;
-      background:var(--bubble-bg);
-      border:3px solid var(--bubble-border);
-      border-left-width:0;
-      border-top-width:0;
-      transform:skewX(-10deg) rotate(45deg);
-      border-bottom-right-radius:12px;
-      box-shadow:0 12px 30px rgba(0,0,0,0.28);
-    }
     .swipe-hint.visible{
       opacity:1;
     }
@@ -438,9 +423,6 @@
         top:clamp(10%, 20vw, 30%);
         right:clamp(16px, 6vw, 32px);
         font-size:clamp(15px, 4vw, 18px);
-      }
-      .swipe-hint::after{
-        right:22px;
       }
     }
   </style>
