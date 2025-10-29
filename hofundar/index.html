@@ -108,25 +108,6 @@
     }
     .portrait.is-loading{ opacity:0; }
 
-    .slide-indicator{
-      position:absolute;
-      left:50%;
-      bottom:clamp(12px, 3vw, 20px);
-      transform:translateX(-50%);
-      background:rgba(12,12,12,0.55);
-      border:1px solid rgba(255,255,255,0.35);
-      border-radius:999px;
-      padding:6px 14px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-family:"CC Kiss And Tell", "CCBiffBamBoom", Impact, sans-serif;
-      font-size:clamp(16px, 3.2vw, 22px);
-      letter-spacing:.2px;
-      box-shadow:0 8px 18px rgba(0,0,0,0.3);
-    }
-    .slide-indicator[hidden]{ display:none; }
-
     .arrow-nav{ display:flex; justify-content:center; gap:clamp(28px, 12vw, 56px); margin-top:24px; }
     .arrow-btn{
       pointer-events:auto;
@@ -171,17 +152,12 @@
     <div class="card" id="card">
       <!-- Nafnið er núna hlekkur -->
       <h2 class="name" id="name">
-        <button type="button" class="name-nav" id="namePrev" aria-label="Fara í fyrri höfund">←</button>
         <a id="nameLink" href="#" target="_blank" rel="noopener">—</a>
-        <button type="button" class="name-nav" id="nameNext" aria-label="Fara í næsta höfund">→</button>
       </h2>
 
       <!-- Myndin er EKKI hlekkur — hún stýrir flettingu -->
       <div id="portraitWrap" class="portrait-wrap" aria-label="Smelltu á vinstri/hægri helming til að fletta">
         <img id="portrait" class="portrait" src="" alt="Höfundamynd" loading="lazy" decoding="async">
-        <div class="slide-indicator" id="slideIndicator" hidden>
-          <span class="slide-indicator__text" id="slideIndicatorText">1 / 1</span>
-        </div>
       </div>
     </div>
 
@@ -337,12 +313,8 @@
     const dotsEl        = document.getElementById("dots");
     const prevZone      = document.querySelector(".navzone.prev");
     const nextZone      = document.querySelector(".navzone.next");
-    const slideIndicatorEl   = document.getElementById("slideIndicator");
-    const slideIndicatorText = document.getElementById("slideIndicatorText");
     const arrowPrevBtn = document.getElementById("arrowPrev");
     const arrowNextBtn = document.getElementById("arrowNext");
-    const namePrevBtn  = document.getElementById("namePrev");
-    const nameNextBtn  = document.getElementById("nameNext");
 
     let authorIndex = 0;
     let slideIndex = 0;
@@ -372,16 +344,6 @@
       });
     }
 
-    function updateSlideIndicator(slides){
-      if(slides.length <= 1){
-        slideIndicatorEl.setAttribute("hidden", "");
-        slideProgressEl.style.width = "0%";
-        return;
-      }
-      slideIndicatorEl.removeAttribute("hidden");
-      slideIndicatorText.textContent = `${slideIndex + 1} / ${slides.length}`;
-    }
-
     function preloadSlide(aIdx, sIdx){
       if(aIdx < 0 || aIdx >= authors.length) return;
       const slides = authors[aIdx].slides;
@@ -406,7 +368,6 @@
       portraitEl.classList.add("is-loading");
       portraitEl.src = src;
       portraitEl.alt = alt;
-      updateSlideIndicator(slides);
       preloadSlide(authorIndex, slideIndex + 1);
       preloadSlide(authorIndex + 1, 0);
     }
@@ -465,16 +426,12 @@
       const canNext = slideIndex < slides.length - 1 || authorIndex < authors.length - 1;
       arrowPrevBtn.disabled = !canPrev;
       arrowNextBtn.disabled = !canNext;
-      namePrevBtn.disabled = !canPrev;
-      nameNextBtn.disabled = !canNext;
     }
 
     nextZone.addEventListener("click", next);
     prevZone.addEventListener("click", prev);
     arrowNextBtn.addEventListener("click", next);
     arrowPrevBtn.addEventListener("click", prev);
-    nameNextBtn.addEventListener("click", next);
-    namePrevBtn.addEventListener("click", prev);
     window.addEventListener("keydown", (e)=>{
       if(e.key === "ArrowRight") next();
       if(e.key === "ArrowLeft")  prev();
