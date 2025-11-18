@@ -39,25 +39,56 @@ document.getElementById("arid").addEventListener("click", function() {
   window.location.href = `${basePath}Arid2024/index.html`;
 });
 
-// List of plant emojis
-const plantEmojis = ["🌱", "🌿", "☘️", "🌵", "🌻", "🍄", "🌴", "🌳", "🌲", "🌾", "🌼",  "🪴", "🥀"  ];
+// Emoji safn eftir svæði
+const plantEmojis = ["🌱", "🌿", "☘️", "🌵", "🌻", "🍄", "🌴", "🌳", "🌲", "🌾", "🌼", "🪴", "🥀"];
+const cloudEmojis = ["☁️", "🌤️", "⛅️", "🌥️", "☁︎", "🌦️"];
+const starEmojis  = ["⭐️", "🌟", "✨", "💫", "🌠", "🌌"];
+const foodEmojis  = ["🍉", "🍓", "🍇", "🍎", "🍒", "🍰", "🧁", "🥐", "🥪", "🍕", "🍪", "🥞", "🍤"];
+const seaEmojis   = ["🐟", "🐠", "🐡", "🐙", "🦀", "🦑", "🦞", "🪼", "🐚", "🌊", "🐬"];
 
-// Function to get a random plant emoji
-function getRandomPlantEmoji() {
-  return plantEmojis[Math.floor(Math.random() * plantEmojis.length)];
+function getEmojiConfig(zone){
+  if(zone.classList.contains("quad--sky")){
+    const isNight = document.querySelector(".sky-layer--night").classList.contains("is-visible");
+    return isNight
+      ? { icons: starEmojis, className: "star-emoji" }
+      : { icons: cloudEmojis, className: "cloud-emoji" };
+  }
+  if(zone.classList.contains("quad--green-top")){
+    return { icons: plantEmojis, className: "plant-emoji" };
+  }
+  if(zone.classList.contains("quad--green-bottom")){
+    return { icons: foodEmojis, className: "food-emoji" };
+  }
+  if(zone.classList.contains("quad--ocean")){
+    return { icons: seaEmojis, className: "sea-emoji" };
+  }
+  return null;
 }
 
-// Function to create and display a plant emoji at the click position
-function displayPlantEmoji(event) {
+function getRandomEmoji(list){
+  return list[Math.floor(Math.random() * list.length)];
+}
+
+function spawnEmoji(event, config){
   const emoji = document.createElement("div");
-  emoji.textContent = getRandomPlantEmoji();
+  emoji.textContent = getRandomEmoji(config.icons);
   emoji.style.position = "absolute";
   emoji.style.left = `${event.clientX}px`;
   emoji.style.top = `${event.clientY}px`;
   emoji.style.fontSize = "48px"; // Increase the font size
-  emoji.classList.add("plant-emoji");
+  emoji.classList.add("floating-emoji", config.className);
   document.body.appendChild(emoji);
 }
+
+const nightLayer = document.querySelector(".sky-layer--night");
+
+function updateSkyState(){
+  const isNight = parseFloat(getComputedStyle(nightLayer).opacity) > 0.5;
+  nightLayer.classList.toggle("is-visible", isNight);
+}
+
+updateSkyState();
+setInterval(updateSkyState, 400);
 
 // Function to check if the dog overlaps with any plant emojis
 function checkDogOverlap() {
@@ -78,13 +109,15 @@ function checkDogOverlap() {
   });
 }
 
-// Add event listener to the container to display plant emojis on click
+// Add event listener to the container to display emojis á mismunandi svæðum
 document.querySelector(".container").addEventListener("click", function(event) {
-  if (!event.target.closest(".button-container, .mini-icon, .hnappur-overlay")) {
-    displayPlantEmoji(event);
-  }
+  if (event.target.closest(".mini-icon, .button-container, #arctic, #arid, #hundur, .fiskur, .floating-button")) return;
+  const zone = event.target.closest(".quad");
+  if(!zone) return;
+  const config = getEmojiConfig(zone);
+  if(!config) return;
+  spawnEmoji(event, config);
 });
 
 // Check for dog overlap with plant emojis at regular intervals
 setInterval(checkDogOverlap, 100);
-

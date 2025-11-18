@@ -3,61 +3,51 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
-
-
-  <!-- Theme-color fyrir Android Chrome og aðra vafra sem styðja -->
-  <meta name="theme-color" content="#92d75c" />
-
-  <!-- iOS Web App stillingar -->
+  <meta name="theme-color" content="#0c46ff" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>Nýja síðan</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Nýja síðan — blái fasi</title>
+  <link rel="stylesheet" href="style_variant.css" />
 </head>
-<body>
-
+<body class="variant-body">
   <div class="container">
-  
-    
-    <!-- Auka-lög (strond, vatn, steinar, meiragras) - án virkni -->
-    <!-- Þú getur fært þau til, skalað, o.s.frv. með CSS -->
-    <img src="imgs/strond.png" alt="strond" class="strond" />
-    <img src="imgs/vatn.png" alt="vatn" class="vatn" />
-    <img src="imgs/steinar.png" alt="steinar" class="steinar" />
-    <img src="imgs/meiragras.png" alt="meiragras" class="meiragras" />
-    <img src="imgs/umhverfi.png" alt="umhverfi" class="umhverfi" />
+    <section class="quad quad--sky">
+      <div class="sky-layer sky-layer--blue" aria-hidden="true"></div>
+      <div class="sky-layer sky-layer--night" aria-hidden="true"></div>
+      <div class="floating-button floating-button--2024">
+        <img src="imgs/hnappur 2.png" alt="" class="hnappur-track">
+        <img src="imgs/2024.png" alt="2024" class="hnappur-track__overlay" id="arid">
+      </div>
 
-    <!-- Hnapparnir (með eigin "ofaná-lögum") -->
-    <div class="button-container" id="btn1">
-      <img src="imgs/hnappur 1.png" alt="Hnappur 1" class="hnappur" id="arctic">
-      <img src="imgs/arctic.png" alt="arctic text" class="hnappur-overlay" />
+      <div class="floating-button floating-button--arctic">
+        <img src="imgs/hnappur 1.png" alt="" class="hnappur-track">
+        <img src="imgs/arctic.png" alt="Arctic Comics" class="hnappur-track__overlay" id="arctic">
+      </div>
+    </section>
 
-    </div>
-    
-    <div class="button-container" id="btn2">
-      <img src="imgs/hnappur 2.png" alt="Hnappur 2" class="hnappur" id="arid">
-      <img src="imgs/2024.png" alt="2024 text" class="hnappur-overlay" />
-    </div>
-    
-    <div class="button-container" id="btn3">
-      <img src="imgs/hnappur 3.png" alt="Hnappur 3" class="hnappur">
-      <!-- Hérna setjum við 4 lítil „ofaná-lög“ sem hvert um sig gæti verið tengt link -->
-      <img src="imgs/rammi.png"    alt="rammi"    class="mini-icon" id="rammi" />
-      <img src="imgs/skrifa.png"   alt="skrifa"   class="mini-icon" id="skrifa" />
-      <img src="imgs/palletta.png" alt="palletta" class="mini-icon" id="palletta" />
-      <img src="imgs/teningur.png" alt="teningur" class="mini-icon" id="teningur" />
+    <section class="quad quad--green-top">
+      <img src="imgs/hund.GIF" alt="Hundur í lúppu" class="hundur" id="hundur">
+    </section>
 
-    </div>
-    
-    <!-- Fiskar neðarlega á skjánum, synda fram og til baka -->
-    <img src="imgs/fiskur 1.png" alt="Fiskur 1" class="fiskur fish1" id="fiskur1">
-    <img src="imgs/fiskur 2.png" alt="Fiskur 2" class="fiskur fish2" id="fiskur2">
-    
-    <!-- Hundur sem ferðast frá hægri neðst upp til vinstri og til baka -->
-    <img src="imgs/hund.gif" alt="Ferðast um skjáinn" class="hundur" id="hundur">
-    
+    <section class="quad quad--green-bottom">
+      <div class="picnic-actions">
+        <div class="button-container" id="btn3">
+          <img src="imgs/hnappur 3.png" alt="Verkstæði" class="hnappur">
+          <img src="imgs/rammi.png"    alt="rammi"    class="mini-icon mini-icon--rammi" id="rammi" />
+          <img src="imgs/skrifa.png"   alt="skrifa"   class="mini-icon mini-icon--skrifa" id="skrifa" />
+          <img src="imgs/palletta.png" alt="palletta" class="mini-icon mini-icon--palletta" id="palletta" />
+          <img src="imgs/teningur.png" alt="teningur" class="mini-icon mini-icon--teningur" id="teningur" />
+        </div>
+      </div>
+    </section>
+
+    <section class="quad quad--ocean">
+      <img src="imgs/steinar.png" alt="Steinar" class="steinar" />
+      <img src="imgs/fiskur 1.png" alt="Fiskur 1" class="fiskur fish1" id="fiskur1">
+      <img src="imgs/fiskur 2.png" alt="Fiskur 2" class="fiskur fish2" id="fiskur2">
+    </section>
   </div>
-  
+
   <script src="script.js"></script>
 </body>
 </html>
