@@ -121,6 +121,10 @@
       font-size: clamp(18px, 2.5vw, 28px);
       color:#ffffff; text-decoration:none; display:block; padding:6px 4px;
     }
+    .pop a.meindarsogur{ color:#ffffff;; padding:8px 10px; border-radius:10px; background:#ff1900; }
+    .pop a.hladvarp{ color:#ffd54f; padding:8px 10px; border-radius:10px; background:transparent; }
+    .pop a.senda{ color:#ffffff; padding:8px 10px; border-radius:10px; background:#4caf50;; }
+    .pop a.spjall{ color:#ffffff; padding:8px 10px; border-radius:10px; background:transparent; }
 
   </style>
 </head>
@@ -144,17 +148,17 @@
   </button>
   <nav class="pop" id="popMenu" aria-hidden="true">
     <ul>
-      <li><a href="/Hrekkjavokuforsidan/">{ Meindarsögur }</a></li>
-      <li><a href="/hlusta">{ Hlaðvarpið }</a></li>
-      <li><a href="https://myndasogur.app">{ Spjallborðið }</a></li>
-      <li><a href="/jolasaga">{ Sendu inn sögu } </a></li>
+      <li><a class="meindarsogur" href="/Hrekkjavokuforsidan/">{ Meindarsögur }</a></li>
+      <li><a class="hladvarp" href="/hlusta">{ Hlaðvarpið }</a></li>
+      <li><a class="spjall" href="https://myndasogur.app">{ Spjallborðið }</a></li>
+      <li><a class="senda" id="sendStory" href="#">{ Sendu inn sögu } </a></li>
     </ul>
   </nav>
 
   <script>
- (function(){
-    // Fyrirvari: intro myndband/gif er fjarlægt – aðeins aðalefni birtist.
-  })();
+    (function(){
+      // Fyrirvari: intro myndband/gif er fjarlægt – aðeins aðalefni birtist.
+    })();
 
     // ===== Logo pop-menu toggle =====
     (function(){
@@ -177,6 +181,20 @@
         btn.setAttribute('aria-expanded', String(open));
         menu.setAttribute('aria-hidden', String(!open));
       });
+    })();
+
+    // ===== Sendu inn sögu mailto (auðvelt að breyta) =====
+    (function(){
+      const link = document.getElementById('sendStory');
+      if(!link) return;
+      const subject = 'Hérna er saga sem ég held að væri flott í næsta blað';
+      const body = [
+        'Hérna er saga sem ég gerði mig langaði að deila henni með ykkur,',
+        'Ég set hana hér sem viðhengi.',
+        '',
+        'Hlakka til að heyra frá ykkur'
+      ].join('\n');
+      link.href = `mailto:myndarsogur@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     })();
   </script>
 </body>

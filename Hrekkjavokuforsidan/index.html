@@ -169,7 +169,7 @@
           <img src="./forsida.png" alt="Forsíða — Meindarsögur (B5)" />
         </a>
       </div>
-      <a class="authors-link" href="https://Myndarsogur.is/hofundar">Höfundar</a>
+      <a class="authors-link" href="/Hrekkjavokuforsidan/hofundar/index.html">Höfundar</a>
     </div>
   </main>
 
@@ -239,6 +239,9 @@
       vid.addEventListener('error', swapToGif, { once:true });
       vid.addEventListener('ended', goIn, { once:true });
     }
+
+    // Byrjum á GIF strax (ef MP4 vantar eða blokkar)
+    swapToGif();
 
     // smellur: ef GIF/paused → reyna spila; annars sleppa
     intro.addEventListener('click', ()=>{
