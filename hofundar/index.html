@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#b00000" id="themeColor">
+  <meta name="theme-color" content="#cfe7ff" id="themeColor">
   <title>Höfundar</title>
   <style>
     /* Letur */
@@ -13,16 +13,22 @@
            url("fonts/CCBiffBamBoom.woff") format("woff");
       font-display: swap;
     }
+    @font-face{
+      font-family: "CCHypnotique";
+      src: url("../CCHypnotique-Regular.woff2") format("woff2"),
+           url("../CCHypnotique-Regular.woff") format("woff");
+      font-display: swap;
+    }
 
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;
-      background:#b00000; /* rauður; uppfærist per höfund */
+      background:#cfe7ff; /* ljósblár bakgrunnur */
       color:#fff;
       display:grid;
       place-items:center;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Helvetica, Arial, "Noto Sans", sans-serif;
+      font-family:"CCHypnotique", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Helvetica, Arial, "Noto Sans", sans-serif;
       transition: background-color .35s ease;
     }
 
@@ -52,7 +58,7 @@
       align-items:center;
       justify-content:center;
       gap:clamp(8px, 3vw, 18px);
-      font-family:"CCBiffBamBoom", Impact, Haettenschweiler, "Arial Black", sans-serif;
+      font-family:"CCHypnotique","CCBiffBamBoom", Impact, Haettenschweiler, "Arial Black", sans-serif;
       font-size:clamp(32px, 8vw, 68px);
       line-height:.95;
       margin:0;
@@ -175,100 +181,56 @@
   <script>
     const mediaBase = "Birt";
     const slidesByFolder = {
-      "Bjarni Pálsson": [
-        "mynd1.avif"
+      "Addi Nabblakusk": [
+        "addi-nabblakusk.avif"
       ],
-      "Einar Másson": [
-        "mynd1.avif"
+      "Astrid M Stefánsdóttir": [
+        "astrid-m-stefansdottir.avif"
+      ],
+      "Bjarni Pálsson": [
+        "bjarni-palsson.avif"
       ],
       "Fannar G. Gilbertsson": [
-        "mynd1.avif",
-        "mynd2.avif",
-        "mynd3.avif",
-        "mynd4.avif",
-        "mynd5.avif",
-        "mynd6.avif",
-        "mynd7.avif",
-        "mynd8.avif"
+        "fannar-g-gilbertsson.avif"
+      ],
+      "Finnur Matteo Bettaglio": [
+        "finnur-matteo-bettaglio.avif"
       ],
       "Gísli Dan": [
-        "mynd1.avif",
-        "mynd2.avif",
-        "mynd3.avif",
-        "mynd4.avif",
-        "mynd5.avif"
-      ],
-      "Heiða Maack": [
-        "mynd1.avif"
-      ],
-      "Hekla Art": [
-        "mynd1.avif",
-        "mynd2.avif",
-        "mynd3.avif",
-        "mynd4.avif",
-        "mynd5.avif",
-        "mynd6.avif",
-        "mynd7.avif"
+        "gisli-dan.avif"
       ],
       "I.R. Kjartansson": [
-        "mynd1.avif"
+        "ir-kjartansson.avif"
       ],
       "J.J. Mancho": [
-        "mynd1.avif"
+        "jj-mancho.avif"
       ],
-      "KRishelga": [
-        "mynd1.avif",
-        "mynd2.avif",
-        "mynd3.avif",
-        "mynd4.avif",
-        "mynd5.avif",
-        "mynd6.avif"
+      "Kris Helga": [
+        "kris-helga.avif"
       ],
-      "Krummi": [
-        "mynd1.avif"
+      "Lísa Margrét": [
+        "lisa-margret.avif"
       ],
-      "Lefteris Jakúmakis": [
-        "mynd1.avif"
+      "Lúkas og Matthías Regal": [
+        "lukas-og-matthias-regal.avif"
       ],
-      "Lúkas Stefán Regal": [
-        "mynd1.avif"
-      ],
-      "María Carmela": [
-        "mynd1.avif"
-      ],
-      "Plóma": [
-        "mynd1.avif"
-      ],
-      "Sigfús Jóhannsson": [
-        "mynd1.avif",
-        "mynd2.avif",
-        "mynd3.avif",
-        "mynd4.avif",
-        "mynd5.avif",
-        "mynd6.avif",
-        "mynd7.avif",
-        "mynd8.avif"
-      ],
-      "Sunneva Guðrún": [
-        "mynd1.avif",
-        "mynd2.avif",
-        "mynd3.avif",
-        "mynd4.avif",
-        "mynd5.avif",
-        "mynd6.avif",
-        "mynd7.avif"
+      "Sharky Sharky": [
+        "sharky-sharky.avif"
       ],
       "Sunneva Thomsen": [
-        "mynd1.avif"
+        "sunneva-thomsen.avif"
       ],
-      "Þórir Karl Celin": [
-        "mynd1.avif",
-        "mynd2.avif",
-        "mynd3.avif",
-        "mynd4.avif",
-        "mynd5.avif",
-        "mynd6.avif",
-        "mynd7.avif"
+      "Sólveig Eva Magnúsdóttir": [
+        "solveig-eva-magnusdottir.avif"
+      ],
+      "Una Björk": [
+        "una-bjork.avif"
+      ],
+      "Ísold Davíðsdóttir": [
+        "isold-davidsdottir.avif"
+      ],
+      "Ómar Vídó": [
+        "omar-vido.avif"
       ]
     };
 
@@ -279,31 +241,43 @@
     function buildSlidePath(folder, file){
       return `${mediaBase}/${encodeSegment(folder)}/${encodeSegment(file)}`;
     }
+    function buildFallback(folder, file){
+      const webp = file.replace(/\.avif$/i, ".webp");
+      return `${mediaBase}/${encodeSegment(folder)}/${encodeSegment(webp)}`;
+    }
+    const PLACEHOLDER = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1000'><rect width='100%' height='100%' fill='%23b00000'/><text x='50%' y='50%' fill='%23ffffff' font-size='48' font-family='Arial' dominant-baseline='middle' text-anchor='middle'>Mynd%20vantar</text></svg>";
 
     const authors = [
-      { name: "María Carmela",        url: "https://www.instagram.com/mct.art/?hl=en",                      folder: "María Carmela" },
-      { name: "Bjarni Pálsson",       url: "https://www.jolaljosamadurinn.com/",                            folder: "Bjarni Pálsson" },
-      { name: "Sunneva Thomsen",      url: "https://www.instagram.com/sunnevaart/?hl=en",                   folder: "Sunneva Thomsen" },
-      { name: "Sunneva Guðrún",       url: "https://www.instagram.com/greykolla/?hl=en",                    folder: "Sunneva Guðrún" },
-      { name: "Krummi",               url: "https://www.instagram.com/kruzidula/?hl=en",                    folder: "Krummi" },
-      { name: "Lefteris Jakúmakis",   url: "https://left-y.com/",                                           folder: "Lefteris Jakúmakis" },
-      { name: "J.J. Mancho",          url: "https://www.domestika.org/es/jjmancho/portfolio",               folder: "J.J. Mancho" },
-      { name: "Sigfús Jóhannsson",    url: "https://www.instagram.com/sigfus_johannsson/?hl=en",            folder: "Sigfús Jóhannsson" },
-      { name: "Þórir Karl Celin",     url: "https://celin.myportfolio.com/",                                folder: "Þórir Karl Celin" },
-      { name: "Lúkas Stefán Regal",   url: "https://www.instagram.com/lukas_regal/?hl=en",                  folder: "Lúkas Stefán Regal" },
-      { name: "Fannar G. Gilbertsson",url: "https://fannargg.com",                                          folder: "Fannar G. Gilbertsson" },
-      { name: "Heiða Maack",          url: "https://www.instagram.com/dimma_limm/?hl=en",                   folder: "Heiða Maack" },
-      { name: "Plóma",                url: "https://www.webtoons.com/en/canvas/goblin-behaviour/list?title_no=733332", folder: "Plóma" },
-      { name: "I.R. Kjartansson",     url: "https://www.instagram.com/i.r.kjartansson_/?hl=en",             folder: "I.R. Kjartansson" },
-      { name: "Hekla Art",            url: "https://www.instagram.com/jheklaart/?hl=en",                    folder: "Hekla Art" },
-      { name: "Gísli Dan",            url: "https://www.instagram.com/gisli.dan.illustrations/?hl=en",      folder: "Gísli Dan" },
-      { name: "Einar Másson",         url: "https://emassonart.com",                                        folder: "Einar Másson" }
-      // Bættu auðveldlega við fleiri höfunda með því að bæta við möppu í Birt og skrá hana hér.
+      { name: "Fannar G. Gilbertsson", url: "https://fannargg.com",                                        folder: "Fannar G. Gilbertsson" },
+      { name: "Finnur Matteo Bettaglio", url: "https://finnurmatteo.myportfolio.com",                                                          folder: "Finnur Matteo Bettaglio" },
+      { name: "Ísold Davíðsdóttir",     url: "https://www.instagram.com/aparasscomix/",                                                          folder: "Ísold Davíðsdóttir" },
+      { name: "Kris Helga",             url: "https://www.instagram.com/kris_helga_art/?hl=en",                                                          folder: "Kris Helga" },
+      { name: "I.R. Kjartansson",       url: "https://www.instagram.com/i.r.kjartansson_/?hl=en",         folder: "I.R. Kjartansson" },
+      { name: "Ómar Vídó",              url: "https://www.instagram.com/robotic_turtle/",                                                          folder: "Ómar Vídó" },
+      { name: "Bjarni Pálsson",         url: "https://www.jolaljosamadurinn.com/",                        folder: "Bjarni Pálsson" },
+      { name: "Gísli Dan",              url: "https://www.instagram.com/gisli.dan.illustrations/?hl=en",  folder: "Gísli Dan" },
+      { name: "Sharky Sharky",          url: "https://www.instagram.com/babys.got.a.gun/",                                                          folder: "Sharky Sharky" },
+      { name: "Astrid M Stefánsdóttir", url: "https://www.instagram.com/astrid.stefans/?hl=en",                                                          folder: "Astrid M Stefánsdóttir" },
+      { name: "Addi Nabblakusk",        url: "https://www.instagram.com/addinabblakusk/?hl=en",                                                          folder: "Addi Nabblakusk" },
+      { name: "J.J. Mancho",            url: "https://www.domestika.org/es/jjmancho/portfolio",           folder: "J.J. Mancho" },
+      { name: "Lúkas og Matthías Regal",url: "https://www.instagram.com/lukas_regal/?hl=en",              folder: "Lúkas og Matthías Regal" },
+      { name: "Sólveig Eva Magnúsdóttir", url: "https://solaeva.com",                                                        folder: "Sólveig Eva Magnúsdóttir" },
+      { name: "Sunneva Thomsen",        url: "https://www.instagram.com/sunnevaart/?hl=en",               folder: "Sunneva Thomsen" },
+      { name: "Lísa Margrét",           url: "https://www.instagram.com/lismargur_art/",                                                          folder: "Lísa Margrét" },
+      { name: "Una Björk",              url: "https://www.instagram.com/freckled.fairy/?hl=en",                                                          folder: "Una Björk" }
     ];
 
     authors.forEach((author) => {
       const files = slidesByFolder[author.folder] || [];
-      author.slides = (files.length ? files : ["mynd1.jpg"]).map((file) => buildSlidePath(author.folder, file));
+      author.slides = files.map((file) => {
+        if(file.startsWith("data:")) return file;
+        const primary = buildSlidePath(author.folder, file);
+        const fallback = buildFallback(author.folder, file);
+        return { primary, fallback };
+      });
+      if(!author.slides.length){
+        author.slides = [PLACEHOLDER];
+      }
     });
 
     const themeMeta     = document.getElementById("themeColor");
@@ -320,12 +294,8 @@
     let slideIndex = 0;
     const preloaded = new Set();
 
-    function redShade(index, total){
-      if(total < 2) return "hsl(0 80% 40%)";
-      const t = index / (total - 1);
-      const sat = 70 + 25 * (1 - t);
-      const light = 58 - 58 * t;
-      return `hsl(0 ${sat.toFixed(0)}% ${light.toFixed(0)}%)`;
+    function redShade(){
+      return "#cfe7ff";
     }
 
     function renderDots(){
@@ -348,7 +318,8 @@
       if(aIdx < 0 || aIdx >= authors.length) return;
       const slides = authors[aIdx].slides;
       if(!slides || sIdx < 0 || sIdx >= slides.length) return;
-      const src = slides[sIdx];
+      const entry = slides[sIdx];
+      const src = typeof entry === "string" ? entry : entry.primary;
       if(preloaded.has(src)) return;
       const img = new Image();
       img.src = src;
@@ -363,9 +334,20 @@
       const author = authors[authorIndex];
       const slides = author.slides;
       slideIndex = Math.min(Math.max(slideIndex, 0), slides.length - 1);
-      const src = slides[slideIndex];
+      const entry = slides[slideIndex];
+      const src = typeof entry === "string" ? entry : entry.primary;
+      const fallback = typeof entry === "object" ? entry.fallback : null;
       const alt = `${author.name} — mynd ${slideIndex + 1} af ${slides.length}`;
       portraitEl.classList.add("is-loading");
+      portraitEl.onerror = () => {
+        if(fallback){
+          portraitEl.onerror = null;
+          portraitEl.src = fallback;
+        } else {
+          portraitEl.onerror = null;
+          portraitEl.src = PLACEHOLDER;
+        }
+      };
       portraitEl.src = src;
       portraitEl.alt = alt;
       preloadSlide(authorIndex, slideIndex + 1);

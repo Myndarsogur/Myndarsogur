@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Meindarsögur</title>
+  <style>
+    /* ===== Theme ===== */
+    :root{
+      /* Reader (from index.html) */
+      --bg:#0b0b0b;
+      --ink:#ffffff;
+      --muted:#bdbdbd;
+      --accent:#ffd166;
+      --danger:#d7263d;
+      /* Landing bar / language skins (from kannski.html) */
+      --is-bg:#b00000; /* Icelandic background */
+      --en-bg:#e90d31; /* English background */
+      --paper:#fff7ef;
+      --ink-dark:#0e0e0e;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      color:var(--ink);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Helvetica, Arial, "Noto Sans", sans-serif;
+      overflow:hidden;
+      /* language skin colors behind reader */
+      background:var(--is-bg);
+    }
+    body.en{ background:var(--en-bg); color:#111; }
+
+    /* ===== Top bar (only visible on first page) ===== */
+    .wrap{ width:min(50px, 96vw); padding:18px 0 10px; margin-inline:auto; }
+    header.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(8px);
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}    .brand{ font-weight:800; letter-spacing:.3px; display:flex; align-items:center; gap:12px; }
+    .brand .logo{ display:block; max-height:40px; width:auto; }
+    .lang{ display:flex; gap:8px; }
+    .pillBtn{
+      appearance:none; border:0; cursor:pointer; font-weight:800; border-radius:999px; padding:.5rem .9rem;
+      background:#fff; color:#111; box-shadow:0 6px 16px rgba(0,0,0,.25);
+    }
+    .pillBtn[aria-pressed="true"]{ outline:2px solid rgba(255,255,255,.8) }
+
+    /* ===== Reader (from index.html) ===== */
+    .stage{
+      position:fixed; inset:0; display:grid; place-items:center; user-select:none; background:var(--bg);
+      box-shadow:none; border:none; border-radius:0;
+      z-index:1;
+    }
+    body.en .stage{ border-color: rgba(0,0,0,.12); }
+
+    img#frame{
+      max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; display:block;
+      box-shadow: 0 10px 40px rgba(0,0,0,.45);
+    }
+
+    .zone{position:absolute; top:0; bottom:0; width:50%;}
+    .zone.left{left:0; cursor:w-resize;}
+    .zone.right{right:0; cursor:e-resize;}
+    .zone.disabled{cursor:not-allowed;}
+
+    .edge-hint{position:absolute; top:0; bottom:0; width:20vw; pointer-events:none;}
+    .edge-hint.left{left:0; background:linear-gradient(90deg, rgba(0,0,0,.35), rgba(0,0,0,0));}
+    .edge-hint.right{right:0; background:linear-gradient(270deg, rgba(0,0,0,.35), rgba(0,0,0,0));}
+
+    .hud{position:fixed; left:12px; bottom:12px; display:none;}
+    .pill{background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.2); padding:6px 10px; border-radius:999px; font-size:13px}
+    .muted{color:var(--muted)}
+
+  /* Modal */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 10;
+}
+
+.modal {
+  width: min(480px, 96vw);
+  background: #111;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 16px;
+  box-shadow: 0 12px 60px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  color: #fff; /* <-- allt inni í glugganum verður hvítt */
+}
+
+.modal header {
+  padding: 16px 18px;
+  font-weight: 700;
+  border-bottom: 1px solid rgba(243, 232, 232, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff; /* titillinn hvítur */
+}
+
+.modal .content {
+  padding: 18px;
+  color: #fff; /* almennur texti hvítur */
+}
+
+.modal label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #fff; /* textinn "Password" hvítur */
+}
+
+.modal input[type="password"] {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 16px;
+  background: #0b0b0b;
+  color: #fff; /* texti í reitnum hvítur */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  outline: none;
+}
+
+/* placeholder textinn hvítleitur */
+.modal input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.modal .row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.btn {
+  appearance: none;
+  border: none;
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.btn.primary {
+  background: var(--accent);
+}
+
+.btn.ghost {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+}
+
+.btn.danger {
+  background: transparent;
+  border: 1px solid var(--danger);
+  color: var(--danger);
+}
+
+.help {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 10px;
+}
+
+.kbd {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  font-size: 12px;
+  padding: 0.2em 0.5em;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+    /* Container that holds the top bar (visible only on page 1) */
+    .landing{
+      position:fixed; inset:0; display:flex; align-items:flex-end; justify-content:flex-start; padding:0 0 200px 50px;
+      pointer-events:none; /* clicks pass through except on the bar itself */
+      z-index:20;
+    }
+    .landing > .wrap{ pointer-events:auto; width:auto; display:flex; justify-content:center; }{ pointer-events:auto; }
+    .landing.hidden{ display:none; }
+
+    /* Main container */
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Image container */
+    .b5 {
+      width: 100%;
+      max-width: min(76vw, 560px);
+      aspect-ratio: 176 / 250;
+      background: var(--paper);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0,0,0,.25);
+    }
+
+    .b5 img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    /* Desktop adjustments */
+    @media (min-width: 701px) {
+      .wrap {
+        padding: 40px;
+      }
+      
+      .b5 {
+        max-width: min(60vw, 560px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Landing layer with language switcher; shown ONLY on page 1 -->
+  <div class="landing" id="landing">
+    <div class="wrap">
+      <header class="top" aria-label="Language and brand bar">
+        <div class="brand">
+          <!-- Optional logo; replace src if you have a logo.png -->
+          <img src="logo.png" alt="Meindarsögur logo" class="logo" onerror="this.style.display='none'">
+        </div>
+        <div class="lang" role="tablist" aria-label="Language switcher">
+          <button class="pillBtn" id="btnIS" aria-pressed="true" aria-label="Icelandic">Íslenska</button>
+          <button class="pillBtn" id="btnEN" aria-pressed="false" aria-label="English">Enska</button>
+        </div>
+      </header>
+    </div>
+  </div>
+
+  <!-- Reader stage -->
+  <div class="stage" id="stage" aria-live="polite">
+    <img id="frame" src="is/mynd1.avif" alt="Mynd 1" draggable="false" />
+
+    <!-- Clickable halves -->
+    <div class="zone left" id="zoneLeft" aria-label="Fara til baka" role="button" tabindex="0"></div>
+    <div class="zone right" id="zoneRight" aria-label="Fara áfram" role="button" tabindex="0"></div>
+
+    <div class="edge-hint left"></div>
+    <div class="edge-hint right"></div>
+  </div>
+
+  <!-- HUD / info -->
+  <div class="hud">
+    <div class="pill" id="counter">1 / 44</div>
+    <div class="pill muted" id="hint">Smelltu vinstra/hægri eða notaðu <span class="kbd">←</span> / <span class="kbd">→</span></div>
+  </div>
+
+  <!-- Password modal -->
+  <div class="modal-backdrop" id="passwordModal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+    <div class="modal">
+      <header id="mTitle">Lykilorð vantar</header>
+      <div class="content">
+        <p id="mIntro">Til að halda áfram að lesa þarftu að slá inn lykilorð.</p>
+        <label for="pw" id="mLabel">Lykilorð</label>
+        <input type="password" id="pw" placeholder="Sláðu inn lykilorð" autocomplete="current-password" />
+        <div class="row">
+          <button class="btn primary" id="confirmPw">Staðfesta</button>
+          <button class="btn ghost" id="cancelPw">Hætta við</button>
+          <a class="btn danger" id="requestPw" href="#">Panta lykilorð</a>
+        </div>
+        <p class="help" id="mHelp">Vinsamlega skrifaðu inn <em>lykilorðið</em> til að halda áfram að lesa. Þú getur pantað það hér fyrir ofan. Eða sent okkur póst á <strong>myndarsogur@gmail.com</strong>.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const TOTAL = 44;
+      let index = 1; // 1-based
+      let unlocked = false; // becomes true after correct password
+      const LANGS = /** i18n text */ {
+        is: {
+          htmlLang: 'is',
+          title: 'Meindarsögur',
+          hudHint: 'Smelltu vinstra/hægri eða notaðu',
+          ariaPrev: 'Fara til baka', ariaNext: 'Fara áfram',
+          modalTitle: 'Lykilorð vantar',
+          modalIntro: 'Til að halda áfram að lesa þarftu að slá inn lykilorð.',
+          modalLabel: 'Lykilorð',
+          modalPlaceholder: 'Sláðu inn lykilorð',
+          btnConfirm: 'Staðfesta', btnCancel: 'Hætta við', btnRequest: 'Panta lykilorð',
+          help: 'Vinsamlega skrifaðu inn <em>lykilorðið</em> til að halda áfram að lesa. Þú getur pantað það hér fyrir ofan. Eða sent okkur póst á <strong>myndarsogur@gmail.com</strong>.',
+          wrongPw: 'Rangt lykilorð. Reyndu aftur eða pantaðu lykilorð.',
+          mailtoSubject: 'Beiðni um lykilorð',
+          mailtoBody: 'Halló — mig vantar lykilorðið fyrir Meindarsögur. Hvað kostar það og hvernig greiði ég fyrir það?'
+        },
+        en: {
+          htmlLang: 'en',
+          title: 'Meindarsögur',
+          hudHint: 'Click left/right or use',
+          ariaPrev: 'Go back', ariaNext: 'Go forward',
+          modalTitle: 'Password required',
+          modalIntro: 'To continue reading, please enter the password.',
+          modalLabel: 'Password',
+          modalPlaceholder: 'Enter password',
+          btnConfirm: 'Confirm', btnCancel: 'Cancel', btnRequest: 'Request password',
+          help: 'Please type the <em>password</em> to continue reading. You can request it above, or email us at <strong>myndarsogur@gmail.com</strong>.',
+          wrongPw: 'Wrong password. Try again or request the password.',
+          mailtoSubject: 'Password request',
+          mailtoBody: 'Hello — I need the password for the Meindarsögur. How much is it and how do I pay for it?    '
+        }
+      };
+
+      const img = document.getElementById('frame');
+      const counter = document.getElementById('counter');
+      const zoneLeft = document.getElementById('zoneLeft');
+      const zoneRight = document.getElementById('zoneRight');
+      const stage = document.getElementById('stage');
+      const landing = document.getElementById('landing');
+      const hint = document.getElementById('hint');
+
+      const btnIS = document.getElementById('btnIS');
+      const btnEN = document.getElementById('btnEN');
+
+      const modal = document.getElementById('passwordModal');
+      const pwInput = document.getElementById('pw');
+      const confirmPw = document.getElementById('confirmPw');
+      const cancelPw = document.getElementById('cancelPw');
+      const mTitle = document.getElementById('mTitle');
+      const mIntro = document.getElementById('mIntro');
+      const mLabel = document.getElementById('mLabel');
+      const requestPw = document.getElementById('requestPw');
+      const mHelp = document.getElementById('mHelp');
+
+      // Language state
+      let lang = (localStorage.getItem('lang') || 'is');
+      applyLang(lang, /*init*/ true);
+
+      function assetPath(n){
+        return `${lang}/mynd${n}.avif`;
+      }
+
+      function updateView(){
+        // Toggle landing bar visibility based on page
+        landing.classList.toggle('hidden', index !== 1);
+        // Update image + counter
+        img.src = assetPath(index);
+        img.alt = (lang === 'is' ? 'Mynd ' : 'Image ') + index;
+        counter.textContent = `${index} / ${TOTAL}`;
+        zoneLeft.classList.toggle('disabled', index === 1);
+        zoneRight.classList.toggle('disabled', index === TOTAL);
+      }
+
+      function go(delta){
+        const next = index + delta;
+        if(next < 1 || next > TOTAL) return;
+        if(next > 5 && !unlocked){
+          openModal();
+          return;
+        }
+        index = next;
+        updateView();
+        preload(index+1);
+        preload(index-1);
+      }
+
+      function preload(n){
+        if(n < 1 || n > TOTAL) return;
+        const i = new Image();
+        i.src = assetPath(n);
+      }
+
+      function openModal(){
+        modal.style.display = 'flex';
+        setTimeout(()=>pwInput.focus(), 50);
+      }
+      function closeModal(){
+        modal.style.display = 'none';
+        pwInput.value='';
+      }
+
+      function checkPw(){
+        const val = pwInput.value.trim().toLowerCase();
+        if(val === 'banani'){
+          unlocked = true;
+          closeModal();
+          if(index === 5){
+            index = 6; 
+            updateView();
+            preload(7);
+          }
+        } else {
+          pwInput.select();
+          alert(LANGS[lang].wrongPw);
+        }
+      }
+
+      function applyLang(nextLang, init=false){
+        lang = nextLang;
+        // Persist + reflect in DOM
+        localStorage.setItem('lang', lang);
+        document.body.classList.toggle('en', lang === 'en');
+        document.documentElement.setAttribute('lang', LANGS[lang].htmlLang);
+        document.title = LANGS[lang].title;
+        // HUD text
+        hint.innerHTML = `${LANGS[lang].hudHint} <span class="kbd">←</span> / <span class="kbd">→</span>`;
+        // ARIA labels
+        zoneLeft.setAttribute('aria-label', LANGS[lang].ariaPrev);
+        zoneRight.setAttribute('aria-label', LANGS[lang].ariaNext);
+        // Modal text
+        mTitle.textContent = LANGS[lang].modalTitle;
+        mIntro.textContent = LANGS[lang].modalIntro;
+        mLabel.textContent = LANGS[lang].modalLabel;
+        pwInput.setAttribute('placeholder', LANGS[lang].modalPlaceholder);
+        confirmPw.textContent = LANGS[lang].btnConfirm;
+        cancelPw.textContent = LANGS[lang].btnCancel;
+        requestPw.textContent = LANGS[lang].btnRequest;
+        requestPw.href = `mailto:myndarsogur@gmail.com?subject=${encodeURIComponent(LANGS[lang].mailtoSubject)}&body=${LANGS[lang].mailtoBody}`;
+        mHelp.innerHTML = LANGS[lang].help;
+        // Buttons pressed state
+        btnIS.setAttribute('aria-pressed', String(lang==='is'));
+        btnEN.setAttribute('aria-pressed', String(lang==='en'));
+        // Update image paths (stay on current index, but swap folder)
+        if(!init){ preload(index); }
+        updateView();
+      }
+
+      // Language buttons (only visible on page 1)
+      btnIS.addEventListener('click', ()=> applyLang('is'));
+      btnEN.addEventListener('click', ()=> applyLang('en'));
+
+      // Click handlers
+      zoneLeft.addEventListener('click', ()=> go(-1));
+      zoneRight.addEventListener('click', ()=> go(1));
+
+      // Keyboard arrows and space
+      window.addEventListener('keydown', (e)=>{
+        if(modal.style.display === 'flex'){
+          if(e.key === 'Enter'){ checkPw(); }
+          if(e.key === 'Escape'){ closeModal(); }
+          return;
+        }
+        if(e.key === 'ArrowRight' || e.key === ' '){ go(1); }
+        if(e.key === 'ArrowLeft'){ go(-1); }
+        if(e.key === 'Home'){ index = 1; updateView(); }
+        if(e.key === 'End'){ index = TOTAL; updateView(); }
+      });
+
+      // Modal buttons
+      confirmPw.addEventListener('click', checkPw);
+      cancelPw.addEventListener('click', closeModal);
+
+      // Touch swipe support
+      let touchStartX = null;
+      stage.addEventListener('touchstart', (e)=>{
+        touchStartX = e.changedTouches[0].clientX;
+      }, {passive:true});
+      stage.addEventListener('touchend', (e)=>{
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        if(Math.abs(dx) > 40){
+          if(dx < 0) go(1); else go(-1);
+        }
+      });
+
+      // Init
+      updateView();
+      preload(2);
+    })();
+  </script>
+</body>
+</html>

@@ -13,10 +13,10 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-  <title>Meindarsögur — Forsíða</title>
+  <title>Myndarsögur í skóinn</title>
   <style>
     :root{
-      --bg: #ff1900; /* R255 G25 B0 */
+      --bg: #16dcf2; /* R255 G25 B0 */
       --ink: #0a0a0a;
       --paper: #fff7ef;
     }
@@ -31,8 +31,13 @@
 
     /* Custom display fonts (drop the .woff2 files next to this HTML) */
     @font-face{
-      font-family: 'CCBiffBamBoom';
-      src: url('./CCBiffBamBoom.woff2') format('woff2');
+      font-family: 'CCHypnotique';
+      src: url('./CCHypnotique-Regular.woff2') format('woff2');
+      font-display: swap;
+    }
+    @font-face{
+      font-family: 'CCHypnotique Suggestion';
+      src: url('./CCHypnotique-Suggestion.woff2') format('woff2');
       font-display: swap;
     }
     @font-face{
@@ -41,40 +46,6 @@
       font-display: swap;
     }
 
-    /* Intro overlay */
-    .intro{
-      position:fixed;
-      inset:0;
-      display:grid;
-      place-items:center;
-      background: rgb(252,237,225); /* Updated background color */
-      z-index:50;
-      cursor:pointer;
-      transition: opacity .4s ease;
-    }
-    .intro[hidden]{opacity:0; pointer-events:none;}
-
-    .intro-wrap{
-      position:relative;
-      width:100vw;
-      height:100vh;
-      display:grid;
-      place-items:center;
-    }
-    .intro video,
-    .intro img{ display:block; }
-
-    .intro-media{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      object-position:center;
-      display:block;
-      background:#fcede1;
-    }
-    @media (max-aspect-ratio: 3 / 4) {
-      .intro-media{ object-fit:contain; }
-    }
     /* Main layout */
     .wrap{ min-height:100%; display:grid; place-items:center; padding:40px; }
 
@@ -94,19 +65,29 @@
     .b5 a{ display:contents; }
 
     .authors-link{
-      font-family: 'CCBiffBamBoom', ui-sans-serif, system-ui;
-      font-size: clamp(48px, 2.6vw, 28px);
+      font-family: 'CCHypnotique', ui-sans-serif, system-ui;
+      font-size: clamp(62px, 3vw, 62px);
       text-decoration: none;
-      color: #000; /* svartur texti */
-      background: transparent
+      color: #ffffff; /* hvítur grunntexti */
+      background: transparent;
       padding: 6px 12px;
       border-radius: 10px;
+      position: relative;
+    }
+    .authors-link::after{
+      content: attr(data-text);
+      position:absolute;
+      inset:0;
+      font-family: 'CCHypnotique Suggestion', 'CCHypnotique', ui-sans-serif, system-ui;
+      color:#000;
+      transform: translate(-1px, 4px);
+      pointer-events:none;
     }
 
     /* Logo button (bottom-right) */
     .logo-btn{
       position: fixed; right: 16px; bottom: 16px; z-index: 20;
-      width: clamp(48px, 8vw, 80px); height: clamp(48px, 8vw, 80px);
+      width: clamp(96px, 16vw, 160px); height: clamp(96px, 16vw, 160px);
       border-radius: 22%;
       display:grid; place-items:center;
       background: rgba(255,255,255,.0);
@@ -116,13 +97,13 @@
 
     /* Pop menu (text-only) */
     .pop{
-      position: fixed; right: 16px; bottom: calc(16px + clamp(48px, 8vw, 80px) + 10px);
+      position: fixed; right: 16px; bottom: calc(16px + clamp(96px, 16vw, 160px) + 10px);
       z-index: 25;
       display: none;
     }
     .pop.open{ display:block; }
     .pop ul{
-      list-style:none; margin:0; padding:10px 12px; background: rgba(255,25,0);
+      list-style:none; margin:0; padding:10px 12px; background: rgb(53, 181, 235);
       backdrop-filter: blur(2px);
       border-radius: 14px; box-shadow: 0 8px 24px rgba(0,0,0,.25);
     }
@@ -132,44 +113,19 @@
       color:#ffffff; text-decoration:none; display:block; padding:6px 4px;
     }
 
-    /* Accessibility hint over intro */
-    .tap-hint{
-      position:absolute; inset:auto 0 -36px 0; text-align:center; color:#000; opacity:.85;
-      font-size:clamp(14px, 2.2vw, 18px);
-      background: transparent;
-      padding:6px 10px; border-radius:10px;
-      width:max-content; margin-inline:auto;
-    }
   </style>
 </head>
 <body>
-
- <!-- Intro overlay: reyna MP4; ef mistekst → skipta í GIF (engin play-takki) -->
- <div class="intro" id="intro" aria-label="Opnunar-myndband. Smelltu til að halda áfram." role="button">
-  <div class="intro-wrap">
-    <video id="introVid"
-           class="intro-media"
-           autoplay
-           muted
-           playsinline
-           webkit-playsinline
-           preload="auto">
-      <source src="./intro.mp4" type="video/mp4">
-    </video>
-    <div class="tap-hint" id="tapHint">Snertu til að sleppa</div>
-  </div>
-</div>
-
 
   <!-- Main content -->
   <main class="wrap" id="main" aria-live="polite">
     <div class="center-stack">
       <div class="b5">
-        <a href="https://Myndarsogur.is/Meindarsogur" aria-label="Fara á Meindarsogur síðu">
-          <img src="./forsida.png" alt="Forsíða — Meindarsögur (B5)" />
+        <a href="/Iskoinn" aria-label="Fara og lesa Myndarsögur í skóinn">
+          <img src="./forsida.png" alt="Myndarsogur í Skóinn" />
         </a>
       </div>
-      <a class="authors-link" href="https://Myndarsogur.is/hofundar">Höfundar</a>
+      <a class="authors-link" data-text="Höfundar" href="https://Myndarsogur.is/hofundar">Höfundar</a>
     </div>
   </main>
 
@@ -179,7 +135,7 @@
   </button>
   <nav class="pop" id="popMenu" aria-hidden="true">
     <ul>
-      <li><a href="/lesefni">{ Myndarsögur }</a></li>
+      <li><a href="/Hrekkjavokuforsidan/">{ Meindarsögur }</a></li>
       <li><a href="/hlusta">{ Hlaðvarpið }</a></li>
       <li><a href="https://myndasogur.app">{ Spjallborðið }</a></li>
       <li><a href="/hlekkir">{ Hlekkir } </a></li>
@@ -188,79 +144,7 @@
 
   <script>
  (function(){
-    const intro = document.getElementById('intro');
-    const vid   = document.getElementById('introVid');
-    const hint  = document.getElementById('tapHint');
-    let done = false, usingGif = false;
-
-    function goIn(){
-      if (done) return;
-      done = true;
-      intro.setAttribute('hidden','');
-    }
-
-    // skipta yfir í GIF án play-takka
-    function swapToGif(){
-      if (usingGif) return;
-      usingGif = true;
-      const gif = document.createElement('img');
-      gif.src = './intro.gif';         // ← settu intro.gif í möppuna
-      gif.alt = '';
-      gif.setAttribute('aria-hidden','true');
-      gif.className = 'intro-media';
-
-      vid.replaceWith(gif);
-      if (hint) hint.textContent = 'Snertu til að sleppa';
-
-      // fara sjálfkrafa inn eftir 10 sek (lengd GIF)
-      setTimeout(goIn, 13 * 1000);
-    }
-
-    // reyna að spila MP4 án play-takka
-    function tryPlay(){
-      if (!vid) { swapToGif(); return; }
-      vid.muted = true;
-      vid.loop = false;
-
-      const p = vid.play();
-      if (p && typeof p.then === 'function') {
-        p.then(()=>{
-          // allt í lagi – MP4 er í gangi
-        }).catch(()=>{
-          // autoplay hafnað → skipta strax í GIF (engin play-takki)
-          swapToGif();
-        });
-      }
-    }
-
-    // atburðir
-    if (vid){
-      vid.addEventListener('loadedmetadata', tryPlay, { once:true });
-      vid.addEventListener('error', swapToGif, { once:true });
-      vid.addEventListener('ended', goIn, { once:true });
-    }
-
-    // smellur: ef GIF/paused → reyna spila; annars sleppa
-    intro.addEventListener('click', ()=>{
-      if (usingGif) { goIn(); return; }
-      if (vid.paused || vid.readyState < 2) tryPlay();
-      else goIn();
-    });
-
-    intro.tabIndex = 0;
-    intro.addEventListener('keydown', (e)=>{
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        if (usingGif) { goIn(); return; }
-        if (vid.paused || vid.readyState < 2) tryPlay();
-        else goIn();
-      }
-    });
-
-    // Virða reduced motion: sleppa intro strax
-    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      goIn();
-    }
+    // Fyrirvari: intro myndband/gif er fjarlægt – aðeins aðalefni birtist.
   })();
 
     // ===== Logo pop-menu toggle =====
