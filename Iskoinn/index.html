@@ -2,7 +2,7 @@
 <html lang="is">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>Myndarsögur í skóinn</title>
   <style>
     @font-face{
@@ -393,6 +393,7 @@
       const hint = document.getElementById('hint');
       const swipeHint = document.getElementById('swipeHint');
       const swipeHintText = document.getElementById('swipeHintText');
+      const themeMeta = document.querySelector('meta[name="theme-color"]');
 
       const modal = document.getElementById('passwordModal');
       const pwInput = document.getElementById('pw');
@@ -431,6 +432,25 @@
         return `is/Bls${n}.avif`;
       }
 
+      function applyStageBackground(){
+        const color = index === 1 ? PRIMARY_BG : SHADED_BG;
+        stage.style.background = color;
+        if(themeMeta){ themeMeta.setAttribute('content', color); }
+      }
+
+      function recalibrateViewport(){
+        // Reset scroll/size after mobile keyboard events
+        stage.style.height = `${window.innerHeight}px`;
+        stage.style.width = `${window.innerWidth}px`;
+        applyStageBackground();
+        window.scrollTo(0,0);
+      }
+
+      window.addEventListener('resize', recalibrateViewport);
+      if(window.visualViewport){
+        window.visualViewport.addEventListener('resize', recalibrateViewport);
+      }
+
       function updateView(){
         img.src = assetPath(index);
         img.alt = `Blaðsíða ${index}`;
@@ -438,6 +458,7 @@
         zoneLeft.classList.toggle('disabled', index === 1);
         zoneRight.classList.toggle('disabled', index === TOTAL);
         scheduleSwipeHint();
+        applyStageBackground();
       }
 
       function go(delta){
@@ -496,6 +517,7 @@
         pwInput.value='';
         toggleConfirmVisibility();
         setHelpVisibility(false);
+        setTimeout(recalibrateViewport, 150);
       }
 
       function checkPw(){
@@ -503,7 +525,7 @@
         if(!val){
           return;
         }
-        if(val === 'jólabanani'){
+        if(val === 'banani'){
           unlocked = true;
           closeModal();
           if(index === 5){
