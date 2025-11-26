@@ -15,12 +15,12 @@
 
     /* ===== Theme ===== */
     :root{
-      --bg:rgb(138, 226, 255);
+      --bg:#16dcf2;
       --ink:#ffffff;
       --muted:#bdbdbd;
       --accent:rgb(53, 231, 240);
       --danger:#d7263d;
-      --is-bg:#b00000;
+      --is-bg:#16dcf2;
       --ink-dark:#0e0e0e;
       --page-ratio: 148 / 210;
       --stage-pad: clamp(4px, 2vw, 18px);
@@ -41,7 +41,7 @@
       color:var(--ink);
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Helvetica, Arial, "Noto Sans", sans-serif;
       overflow:hidden;
-      background:var(--is-bg);
+      background:var(--bg);
     }
 
     .swipe-hint{
@@ -503,7 +503,7 @@
         if(!val){
           return;
         }
-        if(val === 'banani'){
+        if(val === 'jólabanani'){
           unlocked = true;
           closeModal();
           if(index === 5){

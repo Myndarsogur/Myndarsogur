@@ -93,7 +93,16 @@
       background: rgba(255,255,255,.0);
       border:none; padding:0; cursor:pointer;
     }
+    .logo-btn.nudge{ animation: logo-pop 2s ease; }
     .logo-btn img{ width:100%; height:100%; object-fit:contain; display:block; }
+    @keyframes logo-pop{
+      0%{ transform:translateY(0) scale(1) rotate(0deg); }
+      15%{ transform:translateY(-14px) scale(1.05) rotate(-4deg); }
+      35%{ transform:translateY(2px) scale(1.02) rotate(4deg); }
+      55%{ transform:translateY(-10px) scale(1.04) rotate(-3deg); }
+      75%{ transform:translateY(1px) scale(1.01) rotate(3deg); }
+      100%{ transform:translateY(0) scale(1) rotate(0deg); }
+    }
 
     /* Pop menu (text-only) */
     .pop{
@@ -138,7 +147,7 @@
       <li><a href="/Hrekkjavokuforsidan/">{ Meindarsögur }</a></li>
       <li><a href="/hlusta">{ Hlaðvarpið }</a></li>
       <li><a href="https://myndasogur.app">{ Spjallborðið }</a></li>
-      <li><a href="/hlekkir">{ Hlekkir } </a></li>
+      <li><a href="/jolasaga">{ Sendu inn sögu } </a></li>
     </ul>
   </nav>
 
@@ -151,6 +160,18 @@
     (function(){
       const btn = document.getElementById('logoBtn');
       const menu = document.getElementById('popMenu');
+      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function nudgeLogo(){
+        if(prefersReduced) return;
+        if(btn.classList.contains('nudge')) return;
+        btn.classList.add('nudge');
+        setTimeout(()=> btn.classList.remove('nudge'), 2050);
+      }
+
+      setInterval(nudgeLogo, 20000);
+      setTimeout(nudgeLogo, 2000); // fyrsti púls eftir smá stund
+
       btn.addEventListener('click', ()=>{
         const open = menu.classList.toggle('open');
         btn.setAttribute('aria-expanded', String(open));
