@@ -53,6 +53,11 @@
       .card{ grid-template-columns: 1fr; }
     }
 
+    .name-wrap{
+      position:relative;
+      display:grid;
+      justify-items:center;
+    }
     .name{
       display:flex;
       align-items:center;
@@ -101,16 +106,42 @@
       border-radius: 18px;
       overflow:hidden;
       border:2px solid rgba(255,255,255,.22);
-      background: rgba(255,255,255,.06);
+      background: rgba(255,255,255,.08);
       cursor:pointer; /* sýna að hægt sé að smella */
       position: relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: clamp(6px, 1vw, 12px);
     }
     .portrait{
       width:100%;
       height:100%;
-      object-fit:cover;
+      object-fit:contain;
       display:block;
       transition:opacity .35s ease;
+    }
+
+    /* Flip hint */
+    .flip-hint{
+      position:fixed;
+      bottom:20px;
+      left:50%;
+      transform:translateX(-50%);
+      background:transparent;
+      color:#fff;
+      padding:10px 14px;
+      border-radius:14px;
+      font-family:"CCHypnotique","CCBiffBamBoom", Impact, sans-serif;
+      font-size:16px;
+      letter-spacing:.4px;
+      box-shadow:none;
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .25s ease;
+    }
+    .flip-hint.visible{
+      opacity:1;
     }
     .portrait.is-loading{ opacity:0; }
 
@@ -157,9 +188,11 @@
   <div class="stage" role="application" aria-label="Fletting á milli höfunda">
     <div class="card" id="card">
       <!-- Nafnið er núna hlekkur -->
-      <h2 class="name" id="name">
-        <a id="nameLink" href="#" target="_blank" rel="noopener">—</a>
-      </h2>
+      <div class="name-wrap">
+        <h2 class="name" id="name">
+          <a id="nameLink" href="#" target="_blank" rel="noopener">—</a>
+        </h2>
+      </div>
 
       <!-- Myndin er EKKI hlekkur — hún stýrir flettingu -->
       <div id="portraitWrap" class="portrait-wrap" aria-label="Smelltu á vinstri/hægri helming til að fletta">
@@ -177,6 +210,8 @@
     <div class="navzone prev" title="Fletta til baka" aria-label="Fletta til baka"></div>
     <div class="navzone next" title="Fletta áfram" aria-label="Fletta áfram"></div>
   </div>
+
+  <div class="flip-hint" id="flipHint" role="status">Smelltu til að fletta →</div>
 
   <script>
     const mediaBase = "Birt";
@@ -293,6 +328,9 @@
     let authorIndex = 0;
     let slideIndex = 0;
     const preloaded = new Set();
+    const flipHint = document.getElementById("flipHint");
+    let flipTimer = null;
+    let hasInteracted = false;
 
     function redShade(){
       return "#16dcf2";
@@ -306,6 +344,7 @@
         dot.className = "dot" + (idx === authorIndex ? " active" : "");
         dot.setAttribute("aria-label", `Fara í ${author.name}`);
         dot.addEventListener("click", () => {
+          markInteracted();
           authorIndex = idx;
           slideIndex = 0;
           render();
@@ -377,7 +416,34 @@
       updateNavState();
     }
 
+    function hideFlipHint(){
+      if(flipHint){
+        flipHint.classList.remove("visible");
+      }
+    }
+    function scheduleFlipHint(){
+      if(flipTimer){
+        clearTimeout(flipTimer);
+        flipTimer = null;
+      }
+      if(hasInteracted || !flipHint) return;
+      flipTimer = window.setTimeout(()=>{
+        if(!hasInteracted && flipHint){
+          flipHint.classList.add("visible");
+        }
+      }, 3000);
+    }
+    function markInteracted(){
+      hasInteracted = true;
+      hideFlipHint();
+      if(flipTimer){
+        clearTimeout(flipTimer);
+        flipTimer = null;
+      }
+    }
+
     function next(){
+      markInteracted();
       const slides = authors[authorIndex].slides;
       if(slideIndex < slides.length - 1){
         slideIndex += 1;
@@ -391,6 +457,7 @@
     }
 
     function prev(){
+      markInteracted();
       if(slideIndex > 0){
         slideIndex -= 1;
         renderSlide();
@@ -415,18 +482,22 @@
     arrowNextBtn.addEventListener("click", next);
     arrowPrevBtn.addEventListener("click", prev);
     window.addEventListener("keydown", (e)=>{
-      if(e.key === "ArrowRight") next();
-      if(e.key === "ArrowLeft")  prev();
+      if(e.key === "ArrowRight"){ next(); return; }
+      if(e.key === "ArrowLeft"){  prev(); return; }
     });
 
     portraitWrap.addEventListener("click", (e)=>{
+      markInteracted();
       const rect = portraitWrap.getBoundingClientRect();
       const x = e.clientX - rect.left;
       if(x < rect.width / 2){ prev(); } else { next(); }
     });
 
     let touchX = null;
-    window.addEventListener("touchstart", (e)=>{ touchX = e.changedTouches[0].clientX; }, {passive:true});
+    window.addEventListener("touchstart", (e)=>{
+      markInteracted();
+      touchX = e.changedTouches[0].clientX;
+    }, {passive:true});
     window.addEventListener("touchend", (e)=>{
       if(touchX == null) return;
       const dx = e.changedTouches[0].clientX - touchX;
@@ -435,6 +506,7 @@
     }, {passive:true});
 
     render();
+    scheduleFlipHint();
   </script>
 </body>
 </html>

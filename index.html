@@ -45,6 +45,21 @@
       src: url('./CCKissAndTell-Regular.woff2') format('woff2');
       font-display: swap;
     }
+    @font-face{
+      font-family: 'CCSharkSnack';
+      src: url('./CCSharkSnack-Regular.woff2') format('woff2');
+      font-display: swap;
+    }
+    @font-face{
+      font-family: 'HighJinkies';
+      src: url('./High_Jinkies.otf') format('opentype');
+      font-display: swap;
+    }
+    @font-face{
+      font-family: 'HVComicSerif';
+      src: url('./HVComicSerifotf.otf') format('opentype');
+      font-display: swap;
+    }
 
     /* Main layout */
     .wrap{ min-height:100%; display:grid; place-items:center; padding:40px; }
@@ -113,18 +128,49 @@
     .pop.open{ display:block; }
     .pop ul{
       list-style:none; margin:0; padding:10px 12px; background: rgb(53, 181, 235);
+      text-align:center;
       backdrop-filter: blur(2px);
       border-radius: 14px; box-shadow: 0 8px 24px rgba(0,0,0,.25);
+    }
+    .pop ul li{ display:flex; justify-content:center; }
+    .pop ul li:first-child{
+      background:#ff1900;
+      border-radius:12px 12px 8px 8px;
+      margin:-12px -12px 8px; /* pull to edges of popup */
+      padding:8px 12px 0 12px;
+    }
+    .pop ul li:last-child{
+      background:#ffffff;
+      border-radius:8px 8px 12px 12px;
+      margin:8px -12px -10px;
+      padding:0 12px 8px 12px;
     }
     .pop a{
       font-family: 'CCKissAndTell', ui-sans-serif, system-ui;
       font-size: clamp(18px, 2.5vw, 28px);
       color:#ffffff; text-decoration:none; display:block; padding:6px 4px;
     }
-    .pop a.meindarsogur{ color:#ffffff;; padding:8px 10px; border-radius:10px; background:transparent; }
-    .pop a.hladvarp{ color:#ffffff; padding:8px 10px; border-radius:10px; background:transparent; }
-    .pop a.senda{ color:#d9436b; padding:8px 10px; border-radius:10px; background:#ffffff;; }
-    .pop a.spjall{ color:#ffffff; padding:8px 10px; border-radius:10px; background:transparent; }
+    .pop a.meindarsogur{
+      font-family: 'CCSharkSnack', 'CCKissAndTell', ui-sans-serif, system-ui;
+      font-size: clamp(38px, 5.8vw, 64px);
+      letter-spacing: -1px;
+      color:#ffffff;; padding:6px 8px; border-radius:10px; background:transparent;
+    }
+    .pop a.hladvarp{
+      font-family: 'HighJinkies', 'CCKissAndTell', ui-sans-serif, system-ui;
+      font-size: clamp(32px, 5vw, 52px);
+      color:#ffffff; padding:6px 8px; border-radius:10px; background:transparent;
+    }
+    .pop a.senda{
+      font-family: 'HVComicSerif', 'CCKissAndTell', ui-sans-serif, system-ui;
+      font-size: clamp(26px, 4.4vw, 44px);
+      color:#d9436b; padding:8px 10px; border-radius:10px; background:#ffffff;;
+    }
+    .pop a.spjall{
+      font-family: 'HighJinkies', 'CCKissAndTell', ui-sans-serif, system-ui;
+      font-size: clamp(32px, 5vw, 52px);
+      color:#ffffff; padding:6px 8px; border-radius:10px; background:transparent;
+    }
 
   </style>
 </head>
@@ -148,10 +194,10 @@
   </button>
   <nav class="pop" id="popMenu" aria-hidden="true">
     <ul>
-      <li><a class="meindarsogur" href="/Hrekkjavokuforsidan/">{ Meindarsögur }</a></li>
-      <li><a class="hladvarp" href="/hlusta">{ Hlaðvarpið }</a></li>
-      <li><a class="spjall" href="https://myndasogur.app">{ Spjallborðið }</a></li>
-      <li><a class="senda" id="sendStory" href="#">{ Sendu inn sögu } </a></li>
+      <li><a class="meindarsogur" href="/Hrekkjavokuforsidan/">Meindarsögur</a></li>
+      <li><a class="hladvarp" href="/hlusta">Hlaðvarpið </a></li>
+      <li><a class="spjall" href="https://myndasogur.app">Spjallborðið</a></li>
+      <li><a class="senda" id="sendStory" href="#">Sendu inn sögu </a></li>
     </ul>
   </nav>
 
