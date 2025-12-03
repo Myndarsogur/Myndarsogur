@@ -256,8 +256,7 @@
     let motifsAll = [];
     let menuOverlay = null;
     let touchJumpTimer = null;
-    let activeTouchId = null;
-    let touchStartY = 0;
+    let lastTap = 0;
 
     const keys = { left: false, right: false, jump: false };
 
@@ -275,39 +274,39 @@
       window.addEventListener("keydown", (e) => { down(e.code); });
       window.addEventListener("keyup", (e) => { up(e.code); });
 
-      // Touch controls: drag character; swipe/drag up to jump
-      const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+      // Touch controls: tap left/right half to move; double tap to jump
+      function handleTouches(touches) {
+        let left = false, right = false;
+        const width = window.innerWidth || canvas.width;
+        for (const t of touches) {
+          const x = t.clientX || 0;
+          if (x < width / 2) left = true; else right = true;
+        }
+        keys.left = left;
+        keys.right = right;
+      }
 
       function touchStart(e) {
         e.preventDefault();
-        const t = e.changedTouches[0];
-        if (!t) return;
-        activeTouchId = t.identifier;
-        touchStartY = t.clientY || 0;
+        handleTouches(e.touches);
+        const now = Date.now();
+        if (now - lastTap < 300) {
+          keys.jump = true;
+          clearTimeout(touchJumpTimer);
+          touchJumpTimer = setTimeout(() => { keys.jump = false; }, 150);
+        }
+        lastTap = now;
       }
 
       function touchMove(e) {
         e.preventDefault();
-        const t = Array.from(e.changedTouches).find(t => t.identifier === activeTouchId) || e.touches[0];
-        if (!t) return;
-        const x = t.clientX || 0;
-        const y = t.clientY || 0;
-        const targetX = clamp(x - player.w / 2, 0, world.width - player.w);
-        player.x = targetX;
-        player.vx = 0;
-        const deltaY = touchStartY - y;
-        if (deltaY > 40 && player.onGround) {
-          keys.jump = true;
-          clearTimeout(touchJumpTimer);
-          touchJumpTimer = setTimeout(() => { keys.jump = false; }, 120);
-        }
+        handleTouches(e.touches);
       }
 
       function touchEnd(e) {
         e.preventDefault();
-        const t = Array.from(e.changedTouches).find(t => t.identifier === activeTouchId);
-        if (t) {
-          activeTouchId = null;
+        handleTouches(e.touches);
+        if (e.touches.length === 0) {
           keys.left = false;
           keys.right = false;
         }
