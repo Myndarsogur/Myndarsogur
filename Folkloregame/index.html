@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ATU Folklore Sandbox</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111a33;
+      --ink: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #f59e0b;
+      --accent-2: #22d3ee;
+      --card: #0b1224;
+      --line: rgba(255, 255, 255, 0.08);
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Inter", "Helvetica Neue", system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at 20% 20%, #16213a, #0b1020 55%), var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(16px, 4vw, 36px);
+    }
+
+    .shell {
+      width: min(1200px, 100%);
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      padding: clamp(16px, 3vw, 28px);
+      display: grid;
+      gap: 20px;
+    }
+
+    header {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.6rem, 3.2vw, 2.2rem);
+      letter-spacing: 0.02em;
+    }
+
+    p.lead {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+      max-width: 70ch;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    label {
+      font-weight: 600;
+      font-size: 0.9rem;
+      display: block;
+      margin-bottom: 6px;
+      color: #cbd5e1;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: var(--card);
+      color: var(--ink);
+      font-size: 0.98rem;
+    }
+
+    input[type="text"]::placeholder { color: #64748b; }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 10px 16px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      color: #0b0f1a;
+      background: linear-gradient(120deg, var(--accent), #fbbf24);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+
+    button.secondary {
+      background: linear-gradient(120deg, #22d3ee, #38bdf8);
+      color: #082f49;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.28);
+    }
+
+    .motif-pool {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 12px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .motif-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .small-note {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .motif-pill {
+      border-radius: 12px;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+      display: grid;
+      gap: 2px;
+    }
+    .motif-pill strong { color: #f8fafc; }
+    .motif-pill span { color: var(--muted); font-size: 0.9rem; }
+
+    .output {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      min-height: 160px;
+      line-height: 1.65;
+      font-size: 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .output::before {
+      content: "—";
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      color: var(--muted);
+      font-size: 1.2rem;
+    }
+
+    .motif-tag {
+      display: inline-block;
+      margin: 0 4px 6px 0;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--line);
+      color: #cbd5e1;
+      font-size: 0.82rem;
+      letter-spacing: 0.02em;
+    }
+
+    .motif-ref {
+      background: linear-gradient(120deg, rgba(245, 158, 11, 0.18), rgba(250, 204, 21, 0.24));
+      color: #fef08a;
+      padding: 0 4px;
+      border-radius: 6px;
+      cursor: pointer;
+      border-bottom: 1px dotted rgba(255, 255, 255, 0.25);
+      white-space: nowrap;
+    }
+
+    .motif-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.16s ease;
+      z-index: 40;
+      padding: 12px;
+    }
+    .motif-modal.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .motif-modal-card {
+      background: #0c1426;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 18px 18px 14px;
+      width: min(420px, 92vw);
+      box-shadow: var(--shadow);
+      color: var(--ink);
+    }
+    .motif-modal-card h3 {
+      margin: 0 0 6px;
+      font-size: 1.1rem;
+    }
+    .motif-modal-card p {
+      margin: 6px 0;
+      color: #cbd5e1;
+      line-height: 1.5;
+    }
+    .motif-close {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      background: none;
+      border: none;
+      color: #94a3b8;
+      font-size: 1.3rem;
+      cursor: pointer;
+    }
+
+    @media (max-width: 640px) {
+      .actions { flex-direction: column; }
+      button { width: 100%; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header>
+      <h1>ATU Folklore Sandbox</h1>
+      <p class="lead">
+        Veldu eigin orð og fáðu sex ATU/Thompson mótíf sem púsla saman nýja frásögn.
+        Grunnmótífin eru sótt úr skránni í <code>ATU_Thompson Index Compilation by TheRevenancy</code>.
+      </p>
+    </header>
+
+    <section class="grid" id="inputs">
+      <div>
+        <label for="hero">Aðalpersóna</label>
+        <input id="hero" type="text" placeholder="t.d. ferðalangur, refur, hetja" />
+      </div>
+      <div>
+        <label for="companion">Aðstoðarmaður</label>
+        <input id="companion" type="text" placeholder="t.d. gáfaður félagi, anda" />
+      </div>
+      <div>
+        <label for="setting">Staður</label>
+        <input id="setting" type="text" placeholder="t.d. dimmur skógur, fjöll, haf" />
+      </div>
+      <div>
+        <label for="goal">Markmið</label>
+        <input id="goal" type="text" placeholder="t.d. finna lykil, endurheimta réttlæti" />
+      </div>
+      <div>
+        <label for="object">Mótív/hlutur</label>
+        <input id="object" type="text" placeholder="t.d. töfraegg, gulllykil" />
+      </div>
+      <div>
+        <label for="twist">Uppákomur/plot twist</label>
+        <input id="twist" type="text" placeholder="t.d. svik félaga, óvænt sannleikur" />
+      </div>
+    </section>
+
+    <div class="actions">
+      <button id="randomFill">Fyllta handahófi</button>
+      <button class="secondary" id="randomMotifs">Velja ný mótíf</button>
+      <button id="compose">Staðfesta & skapa sögu</button>
+    </div>
+
+    <section class="motif-pool" id="motifPool">
+      <div class="motif-header">
+        <span id="motifCount">Hleð mótíf...</span>
+        <span class="small-note">Velja 6 af 2239 tilviljunarkennt</span>
+      </div>
+      <div id="motifList"><!-- motifs rendered here --></div>
+    </section>
+
+    <section class="output" id="story">
+      Sláðu inn hugmyndir, veldu mótíf og ýttu á “Staðfesta & skapa sögu”.
+    </section>
+  </main>
+
+  <div class="motif-modal" id="motifModal">
+    <div class="motif-modal-card">
+      <button class="motif-close" id="motifClose" aria-label="Loka">&times;</button>
+      <h3 id="motifModalTitle"></h3>
+      <p id="motifModalCat"></p>
+      <p id="motifModalExample"></p>
+    </div>
+  </div>
+
+  <script>
+    const motifs = [];
+
+    const inputs = {
+      hero: document.getElementById("hero"),
+      companion: document.getElementById("companion"),
+      setting: document.getElementById("setting"),
+      goal: document.getElementById("goal"),
+      object: document.getElementById("object"),
+      twist: document.getElementById("twist"),
+    };
+
+    const motifPoolEl = document.getElementById("motifList");
+    const motifCountEl = document.getElementById("motifCount");
+    const storyEl = document.getElementById("story");
+    const DATA_URL = encodeURI("ATU_Thompson Index_is/ ATU vísitala.html");
+
+    function sample(arr, n) {
+      const copy = [...arr];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy.slice(0, n);
+    }
+
+    function renderMotifs(list) {
+      motifPoolEl.innerHTML = list.map(m => `
+        <div class="motif-pill">
+          <strong>${m.id} — ${m.title}</strong>
+          <span>${m.cat}</span>
+          <span>${m.example || ""}</span>
+        </div>
+      `).join("");
+    }
+
+    let activeMotifs = [];
+
+    document.getElementById("randomMotifs").addEventListener("click", () => {
+      if (!motifs.length) return;
+      activeMotifs = sample(motifs, 6);
+      renderMotifs(activeMotifs);
+    });
+
+    document.getElementById("randomFill").addEventListener("click", () => {
+      const seeds = [
+        { hero: "ferðalangur", companion: "gáfaður refur", setting: "mistur skógarins", goal: "endurheimta stolin tónlist", object: "dularfullur lykill", twist: "trúnaðarbrot" },
+        { hero: "barn sem talar við fugla", companion: "móðir vindanna", setting: "glerfjall", goal: "bjarga systkinum", object: "silfurbjalla", twist: "galdur kostar minningu" },
+        { hero: "sjómaður", companion: "selkafólk", setting: "svört hafeyja", goal: "snúa tíma við", object: "dreyrrauður steinn", twist: "óvinur verður leiðsögumaður" },
+        { hero: "drengur í mylluvinnu", companion: "andlitslaus gestur", setting: "aflagður kastali", goal: "aflétta bölvun", object: "gulltrefill", twist: "uppskera það sem þú sáir" },
+      ];
+      const pick = seeds[Math.floor(Math.random() * seeds.length)];
+      Object.entries(pick).forEach(([k, v]) => inputs[k].value = v);
+    });
+
+    document.getElementById("compose").addEventListener("click", () => {
+      if (!activeMotifs.length && motifs.length) {
+        activeMotifs = sample(motifs, 6);
+        renderMotifs(activeMotifs);
+      }
+      const vals = Object.fromEntries(Object.entries(inputs).map(([k, el]) => [k, el.value.trim()]));
+      const defaults = {
+        hero: "nafnlaus hetja",
+        companion: "dularfullur leiðsögumaður",
+        setting: "ósunginn heimur",
+        goal: "uppfylla ósk",
+        object: "ónefndur gripur",
+        twist: "maður mætir sjálfum sér",
+      };
+      const data = { ...defaults, ...Object.fromEntries(Object.entries(vals).map(([k, v]) => [k, v || defaults[k]])) };
+      const asTag = (m) => {
+        const titleSafe = (m.title || "").replace(/"/g, "&quot;");
+        const catSafe = (m.cat || "").replace(/"/g, "&quot;");
+        const exSafe = (m.example || "").replace(/"/g, "&quot;");
+        const label = m.example || m.cat || m.title;
+        return `<span class="motif-ref" data-id="${m.id}" data-title="${titleSafe}" data-cat="${catSafe}" data-example="${exSafe}">${label}</span>`;
+      };
+      const beats = [
+        `${data.hero} og ${data.companion} leggja leið sína um ${data.setting} Þar ætla þau að ${data.goal}.`,
+        `Á leiðinni birtist óvænt aðstaða ${asTag(activeMotifs[0])} og síðar ${asTag(activeMotifs[1])}; þau móta fyrstu prófraunina.`,
+        `Í höndum þeirra er ${data.object}, en sagan teygir sig til fortíðar ${asTag(activeMotifs[2])}, og krefst þess að gripurinn sé skilinn áður en hann er notaður.`,
+        `Síðan kemur snúningurinn: ${data.twist}, sem ómar með svipuðum tón og ${asTag(activeMotifs[3])}.`,
+        `Í hápunktinum fléttast inn líka ${asTag(activeMotifs[4])} og ${asTag(activeMotifs[5])}.`,
+      ];
+
+      storyEl.innerHTML = `<p>${beats.join(" ")}</p>`;
+    });
+
+    async function loadMotifs() {
+      motifCountEl.textContent = "Hleð 2239 mótíf úr skránni...";
+      try {
+        const res = await fetch(DATA_URL);
+        const html = await res.text();
+        const doc = new DOMParser().parseFromString(html, "text/html");
+        const rows = Array.from(doc.querySelectorAll("table.waffle tr")).slice(2); // sleppum hausum
+        rows.forEach((row) => {
+          const cells = Array.from(row.querySelectorAll("td"));
+          if (!cells.length) return;
+          const id = cells[0]?.textContent.trim();
+          const sub = cells[1]?.textContent.trim();
+          const title = cells[2]?.textContent.trim();
+          const cat = cells[3]?.textContent.trim();
+          const subcat = cells[4]?.textContent.trim();
+          const example = cells[5]?.textContent.trim();
+          if (!id || !title) return;
+          motifs.push({
+            id: sub && sub !== "-" ? `${id}${sub}` : id,
+            title,
+            cat: subcat ? `${cat} — ${subcat}` : cat || "",
+            example,
+          });
+        });
+        motifCountEl.textContent = `Mótíf til: ${motifs.length} (ATU/Thompson)`;
+        activeMotifs = sample(motifs, 6);
+        renderMotifs(activeMotifs);
+      } catch (err) {
+        motifCountEl.textContent = "Gat ekki hlaðið mótíf (skoðaðu skrá/slóð)";
+        console.error(err);
+      }
+    }
+
+    loadMotifs();
+
+    // Motif modal toggling
+    const motifModal = document.getElementById("motifModal");
+    const motifModalTitle = document.getElementById("motifModalTitle");
+    const motifModalCat = document.getElementById("motifModalCat");
+    const motifModalExample = document.getElementById("motifModalExample");
+    const motifClose = document.getElementById("motifClose");
+
+    function closeModal() {
+      motifModal.classList.remove("open");
+    }
+
+    document.addEventListener("click", (e) => {
+      const ref = e.target.closest(".motif-ref");
+      if (ref) {
+        motifModalTitle.textContent = ref.dataset.id || "";
+        motifModalCat.textContent = ref.dataset.cat || ref.dataset.title || "";
+        motifModalExample.textContent = ref.dataset.example || ref.dataset.title || "";
+        motifModal.classList.add("open");
+      }
+    });
+
+    motifClose.addEventListener("click", closeModal);
+    motifModal.addEventListener("click", (e) => {
+      if (e.target === motifModal) closeModal();
+    });
+  </script>
+</body>
+</html>
