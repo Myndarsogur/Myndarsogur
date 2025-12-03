@@ -64,6 +64,16 @@
     .panel.active { display: block; }
     .panel .meta { display: none; }
     .panel .text { margin: 6px 0 0; line-height: 1.55; color: var(--ink); }
+
+    @media (max-width: 768px) {
+      .panel {
+        font-size: 0.9rem;
+        padding: 10px 12px;
+        max-width: 86vw;
+        top: 8px;
+      }
+      .panel .text { line-height: 1.4; }
+    }
     .legend {
       position: absolute;
       top: 10px;
