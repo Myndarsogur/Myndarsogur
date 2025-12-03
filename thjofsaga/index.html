@@ -2,7 +2,7 @@
 <html lang="is">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Þjófsaga</title>
   <style>
     :root {
@@ -37,17 +37,19 @@
       position: relative;
       flex: 1;
       overflow: hidden;
+      touch-action: none;
     }
     canvas {
       display: block;
-      width: 100%;
-      height: 100%;
+      width: 100vw;
+      height: 100vh;
       background: linear-gradient(180deg, #d9ecff 0%, #b7dcff 55%, #9fcfff 100%);
+      touch-action: none;
     }
     .panel {
       position: absolute;
       left: 50%;
-      bottom: 12px;
+      top: 12px;
       transform: translateX(-50%);
       background: var(--panel);
       border: 1px solid var(--line);
@@ -57,6 +59,7 @@
       box-shadow: 0 12px 30px rgba(0,0,0,0.35);
       display: none;
       color: var(--ink);
+      pointer-events: none;
     }
     .panel.active { display: block; }
     .panel .meta { display: none; }
@@ -214,11 +217,11 @@
     }));
 
     const platforms = [
-      { x: 0, y: 560, w: 1000, h: 80 },
-      { x: 1100, y: 520, w: 500, h: 120 },
-      { x: 1700, y: 500, w: 400, h: 140 },
-      { x: 2200, y: 540, w: 700, h: 100 },
-      { x: 3000, y: 480, w: 700, h: 160 },
+      { x: 0, y: 560, w: 1000, h: 180 },
+      { x: 1100, y: 520, w: 500, h: 220 },
+      { x: 1700, y: 500, w: 400, h: 240 },
+      { x: 2200, y: 540, w: 700, h: 200 },
+      { x: 3000, y: 480, w: 700, h: 260 },
       // lítill pallur til að ná að þriðja kassa
       { x: 1220, y: 520, w: 120, h: 40 },
       // stigar að kassum í lofti
@@ -814,6 +817,12 @@
     bindControls();
     loadMotifs().catch(err => console.error(err));
     renderSkinSelect();
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
     loop();
   </script>
 </body>
