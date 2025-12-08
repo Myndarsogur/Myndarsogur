@@ -624,7 +624,9 @@
       cancelPw.setAttribute('aria-label', 'Loka glugga');
       modalLogo.setAttribute('aria-label', 'Sýna leiðbeiningar');
       requestPw.textContent = 'Panta lykilorð';
-      requestPw.href = 'mailto:myndarsogur@gmail.com?subject=Bei%C3%B0ni%20um%20lykilor%C3%B0&body=Hall%C3%B3%20%E2%80%94%20mig%20vantar%20lykilor%C3%B0i%C3%B0%20fyrir%20Meindars%C3%B6gur.%20Hva%C3%B0%20kostar%20%C3%BEa%C3%B0%20og%20hvernig%20grei%C3%B0i%20%C3%A9g%20fyrir%20%C3%BEa%C3%B0%3F';
+      const mailSubject = 'Beiðni um lykilorð fyrir Myndarsögur í skóinn';
+      const mailBody = 'Halló — mig vantar lykilorðið fyrir Myndarsögur í skóinn. Hvað kostar það og hvernig greiði ég fyrir það?';
+      requestPw.href = `mailto:myndarsogur@gmail.com?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
       mHelp.innerHTML = 'Vinsamlega skrifaðu inn <em>lykilorðið</em> til að halda áfram að lesa. Þú getur pantað það hér fyrir ofan. Eða sent okkur póst á <strong>myndarsogur@gmail.com</strong>.';
       updateView();
       preload(2);
