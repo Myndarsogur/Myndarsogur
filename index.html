@@ -2,7 +2,6 @@
 <html lang="is">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
 <!-- Litur á toppstiku vafra -->
 <meta name="theme-color" content="#ff1900;" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#ff1900;" media="(prefers-color-scheme: dark)">
@@ -12,8 +11,32 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Myndarsögur í skóinn eru íslenskar myndasögur, sögur og hlaðvörp fyrir krakka og fjölskyldur — lesið, hlustið og njótið saman.">
+  <link rel="canonical" href="https://myndarsogur.is/">
+  <link rel="icon" href="/Myndarsogur-Merki.ico">
+  <link rel="apple-touch-icon" href="/Myndarsogur-Merki.png">
 
   <title>Myndarsögur í skóinn</title>
+  <meta property="og:title" content="Myndarsögur í skóinn">
+  <meta property="og:description" content="Íslenskar myndasögur, sögur og hlaðvörp fyrir krakka og fjölskyldur — lesið, hlustið og njótið saman.">
+  <meta property="og:url" content="https://myndarsogur.is/">
+  <meta property="og:site_name" content="Myndarsögur">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://myndarsogur.is/forsida.avif">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Myndarsögur í skóinn">
+  <meta name="twitter:description" content="Íslenskar myndasögur, sögur og hlaðvörp fyrir krakka og fjölskyldur.">
+  <meta name="twitter:image" content="https://myndarsogur.is/forsida.avif">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Myndarsögur",
+    "url": "https://myndarsogur.is/",
+    "logo": "https://myndarsogur.is/Myndarsogur-Merki.png",
+    "sameAs": ["https://www.facebook.com/Myndarsogur", "https://www.instagram.com/Myndarsogur"]
+  }
+  </script>
   <style>
     :root{
       --bg: #16dcf2; /* R255 G25 B0 */
@@ -65,6 +88,12 @@
     .wrap{ min-height:100%; display:grid; place-items:center; padding:40px; }
 
     .center-stack{ display:grid; gap:18px; justify-items:center; text-align:center; }
+    .site-title{
+      margin:0;
+      font-family: 'CCHypnotique', ui-sans-serif, system-ui;
+      font-size: clamp(32px, 4vw, 52px);
+      color: #ffffff;
+    }
 
     /* B5 aspect holder for the front image */
     .b5{
@@ -179,6 +208,7 @@
   <!-- Main content -->
   <main class="wrap" id="main" aria-live="polite">
     <div class="center-stack">
+      <h1 class="site-title">Myndarsögur í skóinn</h1>
       <div class="b5">
         <a href="/Iskoinn" aria-label="Fara og lesa Myndarsögur í skóinn">
           <img src="./forsida.avif" alt="Myndarsogur í Skóinn" />
