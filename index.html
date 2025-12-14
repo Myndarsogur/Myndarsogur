@@ -23,7 +23,7 @@
   <meta property="og:site_name" content="Myndarsögur">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://myndarsogur.is/forsida.avif">
-  <meta property="fb:app_id" content="188928769799956">
+  <meta property="fb:app_id" content="1501563707185143">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Myndarsögur í skóinn">
   <meta name="twitter:description" content="Íslenskar myndasögur, sögur og hlaðvörp fyrir krakka og fjölskyldur.">
@@ -94,6 +94,17 @@
       font-family: 'CCHypnotique', ui-sans-serif, system-ui;
       font-size: clamp(32px, 4vw, 52px);
       color: #ffffff;
+    }
+    .sr-only{
+      position:absolute;
+      width:1px;
+      height:1px;
+      padding:0;
+      margin:-1px;
+      overflow:hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border:0;
     }
 
     /* B5 aspect holder for the front image */
@@ -209,10 +220,10 @@
   <!-- Main content -->
   <main class="wrap" id="main" aria-live="polite">
     <div class="center-stack">
-      <h1 class="site-title">Myndarsögur í skóinn</h1>
+      <h1 class="site-title sr-only">Myndarsögur í skóinn</h1>
       <div class="b5">
         <a href="/Iskoinn" aria-label="Fara og lesa Myndarsögur í skóinn">
-          <img src="./forsida.avif" alt="Myndarsogur í Skóinn" />
+          <img src="./forsida.avif" alt="Myndarsögur í Skóinn" />
         </a>
       </div>
       <a class="authors-link" data-text="Höfundar" href="https://Myndarsogur.is/hofundar">Höfundar</a>
