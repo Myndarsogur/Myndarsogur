@@ -131,6 +131,7 @@
       padding: 6px 12px;
       border-radius: 10px;
       position: relative;
+      left: -28px; /* jafnar við tilfærslu jólasveinsins */
     }
     .authors-link::after{
       content: attr(data-text);
@@ -140,6 +141,39 @@
       color:#000;
       transform: translate(-1px, 4px);
       pointer-events:none;
+    }
+    .link-row{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      justify-content:center;
+    }
+    .santa-link{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:4px;
+      padding:4px 6px 6px;
+      background: rgba(255,255,255,0.12);
+      border-radius: 12px;
+      text-decoration:none;
+      border: 1px solid rgba(255,255,255,0.18);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.22);
+      position: relative;
+      left: -68px; /* færa hnappinn aðeins til vinstri */
+    }
+    .santa-text{
+      font-family: 'CCHypnotique', ui-sans-serif, system-ui;
+      color:#fff;
+      font-size: clamp(18px, 1.4vw, 22px);
+      text-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+      line-height: 1.1;
+    }
+    .santa-icon{
+      width:48px;
+      height:60px;
+      shape-rendering: crispEdges;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     }
 
     /* Logo button (bottom-right) */
@@ -228,7 +262,27 @@
           <img src="./forsida.avif" alt="Myndarsögur í Skóinn" />
         </a>
       </div>
-      <a class="authors-link" data-text="Höfundar" href="https://Myndarsogur.is/hofundar">Höfundar</a>
+      <div class="link-row">
+        <a class="santa-link" href="/Jolaleikur/jolaleikinn.html" aria-label="Spila jólasveinaleikinn">
+          <svg class="santa-icon" viewBox="0 0 64 80" aria-hidden="true" focusable="false">
+            <rect x="10" y="56" width="44" height="10" fill="#0b172a"/>
+            <rect x="12" y="24" width="40" height="32" rx="6" fill="#d62828"/>
+            <rect x="12" y="28" width="40" height="6" fill="#f8fafc"/>
+            <rect x="12" y="46" width="40" height="6" fill="#f8fafc"/>
+            <rect x="12" y="40" width="40" height="6" fill="#0b172a"/>
+            <rect x="28" y="40" width="8" height="6" fill="#facc15"/>
+            <rect x="18" y="16" width="28" height="12" rx="4" fill="#f3c7a0"/>
+            <polygon points="18,28 32,42 46,28" fill="#f8fafc"/>
+            <rect x="18" y="12" width="28" height="8" rx="2" fill="#d62828"/>
+            <rect x="14" y="8" width="36" height="6" rx="3" fill="#f8fafc"/>
+            <circle cx="48" cy="8" r="4" fill="#f8fafc"/>
+            <rect x="22" y="32" width="6" height="6" fill="#1f2937"/>
+            <rect x="36" y="32" width="6" height="6" fill="#1f2937"/>
+          </svg>
+          <span class="santa-text">Leikurinn</span>
+        </a>
+        <a class="authors-link" data-text="Höfundar" href="https://Myndarsogur.is/hofundar">Höfundar</a>
+      </div>
     </div>
   </main>
 
