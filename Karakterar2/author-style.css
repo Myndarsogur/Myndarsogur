@@ -1,0 +1,71 @@
+body {
+    margin: 0;
+    background-color: #000;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  #author-img {
+    display: block;
+    max-width: 600px; /* Takmörkuð breidd */
+    width: 90%; /* Aðlagar sig skjánum */
+    height: auto; /* Heldur hlutföllum */
+    margin: 0 auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Skuggi */
+  }
+  
+  .links {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  
+  .links img {
+    width: 100px;
+    height: auto;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  
+  .links img:hover {
+    transform: scale(1.1);
+  }
+  iframe {
+    display: block;
+    margin: 20px auto;
+    max-width: 100%;
+    height: auto;
+  }
+  
+  h2 {
+    text-align: center;
+    color: #fff;
+    margin-top: 20px;
+  }
+  .video-container {
+    position: relative;
+    width: 100%; /* Fyllir breidd gámsins */
+    max-width: 800px; /* Hámarksbreidd myndbands */
+    margin: 20px auto; /* Miðjar myndbandið á síðunni */
+  }
+  
+  .video-container::before {
+    content: "";
+    display: block;
+    padding-top: 56.25%; /* 16:9 hlutföll */
+  }
+  
+  .video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* Full breidd innan gáms */
+    height: 100%; /* Full hæð innan gáms */
+    border: 0; /* Fjarlægir ramma */
+  }
+  
