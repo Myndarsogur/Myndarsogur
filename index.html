@@ -14,8 +14,13 @@
   <meta name="description" content="Myndarsögur í skóinn eru íslenskar myndasögur og hlaðvörp fyrir alla — lesið, hlustið og njótið.">
   <meta name="robots" content="max-image-preview:large">
   <link rel="canonical" href="https://myndarsogur.is/">
-  <link rel="icon" href="https://myndarsogur.is/logo.png">
-  <link rel="apple-touch-icon" href="https://myndarsogur.is/logo.png">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512x512.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
 
   <title>Myndarsögur - Útgáfa með meiru</title>
   <meta property="og:title" content="Myndarsögur - Útgáfa með meiru">
@@ -37,6 +42,7 @@
     "name": "Myndarsögur",
     "url": "https://myndarsogur.is/",
     "logo": "https://myndarsogur.is/Myndarsogur-Merki.png",
+    "image": "https://myndarsogur.is/forsida-og.png",
     "sameAs": ["https://www.facebook.com/Myndarsogur", "https://www.instagram.com/Myndarsogur"]
   }
   </script>
@@ -259,7 +265,11 @@
       <h1 class="site-title sr-only">Myndarsögur í skóinn</h1>
       <div class="b5">
         <a href="/Iskoinn" aria-label="Fara og lesa Myndarsögur í skóinn">
-          <img src="./forsida.avif" alt="Myndarsögur í Skóinn" />
+          <picture>
+            <source srcset="/forsida.avif" type="image/avif">
+            <source srcset="/forsida.jpg" type="image/jpeg">
+            <img src="/forsida.jpg" alt="Myndarsögur í Skóinn" fetchpriority="high" width="1748" height="2480" />
+          </picture>
         </a>
       </div>
       <div class="link-row">
