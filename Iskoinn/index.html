@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8" />
 <!-- Litur á toppstiku vafra -->
-<meta name="theme-color" content="#ff1900;" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#ff1900;" media="(prefers-color-scheme: dark)">
-<meta name="msapplication-TileColor" content="#ff1900;">
+<meta name="theme-color" content="#16dcf2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#16dcf2" media="(prefers-color-scheme: dark)">
+<meta name="msapplication-TileColor" content="#16dcf2">
 
 <!-- iOS Safari / Home Screen hegðun -->
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -14,8 +14,8 @@
   <meta name="description" content="Myndarsögur í skóinn eru íslenskar myndasögur og hlaðvörp fyrir alla — lesið, hlustið og njótið.">
   <meta name="robots" content="max-image-preview:large">
   <link rel="canonical" href="https://myndarsogur.is/iskoinn/">
-  <link rel="icon" href="https://myndarsogur.is/logo.png">
-  <link rel="apple-touch-icon" href="https://myndarsogur.is/logo.png">
+  <link rel="icon" href="/logo.png" sizes="any">
+  <link rel="apple-touch-icon" href="/logo.png">
 
   <title>Myndarsögur - Útgáfa með meiru</title>
   <meta property="og:title" content="Myndarsögur - Útgáfa með meiru">
@@ -33,11 +33,16 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Myndarsögur",
+    "@type": "ComicSeries",
+    "name": "Myndarsögur í skóinn",
+    "inLanguage": "is",
     "url": "https://myndarsogur.is/iskoinn/",
-    "logo": "https://myndarsogur.is/Myndarsogur-Merki.png",
-    "sameAs": ["https://www.facebook.com/Myndarsogur", "https://www.instagram.com/Myndarsogur"]
+    "image": "https://myndarsogur.is/logo.png",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Myndarsögur",
+      "url": "https://myndarsogur.is/"
+    }
   }
   </script>
   <style>
