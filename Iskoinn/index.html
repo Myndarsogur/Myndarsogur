@@ -196,59 +196,6 @@
       100%{ transform:translateY(0) scale(1) rotate(0deg); }
     }
 
-    /* Pop menu (text-only) */
-    .pop{
-      position: fixed; right: 16px; bottom: calc(16px + clamp(96px, 16vw, 160px) + 10px);
-      z-index: 25;
-      display: none;
-    }
-    .pop.open{ display:block; }
-    .pop ul{
-      list-style:none; margin:0; padding:10px 12px; background: rgb(53, 181, 235);
-      text-align:center;
-      backdrop-filter: blur(2px);
-      border-radius: 14px; box-shadow: 0 8px 24px rgba(0,0,0,.25);
-    }
-    .pop ul li{ display:flex; justify-content:center; }
-    .pop ul li:first-child{
-      background:#ff1900;
-      border-radius:12px 12px 8px 8px;
-      margin:-12px -12px 8px; /* pull to edges of popup */
-      padding:8px 12px 0 12px;
-    }
-    .pop ul li:last-child{
-      background:#ffffff;
-      border-radius:8px 8px 12px 12px;
-      margin:8px -12px -10px;
-      padding:0 12px 8px 12px;
-    }
-    .pop a{
-      font-family: 'CCKissAndTell', ui-sans-serif, system-ui;
-      font-size: clamp(18px, 2.5vw, 28px);
-      color:#ffffff; text-decoration:none; display:block; padding:6px 4px;
-    }
-    .pop a.meindarsogur{
-      font-family: 'CCSharkSnack', 'CCKissAndTell', ui-sans-serif, system-ui;
-      font-size: clamp(38px, 5.8vw, 64px);
-      letter-spacing: -1px;
-      color:#ffffff;; padding:6px 8px; border-radius:10px; background:transparent;
-    }
-    .pop a.hladvarp{
-      font-family: 'HighJinkies', 'CCKissAndTell', ui-sans-serif, system-ui;
-      font-size: clamp(32px, 5vw, 52px);
-      color:#ffffff; padding:6px 8px; border-radius:10px; background:transparent;
-    }
-    .pop a.senda{
-      font-family: 'HVComicSerif', 'CCKissAndTell', ui-sans-serif, system-ui;
-      font-size: clamp(26px, 4.4vw, 44px);
-      color:#d9436b; padding:8px 10px; border-radius:10px; background:#ffffff;;
-    }
-    .pop a.spjall{
-      font-family: 'HighJinkies', 'CCKissAndTell', ui-sans-serif, system-ui;
-      font-size: clamp(32px, 5vw, 52px);
-      color:#ffffff; padding:6px 8px; border-radius:10px; background:transparent;
-    }
-
   </style>
 </head>
 <body>
@@ -286,62 +233,14 @@
     </div>
   </main>
 
-  <!-- Floating logo that toggles a text-only menu -->
-  <button class="logo-btn" id="logoBtn" aria-expanded="false" aria-controls="popMenu">
-    <img src="./logo.avif" alt="Opna valmynd" />
-  </button>
-  <nav class="pop" id="popMenu" aria-hidden="true">
-    <ul>
-      <li><a class="meindarsogur" href="/Meindarsogur/">Meindarsögur</a></li>
-      <li><a class="hladvarp" href="/hlusta">Hlaðvarpið </a></li>
-      <li><a class="spjall" href="https://myndasogur.app">Spjallborðið</a></li>
-      <li><a class="senda" id="sendStory" href="#">Sendu inn sögu </a></li>
-    </ul>
-  </nav>
+  <!-- Floating logo that links back to forsíða -->
+  <a class="logo-btn" href="/" aria-label="Til baka á forsíðu">
+    <img src="./logo.avif" alt="Myndarsögur" />
+  </a>
 
   <script>
     (function(){
       // Fyrirvari: intro myndband/gif er fjarlægt – aðeins aðalefni birtist.
-    })();
-
-    // ===== Logo pop-menu toggle =====
-    (function(){
-      const btn = document.getElementById('logoBtn');
-      const menu = document.getElementById('popMenu');
-      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-      function nudgeLogo(){
-        if(prefersReduced) return;
-        if(btn.classList.contains('nudge')) return;
-        btn.classList.add('nudge');
-        setTimeout(()=> btn.classList.remove('nudge'), 2050);
-      }
-
-      setInterval(nudgeLogo, 20000);
-      setTimeout(nudgeLogo, 2000); // fyrsti púls eftir smá stund
-
-      btn.addEventListener('click', ()=>{
-        const open = menu.classList.toggle('open');
-        btn.setAttribute('aria-expanded', String(open));
-        menu.setAttribute('aria-hidden', String(!open));
-      });
-    })();
-
-    // ===== Sendu inn sögu mailto (auðvelt að breyta) =====
-    (function(){
-      const link = document.getElementById('sendStory');
-      if(!link) return;
-      const subject = 'Myndasaga fyrir jólamyndasögusamkeppni 2025';
-      const body = [
-        'Ég set hana hér sem viðhengi.',
-        '',
-        'Ég heiti:',
-        'Skólinn minn heitir:',
-        'Eitthvað sem ég vil segja:',
-        '',
-        'Hlakka til að heyra frá ykkur'
-      ].join('\n');
-      link.href = `mailto:myndarsogur@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     })();
   </script>
 </body>
