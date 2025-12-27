@@ -2,848 +2,279 @@
 <html lang="is">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Meindarsögur</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+<!-- Litur á toppstiku vafra -->
+<meta name="theme-color" content="#ff1900;" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#ff1900;" media="(prefers-color-scheme: dark)">
+<meta name="msapplication-TileColor" content="#ff1900;">
+
+<!-- iOS Safari / Home Screen hegðun -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <title>Meindarsögur — Forsíða</title>
   <style>
-    @font-face{
-      font-family:'CC Kiss And Tell';
-      src:url('../CCKissAndTell-Regular.woff2') format('woff2');
-      font-weight:400;
-      font-style:normal;
-      font-display:swap;
-    }
-
-    /* ===== Theme ===== */
     :root{
-      --bg:#0b0b0b;
-      --ink:#ffffff;
-      --muted:#bdbdbd;
-      --accent:rgb(241, 63, 46);
-      --danger:#d7263d;
-      --is-bg:#b00000;
-      --en-bg:#e90d31;
-      --ink-dark:#0e0e0e;
-      --page-ratio: 176 / 250;
-      --stage-pad: clamp(4px, 2vw, 18px);
-      --page-max-width: min(
-        calc(100vw - var(--stage-pad) * 2),
-        calc((100vh - var(--stage-pad) * 2) * 176 / 250)
-      );
-      --bubble-min: 10px;
-      --bubble-max: 240px;
-      --bubble-bg: rgba(255, 255, 255, 0.95);
-      --bubble-border: rgba(17,17,17,0.85);
+      --bg: #ff1900; /* R255 G25 B0 */
+      --ink: #0a0a0a;
+      --paper: #fff7ef;
     }
-
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;
+      background:var(--bg);
       color:var(--ink);
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Helvetica, Arial, "Noto Sans", sans-serif;
-      overflow:hidden;
-      background:var(--is-bg);
-    }
-    body.en{ background:var(--en-bg); color:#111; }
-
-    /* ===== Landing bubble ===== */
-    .landing{
-      position:absolute;
-      inset:0;
-      pointer-events:none;
-      z-index:3;
-    }
-    .landing.hidden{ display:none; }
-    .landing > .wrap{
-      position:absolute;
-      left:50%;
-      bottom:clamp(10%, 22vw, 28%);
-      transform:translateX(-50%);
-      width:min(calc(var(--page-max-width) * 0.98), 700px);
-      pointer-events:auto;
-      margin:0;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      aspect-ratio:720 / 200;
-      padding-top:clamp(24px, 4vw, 32px);
-      padding-right:clamp(42px, 7vw, 60px);
-      padding-bottom:clamp(34px, 6.6vw, 44px);
-      padding-left:clamp(42px, 7vw, 60px);
     }
 
-    .landing .speech-bubble{
-      position:absolute;
-      inset:0;
-      display:block;
-      width:100%;
-      height:100%;
-      object-fit:contain;
-      object-position:center;
-      transform:scaleX(-1);
-      pointer-events:none;
-      z-index:0;
+    /* Custom display fonts (drop the .woff2 files next to this HTML) */
+    @font-face{
+      font-family: 'CCBiffBamBoom';
+      src: url('./CCBiffBamBoom.woff2') format('woff2');
+      font-display: swap;
+    }
+    @font-face{
+      font-family: 'CCKissAndTell';
+      src: url('./CCKissAndTell-Regular.woff2') format('woff2');
+      font-display: swap;
     }
 
-    .swipe-hint{
-      position:absolute;
-      top:clamp(6%, 12vw, 20%);
-      right:clamp(20px, 5vw, 60px);
-      max-width:clamp(200px, 34vw, 260px);
-      background:var(--bubble-bg);
-      color:var(--ink-dark);
-      border:3px solid var(--bubble-border);
-      border-radius:28px;
-      padding:clamp(10px, 2vw, 16px) clamp(18px, 3vw, 22px);
-      font-family:'CC Kiss And Tell', 'Trebuchet MS', Arial, sans-serif;
-      font-size:clamp(16px, 3vw, 20px);
-      letter-spacing:.2px;
-      box-shadow:0 14px 36px rgba(0,0,0,0.38);
-      display:flex;
-      align-items:center;
-      gap:clamp(6px, 1.8vw, 12px);
-      pointer-events:none;
-      opacity:0;
-      transform:translateY(-6px);
-      transition:opacity .35s ease;
-      z-index:4;
-    }
-    .swipe-hint.visible{
-      opacity:1;
-    }
-    .swipe-hint__arrow{
-      font-size:1.4em;
-      line-height:1;
-    }
-
-    header.top{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:clamp(10px, 2vw, 18px);
-      padding:clamp(14px, 3.2vw, 20px) clamp(24px, 5vw, 34px) clamp(18px, 4vw, 26px);
-      background:transparent;
-      border:0;
-      border-radius:0;
-      box-shadow:none;
-      width:100%;
-      font-family:'CC Kiss And Tell', 'Trebuchet MS', Arial, sans-serif;
-      color:var(--ink-dark);
-      position:relative;
-      z-index:1;
-      margin-top:clamp(6px, 1.2vw, 12px);
-      margin-bottom:clamp(6px, 1.2vw, 12px);
-    }
-    header.top::after{ content:none; }
-
-
-    .lang{
-      display:flex;
-      gap:clamp(8px, 3vw, 14px);
-      align-items:center;
-      justify-content:center;
-      flex-wrap:wrap;
-    }
-
-    .pillBtn{
-      appearance:none;
-      border:0;
-      cursor:pointer;
-      font-weight:500;
-      border-radius:999px;
-      padding:clamp(8px, 1.4vw, 12px) clamp(16px, 3vw, 22px);
-      background:rgba(17,17,17,0.1);
-      color:var(--ink-dark);
-      box-shadow:0 6px 16px rgba(0,0,0,.15);
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      font-family:'CC Kiss And Tell', 'Trebuchet MS', Arial, sans-serif;
-      font-size:clamp(15px, 2.2vw, 18px);
-      font-weight:bold;
-      letter-spacing:.4px;
-      text-transform:uppercase;
-      transition: background .25s ease, color .25s ease, transform .2s ease, box-shadow .25s ease;
-    }
-    .pillBtn[aria-pressed="true"],
-    .pillBtn:focus-visible,
-    .pillBtn:active{
-      background:var(--accent);
-      color:#0e0e0e;
-      box-shadow:0 12px 24px rgba(0,0,0,0.25);
-    }
-    .pillBtn:active{
-      transform:translateY(2px) scale(0.98);
-      background:#d9261f;
-    }
-
-    /* ===== Reader ===== */
-    .stage{
+    /* Intro overlay */
+    .intro{
       position:fixed;
       inset:0;
       display:grid;
       place-items:center;
-      user-select:none;
-      background:var(--bg);
-      box-shadow:none;
-      border:none;
-      border-radius:0;
-      z-index:1;
-      padding:var(--stage-pad);
-      touch-action:pan-y;
+      background: rgb(252,237,225); /* Updated background color */
+      z-index:50;
+      cursor:pointer;
+      transition: opacity .4s ease;
     }
-    body.en .stage{ border-color: rgba(0,0,0,.12); }
+    .intro[hidden]{opacity:0; pointer-events:none;}
 
-    .page-frame{
-      width:var(--page-max-width);
-      aspect-ratio:var(--page-ratio);
-      background:transparent;
-      box-shadow:0 12px 46px rgba(0,0,0,0.55);
+    .intro-wrap{
       position:relative;
-      z-index:1;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:0;
-      overflow:hidden;
+      width:100vw;
+      height:100vh;
+      display:grid;
+      place-items:center;
     }
+    .intro video,
+    .intro img{ display:block; }
 
-    img#frame{
-      display:block;
+    .intro-media{
       width:100%;
       height:100%;
-      object-fit:contain;
-      border-radius:0;
-      box-shadow:none;
-      background:transparent;
+      object-fit:cover;
+      object-position:center;
+      display:block;
+      background:#fcede1;
+    }
+    @media (max-aspect-ratio: 3 / 4) {
+      .intro-media{ object-fit:contain; }
+    }
+    /* Main layout */
+    .wrap{ min-height:100%; display:grid; place-items:center; padding:40px; }
+
+    .center-stack{ display:grid; gap:18px; justify-items:center; text-align:center; }
+
+    /* B5 aspect holder for the front image */
+    .b5{
+      width: min(76vw, 560px);
+      aspect-ratio: 176 / 250; /* B5 portrait */
+      background: var(--paper);
+      border-radius: 10px;
+      display:grid; place-items:center;
+      box-shadow: 0 8px 30px rgba(0,0,0,.25);
+      overflow:hidden;
+    }
+    .b5 img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .b5 a{ display:contents; }
+
+    .authors-link{
+      font-family: 'CCBiffBamBoom', ui-sans-serif, system-ui;
+      font-size: clamp(48px, 2.6vw, 28px);
+      text-decoration: none;
+      color: #000; /* svartur texti */
+      background: transparent
+      padding: 6px 12px;
+      border-radius: 10px;
     }
 
-    .zone{
-      position:absolute;
-      top:0;
-      bottom:0;
-      width:50%;
-      z-index:2;
+    /* Logo button (bottom-right) */
+    .logo-btn{
+      position: fixed; right: 16px; bottom: 16px; z-index: 20;
+      width: clamp(48px, 8vw, 80px); height: clamp(48px, 8vw, 80px);
+      border-radius: 22%;
+      display:grid; place-items:center;
+      background: rgba(255,255,255,.0);
+      border:none; padding:0; cursor:pointer;
     }
-    .zone.left{left:0; cursor:w-resize;}
-    .zone.right{right:0; cursor:e-resize;}
-    .zone.disabled{cursor:not-allowed;}
+    .logo-btn img{ width:100%; height:100%; object-fit:contain; display:block; }
 
-    .edge-hint{position:absolute; top:0; bottom:0; width:20vw; pointer-events:none;}
-    .edge-hint.left{left:0; background:linear-gradient(90deg, rgba(0,0,0,.35), rgba(0,0,0,0));}
-    .edge-hint.right{right:0; background:linear-gradient(270deg, rgba(0,0,0,.35), rgba(0,0,0,0));}
-
-    .hud{position:fixed; left:12px; bottom:12px; display:none;}
-    .pill{background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.2); padding:6px 10px; border-radius:999px; font-size:13px}
-    .muted{color:var(--muted)}
-
-    /* Modal */
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.6);
+    /* Pop menu (text-only) */
+    .pop{
+      position: fixed; right: 16px; bottom: calc(16px + clamp(48px, 8vw, 80px) + 10px);
+      z-index: 25;
       display: none;
-      align-items: center;
-      justify-content: center;
-      padding: clamp(20px, 4vw, 48px);
-      z-index: 10;
+    }
+    .pop.open{ display:block; }
+    .pop ul{
+      list-style:none; margin:0; padding:10px 12px; background: rgba(255,25,0);
+      backdrop-filter: blur(2px);
+      border-radius: 14px; box-shadow: 0 8px 24px rgba(0,0,0,.25);
+    }
+    .pop a{
+      font-family: 'CCKissAndTell', ui-sans-serif, system-ui;
+      font-size: clamp(18px, 2.5vw, 28px);
+      color:#ffffff; text-decoration:none; display:block; padding:6px 4px;
     }
 
-    .modal {
-      position: relative;
-      width: min(420px, 90vw);
-      background: var(--bubble-bg);
-      border: 3px solid var(--bubble-border);
-      border-radius: 28px;
-      box-shadow: 0 24px 70px rgba(0,0,0,0.55);
-      padding: clamp(28px, 7vw, 38px);
-      font-family:'CC Kiss And Tell', 'Trebuchet MS', Arial, sans-serif;
-      color: var(--ink-dark);
-      overflow: visible;
-    }
-
-    .modal-close{
-      position:absolute;
-      top:16px;
-      right:18px;
-      appearance:none;
-      border:0;
-      background:transparent;
-      font-family:'CC Kiss And Tell','Trebuchet MS',Arial,sans-serif;
-      font-size:32px;
-      line-height:1;
-      color:#111;
-      cursor:pointer;
-      transition:color .2s ease, transform .2s ease;
-    }
-    .modal-close:hover,
-    .modal-close:focus{
-      color:var(--accent);
-      transform:scale(1.08);
-      outline:none;
-    }
-
-    .modal-logo{
-      width:72px;
-      border:0;
-      background:transparent;
-      padding:0;
-      display:block;
-      align-self:flex-start;
-      cursor:pointer;
-      margin-bottom:18px;
-      transition:transform .2s ease;
-    }
-    .modal-logo:hover,
-    .modal-logo:focus{
-      transform:scale(1.05);
-      outline:none;
-    }
-    .modal-logo.is-active{
-      transform:scale(1.08);
-    }
-    .modal-logo img{
-      width:100%;
-      height:auto;
-      display:block;
-    }
-
-    .modal .content{
-      display:flex;
-      flex-direction:column;
-      gap:18px;
-      align-items:flex-start;
-    }
-
-    .modal-input{
-      width:100%;
-      border:0;
-      border-bottom:3px solid rgba(17,17,17,0.9);
-      padding:14px 0 8px;
-      background:transparent;
-      color:var(--ink-dark);
-      font-family:'CC Kiss And Tell','Trebuchet MS',Arial,sans-serif;
-      font-size:14px;
-      letter-spacing:.4px;
-      outline:none;
-    }
-    .modal-input::placeholder{
-      color:rgba(17,17,17,0.54);
-    }
-
-    .modal-actions{
-      display:flex;
-      align-items:center;
-      gap:14px;
-      flex-wrap:wrap;
-      margin-top:6px;
-    }
-
-    .btn{
-      appearance:none;
-      border:none;
-      background:transparent;
-      border-radius:999px;
-      padding:0;
-      font-family:'CC Kiss And Tell','Trebuchet MS',Arial,sans-serif;
-      cursor:pointer;
-      transition:color .2s ease, background .2s ease, border-color .2s ease, transform .2s ease;
-    }
-
-    .modal-confirm{
-      border:3px solid var(--bubble-border);
-      padding:8px 22px;
-      font-size:26px;
-      color:var(--ink-dark);
-      display:none;
-      background:var(--bubble-bg);
-      box-shadow:0 8px 18px rgba(0,0,0,0.18);
-    }
-    .modal-confirm.is-visible{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-    }
-    .modal-confirm:hover,
-    .modal-confirm:focus-visible{
-      background:var(--accent);
-      border-color:var(--accent);
-      color:#0e0e0e;
-      box-shadow:0 12px 26px rgba(0,0,0,0.25);
-    }
-    .modal-confirm:active{
-      background:#d9261f;
-      border-color:#d9261f;
-      color:#0e0e0e;
-      transform:translateY(1px) scale(0.99);
-    }
-
-    .modal-request{
-      border:3px solid var(--bubble-border);
-      padding:10px 22px;
-      color:var(--ink-dark);
-      text-decoration:none;
-      font-size:18px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      background:var(--bubble-bg);
-      box-shadow:0 8px 18px rgba(0,0,0,0.18);
-      transition:background .2s ease, border-color .2s ease, box-shadow .2s ease, color .2s ease, transform .2s ease;
-    }
-    .modal-request:hover,
-    .modal-request:focus-visible{
-      color:#111;
-      background:var(--accent);
-      border-color:var(--accent);
-      box-shadow:0 12px 26px rgba(0,0,0,0.24);
-    }
-    .modal-request:active{
-      background:#d9261f;
-      border-color:#d9261f;
-      color:#111;
-      transform:translateY(1px) scale(0.99);
-    }
-
-    .help{
-      font-family:'CC Kiss And Tell','Trebuchet MS',Arial,sans-serif;
-      font-size:14px;
-      color:rgba(17,17,17,0.75);
-      margin-top:6px;
-      line-height:1.45;
-    }
-    .help[hidden]{ display:none; }
-
-    .kbd {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-        "Liberation Mono", "Courier New", monospace;
-      font-size: 12px;
-      padding: 0.2em 0.5em;
-      border-radius: 6px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #fff;
-    }
-
-    @media (max-width: 720px){
-      .landing > .wrap{
-        width:min(calc(var(--page-max-width) * 0.96), 620px);
-        bottom:clamp(14%, 24vw, 30%);
-        transform:translateX(-50%);
-      }
-      header.top{
-        max-width:none;
-        width:100%;
-      }
-    }
-
-    @media (max-width: 480px){
-      header.top{
-        flex-direction:column;
-        text-align:center;
-        gap:clamp(10px, 4vw, 14px);
-        padding:clamp(16px, 5vw, 22px) clamp(20px, 6vw, 28px) clamp(22px, 7vw, 30px);
-      }
-      .landing > .wrap{
-        width:min(calc(var(--page-max-width) * 1.1), 96vw);
-        bottom:clamp(20%, 36vw, 44%);
-        transform:translateX(-50%);
-        aspect-ratio:720 / 234;
-        padding-top:clamp(28px, 7.6vw, 38px);
-        padding-right:clamp(34px, 8.2vw, 46px);
-        padding-bottom:clamp(40px, 9.8vw, 52px);
-        padding-left:clamp(34px, 8.2vw, 46px);
-      }
-      .lang{
-        flex-direction:row;
-        justify-content:center;
-        align-items:stretch;
-        gap:clamp(8px, 4vw, 16px);
-        width:100%;
-        flex-wrap:nowrap;
-      }
-      .pillBtn{
-        flex:1 1 0;
-        min-width:0;
-        width:auto;
-        padding:clamp(10px, 3.4vw, 14px) clamp(12px, 4.6vw, 20px);
-      }
-    }
-
-    @media (max-width: 640px){
-      .swipe-hint{
-        top:clamp(10%, 20vw, 30%);
-        right:clamp(16px, 6vw, 32px);
-        font-size:clamp(15px, 4vw, 18px);
-      }
+    /* Accessibility hint over intro */
+    .tap-hint{
+      position:absolute; inset:auto 0 -36px 0; text-align:center; color:#000; opacity:.85;
+      font-size:clamp(14px, 2.2vw, 18px);
+      background: transparent;
+      padding:6px 10px; border-radius:10px;
+      width:max-content; margin-inline:auto;
     }
   </style>
 </head>
 <body>
-  <!-- Reader stage -->
-  <div class="stage" id="stage" aria-live="polite">
-    <div class="page-frame">
-      <img id="frame" src="is/mynd1.avif" alt="Mynd 1" draggable="false" />
-    </div>
-    <!-- Landing layer with language switcher; shown ONLY on page 1 -->
-    <div class="landing" id="landing">
-      <div class="wrap">
-        <img src="../Speech_balloon.svg" alt="" class="speech-bubble" aria-hidden="true" />
-        <header class="top" aria-label="Language switcher">
-          <div class="lang" role="tablist" aria-label="Language switcher">
-            <button class="pillBtn" id="btnIS" aria-pressed="true" aria-label="Icelandic">Íslenska</button>
-            <button class="pillBtn" id="btnEN" aria-pressed="false" aria-label="English">Enska</button>
-          </div>
-        </header>
+
+ <!-- Intro overlay: reyna MP4; ef mistekst → skipta í GIF (engin play-takki) -->
+ <div class="intro" id="intro" aria-label="Opnunar-myndband. Smelltu til að halda áfram." role="button">
+  <div class="intro-wrap">
+    <video id="introVid"
+           class="intro-media"
+           autoplay
+           muted
+           playsinline
+           webkit-playsinline
+           preload="auto">
+      <source src="./intro.mp4" type="video/mp4">
+    </video>
+    <div class="tap-hint" id="tapHint">Snertu til að sleppa</div>
+  </div>
+</div>
+
+
+  <!-- Main content -->
+  <main class="wrap" id="main" aria-live="polite">
+    <div class="center-stack">
+      <div class="b5">
+        <a href="https://Myndarsogur.is/Meindarsogur" aria-label="Fara á Meindarsogur síðu">
+          <img src="./forsida.png" alt="Forsíða — Meindarsögur (B5)" />
+        </a>
       </div>
+      <a class="authors-link" href="/Meindarsogur/hofundar/index.html">Höfundar</a>
     </div>
+  </main>
 
-    <!-- Clickable halves -->
-    <div class="zone left" id="zoneLeft" aria-label="Fara til baka" role="button" tabindex="0"></div>
-    <div class="zone right" id="zoneRight" aria-label="Fara áfram" role="button" tabindex="0"></div>
-
-    <div class="edge-hint left"></div>
-    <div class="edge-hint right"></div>
-    <div class="swipe-hint" id="swipeHint" hidden>
-      <span class="swipe-hint__text" id="swipeHintText">Smelltu til að fletta</span>
-      <span class="swipe-hint__arrow" aria-hidden="true">→</span>
-    </div>
-  </div>
-
-  <!-- HUD / info -->
-  <div class="hud">
-    <div class="pill" id="counter">1 / 44</div>
-    <div class="pill muted" id="hint">Smelltu vinstra/hægri eða notaðu <span class="kbd">←</span> / <span class="kbd">→</span></div>
-  </div>
-
-  <!-- Password modal -->
-  <div class="modal-backdrop" id="passwordModal" role="dialog" aria-modal="true">
-    <div class="modal" aria-label="Lykilorðsgluggi">
-      <button class="modal-close" id="cancelPw" type="button" aria-label="Loka">×</button>
-      <button class="modal-logo" id="modalLogo" type="button" aria-label="Sýna leiðbeiningar" aria-expanded="false">
-        <img src="logo.png" alt="" onerror="this.closest('button').style.display='none'">
-      </button>
-      <div class="content">
-        <input type="password" id="pw" class="modal-input" placeholder="Sláðu inn lykilorð til að lesa meira" autocomplete="current-password" />
-        <div class="modal-actions">
-          <button class="btn modal-confirm" id="confirmPw" type="button" aria-label="Staðfesta" hidden>✓</button>
-          <a class="btn modal-request" id="requestPw" href="#">Panta lykilorð</a>
-        </div>
-        <p class="help" id="mHelp" hidden>Vinsamlega skrifaðu inn <em>lykilorðið</em> til að halda áfram að lesa. Þú getur pantað það hér fyrir ofan. Eða sent okkur póst á <strong>myndarsogur@gmail.com</strong>.</p>
-      </div>
-    </div>
-  </div>
+  <!-- Floating logo that toggles a text-only menu -->
+  <button class="logo-btn" id="logoBtn" aria-expanded="false" aria-controls="popMenu">
+    <img src="./logo.png" alt="Opna valmynd" />
+  </button>
+  <nav class="pop" id="popMenu" aria-hidden="true">
+    <ul>
+      <li><a href="/lesefni">{ Myndarsögur }</a></li>
+      <li><a href="/hlusta">{ Hlaðvarpið }</a></li>
+      <li><a href="https://myndasogur.app">{ Spjallborðið }</a></li>
+      <li><a href="/hlekkir">{ Hlekkir } </a></li>
+    </ul>
+  </nav>
 
   <script>
+ (function(){
+    const intro = document.getElementById('intro');
+    const vid   = document.getElementById('introVid');
+    const hint  = document.getElementById('tapHint');
+    let done = false, usingGif = false;
+
+    function goIn(){
+      if (done) return;
+      done = true;
+      intro.setAttribute('hidden','');
+    }
+
+    // skipta yfir í GIF án play-takka
+    function swapToGif(){
+      if (usingGif) return;
+      usingGif = true;
+      const gif = document.createElement('img');
+      gif.src = './intro.gif';         // ← settu intro.gif í möppuna
+      gif.alt = '';
+      gif.setAttribute('aria-hidden','true');
+      gif.className = 'intro-media';
+
+      vid.replaceWith(gif);
+      if (hint) hint.textContent = 'Snertu til að sleppa';
+
+      // fara sjálfkrafa inn eftir 10 sek (lengd GIF)
+      setTimeout(goIn, 13 * 1000);
+    }
+
+    // reyna að spila MP4 án play-takka
+    function tryPlay(){
+      if (!vid) { swapToGif(); return; }
+      vid.muted = true;
+      vid.loop = false;
+
+      const p = vid.play();
+      if (p && typeof p.then === 'function') {
+        p.then(()=>{
+          // allt í lagi – MP4 er í gangi
+        }).catch(()=>{
+          // autoplay hafnað → skipta strax í GIF (engin play-takki)
+          swapToGif();
+        });
+      }
+    }
+
+    // atburðir
+    if (vid){
+      vid.addEventListener('loadedmetadata', tryPlay, { once:true });
+      vid.addEventListener('error', swapToGif, { once:true });
+      vid.addEventListener('ended', goIn, { once:true });
+    }
+
+    // Byrjum á GIF strax (ef MP4 vantar eða blokkar)
+    swapToGif();
+
+    // smellur: ef GIF/paused → reyna spila; annars sleppa
+    intro.addEventListener('click', ()=>{
+      if (usingGif) { goIn(); return; }
+      if (vid.paused || vid.readyState < 2) tryPlay();
+      else goIn();
+    });
+
+    intro.tabIndex = 0;
+    intro.addEventListener('keydown', (e)=>{
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        if (usingGif) { goIn(); return; }
+        if (vid.paused || vid.readyState < 2) tryPlay();
+        else goIn();
+      }
+    });
+
+    // Virða reduced motion: sleppa intro strax
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      goIn();
+    }
+  })();
+
+    // ===== Logo pop-menu toggle =====
     (function(){
-      const TOTAL = 44;
-      let index = 1; // 1-based
-      let unlocked = false; // becomes true after correct password
-      let swipeHintTimer = null;
-      const LANGS = /** i18n text */ {
-        is: {
-          htmlLang: 'is',
-          title: 'Meindarsögur',
-          hudHint: 'Smelltu vinstra/hægri eða notaðu',
-          swipeHint: 'Smelltu til að fletta',
-          ariaPrev: 'Fara til baka', ariaNext: 'Fara áfram',
-          modalPlaceholder: 'Sláðu inn lykilorð til að lesa meira',
-          btnConfirmIcon: '✓',
-          ariaConfirm: 'Staðfesta lykilorð',
-          ariaClose: 'Loka glugga',
-          helpToggle: 'Sýna leiðbeiningar',
-          btnRequest: 'Panta lykilorð',
-          dialogLabel: 'Lykilorðsgluggi',
-          help: 'Vinsamlega skrifaðu inn <em>lykilorðið</em> til að halda áfram að lesa. Þú getur pantað það hér fyrir ofan. Eða sent okkur póst á <strong>myndarsogur@gmail.com</strong>.',
-          wrongPw: 'Rangt lykilorð. Reyndu aftur eða pantaðu lykilorð.',
-          mailtoSubject: 'Beiðni um lykilorð',
-          mailtoBody: 'Halló — mig vantar lykilorðið fyrir Meindarsögur. Hvað kostar það og hvernig greiði ég fyrir það?'
-        },
-        en: {
-          htmlLang: 'en',
-          title: 'Meindarsögur',
-          hudHint: 'Click left/right or use',
-          swipeHint: 'Tap to flip',
-          ariaPrev: 'Go back', ariaNext: 'Go forward',
-          modalPlaceholder: 'Enter password to keep reading',
-          btnConfirmIcon: '✓',
-          ariaConfirm: 'Confirm password',
-          ariaClose: 'Close dialog',
-          helpToggle: 'Toggle help message',
-          btnRequest: 'Request password',
-          dialogLabel: 'Password dialog',
-          help: 'Please type the <em>password</em> to continue reading. You can request it above, or email us at <strong>myndarsogur@gmail.com</strong>.',
-          wrongPw: 'Wrong password. Try again or request the password.',
-          mailtoSubject: 'Password request',
-          mailtoBody: 'Hello — I need the password for the Meindarsögur. How much is it and how do I pay for it?    '
-        }
-      };
-
-      const STAGE_BG_OVERRIDES = {
-        is: {
-          1: '#ff1900'
-        },
-        en: {
-          1: '#ffffff',
-          44: '#ff1900'
-        }
-      };
-
-      const img = document.getElementById('frame');
-      const counter = document.getElementById('counter');
-      const zoneLeft = document.getElementById('zoneLeft');
-      const zoneRight = document.getElementById('zoneRight');
-      const stage = document.getElementById('stage');
-      const landing = document.getElementById('landing');
-      const hint = document.getElementById('hint');
-      const swipeHint = document.getElementById('swipeHint');
-      const swipeHintText = document.getElementById('swipeHintText');
-
-      const btnIS = document.getElementById('btnIS');
-      const btnEN = document.getElementById('btnEN');
-
-      const modal = document.getElementById('passwordModal');
-      const pwInput = document.getElementById('pw');
-      const confirmPw = document.getElementById('confirmPw');
-      const cancelPw = document.getElementById('cancelPw');
-      const requestPw = document.getElementById('requestPw');
-      const mHelp = document.getElementById('mHelp');
-      const modalLogo = document.getElementById('modalLogo');
-
-      function hideSwipeHint(){
-        if(swipeHintTimer){
-          clearTimeout(swipeHintTimer);
-          swipeHintTimer = null;
-        }
-        if(!swipeHint) return;
-        swipeHint.setAttribute('hidden','');
-        swipeHint.classList.remove('visible');
-      }
-
-      function scheduleSwipeHint(){
-        if(!swipeHint) return;
-        hideSwipeHint();
-        if(index !== 1) return;
-        swipeHintTimer = window.setTimeout(()=>{
-          swipeHintTimer = null;
-          swipeHint.removeAttribute('hidden');
-          swipeHint.classList.add('visible');
-        }, 600);
-      }
-
-      function markInteracted(){
-        hideSwipeHint();
-      }
-
-      // Language state
-      let lang = (localStorage.getItem('lang') || 'is');
-      applyLang(lang, /*init*/ true);
-
-      function assetPath(n){
-        return `${lang}/mynd${n}.avif`;
-      }
-
-      function updateView(){
-        // Toggle landing bar visibility based on page
-        landing.classList.toggle('hidden', index !== 1);
-        // Update image + counter
-        img.src = assetPath(index);
-        img.alt = (lang === 'is' ? 'Mynd ' : 'Image ') + index;
-        counter.textContent = `${index} / ${TOTAL}`;
-        zoneLeft.classList.toggle('disabled', index === 1);
-        zoneRight.classList.toggle('disabled', index === TOTAL);
-        scheduleSwipeHint();
-        applyStageBackground();
-      }
-
-      function go(delta){
-        markInteracted();
-        const next = index + delta;
-        if(next < 1 || next > TOTAL) return;
-        if(next > 5 && !unlocked){
-          openModal();
-          return;
-        }
-        index = next;
-        updateView();
-        preload(index+1);
-        preload(index-1);
-      }
-
-      function preload(n){
-        if(n < 1 || n > TOTAL) return;
-        const i = new Image();
-        i.src = assetPath(n);
-      }
-
-      function toggleConfirmVisibility(){
-        const hasValue = pwInput.value.trim().length > 0;
-        confirmPw.hidden = !hasValue;
-        confirmPw.classList.toggle('is-visible', hasValue);
-        confirmPw.disabled = !hasValue;
-      }
-
-      function setHelpVisibility(show){
-        if(!mHelp || !modalLogo) return;
-        if(show){
-          mHelp.removeAttribute('hidden');
-        } else {
-          mHelp.setAttribute('hidden', '');
-        }
-        modalLogo.classList.toggle('is-active', show);
-        modalLogo.setAttribute('aria-expanded', show ? 'true' : 'false');
-      }
-
-      function toggleHelp(){
-        if(!mHelp || !modalLogo) return;
-        const shouldShow = mHelp.hasAttribute('hidden');
-        setHelpVisibility(shouldShow);
-      }
-
-      function openModal(){
-        modal.style.display = 'flex';
-        pwInput.value = '';
-        toggleConfirmVisibility();
-        setHelpVisibility(false);
-        setTimeout(()=>pwInput.focus(), 50);
-      }
-      function closeModal(){
-        modal.style.display = 'none';
-        pwInput.value='';
-        toggleConfirmVisibility();
-        setHelpVisibility(false);
-      }
-
-      function checkPw(){
-        const val = pwInput.value.trim().toLowerCase();
-        if(!val){
-          return;
-        }
-        if(val === 'banani'){
-          unlocked = true;
-          closeModal();
-          if(index === 5){
-            index = 6; 
-            updateView();
-            preload(7);
-          }
-        } else {
-          pwInput.select();
-          alert(LANGS[lang].wrongPw);
-        }
-      }
-
-      function applyLang(nextLang, init=false){
-        lang = nextLang;
-        // Persist + reflect in DOM
-        localStorage.setItem('lang', lang);
-        document.body.classList.toggle('en', lang === 'en');
-        document.documentElement.setAttribute('lang', LANGS[lang].htmlLang);
-        document.title = LANGS[lang].title;
-        // HUD text
-        hint.innerHTML = `${LANGS[lang].hudHint} <span class="kbd">←</span> / <span class="kbd">→</span>`;
-        if(swipeHintText){
-          swipeHintText.textContent = LANGS[lang].swipeHint;
-        }
-        // ARIA labels
-        zoneLeft.setAttribute('aria-label', LANGS[lang].ariaPrev);
-        zoneRight.setAttribute('aria-label', LANGS[lang].ariaNext);
-        // Modal text
-        modal.setAttribute('aria-label', LANGS[lang].dialogLabel);
-        pwInput.setAttribute('placeholder', LANGS[lang].modalPlaceholder);
-        confirmPw.textContent = LANGS[lang].btnConfirmIcon;
-        confirmPw.setAttribute('aria-label', LANGS[lang].ariaConfirm);
-        cancelPw.textContent = '×';
-        cancelPw.setAttribute('aria-label', LANGS[lang].ariaClose);
-        modalLogo.setAttribute('aria-label', LANGS[lang].helpToggle);
-        requestPw.textContent = LANGS[lang].btnRequest;
-        requestPw.href = `mailto:myndarsogur@gmail.com?subject=${encodeURIComponent(LANGS[lang].mailtoSubject)}&body=${LANGS[lang].mailtoBody}`;
-        mHelp.innerHTML = LANGS[lang].help;
-        // Buttons pressed state
-        btnIS.setAttribute('aria-pressed', String(lang==='is'));
-        btnEN.setAttribute('aria-pressed', String(lang==='en'));
-        // Update image paths (stay on current index, but swap folder)
-        if(!init){ preload(index); }
-        updateView();
-      }
-
-      function applyStageBackground(){
-        const overrides = STAGE_BG_OVERRIDES[lang] || {};
-        const color = overrides[index] || '';
-        stage.style.background = color || '';
-      }
-
-      // Language buttons (only visible on page 1)
-      btnIS.addEventListener('click', ()=> applyLang('is'));
-      btnEN.addEventListener('click', ()=> applyLang('en'));
-
-      // Modal interactions
-      pwInput.addEventListener('input', toggleConfirmVisibility);
-      if(modalLogo){
-        modalLogo.addEventListener('click', toggleHelp);
-      }
-
-      // Click handlers
-      zoneLeft.addEventListener('click', ()=> go(-1));
-      zoneRight.addEventListener('click', ()=> go(1));
-
-      // Keyboard arrows and space
-      window.addEventListener('keydown', (e)=>{
-        if(modal.style.display === 'flex'){
-          if(e.key === 'Escape'){
-            closeModal();
-            return;
-          }
-          if(e.key === 'Enter' && document.activeElement === pwInput){
-            if(pwInput.value.trim()){ checkPw(); }
-            e.preventDefault();
-            return;
-          }
-          return;
-        }
-        if(e.key === 'ArrowRight' || e.key === ' '){
-          go(1);
-          return;
-        }
-        if(e.key === 'ArrowLeft'){
-          go(-1);
-          return;
-        }
-        if(e.key === 'Home'){
-          markInteracted();
-          index = 1;
-          updateView();
-          return;
-        }
-        if(e.key === 'End'){
-          markInteracted();
-          index = TOTAL;
-          updateView();
-        }
+      const btn = document.getElementById('logoBtn');
+      const menu = document.getElementById('popMenu');
+      btn.addEventListener('click', ()=>{
+        const open = menu.classList.toggle('open');
+        btn.setAttribute('aria-expanded', String(open));
+        menu.setAttribute('aria-hidden', String(!open));
       });
-
-      // Modal buttons
-      confirmPw.addEventListener('click', checkPw);
-      cancelPw.addEventListener('click', closeModal);
-
-      // Touch swipe support
-      let touchStartX = null;
-      stage.addEventListener('touchstart', (e)=>{
-        markInteracted();
-        touchStartX = e.changedTouches[0].clientX;
-      }, {passive:true});
-      stage.addEventListener('touchend', (e)=>{
-        const dx = e.changedTouches[0].clientX - touchStartX;
-        if(Math.abs(dx) > 40){
-          if(dx < 0) go(1); else go(-1);
-        }
-      });
-
-      // Init
-      toggleConfirmVisibility();
-      setHelpVisibility(false);
-      updateView();
-      preload(2);
     })();
   </script>
 </body>

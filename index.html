@@ -2,357 +2,1040 @@
 <html lang="is">
 <head>
   <meta charset="utf-8" />
-<!-- Litur á toppstiku vafra -->
-<meta name="theme-color" content="#ff1900;" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#ff1900;" media="(prefers-color-scheme: dark)">
-<meta name="msapplication-TileColor" content="#ff1900;">
-
-<!-- iOS Safari / Home Screen hegðun -->
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="description" content="Myndarsögur í skóinn eru íslenskar myndasögur og hlaðvörp fyrir alla — lesið, hlustið og njótið.">
-  <meta name="robots" content="max-image-preview:large">
-  <link rel="canonical" href="https://myndarsogur.is/">
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512x512.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="manifest" href="/site.webmanifest">
-
-  <title>Myndarsögur - Útgáfa með meiru</title>
-  <meta property="og:title" content="Myndarsögur - Útgáfa með meiru">
-  <meta property="og:description" content="Íslenskar myndasögur, sögur og hlaðvörp fyrir krakka og fjölskyldur — lesið, hlustið og njótið saman.">
-  <meta property="og:url" content="https://myndarsogur.is/">
-  <meta property="og:site_name" content="Myndarsögur">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="https://myndarsogur.is/forsida-og.png">
-  <meta property="fb:app_id" content="1501563707185143">
-  <meta name="facebook-domain-verification" content="9gxutfbhyvr1cj225z5y2wstxbaqmd" />
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Myndarsögur - Útgáfa með meiru">
-  <meta name="twitter:description" content="Íslenskar myndasögur og hlaðvörp fyrir alla.">
-  <meta name="twitter:image" content="https://myndarsogur.is/forsida-og.png">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Myndarsögur",
-    "url": "https://myndarsogur.is/",
-    "logo": "https://myndarsogur.is/Myndarsogur-Merki.png",
-    "image": "https://myndarsogur.is/forsida-og.png",
-    "sameAs": ["https://www.facebook.com/Myndarsogur", "https://www.instagram.com/Myndarsogur"]
-  }
-  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Myndasögur – prufuforsíða</title>
   <style>
     :root{
-      --bg: #16dcf2; /* R255 G25 B0 */
-      --ink: #0a0a0a;
-      --paper: #fff7ef;
+      --bg:#f6f7fb;
+      --ink:#0f172a;
+      --muted:#475569;
+      --card:#ffffff;
+      --accent:#15d1e6;
+      --accent-ink:#052836;
+      --border:#e5e7eb;
+      --shadow:0 10px 35px rgba(15,23,42,0.08);
+      --radius:14px;
+    }
+    @font-face{
+      font-family:'HVComicSerif';
+      src: url('assets/fonts/HVComicSerifotf.woff2') format('woff2'),
+           url('assets/fonts/HVComicSerifotf.otf') format('opentype');
+      font-display:swap;
+    }
+    @font-face{
+      font-family:'CCBiffBamBoom';
+      src: url('assets/fonts/CCBiffBamBoom.woff2') format('woff2');
+      font-display:swap;
+    }
+    @font-face{
+      font-family:'HighJinkies';
+      src: url('assets/fonts/High_Jinkies.woff2') format('woff2'),
+           url('assets/fonts/High_Jinkies.otf') format('opentype');
+      font-display:swap;
     }
     *{box-sizing:border-box}
-    html,body{height:100%}
     body{
       margin:0;
+      padding:0;
+      font-family: "Segoe UI", "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
       background:var(--bg);
       color:var(--ink);
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Helvetica, Arial, "Noto Sans", sans-serif;
+      line-height:1.5;
     }
-
-    /* Custom display fonts (drop the .woff2 files next to this HTML) */
-    @font-face{
-      font-family: 'CCHypnotique';
-      src: url('./CCHypnotique-Regular.woff2') format('woff2');
-      font-display: swap;
+    .hero-band{
+      background:linear-gradient(135deg, #e8f4ff 0%, #f7f7f9 45%, #f7f7f9 100%);
+      padding:24px 24px 16px;
     }
-    @font-face{
-      font-family: 'CCHypnotique Suggestion';
-      src: url('./CCHypnotique-Suggestion.woff2') format('woff2');
-      font-display: swap;
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:18px;
     }
-    @font-face{
-      font-family: 'CCKissAndTell';
-      src: url('./CCKissAndTell-Regular.woff2') format('woff2');
-      font-display: swap;
-    }
-    @font-face{
-      font-family: 'CCSharkSnack';
-      src: url('./CCSharkSnack-Regular.woff2') format('woff2');
-      font-display: swap;
-    }
-    @font-face{
-      font-family: 'HighJinkies';
-      src: url('./High_Jinkies.otf') format('opentype');
-      font-display: swap;
-    }
-    @font-face{
-      font-family: 'HVComicSerif';
-      src: url('./HVComicSerifotf.otf') format('opentype');
-      font-display: swap;
-    }
-
-    /* Main layout */
-    .wrap{ min-height:100%; display:grid; place-items:center; padding:40px; }
-
-    .center-stack{ display:grid; gap:18px; justify-items:center; text-align:center; }
-    .site-title{
+    h1{
       margin:0;
-      font-family: 'CCHypnotique', ui-sans-serif, system-ui;
-      font-size: clamp(32px, 4vw, 52px);
-      color: #ffffff;
+      font-size:26px;
+      letter-spacing:-0.2px;
     }
-    .sr-only{
-      position:absolute;
-      width:1px;
-      height:1px;
-      padding:0;
-      margin:-1px;
-      overflow:hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border:0;
-    }
+    p{margin:0 0 16px; color:var(--muted);}
+    main{display:flex; flex-direction:column; gap:24px;}
 
-    /* B5 aspect holder for the front image */
-    .b5{
-      width: min(76vw, 560px);
-      aspect-ratio: 176 / 250; /* B5 portrait */
-      background: var(--paper);
-      border-radius: 10px;
-      display:grid; place-items:center;
-      box-shadow: 0 8px 30px rgba(0,0,0,.25);
-      overflow:hidden;
+    .section{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow:var(--shadow);
     }
-    .b5 img{ width:100%; height:100%; object-fit:cover; display:block; }
-    .b5 a{ display:contents; }
+    .section h2{
+      margin:0 0 8px;
+      font-size:18px;
+    }
+    .section small{color:var(--muted);}
 
-    .authors-link{
-      font-family: 'CCHypnotique', ui-sans-serif, system-ui;
-      font-size: clamp(62px, 3vw, 62px);
-      text-decoration: none;
-      color: #ffffff; /* hvítur grunntexti */
-      background: transparent;
-      padding: 6px 12px;
-      border-radius: 10px;
-      position: relative;
-      left: -28px; /* jafnar við tilfærslu jólasveinsins */
+    /* Carousel */
+    .carousel-shell{
+      position:relative;
+      overflow:visible;
+      margin:0 -24px;
     }
-    .authors-link::after{
-      content: attr(data-text);
+    .carousel{
+      display:flex;
+      gap:16px;
+      overflow-x:auto;
+      scroll-snap-type:x mandatory;
+      padding:20px 32px;
+      scroll-behavior:smooth;
+    }
+    .carousel::-webkit-scrollbar{display:none;}
+    .carousel-card{
+      background:#0b1c22;
+      border:1px solid #0f172a;
+      border-radius:2px;
+      min-width:72%;
+      aspect-ratio:3/4;
+      scroll-snap-align:center;
+      box-shadow:0 12px 32px rgba(0,0,0,0.18);
+      position:relative;
+      overflow:hidden;
+      display:block;
+      transform:scale(.82) translateY(14px);
+      opacity:0.55;
+      transition:transform .25s ease, opacity .22s ease, box-shadow .22s ease;
+    }
+    @media (min-width:720px){
+      .carousel-card{min-width:38%;}
+    }
+    @media (min-width:1080px){
+      .carousel-card{min-width:28%;}
+    }
+    .carousel-card img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .carousel-card::after{
+      content:"";
       position:absolute;
       inset:0;
-      font-family: 'CCHypnotique Suggestion', 'CCHypnotique', ui-sans-serif, system-ui;
-      color:#000;
-      transform: translate(-1px, 4px);
       pointer-events:none;
+      background:radial-gradient(circle at 20% 20%, rgba(0,0,0,0.1), transparent 30%), linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 55%);
+      opacity:0.7;
+      transition:opacity .2s ease;
     }
-    .link-row{
-      display:flex;
+    .carousel-card:focus-visible::after,
+    .carousel-card:hover::after{
+      opacity:0.35;
+    }
+    .carousel-card.is-active{
+      transform:scale(1) translateY(0);
+      opacity:1;
+      box-shadow:0 16px 42px rgba(0,0,0,0.24);
+    }
+    .cta{
+      display:inline-flex;
       align-items:center;
-      gap:14px;
-      justify-content:center;
+      gap:6px;
+      text-decoration:none;
+      color:var(--ink);
+      font-weight:700;
     }
-    .santa-link{
+    .cta span{font-size:14px;}
+    .carousel-controls{
+      position:absolute;
+      inset:0;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      pointer-events:none;
+      padding:0 6px;
+    }
+    .carousel-btn{
+      width:36px;
+      height:36px;
+      border-radius:50%;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,0.9);
+      box-shadow:var(--shadow);
+      display:grid;
+      place-items:center;
+      cursor:pointer;
+      pointer-events:auto;
+    }
+
+    /* Grids */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap:12px;
+      list-style:none;
+      padding:0;
+      margin:0;
+    }
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:14px;
       display:flex;
       flex-direction:column;
-      align-items:center;
-      gap:4px;
-      padding:4px 6px 6px;
-      background: rgba(255,255,255,0.12);
-      border-radius: 12px;
+      gap:10px;
+      box-shadow:var(--shadow);
+    }
+    .pill-row{
+      display:flex;
+      gap:6px;
+      flex-wrap:wrap;
+      color:var(--muted);
+      font-size:12px;
+    }
+    .pill{
+      border:1px solid var(--border);
+      border-radius:999px;
+      padding:4px 10px;
+    }
+    .mini-title{margin:0; font-size:16px;}
+    .muted{color:var(--muted);}
+
+    /* Audio cards */
+    .audio-list{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap:12px;
+      list-style:none;
+      padding:0;
+      margin:0;
+    }
+    .audio-card audio{width:100%;}
+
+    /* Verkefni – myndrænt */
+    .project-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:14px;
+      list-style:none;
+      padding:0;
+      margin:0;
+    }
+    @media(min-width:900px){
+      .project-grid{
+        grid-template-columns:repeat(4, minmax(0, 1fr));
+      }
+    }
+    .project-card{
+      border-radius:16px;
+      overflow:hidden;
+      background:var(--card);
+      box-shadow:var(--shadow);
+      border:1px solid var(--border);
+      display:flex;
+      flex-direction:column;
+    }
+    .project-card img{
+      width:100%;
+      height:180px;
+      object-fit:cover;
+      display:block;
+    }
+    .project-card h3{
+      font-family:'HVComicSerif','Comic Sans MS',cursive,serif;
+      font-size:18px;
+      margin:10px 12px 12px;
+      letter-spacing:0.3px;
+    }
+
+    /* Archive + daily */
+    .archive{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:12px;
+    }
+    @media (min-width:900px){
+      .archive{grid-template-columns:2fr 1fr;}
+    }
+    .timeline{
+      list-style:none;
+      padding:0;
+      margin:0;
+      display:grid;
+      gap:10px;
+    }
+    .timeline li{
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:12px;
+      background:var(--card);
+      box-shadow:var(--shadow);
+    }
+    .daily{
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:12px;
+      background:linear-gradient(135deg, #fff, #f7f9ff);
+      box-shadow:var(--shadow);
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .moment-title{
+      font-family:'HVComicSerif', 'Comic Sans MS', cursive, serif;
+      font-size:20px;
+      margin:0 0 8px;
+      letter-spacing:0.3px;
+    }
+    .moment-frame{
+      border:2px solid #dce2eb;
+      border-radius:12px;
+      overflow:hidden;
+      background:#fff;
+      box-shadow:var(--shadow);
+    }
+    .moment-frame img{
+      display:block;
+      width:100%;
+      height:auto;
+      object-fit:cover;
+    }
+    /* Timarit stíll */
+    .timarit-wrap{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:14px;
+    }
+    @media(min-width:900px){
+      .timarit-wrap{
+        grid-template-columns:1fr;
+      }
+    }
+    @media(min-width:1200px){
+      .timarit-wrap{
+        grid-template-columns:2fr 1fr;
+        align-items:start;
+      }
+    }
+    .timarit-grid{
+      display:grid;
+      gap:12px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-areas:
+        "a a"
+        "d d"
+        "b c";
+      max-width: none;
+      margin: 0;
+      align-items:start;
+    }
+    .tile{
+      position:relative;
+      overflow:hidden;
+      border-radius:12px;
+      background:linear-gradient(135deg, #f3e1c4, #fcfaf5);
+      border:1px solid #e4d4b5;
+      box-shadow:var(--shadow);
+      display:flex;
+      align-items:flex-end;
+      color:#1a1a1a;
       text-decoration:none;
-      border: 1px solid rgba(255,255,255,0.18);
-      box-shadow: 0 8px 18px rgba(0,0,0,0.22);
-      position: relative;
-      left: -28px; /* færa hnappinn aðeins til vinstri */
+      min-height:0;
+      padding:14px;
+      width:100%;
     }
-    .santa-text{
-      font-family: 'CCHypnotique', ui-sans-serif, system-ui;
+    .tile[data-img]{
+      background: var(--tile-img) center/cover no-repeat;
+    }
+    .tile::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(0deg,
+        rgba(243,225,196,0.88) 0%,
+        rgba(243,225,196,0.75) 28%,
+        rgba(243,225,196,0.35) 54%,
+        rgba(243,225,196,0) 82%);
+      mix-blend-mode:multiply;
+      opacity:.9;
+      pointer-events:none;
+    }
+    .tile__body{
+      position:relative;
+      z-index:1;
+      max-width:85%;
+    }
+    .tile__tag{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      background:#d62839;
       color:#fff;
-      font-size: clamp(18px, 1.4vw, 22px);
-      text-shadow: 2px 2px 0 rgba(0,0,0,0.3);
-      line-height: 1.1;
+      padding:4px 10px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:700;
+      font-family:'CCBiffBamBoom', 'Comic Sans MS', cursive, sans-serif;
+      letter-spacing:0.3px;
     }
-    .santa-icon{
-      width:48px;
-      height:60px;
-      shape-rendering: crispEdges;
-      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
+    .tile__title{
+      margin:8px 0 4px;
+      font-family:'CCBiffBamBoom', 'Comic Sans MS', cursive, sans-serif;
+      font-size: clamp(18px, 2.8vw, 24px);
+      line-height:1.1;
+    }
+    .tile__excerpt{
+      margin:0;
+      color:#2f2f2f;
+      font-size:14px;
+    }
+    .tile--square{aspect-ratio:1/1; grid-area:a;}
+    .tile--rect{aspect-ratio:4/3; grid-area:b;}
+    .tile--wide{aspect-ratio:4/3; grid-area:c;}
+    .tile--audio{grid-area:d; min-height:140px; background:linear-gradient(135deg, #dfe7ed, #cfe0e8); border:1px solid #bed0db;}
+    @media(min-width:900px){
+      .tile--square{aspect-ratio:4/3;}
+      .tile--wide{aspect-ratio:4/3;}
+    }
+    .tile:hover{transform:translateY(-2px); transition:transform .15s ease;}
+    .sketch-play{
+      width:36px;
+      height:36px;
+      border-radius:12px;
+      border:2px solid #0f172a;
+      background:linear-gradient(120deg, #fff, #eff6fb);
+      display:grid;
+      place-items:center;
+      box-shadow:2px 3px 0 #0f172a;
+      cursor:pointer;
+      transition:transform .1s ease, box-shadow .1s ease;
+    }
+    .sketch-play:hover{transform:translateY(-2px); box-shadow:3px 4px 0 #0f172a;}
+    .sketch-play:active{transform:translateY(0); box-shadow:2px 2px 0 #0f172a;}
+    .sketch-icon{
+      width:12px;
+      height:12px;
+      border:2px solid #0f172a;
+      border-left:0;
+      clip-path: polygon(0 0, 100% 50%, 0 100%);
+      background:#16dcf2;
+      transform:translateX(1px);
+    }
+    .sketch-icon.pause{
+      clip-path:none;
+      width:12px;
+      height:12px;
+      background:none;
+      border:none;
+      display:flex;
+      gap:3px;
+    }
+    .sketch-icon.pause span{
+      display:block;
+      width:4px;
+      height:12px;
+      background:#0f172a;
+    }
+    .sketch-bar{
+      position:relative;
+      height:10px;
+      background:repeating-linear-gradient(90deg, rgba(0,0,0,0.08) 0 8px, rgba(0,0,0,0.02) 8px 16px);
+      border:2px solid #0f172a;
+      border-radius:12px;
+      box-shadow: inset 2px 2px 0 rgba(0,0,0,0.08);
+      overflow:hidden;
+    }
+    .sketch-progress{
+      position:absolute;
+      inset:0;
+      width:0%;
+      background:linear-gradient(90deg, #16dcf2, #15d1e6);
+      transition:width .1s linear;
+    }
+    .sketch-knob{
+      position:absolute;
+      top:-4px;
+      left:0%;
+      width:18px;
+      height:18px;
+      border-radius:50%;
+      border:2px solid #0f172a;
+      background:#fff;
+      box-shadow:2px 2px 0 #0f172a;
+      transform:translateX(-50%);
+      transition:left .1s linear;
+    }
+    .sketch-time{
+      font-family:'CCBiffBamBoom', 'Comic Sans MS', cursive, sans-serif;
+      font-size:14px;
+      margin:6px 0 0;
+      color:#0f172a;
+    }
+    .timarit-shell{
+      background:linear-gradient(135deg, #f3e1c4, #fcfaf5);
+      border:1px solid #e4d4b5;
+      border-radius:16px;
+      padding:14px;
+      box-shadow:var(--shadow);
+    }
+    .timarit-heading{
+      display:inline-block;
+      font-family:'CCBiffBamBoom','Comic Sans MS',cursive,sans-serif;
+      font-size:32px;
+      letter-spacing:0.5px;
+      margin:0 0 10px;
+      color:#1a1a1a;
+      text-decoration:none;
+    }
+    .timarit-heading:hover{text-decoration:none;}
+    /* LAGA: audio-tile á ekki að erfa min-height:200px frá .tile */
+    .timarit-grid .tile.tile--audio{
+      min-height:140px !important;
+      padding:12px !important;
     }
 
-    /* Logo button (bottom-right) */
-    .logo-btn{
-      position: fixed; right: 16px; bottom: 16px; z-index: 20;
-      width: clamp(96px, 16vw, 160px); height: clamp(96px, 16vw, 160px);
-      border-radius: 22%;
-      display:grid; place-items:center;
-      background: rgba(255,255,255,.0);
-      border:none; padding:0; cursor:pointer;
-    }
-    .logo-btn.nudge{ animation: logo-pop 2s ease; }
-    .logo-btn img{ width:100%; height:100%; object-fit:contain; display:block; }
-    @keyframes logo-pop{
-      0%{ transform:translateY(0) scale(1) rotate(0deg); }
-      15%{ transform:translateY(-14px) scale(1.05) rotate(-4deg); }
-      35%{ transform:translateY(2px) scale(1.02) rotate(4deg); }
-      55%{ transform:translateY(-10px) scale(1.04) rotate(-3deg); }
-      75%{ transform:translateY(1px) scale(1.01) rotate(3deg); }
-      100%{ transform:translateY(0) scale(1) rotate(0deg); }
+    /* Minnka play-hnappinn (hlusta) */
+    .timarit-grid .tile--audio .sketch-play{
+      width:36px !important;
+      height:36px !important;
+      border-radius:12px !important;
+      border-width:2px !important;
+      box-shadow:2px 3px 0 #0f172a !important;
+      display:flex !important;
+      align-items:center !important;
+      justify-content:center !important;
     }
 
-    /* Pop menu (text-only) */
-    .pop{
-      position: fixed; right: 16px; bottom: calc(16px + clamp(96px, 16vw, 160px) + 10px);
-      z-index: 25;
-      display: none;
+    /* Minnka play-ikon */
+    .timarit-grid .tile--audio .sketch-icon{
+      width:14px !important;
+      height:14px !important;
+      border-width:2px !important;
+      transform:none !important;
     }
-    .pop.open{ display:block; }
-    .pop ul{
-      list-style:none; margin:0; padding:10px 12px; background: rgb(53, 181, 235);
-      text-align:center;
-      backdrop-filter: blur(2px);
-      border-radius: 14px; box-shadow: 0 8px 24px rgba(0,0,0,.25);
+    .timarit-grid .tile--audio .sketch-icon.pause{
+      width:14px !important;
+      height:14px !important;
     }
-    .pop ul li{ display:flex; justify-content:center; }
-    .pop ul li:first-child{
-      background:#ff1900;
-      border-radius:12px 12px 8px 8px;
-      margin:-12px -12px 8px; /* pull to edges of popup */
-      padding:8px 12px 0 12px;
+    .timarit-grid .tile--audio .sketch-icon.pause span{
+      width:4px !important;
+      height:14px !important;
     }
-    .pop ul li:last-child{
-      background:#ffffff;
-      border-radius:8px 8px 12px 12px;
-      margin:8px -12px -10px;
-      padding:0 12px 8px 12px;
+    /* Modal */
+    .modal-backdrop{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.5);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+      z-index:999;
+      backdrop-filter:blur(2px);
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .2s ease;
     }
-    .pop a{
-      font-family: 'CCKissAndTell', ui-sans-serif, system-ui;
-      font-size: clamp(18px, 2.5vw, 28px);
-      color:#ffffff; text-decoration:none; display:block; padding:6px 4px;
+    .modal-backdrop.is-open{
+      opacity:1;
+      pointer-events:auto;
     }
-    .pop a.meindarsogur{
-      font-family: 'CCSharkSnack', 'CCKissAndTell', ui-sans-serif, system-ui;
-      font-size: clamp(38px, 5.8vw, 64px);
-      letter-spacing: -1px;
-      color:#ffffff;; padding:6px 8px; border-radius:10px; background:transparent;
+    .modal{
+      background:#fff;
+      border:2px solid #0f172a;
+      border-radius:14px;
+      max-width:520px;
+      width:100%;
+      box-shadow:0 16px 48px rgba(0,0,0,0.18);
+      padding:18px 18px 14px;
+      position:relative;
     }
-    .pop a.hladvarp{
-      font-family: 'HighJinkies', 'CCKissAndTell', ui-sans-serif, system-ui;
-      font-size: clamp(32px, 5vw, 52px);
-      color:#ffffff; padding:6px 8px; border-radius:10px; background:transparent;
+    .modal h3{
+      margin:0 0 8px;
+      font-family:'HighJinkies','CCBiffBamBoom','Comic Sans MS',cursive,sans-serif;
+      font-size:28px;
     }
-    .pop a.senda{
-      font-family: 'HVComicSerif', 'CCKissAndTell', ui-sans-serif, system-ui;
-      font-size: clamp(26px, 4.4vw, 44px);
-      color:#d9436b; padding:8px 10px; border-radius:10px; background:#ffffff;;
+    .modal p{margin:0; color:var(--ink);}
+    .modal-close{
+      position:absolute;
+      top:8px;
+      right:10px;
+      background:none;
+      color:#0f172a;
+      border:0;
+      border-radius:50%;
+      width:32px;
+      height:32px;
+      cursor:pointer;
+      font-size:22px;
+      line-height:1;
+      font-family:'HighJinkies','CCBiffBamBoom','Comic Sans MS',cursive,sans-serif;
     }
-    .pop a.spjall{
-      font-family: 'HighJinkies', 'CCKissAndTell', ui-sans-serif, system-ui;
-      font-size: clamp(32px, 5vw, 52px);
-      color:#ffffff; padding:6px 8px; border-radius:10px; background:transparent;
-    }
+    .timarit-shell a:hover{text-decoration:none;}
+    a{text-decoration:none; color:inherit;}
+    a:hover{text-decoration:underline;}
+    /* 1) Lækka gula reitinn sjálfan */
+.timarit-grid .tile.tile--audio{
+  min-height: 96px !important;   /* prófaðu 88–110px */
+  padding: 10px !important;
+}
+
+/* 2) Þjappa öllu inni í reitnum */
+.timarit-grid .tile--audio .tile__body{
+  margin: 0 !important;
+  padding: 0 !important;
+  gap: 10px !important;
+}
+
+/* 3) Minnka/breyta spacings á bar + tíma */
+.timarit-grid .tile--audio .sketch-bar{ margin-top: 8px !important; }
+.timarit-grid .tile--audio .sketch-time{ margin-top: 4px !important; font-size: 13px !important; line-height: 1.1 !important; }
 
   </style>
 </head>
 <body>
+  <header>
+  </header>
 
-  <!-- Main content -->
-  <main class="wrap" id="main" aria-live="polite">
-    <div class="center-stack">
-      <h1 class="site-title sr-only">Myndarsögur í skóinn</h1>
-      <div class="b5">
-        <a href="/Iskoinn" aria-label="Fara og lesa Myndarsögur í skóinn">
-          <picture>
-            <source srcset="/forsida.avif" type="image/avif">
-            <source srcset="/forsida.jpg" type="image/jpeg">
-            <img src="/forsida.jpg" alt="Myndarsögur í Skóinn" fetchpriority="high" width="1748" height="2480" />
-          </picture>
-        </a>
+  <main>
+    <section aria-label="Lítill hópur – forsýning" style="border:none; padding:0; box-shadow:none;">
+      <div class="hero-band">
+        <div class="carousel-shell">
+          <div class="carousel" id="carousel-track"></div>
+          <div class="carousel-controls">
+            <button class="carousel-btn" aria-label="Til baka" id="prev">‹</button>
+            <button class="carousel-btn" aria-label="Áfram" id="next">›</button>
+          </div>
+        </div>
+        <div style="margin-top:10px; text-align:center;">
+          <button id="about-trigger" style="margin:0; padding:0; background:none; border:none; cursor:pointer;">
+            <h1 style="margin:0; font-family:'HighJinkies','CCBiffBamBoom','Comic Sans MS',cursive,sans-serif; font-size:64px; letter-spacing:0.3px; color:inherit;">Myndarsögur</h1>
+          </button>
+        </div>
       </div>
-      <div class="link-row">
-        <a class="santa-link" href="/Jolaleikur" aria-label="Spila jólasveinaleikinn">
-          <svg class="santa-icon" viewBox="0 0 64 80" aria-hidden="true" focusable="false">
-            <rect x="10" y="56" width="44" height="10" fill="#0b172a"/>
-            <rect x="12" y="24" width="40" height="32" rx="6" fill="#d62828"/>
-            <rect x="12" y="28" width="40" height="6" fill="#f8fafc"/>
-            <rect x="12" y="46" width="40" height="6" fill="#f8fafc"/>
-            <rect x="12" y="40" width="40" height="6" fill="#0b172a"/>
-            <rect x="28" y="40" width="8" height="6" fill="#facc15"/>
-            <rect x="18" y="16" width="28" height="12" rx="4" fill="#f3c7a0"/>
-            <polygon points="18,28 32,42 46,28" fill="#f8fafc"/>
-            <rect x="18" y="12" width="28" height="8" rx="2" fill="#d62828"/>
-            <rect x="14" y="8" width="36" height="6" rx="3" fill="#f8fafc"/>
-            <circle cx="48" cy="8" r="4" fill="#f8fafc"/>
-            <rect x="22" y="32" width="6" height="6" fill="#1f2937"/>
-            <rect x="36" y="32" width="6" height="6" fill="#1f2937"/>
-          </svg>
-          <span class="santa-text">Leikurinn</span>
-        </a>
-        <a class="authors-link" data-text="Höfundar" href="https://Myndarsogur.is/hofundar">Höfundar</a>
+    </section>
+
+    <section class="section" aria-label="Verkefni á döfinni">
+      <ul class="project-grid" id="projects"></ul>
+    </section>
+
+    <section class="section" aria-label="Sögulegt efni og daglegt">
+      <div class="archive timarit-shell">
+        <div class="timarit-wrap">
+          <div>
+            <a class="timarit-heading" href="Timarit/">Hvað er að gerast!</a>
+            <div class="timarit-grid" id="timarit-grid"></div>
+          </div>
+          <div>
+            <div class="daily" id="daily-spot"></div>
+            <div style="display:flex; justify-content:center; padding-top:10px;">
+              <a href="https://myndasogur.app" aria-label="Myndarsogurapp">
+                <img src="/blektober/myndasogurapp.png" alt="Myndasogur.app" style="max-width:160px; height:auto; display:block; filter:drop-shadow(0 4px 12px rgba(0,0,0,0.15));">
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   </main>
 
-  <!-- Floating logo that toggles a text-only menu -->
-  <button class="logo-btn" id="logoBtn" aria-expanded="false" aria-controls="popMenu">
-    <img src="./logo.avif" alt="Opna valmynd" />
-  </button>
-  <nav class="pop" id="popMenu" aria-hidden="true">
-    <ul>
-      <li><a class="meindarsogur" href="/Hrekkjavokuforsidan/">Meindarsögur</a></li>
-      <li><a class="hladvarp" href="/hlusta">Hlaðvarpið </a></li>
-      <li><a class="spjall" href="https://myndasogur.app">Spjallborðið</a></li>
-      <li><a class="senda" id="sendStory" href="#">Sendu inn sögu </a></li>
-    </ul>
-  </nav>
-
   <script>
-    (function(){
-      // Fyrirvari: intro myndband/gif er fjarlægt – aðeins aðalefni birtist.
-    })();
+    // Demo-gögn fyrir prufu
+    const littleGroup = [
+      { href:"myndar/", cover:"myndar/Adal/mynd1.avif", alt:"Myndar forsíða" },
+      { href:"omyndar/", cover:"omyndar/Adal/mynd1.avif", alt:"Ómyndar forsíða" },
+      { href:"jola/", cover:"jola/Adal/mynd1.avif", alt:"Jóla forsíða" },
+      { href:"stora/", cover:"stora/forsida.avif", alt:"Stóra forsíða" },
+      { href:"iskoinn/", cover:"iskoinn/forsida.avif", alt:"Ískóinn forsíða" },
+      { href:"Meindarsogur/", cover:"Meindarsogur/forsida.png", alt:"Meindarsögur forsíða" }
+    ];
 
-    // ===== Logo pop-menu toggle =====
-    (function(){
-      const btn = document.getElementById('logoBtn');
-      const menu = document.getElementById('popMenu');
-      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const projects = [
+      { title:"Leikir", image:"Leikjasidan/leikjasidan.png", link:"Leikjasidan/" },
+      { title:"Námskeið", image:"Namskeid/namskeid_is.png", link:"Namskeid/" },
+      { title:"Verslun", image:"Verslun/solusida.jpeg", link:"Verslun/" },
+      { title:"Myndasögugerð", image:"Myndasogugerd/myndasogugerd.png", link:"Myndasogugerd/" }
+    ];
 
-      function nudgeLogo(){
-        if(prefersReduced) return;
-        if(btn.classList.contains('nudge')) return;
-        btn.classList.add('nudge');
-        setTimeout(()=> btn.classList.remove('nudge'), 2050);
+    const newsFeedUrl = "https://frettir.myndarsogur.is/rss.xml";
+    const podcastFeedUrl = "https://anchor.fm/s/eb470ff4/podcast/rss";
+    const pinnedNewsTitle = "Vor útgáfa";
+
+    // Byggjum upp DOM
+    const carouselTrack = document.getElementById("carousel-track");
+    const buildCard = (item) => {
+      const card = document.createElement("a");
+      card.className = "carousel-card";
+      card.href = item.href;
+      card.setAttribute("aria-label", item.alt || "Forsíða");
+      card.innerHTML = `<img src="${item.cover}" alt="${item.alt || ""}">`;
+      return card;
+    };
+    // endurtaka röðina 54x (324 kort) til að líkja eftir endalausri hringingu
+    const repeats = 54;
+    const repeated = Array.from({length: littleGroup.length * repeats}, (_,i) => littleGroup[i % littleGroup.length]);
+    repeated.forEach(item => carouselTrack.appendChild(buildCard(item)));
+
+    const projectsList = document.getElementById("projects");
+    projects.forEach(p => {
+      const li = document.createElement("li");
+      li.className = "project-card";
+      li.innerHTML = `
+        <a href="${p.link}" style="color:inherit; text-decoration:none; display:block;">
+          <img src="${p.image}" alt="${p.title}">
+          <h3>${p.title}</h3>
+        </a>
+      `;
+      projectsList.appendChild(li);
+    });
+
+    const fallbackArid = [
+      { src:"https://imgur.com/xRi9YuI.jpg", alt:"Myndasaga dagsins – Addi nabblakusk", artist:"https://www.instagram.com/addinabblakusk/" },
+      { src:"https://imgur.com/ZJwVHOg.jpg", alt:"Myndasaga dagsins – Arní JG", artist:"https://bsky.app/profile/arnijg.bsky.social" },
+      { src:"https://i.imgur.com/J6F7aUM.png", alt:"Myndasaga dagsins – brimrundraws", artist:"https://www.instagram.com/brimrundraws/" }
+    ];
+    let aridShots = [];
+
+    async function loadAridShots(){
+      try{
+        const res = await fetch("Arid2024/dagsins.json");
+        if(res.ok){
+          aridShots = await res.json();
+        }
+      }catch(e){}
+      if(!aridShots || !aridShots.length) aridShots = fallbackArid;
+      showDaily();
+    }
+
+    function showDaily(){
+      const dailySpot = document.getElementById("daily-spot");
+      if(!dailySpot || !aridShots.length) return;
+      const pick = aridShots[Math.floor(Math.random() * aridShots.length)];
+      dailySpot.innerHTML = `
+        <h3 class="moment-title">Myndasaga augnabliksins</h3>
+        <a href="${pick.artist}" target="_blank" rel="noopener" style="display:block;">
+          <div class="moment-frame">
+            <img src="${pick.src}" alt="${pick.alt || ''}">
+          </div>
+        </a>
+      `;
+    }
+
+    // Fréttir + hlaðvarp fyrir "Hvað er að gerast!"
+    const timaritGrid = document.getElementById("timarit-grid");
+    const newsShapes = ["square","rect","wide"];
+    const fallbackNews = [
+      { title:"Vor útgáfa", excerpt:"Sendu þína sögu á utgafa@myndarsogur.is", href:"https://frettir.myndarsogur.is/", tag:"Fréttir", image:"vorutgafa/Untitled_Artwork%2032.png" },
+      { title:"", excerpt:"", href:"https://frettir.myndarsogur.is/", tag:"Fréttir", image:"vorutgafa/Untitled_Artwork%2030.png" },
+      { title:"", excerpt:"", href:"https://frettir.myndarsogur.is/", tag:"Fréttir", image:"vorutgafa/Untitled_Artwork%2029.png" }
+    ];
+    const fallbackPodcast = { title:"Myndarsögur hlaðvarp", length:"", src:"", link:"hlusta/", description:"Opna hlaðvarpssíðuna." };
+    let newsItems = fallbackNews.slice(0,3);
+    let audioTile = null;
+
+    const stripHTML = (html = "") => {
+      const div = document.createElement("div");
+      div.innerHTML = html;
+      return (div.textContent || div.innerText || "").trim();
+    };
+    const truncate = (txt = "", limit = 120) => txt.length > limit ? `${txt.slice(0, limit - 1)}…` : txt;
+
+    function renderTimarit(){
+      if(!timaritGrid) return;
+      timaritGrid.innerHTML = "";
+      const frag = document.createDocumentFragment();
+      newsItems.slice(0,3).forEach((item, idx) => {
+        const tile = document.createElement("a");
+        const shape = newsShapes[idx] || "square";
+        tile.className = `tile tile--${shape}`;
+        if(item.image){
+          tile.setAttribute("data-img","true");
+          tile.style.setProperty("--tile-img", `url('${item.image}')`);
+        }
+        tile.href = item.href || "#";
+        tile.innerHTML = `
+          <div class="tile__body">
+            <span class="tile__tag">${item.tag || "Frétt"}</span>
+            <div class="tile__title">${item.title || ""}</div>
+            <p class="tile__excerpt">${item.excerpt || ""}</p>
+          </div>
+        `;
+        frag.appendChild(tile);
+      });
+      if(audioTile) frag.appendChild(audioTile);
+      timaritGrid.appendChild(frag);
+    }
+
+    async function loadNewsFromRSS(){
+      try{
+        const res = await fetch(newsFeedUrl);
+        if(!res.ok) throw new Error("RSS fetch failed");
+        const xml = await res.text();
+        const doc = new window.DOMParser().parseFromString(xml, "text/xml");
+        let items = Array.from(doc.querySelectorAll("item")).map(item => {
+          const title = (item.querySelector("title")?.textContent || "").trim();
+          const href = (item.querySelector("link")?.textContent || "").trim();
+          const description = item.querySelector("description")?.textContent || "";
+          const pubDate = Date.parse(item.querySelector("pubDate")?.textContent || "") || 0;
+          return { title, href, description, pubDate };
+        }).filter(i => i.title && i.href);
+        if(!items.length) throw new Error("No news items");
+
+        items.sort((a,b) => b.pubDate - a.pubDate);
+        const pinnedIdx = items.findIndex(i => i.title.toLowerCase() === pinnedNewsTitle.toLowerCase());
+        const ordered = [];
+        if(pinnedIdx >= 0){
+          ordered.push(items.splice(pinnedIdx,1)[0]);
+        }else if(items.length){
+          ordered.push(items.shift());
+        }
+        ordered.push(...items.slice(0,2));
+
+        newsItems = ordered.filter(Boolean).map(item => ({
+          title: item.title,
+          excerpt: truncate(stripHTML(item.description || "Skoða fréttina."), 120),
+          href: item.href,
+          tag: "Frétt"
+        }));
+        if(newsItems.length < 3){
+          newsItems = [...newsItems, ...fallbackNews].slice(0,3);
+        }
+      }catch(err){
+        newsItems = fallbackNews.slice(0,3);
+      }
+      renderTimarit();
+    }
+
+    function buildAudioTile(latestAudio){
+      const durationLabel = latestAudio.length || "--:--";
+      const tile = document.createElement("div");
+      tile.className = "tile tile--audio";
+      tile.id = "podcast-tile";
+      tile.innerHTML = `
+        <div class="tile__body" style="display:flex; align-items:center; gap:12px; justify-content:space-between;">
+          <div style="flex:1;">
+            <a href="${latestAudio.link || "hlusta/"}" style="text-decoration:none; color:inherit;">
+              <span class="tile__tag" style="background:#0f172a; color:#fff;">Hlustaðu</span>
+            </a>
+            <div class="tile__title" style="margin-top:6px;">${latestAudio.title || "Hlaðvarp Myndarsagna"}</div>
+            <p class="tile__excerpt" style="margin-top:4px;">${latestAudio.description || "Random þáttur úr hlaðvarpinu."}${latestAudio.length ? ` • ${durationLabel}` : ""}</p>
+          </div>
+          <button class="sketch-play" id="mini-play" aria-label="Spila hlaðvarp">
+            <div class="sketch-icon" id="mini-icon"></div>
+          </button>
+        </div>
+        <div class="sketch-bar" style="margin-top:10px;">
+          <div class="sketch-progress" id="mini-progress"></div>
+          <div class="sketch-knob" id="mini-knob"></div>
+        </div>
+        <div class="sketch-time" id="mini-time">00:00 / ${durationLabel}</div>
+        <audio id="mini-audio" preload="metadata" ${latestAudio.src ? `src="${latestAudio.src}"` : ""} style="display:none;"></audio>
+      `;
+      const audioEl = tile.querySelector("#mini-audio");
+      const btn = tile.querySelector("#mini-play");
+      const icon = tile.querySelector("#mini-icon");
+      const prog = tile.querySelector("#mini-progress");
+      const knob = tile.querySelector("#mini-knob");
+      const time = tile.querySelector("#mini-time");
+
+      if(!latestAudio.src){
+        btn.disabled = true;
+        btn.style.opacity = 0.6;
+        btn.title = "Tókst ekki að hlaða hljóðslóð fyrir þessa lotu";
+        return tile;
       }
 
-      setInterval(nudgeLogo, 20000);
-      setTimeout(nudgeLogo, 2000); // fyrsti púls eftir smá stund
+      const formatTime = (s) => {
+        if(!isFinite(s)) return "00:00";
+        const m = Math.floor(s/60).toString().padStart(2,"0");
+        const sec = Math.floor(s%60).toString().padStart(2,"0");
+        return `${m}:${sec}`;
+      };
 
-      btn.addEventListener('click', ()=>{
-        const open = menu.classList.toggle('open');
-        btn.setAttribute('aria-expanded', String(open));
-        menu.setAttribute('aria-hidden', String(!open));
+      const setPauseIcon = () => {
+        icon.className = "sketch-icon pause";
+        icon.innerHTML = "<span></span><span></span>";
+      };
+      const setPlayIcon = () => {
+        icon.className = "sketch-icon";
+        icon.innerHTML = "";
+      };
+
+      btn.addEventListener("click", () => {
+        if(btn.disabled) return;
+        if(audioEl.paused){
+          audioEl.play();
+          setPauseIcon();
+        }else{
+          audioEl.pause();
+          setPlayIcon();
+        }
       });
-    })();
 
-    // ===== Sendu inn sögu mailto (auðvelt að breyta) =====
-    (function(){
-      const link = document.getElementById('sendStory');
-      if(!link) return;
-      const subject = 'Myndasaga fyrir jólamyndasögusamkeppni 2025';
-      const body = [
-        'Ég set hana hér sem viðhengi.',
-        '',
-        'Ég heiti:',
-        'Skólinn minn heitir:',
-        'Eitthvað sem ég vil segja:',
-        '',
-        'Hlakka til að heyra frá ykkur'
-      ].join('\n');
-      link.href = `mailto:myndarsogur@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    })();
+      audioEl.addEventListener("timeupdate", () => {
+        const pct = audioEl.duration ? (audioEl.currentTime / audioEl.duration) * 100 : 0;
+        prog.style.width = pct + "%";
+        knob.style.left = pct + "%";
+        time.textContent = `${formatTime(audioEl.currentTime)} / ${latestAudio.length || formatTime(audioEl.duration) || "--:--"}`;
+      });
+
+      audioEl.addEventListener("ended", () => {
+        setPlayIcon();
+        prog.style.width = "0%";
+        knob.style.left = "0%";
+        time.textContent = `00:00 / ${latestAudio.length || formatTime(audioEl.duration) || "--:--"}`;
+      });
+
+      audioEl.addEventListener("loadedmetadata", () => {
+        if(!latestAudio.length && isFinite(audioEl.duration)){
+          time.textContent = `00:00 / ${formatTime(audioEl.duration)}`;
+        }
+      });
+
+      return tile;
+    }
+
+    function setAudioTile(data){
+      audioTile = buildAudioTile(data);
+      renderTimarit();
+    }
+
+    const formatDuration = (raw = "") => {
+      if(!raw) return "";
+      if(raw.includes(":")) return raw;
+      const num = parseInt(raw, 10);
+      if(!Number.isFinite(num)) return "";
+      const h = Math.floor(num / 3600);
+      const m = Math.floor((num % 3600) / 60);
+      const s = num % 60;
+      const parts = [];
+      if(h) parts.push(String(h).padStart(2,"0"));
+      parts.push(String(m).padStart(2,"0"));
+      parts.push(String(s).padStart(2,"0"));
+      return parts.join(":");
+    };
+
+    async function loadPodcastFromRSS(){
+      try{
+        const res = await fetch(podcastFeedUrl);
+        if(!res.ok) throw new Error("Podcast fetch failed");
+        const xml = await res.text();
+        const doc = new window.DOMParser().parseFromString(xml, "text/xml");
+        const items = Array.from(doc.querySelectorAll("item")).map(item => {
+          const enclosure = item.querySelector("enclosure");
+          const audioUrl = enclosure?.getAttribute("url") || "";
+          const title = (item.querySelector("title")?.textContent || "").trim();
+          const link = (item.querySelector("link")?.textContent || "").trim();
+          const duration = formatDuration(item.querySelector("itunes\\:duration, duration")?.textContent?.trim() || "");
+          const description = item.querySelector("description")?.textContent || "";
+          return { title, audioUrl, link, duration, description };
+        }).filter(i => i.audioUrl);
+        if(!items.length) throw new Error("No podcast episodes");
+        const pick = items[Math.floor(Math.random() * items.length)];
+        setAudioTile({
+          title: pick.title || "Hlaðvarp Myndarsagna",
+          length: pick.duration || "",
+          src: pick.audioUrl,
+          link: pick.link || "hlusta/",
+          description: truncate(stripHTML(pick.description || "Random þáttur úr hlaðvarpinu."), 90)
+        });
+        return;
+      }catch(err){
+        setAudioTile(fallbackPodcast);
+      }
+    }
+
+    renderTimarit();
+    setAudioTile(fallbackPodcast);
+    loadNewsFromRSS();
+    loadPodcastFromRSS();
+
+    // Carousel interaction
+    const carousel = document.querySelector(".carousel");
+    const btnPrev = document.getElementById("prev");
+    const btnNext = document.getElementById("next");
+    const cards = Array.from(carousel.querySelectorAll(".carousel-card"));
+
+    let cardSize = 0;
+    const measureCard = () => {
+      const first = carousel.querySelector(".carousel-card");
+      if(!first) return;
+      const gap = parseFloat(getComputedStyle(carousel).gap || "0");
+      cardSize = first.getBoundingClientRect().width + gap;
+    };
+    measureCard();
+    window.addEventListener("resize", measureCard);
+
+    // stillum byrjun í miðju endurtekningar
+    requestAnimationFrame(() => {
+      measureCard();
+      const midIndex = littleGroup.length * 27; // miðpunktur 54x
+      carousel.scrollLeft = (cardSize || 0) * midIndex;
+      highlightActive();
+    });
+
+    function scrollByCard(dir){
+      const step = cardSize || carousel.clientWidth * 0.9;
+      carousel.scrollBy({left: step * dir, behavior:"smooth"});
+    }
+    btnPrev.addEventListener("click", () => scrollByCard(-1));
+    btnNext.addEventListener("click", () => scrollByCard(1));
+
+    let scrollTimer;
+    function highlightActive(){
+      const center = carousel.scrollLeft + carousel.clientWidth/2;
+      let nearest = null;
+      let nearestDist = Infinity;
+      cards.forEach(c => {
+        const rect = c.getBoundingClientRect();
+        const left = c.offsetLeft;
+        const mid = left + rect.width/2;
+        const dist = Math.abs(mid - (center));
+        if(dist < nearestDist){
+          nearestDist = dist;
+          nearest = c;
+        }
+      });
+      cards.forEach(c => c.classList.remove("is-active"));
+      if(nearest) nearest.classList.add("is-active");
+    }
+
+    carousel.addEventListener("scroll", () => {
+      clearTimeout(scrollTimer);
+      highlightActive();
+      scrollTimer = setTimeout(() => {
+        const total = cards.length;
+        const windowSize = littleGroup.length * 2; // mörk áður en við hoppum
+        const idx = Math.round(carousel.scrollLeft / (cardSize || 1));
+        if(idx < windowSize){
+          carousel.scrollLeft += cardSize * littleGroup.length * (repeats - 4);
+        }else if(idx > total - windowSize){
+          carousel.scrollLeft -= cardSize * littleGroup.length * (repeats - 4);
+        }
+        highlightActive();
+      }, 60);
+    });
+
+    // Hleð myndasögu dagsins úr skrá
+    loadAridShots();
+
+    // About modal
+    const aboutTrigger = document.getElementById("about-trigger");
+    const backdrop = document.createElement("div");
+    backdrop.className = "modal-backdrop";
+    backdrop.innerHTML = `
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="about-title">
+        <button class="modal-close" aria-label="Loka">×</button>
+        <h3 id="about-title">Myndarsögur</h3>
+        <p>Myndarsögur eru samtök sem voru stofnuð með það háleita markmið í huga að sjá meira af myndasögum á íslandi. Af einhverri ástæðu óx þessi hugmynd meir og meir þangað til allt í einu var til svo mikið af myndasögum að enginn veit hvað hann á að gera við þær lengur. Núna standa samtökin að því að reyna koma skikk á þetta allt saman með því að kenna, leiðbeina og stýra verkefnum sem að kynda undir sköpunargleði og framþróun miðilsins öllum til heilla, vonandi, kannski...</p>
+      </div>
+    `;
+    document.body.appendChild(backdrop);
+    const closeBtn = backdrop.querySelector(".modal-close");
+
+    const openModal = () => { backdrop.classList.add("is-open"); };
+    const closeModal = () => { backdrop.classList.remove("is-open"); };
+    aboutTrigger.addEventListener("click", openModal);
+    closeBtn.addEventListener("click", closeModal);
+    backdrop.addEventListener("click", (e) => { if(e.target === backdrop) closeModal(); });
   </script>
 </body>
 </html>

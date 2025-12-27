@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Verslunin góða</title>
+  <style>
+    :root{
+      --bg:#f3f3f3;
+      --ink:#f5f7fb;
+      --accent:#fffc3e;
+    }
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--ink);
+      font-family:Arial, sans-serif;
+      text-align:center;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      padding-bottom:90px;
+    }
+    h1{margin:12px 0 4px;}
+    p.lead{margin:0 0 16px; color:#dce4f2;}
+
+    .cover-grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap:12px;
+      padding:12px;
+      max-width:1200px;
+      margin:0 auto;
+      width:100%;
+    }
+    .cover-card{
+      position:relative;
+      aspect-ratio:3/4;
+      border-radius:12px;
+      overflow:hidden;
+      cursor:pointer;
+      box-shadow:0 8px 24px rgba(0,0,0,0.25);
+      border:0px solid transparent;
+      transition:transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+    }
+    .cover-card img{
+      width:100%; height:100%; object-fit:cover; display:block;
+    }
+    .cover-card.selected{
+      border-color:var(--accent);
+      box-shadow:0 12px 32px rgba(223, 223, 223, 0.35);
+      transform:translateY(0);
+    }
+
+    .cart-bar{
+      position:fixed;
+      bottom:0;
+      left:0;
+      right:0;
+      background:rgba(255, 255, 255, 0.95);
+      border-top:1px solid rgba(255, 255, 255, 0.12);
+      padding:10px 12px;
+      box-shadow:0 -6px 16px rgba(0,0,0,0.3);
+      z-index:30;
+    }
+    .cart-inner{
+      max-width:1200px;
+      margin:0 auto;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+      justify-content:space-between;
+    }
+    .cart-items{
+      position:relative;
+      min-height:40px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .cart-item{
+      width:60px;
+      height:80px;
+      border-radius:6px;
+      overflow:hidden;
+      box-shadow:0 4px 12px rgba(0,0,0,0.25);
+      transform-origin:center;
+    }
+    .cart-item img{width:100%; height:100%; object-fit:cover; display:block;}
+    .cta-btn{
+      padding:12px 18px;
+      background:var(--accent);
+      color:#0a0a0a;
+      border:none;
+      border-radius:8px;
+      cursor:pointer;
+      font-size:18px;
+      font-weight:700;
+      box-shadow:0 6px 18px rgba(0,0,0,0.25);
+      white-space:nowrap;
+    }
+    .cta-btn:hover{background:rgba(255,252,62,0.9);}
+
+    /* Modal */
+    .modal-overlay {
+        display: none;
+        position: fixed;
+        top:0; left:0; right:0; bottom:0;
+        background: rgba(0,0,0,0.5);
+        justify-content: center;
+        align-items: center;
+        z-index:50;
+    }
+    .modal {
+        background: white;
+        padding:20px;
+        border-radius:10px;
+        max-width:300px;
+        width:100%;
+        text-align:left;
+        position:relative;
+        color:#0a0a0a;
+    }
+    .modal input, .modal textarea{
+        width:100%;
+        padding:10px 12px;
+        border:1px solid #bbb;
+        border-radius:6px;
+        margin-bottom:10px;
+        font-size:14px;
+    }
+    .choice-btn {
+        background-color: var(--accent);
+        color: black;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 10px;
+        font-size: 16px;
+        font-weight: 600;
+        font-family: Arial, sans-serif;
+        padding: 10px 12px;
+        margin-right: 5px;
+    }
+    .choice-btn:hover {background-color: rgba(255,252,62,0.9);}
+
+    /* Animation clone */
+    .fly-clone{
+        position:fixed;
+        width:80px;
+        height:110px;
+        border-radius:8px;
+        overflow:hidden;
+        box-shadow:0 8px 24px rgba(0,0,0,0.3);
+        pointer-events:none;
+        z-index:40;
+        transition:transform 3s ease-in-out, opacity 3s ease-in-out;
+        animation: wiggle 0.6s ease-in-out 0s infinite alternate;
+    }
+    @keyframes wiggle{
+      0%{ transform:translate(0,0) rotate(-2deg); }
+      100%{ transform:translate(2px,-2px) rotate(2deg); }
+    }
+  </style>
+</head>
+<body>
+  <h1>Hverjar langar þig í?</h1>
+  <p class="lead"></p>
+
+  <div class="cover-grid" id="coverGrid"></div>
+
+  <div class="cart-bar">
+    <div class="cart-inner">
+      <div class="cart-items" id="cartItems"></div>
+      <button class="cta-btn" type="button" id="buyBtn" onclick="openModal()">Kaupa þessar!</button>
+    </div>
+  </div>
+
+  <!-- Modal fyrir nafn og heimilisfang -->
+  <div class="modal-overlay" id="modalOverlay">
+      <div class="modal" id="modalBox">
+          <input type="text" id="userName" placeholder="Nafnið þitt">
+          <input type="text" id="userAddress" placeholder="Heimilisfangið þitt">
+          <textarea id="goodIdea" placeholder="Góð hugmynd fyrir okkur" rows="3"></textarea>
+
+          <div style="text-align:right;">
+              <button class="choice-btn" onclick="chooseOption('komdu')">Nennið þið</button>
+              <button class="choice-btn" onclick="chooseOption('kem')">Ég sæki bara</button>
+          </div>
+      </div>
+  </div>
+
+  <script>
+    const products = [
+      { id:"annad", name:"Myndarsögur Annað blað", image:"../stora/forsida.avif" },
+      { id:"jola", name:"Jólablaðið", image:"../jola/Adal/mynd1.avif" },
+      { id:"omynd", name:"Ómyndarsögur", image:"../omyndar/Adal/mynd1.avif" },
+      { id:"fyrsta", name:"Fyrsta blaðið", image:"../myndar/Adal/mynd1.avif" },
+      { id:"iskoinn", name:"Myndarsögur í Skóinn", image:"../iskoinn/forsida.avif" },
+      { id:"meind", name:"Meindarsögur", image:"../Meindarsogur/forsida.png" }
+    ];
+
+    const selected = new Map();
+    const coverCards = new Map();
+    const coverGrid = document.getElementById('coverGrid');
+    const cartItems = document.getElementById('cartItems');
+    const buyBtn = document.getElementById('buyBtn');
+
+    function renderGrid(){
+      products.forEach(prod => {
+        const card = document.createElement('div');
+        card.className = 'cover-card';
+        card.dataset.id = prod.id;
+        card.innerHTML = `<img src="${prod.image}" alt="${prod.name}">`;
+        card.addEventListener('click', (e) => {
+          toggleProduct(prod, card, e);
+        });
+        coverGrid.appendChild(card);
+        coverCards.set(prod.id, card);
+      });
+    }
+
+    function toggleProduct(prod, card, evt){
+      const already = selected.has(prod.id);
+      if(already){
+        return; // ekki tvívelja
+      }else{
+        selected.set(prod.id, prod);
+        card.classList.add('selected');
+        card.style.pointerEvents = "none";
+        card.style.visibility = "hidden"; // kort hverfur en heldur plássi
+      }
+      updateCart();
+    }
+
+    function updateCart(){
+      cartItems.innerHTML = '';
+      selected.forEach(prod => {
+        const div = document.createElement('div');
+        div.className = 'cart-item';
+        div.dataset.id = prod.id;
+        const rot = (Math.random()*12 - 6).toFixed(2);
+        const dx = (Math.random()*10 - 5).toFixed(2);
+        const dy = (Math.random()*8 - 4).toFixed(2);
+        div.style.transform = `translate(${dx}px, ${dy}px) rotate(${rot}deg)`;
+        div.innerHTML = `<img src="${prod.image}" alt="${prod.name}">`;
+        cartItems.appendChild(div);
+      });
+      const allSelected = selected.size === products.length && selected.size > 0;
+      buyBtn.textContent = allSelected ? "Kaupa allar!" : "Kaupa þessar!";
+    }
+
+    // Fjarlægja úr körfu og endurvekja kort
+    cartItems.addEventListener('click', (e) => {
+      const item = e.target.closest('.cart-item');
+      if(!item) return;
+      const id = item.dataset.id;
+      if(!id || !selected.has(id)) return;
+      selected.delete(id);
+      const card = coverCards.get(id);
+      if(card){
+        card.style.visibility = "visible";
+        card.style.pointerEvents = "";
+        card.classList.remove('selected');
+      }
+      updateCart();
+    });
+
+    // Modal logic reused
+    let chosenOption = null;
+    function openModal() {
+        if(selected.size === 0){
+          alert("Þú verður að velja hverjar þú vilt fyrst.");
+          return;
+        }
+        document.getElementById('modalOverlay').style.display = 'flex';
+    }
+    function closeModal() {
+        document.getElementById('modalOverlay').style.display = 'none';
+    }
+    document.getElementById('modalOverlay').addEventListener('click', function(e) {
+        const modalBox = document.getElementById('modalBox');
+        if(!modalBox.contains(e.target)) {
+            closeModal();
+        }
+    });
+    function chooseOption(option) {
+        chosenOption = option;
+        sendEmail();
+    }
+
+    function sendEmail() {
+        const userName = document.getElementById('userName').value.trim();
+        const userAddress = document.getElementById('userAddress').value.trim();
+        const goodIdea = document.getElementById('goodIdea').value.trim();
+
+        if(!userName || !userAddress) {
+            alert("Vinsamlegast sláðu inn nafn og heimilisfang.");
+            return;
+        }
+
+        const productsArray = Array.from(selected.values()).map(p => p.name);
+
+        let productText = "";
+        if (productsArray.length === 0) {
+            productText = 'engar útgáfur valdar';
+        } else if (productsArray.length === 1) {
+            productText = encodeURIComponent(productsArray[0]);
+        } else {
+            const last = productsArray.pop();
+            productText = encodeURIComponent(productsArray.join(', ')) + '%2C%20og%20að%20sjálfsögðu%20' + encodeURIComponent(last);
+        }
+
+        let scenarioText = "";
+        if(chosenOption === 'komdu') {
+            scenarioText = `sendu það til mín ég er ófær ferðum af spenningi`;
+        } else if(chosenOption === 'kem') {
+            scenarioText = `Ertu ennþá í Hafnarhúsinu á Tryggvagötu 17 eða ertu á flakki?  Hvar næ ég í þig og hvenær?  Geturu staðfest þetta?  Segðu mér það?  Ég verð að vita!!??!`;
+        }
+
+        const ideaText = goodIdea ? encodeURIComponent(goodIdea) : 'settu inn HVAÐ ÞÚ MYNDIR VILJA SJÁ HÉR';
+
+        const subject = `${encodeURIComponent(userName)} með áríðandi skilaboð`;
+        const body =
+  `Kæru Myndarsögur,%0D%0A%0D%0A` +
+
+  `Ég sendi ykkur bréf frá ${encodeURIComponent(userAddress)} því ég gat ekki lengur lifað án bóka ykkar.%0D%0A` +
+  `Kallaðu þær blöð, kallaðu þau útgáfur hvað sem þú vilt. En ég veit að þetta eru hinar sönnu bókmenntir Íslands.%0D%0A` +
+  `Þar sem raddir lita og forma spretta í gegn og segja sögur ríkari en nokkru sinni fyrr.%0D%0A%0D%0A` +
+
+  `Þess vegna vil ég ${productText} ${encodeURIComponent(scenarioText)}%0D%0A%0D%0A` +
+
+  `Verð frá mér af spenningi og verð að ná um þær.%0D%0A%0D%0A` +
+
+  `Ég var samt með eina hugmynd um eitt annað sem mig langaði að segja þér....... ${ideaText}%0D%0A%0D%0A` +
+
+  `Vonast til þess að heyra frá þér. Sakna þín.%0D%0A%0D%0A` +
+
+  `Kær kveðja%0D%0A` +
+  `${encodeURIComponent(userName)}%0D%0A%0D%0A` +
+
+  `P.s. held þú sért ennþá með vatnsbrúsann minn, hef allavega ekki séð hann lengi ` +
+  `láttu mig allavega vita ef þú sérð hann`;
+
+
+        const mailtoLink = `mailto:verslun@myndarsogur.is?subject=${subject}&body=${body}`;
+        window.location.href = mailtoLink;
+
+        closeModal();
+    }
+
+    renderGrid();
+  </script>
+</body>
+</html>

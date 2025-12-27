@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Lesa – Myndar</title>
+  <style>
+    :root{
+      --bg:#f61978;
+      --ink:#0a0a0a;
+    }
+    *{box-sizing:border-box;}
+    html,body{
+      margin:0;
+      height:100%;
+      background:var(--bg);
+    }
+    body{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+      font-family:ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Helvetica, Arial, "Noto Sans", sans-serif;
+    }
+    .page{
+      width:min(90vw, 1200px);
+      height:min(90vh, 90vw * 1.4);
+      background:#fff;
+      display:grid;
+      place-items:center;
+      box-shadow:0 10px 40px rgba(0,0,0,0.25);
+    }
+    .page img{width:100%; height:100%; object-fit:contain; display:block;}
+    .zone{
+      position:absolute; top:0; bottom:0; width:50%; cursor:pointer; z-index:5;
+    }
+    .zone.left{left:0;}
+    .zone.right{right:0;}
+    .lock{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.65);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+      color:#fff;
+      font-size:18px;
+      text-align:center;
+      backdrop-filter:blur(2px);
+      visibility:hidden;
+      opacity:0;
+      transition:opacity .2s ease, visibility .2s ease;
+      z-index:40;
+      pointer-events:none;
+    }
+    .lock.open{visibility:visible; opacity:1; pointer-events:auto;}
+    .lock-box{
+      max-width:420px;
+      background:#0a0a0a;
+      padding:16px;
+      border-radius:12px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.35);
+    }
+    .lock input{
+      width:100%;
+      padding:10px 12px;
+      border-radius:10px;
+      border:1px solid #ddd;
+      margin-top:10px;
+      font-size:16px;
+    }
+    .lock button{
+      margin-top:12px;
+      width:100%;
+      padding:10px 12px;
+      border-radius:10px;
+      border:none;
+      background:#f61978;
+      color:#fff;
+      font-weight:700;
+      cursor:pointer;
+      font-size:16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <img id="image" src="../Adal/mynd1.avif" alt="Myndarsögur blaðsíða">
+  </div>
+  <div class="zone left" aria-hidden="true"></div>
+  <div class="zone right" aria-hidden="true"></div>
+
+  <div class="lock" id="lock">
+    <div class="lock-box">
+      <div id="lockText">Til að halda áfram þarf lykilorð.</div>
+      <input type="password" id="lockInput" placeholder="Sláðu inn lykilorð">
+      <div style="display:flex; gap:8px; margin-top:10px; flex-wrap:wrap;">
+        <button id="unlockBtn" type="button" style="flex:1; min-width:140px;">Staðfesta</button>
+        <button id="requestBtn" type="button" style="flex:1; min-width:140px; background:#0f172a;">Panta lykilorð</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const totalImages = 32;
+    const previewLimit = 6;
+    const unlockCode = "banani";
+
+    let currentImage = 1;
+    const image = document.getElementById('image');
+    const lock = document.getElementById('lock');
+    const lockInput = document.getElementById('lockInput');
+    const lockText = document.getElementById('lockText');
+    let unlocked = false;
+    let isTransitioning = false;
+
+    function preloadNext(num){
+      if(num <= totalImages){
+        const img = new Image();
+        img.src = `../Adal/mynd${num}.avif`;
+      }
+    }
+
+    function showLock(){
+      lock.classList.add('open');
+      setTimeout(() => lockInput.focus(), 10);
+    }
+    function hideLock(){
+      lock.classList.remove('open');
+      lockInput.value = "";
+    }
+
+    function tryUnlock(){
+      if(lockInput.value.trim().toLowerCase() === unlockCode){
+        unlocked = true;
+        hideLock();
+      }else{
+        lockText.textContent = "Rangt lykilorð, reyndu aftur.";
+      }
+    }
+
+    function updateImage(){
+      isTransitioning = true;
+      image.src = `../Adal/mynd${currentImage}.avif`;
+      preloadNext(currentImage + 1);
+      setTimeout(() => isTransitioning = false, 120);
+    }
+
+    function nextImage(){
+      if(isTransitioning) return;
+      if(currentImage >= totalImages) return;
+      if(!unlocked && currentImage >= previewLimit){
+        showLock();
+        return;
+      }
+      currentImage++;
+      updateImage();
+    }
+    function previousImage(){
+      if(isTransitioning) return;
+      if(currentImage <= 1) return;
+      currentImage--;
+      updateImage();
+    }
+
+    const zoneRight = document.querySelector('.right');
+    const zoneLeft = document.querySelector('.left');
+    zoneRight.addEventListener('click', nextImage);
+    zoneLeft.addEventListener('click', previousImage);
+
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter'){ nextImage(); }
+      if(e.key === 'ArrowLeft' || e.key === 'Backspace'){ previousImage(); }
+      if(e.key === 'Escape'){ hideLock(); }
+    });
+
+    document.getElementById('unlockBtn').addEventListener('click', tryUnlock);
+    lockInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') tryUnlock(); });
+    document.getElementById('requestBtn').addEventListener('click', () => {
+      const body = encodeURIComponent("Hæhæ\n\nMig langar svo að lesa fyrsta blaðið af Myndarsögum hvað kostar það og hvernig fæ ég það?");
+      const subject = encodeURIComponent("Pöntun á lykilorði - Myndarsögur #1");
+      window.location.href = `mailto:myndarsogur@gmail.com?subject=${subject}&body=${body}`;
+    });
+
+    updateImage();
+  </script>
+</body>
+</html>

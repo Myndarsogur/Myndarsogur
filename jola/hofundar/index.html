@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Höfundar – Jóla</title>
+  <style>
+    @font-face{
+      font-family:'HVComicSerif';
+      src: url("../../assets/fonts/HVComicSerifotf.woff2") format("woff2"),
+           url("../../assets/fonts/HVComicSerifotf.otf") format("opentype");
+      font-display:swap;
+    }
+    @font-face{
+      font-family:'CCBiffBamBoom';
+      src: url("../../assets/fonts/CCBiffBamBoom.woff2") format("woff2");
+      font-display:swap;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      padding:24px;
+      font-family:'HVComicSerif', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
+      background:#f6f7fb;
+      color:#0f172a;
+      line-height:1.6;
+    }
+    .shell{
+      max-width:900px;
+      margin:0 auto;
+      display:grid;
+      gap:18px;
+    }
+    header{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:12px;
+    }
+    h1{
+      margin:0;
+      font-family:'CCBiffBamBoom','HVComicSerif', cursive;
+      font-size:clamp(28px, 6vw, 40px);
+      letter-spacing:0.4px;
+    }
+    a{color:inherit; text-decoration:none;}
+    a:hover{text-decoration:underline;}
+    .hero{
+      width:100%;
+      aspect-ratio:3/4;
+      border:1px solid #e5e7eb;
+      border-radius:12px;
+      background:#fff;
+      overflow:hidden;
+      box-shadow:0 10px 30px rgba(0,0,0,0.08);
+    }
+    .hero img{width:100%; height:100%; object-fit:cover; display:block;}
+    .card{
+      border:1px solid #e5e7eb;
+      border-radius:12px;
+      padding:14px;
+      background:#fff;
+      box-shadow:0 8px 24px rgba(0,0,0,0.06);
+    }
+    .meta{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      font-size:14px;
+      color:#475569;
+    }
+    ul{margin:0; padding-left:18px;}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <h1 id="authorTitle">Settu nafn hér</h1>
+      <a href="../">← Til baka í forsíðu</a>
+    </header>
+
+    <div class="hero">
+      <!-- Skiptu út myndinni fyrir höfundinn -->
+      <img id="authorImg" src="cover-placeholder.jpg" alt="Höfundarmynd / forsíða">
+    </div>
+
+    <section class="card">
+      <h2 style="margin:0 0 8px;">Um höfund</h2>
+      <p style="margin:0 0 10px;" id="authorBio">Stutt kynning á höfundi. Segðu frá verkum, stíl og áherslum. Þú getur líka bætt við tenglum hér að neðan.</p>
+      <div class="meta">
+        <span id="authorLocation">Staðsetning: ...</span>
+        <span id="authorLinks">Vefur / samfélagsmiðlar: <a href="#">hlekkur</a></span>
+        <span id="authorEmail">Tölvupóstur: <a href="mailto:nafn@example.com">nafn@example.com</a></span>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 style="margin:0 0 8px;">Verk</h2>
+      <ul id="authorWorks">
+        <li>Verk / saga 1 – stutt lýsing, tengill ef þarf.</li>
+        <li>Verk / saga 2</li>
+        <li>Verk / saga 3</li>
+      </ul>
+    </section>
+  </div>
+
+  <script>
+    const EDITION = "jola";
+    const DATA_URL = "../../hofundar2/authors.json";
+    const PLACEHOLDER_IMG = "cover-placeholder.jpg";
+
+    let authors = [];
+    let idx = 0;
+
+    const titleEl = document.getElementById("authorTitle");
+    const imgEl = document.getElementById("authorImg");
+    const bioEl = document.getElementById("authorBio");
+    const locEl = document.getElementById("authorLocation");
+    const linksEl = document.getElementById("authorLinks");
+    const emailEl = document.getElementById("authorEmail");
+    const worksEl = document.getElementById("authorWorks");
+
+    const ensureUrl = (url) => {
+      if (!url) return "";
+      if (url.startsWith("http://") || url.startsWith("https://")) return url;
+      return `https://${url}`;
+    };
+
+    function render() {
+      if (!authors.length) return;
+      const a = authors[idx];
+      titleEl.textContent = a.name || "Nafn vantar";
+      imgEl.alt = a.name || "Höfundarmynd";
+      imgEl.src = a.image && a.image !== "vantar höfundamynd" ? a.image : PLACEHOLDER_IMG;
+      bioEl.textContent = a.bio || "Upplýsingar vantar um þennan höfund.";
+      const aliases = (a.aliases || []).join(", ");
+      locEl.textContent = aliases ? `Auknöfn: ${aliases}` : "Auknöfn: —";
+      linksEl.innerHTML = a.website && a.website !== "vantar vefslóð"
+        ? `Vefur / samfélagsmiðlar: <a href="${ensureUrl(a.website)}" target="_blank" rel="noopener">${a.website}</a>`
+        : "Vefur / samfélagsmiðlar: —";
+      emailEl.innerHTML = a.email && a.email !== "vantar tölvupóst"
+        ? `Tölvupóstur: <a href="mailto:${a.email}">${a.email}</a>`
+        : "Tölvupóstur: —";
+      worksEl.innerHTML = Array.isArray(a.works) && a.works.length
+        ? a.works.map(w => `<li><strong>${w.title || "Verk"}</strong>${w.description ? ` – ${w.description}` : ""}</li>`).join("")
+        : "<li>Engar upplýsingar um verk skráðar.</li>";
+    }
+
+    function next() {
+      if (!authors.length) return;
+      idx = (idx + 1) % authors.length;
+      render();
+    }
+    function prev() {
+      if (!authors.length) return;
+      idx = (idx - 1 + authors.length) % authors.length;
+      render();
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") next();
+      if (e.key === "ArrowLeft") prev();
+    });
+    document.addEventListener("click", (e) => {
+      if (e.target.closest('a') || e.target.closest('section')) return;
+      const mid = window.innerWidth / 2;
+      if (e.clientX > mid) next(); else prev();
+    });
+
+    fetch(DATA_URL)
+      .then(res => res.json())
+      .then(data => {
+        authors = (data || []).filter(a => (a.editions || []).includes(EDITION));
+        if (!authors.length) {
+          titleEl.textContent = "Engir höfundar fundust";
+          bioEl.textContent = "Ekki tókst að hlaða höfunda fyrir þessa síðu.";
+          return;
+        }
+        render();
+      })
+      .catch(() => {
+        titleEl.textContent = "Villa við að hlaða höfunda";
+        bioEl.textContent = "Ekki tókst að sækja gögn úr authors.json.";
+      });
+  </script>
+</body>
+</html>

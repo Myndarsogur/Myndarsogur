@@ -2,634 +2,346 @@
 <html lang="is">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-  <title>Myndarsögur í skóinn</title>
+<!-- Litur á toppstiku vafra -->
+<meta name="theme-color" content="#ff1900;" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#ff1900;" media="(prefers-color-scheme: dark)">
+<meta name="msapplication-TileColor" content="#ff1900;">
+
+<!-- iOS Safari / Home Screen hegðun -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Myndarsögur í skóinn eru íslenskar myndasögur og hlaðvörp fyrir alla — lesið, hlustið og njótið.">
+  <meta name="robots" content="max-image-preview:large">
+  <link rel="canonical" href="https://myndarsogur.is/iskoinn/">
+  <link rel="icon" href="https://myndarsogur.is/logo.png">
+  <link rel="apple-touch-icon" href="https://myndarsogur.is/logo.png">
+
+  <title>Myndarsögur - Útgáfa með meiru</title>
+  <meta property="og:title" content="Myndarsögur - Útgáfa með meiru">
+  <meta property="og:description" content="Íslenskar myndasögur, sögur og hlaðvörp fyrir krakka og fjölskyldur — lesið, hlustið og njótið saman.">
+  <meta property="og:url" content="https://myndarsogur.is/iskoinn/">
+  <meta property="og:site_name" content="Myndarsögur">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://myndarsogur.is/forsida-og.png">
+  <meta property="fb:app_id" content="1501563707185143">
+  <meta name="facebook-domain-verification" content="9gxutfbhyvr1cj225z5y2wstxbaqmd" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Myndarsögur - Útgáfa með meiru">
+  <meta name="twitter:description" content="Íslenskar myndasögur og hlaðvörp fyrir alla.">
+  <meta name="twitter:image" content="https://myndarsogur.is/forsida-og.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Myndarsögur",
+    "url": "https://myndarsogur.is/iskoinn/",
+    "logo": "https://myndarsogur.is/Myndarsogur-Merki.png",
+    "sameAs": ["https://www.facebook.com/Myndarsogur", "https://www.instagram.com/Myndarsogur"]
+  }
+  </script>
   <style>
-    @font-face{
-      font-family:'CC Kiss And Tell';
-      src:url('../CCKissAndTell-Regular.woff2') format('woff2');
-      font-weight:400;
-      font-style:normal;
-      font-display:swap;
-    }
-
-    /* ===== Theme ===== */
     :root{
-      --bg:#16dcf2;
-      --ink:#ffffff;
-      --muted:#bdbdbd;
-      --accent:rgb(53, 231, 240);
-      --danger:#d7263d;
-      --is-bg:#16dcf2;
-      --ink-dark:#0e0e0e;
-      --page-ratio: 148 / 210;
-      --stage-pad: clamp(4px, 2vw, 18px);
-      --page-max-width: min(
-        calc(100vw - var(--stage-pad) * 2),
-        calc((100vh - var(--stage-pad) * 2) * 176 / 250)
-      );
-      --bubble-min: 10px;
-      --bubble-max: 240px;
-      --bubble-bg: rgba(255, 255, 255, 0.95);
-      --bubble-border: rgba(17,17,17,0.85);
+      --bg: #16dcf2; /* R255 G25 B0 */
+      --ink: #0a0a0a;
+      --paper: #fff7ef;
     }
-
-    *{
-      box-sizing:border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
+    *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;
+      background:var(--bg);
       color:var(--ink);
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Helvetica, Arial, "Noto Sans", sans-serif;
-      overflow:hidden;
-      background:var(--bg);
     }
 
-    .swipe-hint{
+    /* Custom display fonts (now stored in ../assets/fonts) */
+    @font-face{
+      font-family: 'CCHypnotique';
+      src: url('../assets/fonts/CCHypnotique-Regular.woff2') format('woff2');
+      font-display: swap;
+    }
+    @font-face{
+      font-family: 'CCHypnotique Suggestion';
+      src: url('../assets/fonts/CCHypnotique-Suggestion.woff2') format('woff2');
+      font-display: swap;
+    }
+    @font-face{
+      font-family: 'CCKissAndTell';
+      src: url('../assets/fonts/CCKissAndTell-Regular.woff2') format('woff2');
+      font-display: swap;
+    }
+    @font-face{
+      font-family: 'CCSharkSnack';
+      src: url('../assets/fonts/CCSharkSnack-Regular.woff2') format('woff2');
+      font-display: swap;
+    }
+    @font-face{
+      font-family: 'HighJinkies';
+      src: url('../assets/fonts/High_Jinkies.otf') format('opentype');
+      font-display: swap;
+    }
+    @font-face{
+      font-family: 'HVComicSerif';
+      src: url('../assets/fonts/HVComicSerifotf.otf') format('opentype');
+      font-display: swap;
+    }
+
+    /* Main layout */
+    .wrap{ min-height:100%; display:grid; place-items:center; padding:40px; }
+
+    .center-stack{ display:grid; gap:18px; justify-items:center; text-align:center; }
+    .site-title{
+      margin:0;
+      font-family: 'CCHypnotique', ui-sans-serif, system-ui;
+      font-size: clamp(32px, 4vw, 52px);
+      color: #ffffff;
+    }
+    .sr-only{
       position:absolute;
-      top:auto;
-      bottom:clamp(6%, 12vw, 20%);
-      right:clamp(20px, 5vw, 60px);
-      max-width:clamp(200px, 34vw, 260px);
-      background:var(--bubble-bg);
-      color:var(--ink-dark);
-      border:3px solid var(--bubble-border);
-      border-radius:28px;
-      padding:clamp(10px, 2vw, 16px) clamp(18px, 3vw, 22px);
-      font-family:'CC Kiss And Tell', 'Trebuchet MS', Arial, sans-serif;
-      font-size:clamp(16px, 3vw, 20px);
-      letter-spacing:.2px;
-      box-shadow:0 14px 36px rgba(0,0,0,0.38);
-      display:flex;
-      align-items:center;
-      gap:clamp(6px, 1.8vw, 12px);
-      pointer-events:none;
-      opacity:0;
-      transform:translateY(-6px);
-      transition:opacity .35s ease;
-      z-index:4;
-    }
-    .swipe-hint.visible{
-      opacity:1;
-    }
-    .swipe-hint__arrow{
-      font-size:1.4em;
-      line-height:1;
-    }
-
-    /* ===== Reader ===== */
-    .stage{
-      position:fixed;
-      inset:0;
-      display:grid;
-      place-items:center;
-      user-select:none;
-      background:var(--bg);
-      box-shadow:none;
-      border:none;
-      border-radius:0;
-      z-index:1;
-      padding:var(--stage-pad);
-      touch-action:pan-y;
-    }
-    body.en .stage{ border-color: rgba(0,0,0,.12); }
-
-    .page-frame{
-      width:var(--page-max-width);
-      aspect-ratio:var(--page-ratio);
-      background:transparent;
-      box-shadow:0 12px 46px rgba(0,0,0,0.55);
-      position:relative;
-      z-index:1;
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      width:1px;
+      height:1px;
       padding:0;
+      margin:-1px;
+      overflow:hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border:0;
+    }
+
+    /* B5 aspect holder for the front image */
+    .b5{
+      width: min(76vw, 560px);
+      aspect-ratio: 176 / 250; /* B5 portrait */
+      background: var(--paper);
+      border-radius: 10px;
+      display:grid; place-items:center;
+      box-shadow: 0 8px 30px rgba(0,0,0,.25);
       overflow:hidden;
     }
+    .b5 img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .b5 a{ display:contents; }
 
-    img#frame{
-      display:block;
-      width:100%;
-      height:100%;
-      object-fit:contain;
-      border-radius:0;
-      box-shadow:none;
-      background:transparent;
-    }
-
-    .zone{
-      position:absolute;
-      top:0;
-      bottom:0;
-      width:50%;
-      z-index:2;
-    }
-    .zone.left{left:0; cursor:w-resize;}
-    .zone.right{right:0; cursor:e-resize;}
-    .zone.disabled{cursor:not-allowed;}
-
-    .edge-hint{position:absolute; top:0; bottom:0; width:20vw; pointer-events:none;}
-    .edge-hint.left{left:0; background:linear-gradient(90deg, rgba(0,0,0,.35), rgba(0,0,0,0));}
-    .edge-hint.right{right:0; background:linear-gradient(270deg, rgba(0,0,0,.35), rgba(0,0,0,0));}
-
-    .hud{position:fixed; left:12px; bottom:12px; display:none;}
-    .pill{background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.2); padding:6px 10px; border-radius:999px; font-size:13px}
-    .muted{color:var(--muted)}
-
-    /* Modal */
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.6);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: clamp(20px, 4vw, 48px);
-      z-index: 10;
-    }
-
-    .modal {
+    .authors-link{
+      font-family: 'CCHypnotique', ui-sans-serif, system-ui;
+      font-size: clamp(62px, 3vw, 62px);
+      text-decoration: none;
+      color: #ffffff; /* hvítur grunntexti */
+      background: transparent;
+      padding: 6px 12px;
+      border-radius: 10px;
       position: relative;
-      width: min(420px, 90vw);
-      background: var(--bubble-bg);
-      border: 3px solid var(--bubble-border);
-      border-radius: 28px;
-      box-shadow: 0 24px 70px rgba(0,0,0,0.55);
-      padding: clamp(28px, 7vw, 38px);
-      font-family:'CC Kiss And Tell', 'Trebuchet MS', Arial, sans-serif;
-      color: var(--ink-dark);
-      overflow: visible;
+      left: -28px;
     }
-
-    .modal-close{
+    .authors-link::after{
+      content: attr(data-text);
       position:absolute;
-      top:16px;
-      right:18px;
-      appearance:none;
-      border:0;
-      background:transparent;
-      font-family:'CC Kiss And Tell','Trebuchet MS',Arial,sans-serif;
-      font-size:32px;
-      line-height:1;
-      color:#111;
-      cursor:pointer;
-      transition:color .2s ease, transform .2s ease;
+      inset:0;
+      font-family: 'CCHypnotique Suggestion', 'CCHypnotique', ui-sans-serif, system-ui;
+      color:#000;
+      transform: translate(-1px, 4px);
+      pointer-events:none;
     }
-    .modal-close:hover,
-    .modal-close:focus{
-      color:var(--accent);
-      transform:scale(1.08);
-      outline:none;
-    }
-
-    .modal-logo{
-      width:72px;
-      border:0;
-      background:transparent;
-      padding:0;
-      display:block;
-      align-self:flex-start;
-      cursor:pointer;
-      margin-bottom:18px;
-      transition:transform .2s ease;
-    }
-    .modal-logo:hover,
-    .modal-logo:focus{
-      transform:scale(1.05);
-      outline:none;
-    }
-    .modal-logo.is-active{
-      transform:scale(1.08);
-    }
-    .modal-logo img{
-      width:100%;
-      height:auto;
-      display:block;
-    }
-
-    .modal .content{
-      display:flex;
-      flex-direction:column;
-      gap:18px;
-      align-items:flex-start;
-    }
-
-    .modal-input{
-      width:100%;
-      border:0;
-      border-bottom:3px solid rgba(17,17,17,0.9);
-      padding:14px 0 8px;
-      background:transparent;
-      color:var(--ink-dark);
-      font-family:'CC Kiss And Tell','Trebuchet MS',Arial,sans-serif;
-      font-size:16px; /* ≥16px til að forðast zoom í síma við innslátt */
-      letter-spacing:.4px;
-      outline:none;
-    }
-    .modal-input::placeholder{
-      color:rgba(17,17,17,0.54);
-    }
-
-    .modal-actions{
+    .link-row{
       display:flex;
       align-items:center;
       gap:14px;
-      flex-wrap:wrap;
-      margin-top:6px;
-    }
-
-    .btn{
-      appearance:none;
-      border:none;
-      background:transparent;
-      border-radius:999px;
-      padding:0;
-      font-family:'CC Kiss And Tell','Trebuchet MS',Arial,sans-serif;
-      cursor:pointer;
-      transition:color .2s ease, background .2s ease, border-color .2s ease, transform .2s ease;
-    }
-
-    .modal-confirm{
-      border:3px solid var(--bubble-border);
-      padding:8px 22px;
-      font-size:26px;
-      color:var(--ink-dark);
-      display:none;
-      background:var(--bubble-bg);
-      box-shadow:0 8px 18px rgba(0,0,0,0.18);
-    }
-    .modal-confirm.is-visible{
-      display:inline-flex;
-      align-items:center;
       justify-content:center;
     }
-    .modal-confirm:hover,
-    .modal-confirm:focus-visible{
-      background:var(--accent);
-      border-color:var(--accent);
-      color:#0e0e0e;
-      box-shadow:0 12px 26px rgba(0,0,0,0.25);
-    }
-    .modal-confirm:active{
-      background:#d9261f;
-      border-color:#d9261f;
-      color:#0e0e0e;
-      transform:translateY(1px) scale(0.99);
-    }
-
-    .modal-request{
-      border:3px solid var(--bubble-border);
-      padding:10px 22px;
-      color:var(--ink-dark);
+    .santa-link{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:4px;
+      padding:4px 6px 6px;
+      background: rgba(255,255,255,0.12);
+      border-radius: 12px;
       text-decoration:none;
-      font-size:18px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      background:var(--bubble-bg);
-      box-shadow:0 8px 18px rgba(0,0,0,0.18);
-      transition:background .2s ease, border-color .2s ease, box-shadow .2s ease, color .2s ease, transform .2s ease;
+      border: 1px solid rgba(255,255,255,0.18);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.22);
+      position: relative;
+      left: -28px; /* færa hnappinn aðeins til vinstri */
     }
-    .modal-request:hover,
-    .modal-request:focus-visible{
-      color:#111;
-      background:var(--accent);
-      border-color:var(--accent);
-      box-shadow:0 12px 26px rgba(0,0,0,0.24);
+    .santa-text{
+      font-family: 'CCHypnotique', ui-sans-serif, system-ui;
+      color:#fff;
+      font-size: clamp(18px, 1.4vw, 22px);
+      text-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+      line-height: 1.1;
     }
-    .modal-request:active{
-      background:#d9261f;
-      border-color:#d9261f;
-      color:#111;
-      transform:translateY(1px) scale(0.99);
+    .santa-icon{
+      width:48px;
+      height:60px;
+      shape-rendering: crispEdges;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     }
 
-    .help{
-      font-family:'CC Kiss And Tell','Trebuchet MS',Arial,sans-serif;
-      font-size:14px;
-      color:rgba(17,17,17,0.75);
-      margin-top:6px;
-      line-height:1.45;
+    /* Logo button (bottom-right) */
+    .logo-btn{
+      position: fixed; right: 16px; bottom: 16px; z-index: 20;
+      width: clamp(96px, 16vw, 160px); height: clamp(96px, 16vw, 160px);
+      border-radius: 22%;
+      display:grid; place-items:center;
+      background: rgba(255,255,255,.0);
+      border:none; padding:0; cursor:pointer;
     }
-    .help[hidden]{ display:none; }
+    .logo-btn.nudge{ animation: logo-pop 2s ease; }
+    .logo-btn img{ width:100%; height:100%; object-fit:contain; display:block; }
+    @keyframes logo-pop{
+      0%{ transform:translateY(0) scale(1) rotate(0deg); }
+      15%{ transform:translateY(-14px) scale(1.05) rotate(-4deg); }
+      35%{ transform:translateY(2px) scale(1.02) rotate(4deg); }
+      55%{ transform:translateY(-10px) scale(1.04) rotate(-3deg); }
+      75%{ transform:translateY(1px) scale(1.01) rotate(3deg); }
+      100%{ transform:translateY(0) scale(1) rotate(0deg); }
+    }
 
-    .kbd {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-        "Liberation Mono", "Courier New", monospace;
-      font-size: 12px;
-      padding: 0.2em 0.5em;
-      border-radius: 6px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #fff;
+    /* Pop menu (text-only) */
+    .pop{
+      position: fixed; right: 16px; bottom: calc(16px + clamp(96px, 16vw, 160px) + 10px);
+      z-index: 25;
+      display: none;
+    }
+    .pop.open{ display:block; }
+    .pop ul{
+      list-style:none; margin:0; padding:10px 12px; background: rgb(53, 181, 235);
+      text-align:center;
+      backdrop-filter: blur(2px);
+      border-radius: 14px; box-shadow: 0 8px 24px rgba(0,0,0,.25);
+    }
+    .pop ul li{ display:flex; justify-content:center; }
+    .pop ul li:first-child{
+      background:#ff1900;
+      border-radius:12px 12px 8px 8px;
+      margin:-12px -12px 8px; /* pull to edges of popup */
+      padding:8px 12px 0 12px;
+    }
+    .pop ul li:last-child{
+      background:#ffffff;
+      border-radius:8px 8px 12px 12px;
+      margin:8px -12px -10px;
+      padding:0 12px 8px 12px;
+    }
+    .pop a{
+      font-family: 'CCKissAndTell', ui-sans-serif, system-ui;
+      font-size: clamp(18px, 2.5vw, 28px);
+      color:#ffffff; text-decoration:none; display:block; padding:6px 4px;
+    }
+    .pop a.meindarsogur{
+      font-family: 'CCSharkSnack', 'CCKissAndTell', ui-sans-serif, system-ui;
+      font-size: clamp(38px, 5.8vw, 64px);
+      letter-spacing: -1px;
+      color:#ffffff;; padding:6px 8px; border-radius:10px; background:transparent;
+    }
+    .pop a.hladvarp{
+      font-family: 'HighJinkies', 'CCKissAndTell', ui-sans-serif, system-ui;
+      font-size: clamp(32px, 5vw, 52px);
+      color:#ffffff; padding:6px 8px; border-radius:10px; background:transparent;
+    }
+    .pop a.senda{
+      font-family: 'HVComicSerif', 'CCKissAndTell', ui-sans-serif, system-ui;
+      font-size: clamp(26px, 4.4vw, 44px);
+      color:#d9436b; padding:8px 10px; border-radius:10px; background:#ffffff;;
+    }
+    .pop a.spjall{
+      font-family: 'HighJinkies', 'CCKissAndTell', ui-sans-serif, system-ui;
+      font-size: clamp(32px, 5vw, 52px);
+      color:#ffffff; padding:6px 8px; border-radius:10px; background:transparent;
     }
 
-    @media (max-width: 640px){
-      .swipe-hint{
-        top:auto;
-        bottom:clamp(10%, 20vw, 30%);
-        right:clamp(16px, 6vw, 32px);
-        font-size:clamp(15px, 4vw, 18px);
-      }
-    }
   </style>
 </head>
 <body>
-  <!-- Reader stage -->
-  <div class="stage" id="stage" aria-live="polite">
-    <div class="page-frame">
-      <img id="frame" src="is/Bls1.avif" alt="Blaðsíða 1" draggable="false" />
-    </div>
 
-    <!-- Clickable halves -->
-    <div class="zone left" id="zoneLeft" aria-label="Fara til baka" role="button" tabindex="0"></div>
-    <div class="zone right" id="zoneRight" aria-label="Fara áfram" role="button" tabindex="0"></div>
-
-    <div class="edge-hint left"></div>
-    <div class="edge-hint right"></div>
-    <div class="swipe-hint" id="swipeHint" hidden>
-      <span class="swipe-hint__text" id="swipeHintText">Smelltu til að fletta</span>
-      <span class="swipe-hint__arrow" aria-hidden="true">→</span>
-    </div>
-  </div>
-
-  <!-- HUD / info -->
-  <div class="hud">
-    <div class="pill" id="counter">1 / 60</div>
-    <div class="pill muted" id="hint">Smelltu vinstra/hægri eða notaðu <span class="kbd">←</span> / <span class="kbd">→</span></div>
-  </div>
-
-  <!-- Password modal -->
-  <div class="modal-backdrop" id="passwordModal" role="dialog" aria-modal="true">
-    <div class="modal" aria-label="Lykilorðsgluggi">
-      <button class="modal-close" id="cancelPw" type="button" aria-label="Loka">×</button>
-      <button class="modal-logo" id="modalLogo" type="button" aria-label="Sýna leiðbeiningar" aria-expanded="false">
-        <img src="logo.avif" alt="" onerror="this.closest('button').style.display='none'">
-      </button>
-      <div class="content">
-        <input type="password" id="pw" class="modal-input" placeholder="Sláðu inn lykilorð til að lesa meira" autocomplete="current-password" />
-        <div class="modal-actions">
-          <button class="btn modal-confirm" id="confirmPw" type="button" aria-label="Staðfesta" hidden>✓</button>
-          <a class="btn modal-request" id="requestPw" href="mailto:myndarsogur@gmail.com?subject=Bei%C3%B0ni%20um%20lykilor%C3%B0&body=Hall%C3%B3%20%E2%80%94%20mig%20vantar%20lykilor%C3%B0i%C3%B0%20fyrir%20Meindars%C3%B6gur.%20Hva%C3%B0%20kostar%20%C3%BEa%C3%B0%20og%20hvernig%20grei%C3%B0i%20%C3%A9g%20fyrir%20%C3%BEa%C3%B0%3F">Panta lykilorð</a>
-        </div>
-        <p class="help" id="mHelp" hidden>Vinsamlega skrifaðu inn <em>lykilorðið</em> til að halda áfram að lesa. Þú getur pantað það hér fyrir ofan. Eða sent okkur póst á <strong>myndarsogur@gmail.com</strong>.</p>
+  <!-- Main content -->
+  <main class="wrap" id="main" aria-live="polite">
+    <div class="center-stack">
+      <h1 class="site-title sr-only">Myndarsögur í skóinn</h1>
+      <div class="b5">
+        <a href="./lesa/" aria-label="Fara og lesa Myndarsögur í skóinn">
+          <img src="./forsida.avif" alt="Myndarsögur í Skóinn" />
+        </a>
+      </div>
+      <div class="link-row">
+        <a class="santa-link" href="/Jolaleikur" aria-label="Spila jólasveinaleikinn">
+          <svg class="santa-icon" viewBox="0 0 64 80" aria-hidden="true" focusable="false">
+            <rect x="10" y="56" width="44" height="10" fill="#0b172a"/>
+            <rect x="12" y="24" width="40" height="32" rx="6" fill="#d62828"/>
+            <rect x="12" y="28" width="40" height="6" fill="#f8fafc"/>
+            <rect x="12" y="46" width="40" height="6" fill="#f8fafc"/>
+            <rect x="12" y="40" width="40" height="6" fill="#0b172a"/>
+            <rect x="28" y="40" width="8" height="6" fill="#facc15"/>
+            <rect x="18" y="16" width="28" height="12" rx="4" fill="#f3c7a0"/>
+            <polygon points="18,28 32,42 46,28" fill="#f8fafc"/>
+            <rect x="18" y="12" width="28" height="8" rx="2" fill="#d62828"/>
+            <rect x="14" y="8" width="36" height="6" rx="3" fill="#f8fafc"/>
+            <circle cx="48" cy="8" r="4" fill="#f8fafc"/>
+            <rect x="22" y="32" width="6" height="6" fill="#1f2937"/>
+            <rect x="36" y="32" width="6" height="6" fill="#1f2937"/>
+          </svg>
+          <span class="santa-text">Leikurinn</span>
+        </a>
+        <a class="authors-link" data-text="Höfundar" href="https://Myndarsogur.is/hofundar">Höfundar</a>
       </div>
     </div>
-  </div>
+  </main>
+
+  <!-- Floating logo that toggles a text-only menu -->
+  <button class="logo-btn" id="logoBtn" aria-expanded="false" aria-controls="popMenu">
+    <img src="./logo.avif" alt="Opna valmynd" />
+  </button>
+  <nav class="pop" id="popMenu" aria-hidden="true">
+    <ul>
+      <li><a class="meindarsogur" href="/Meindarsogur/">Meindarsögur</a></li>
+      <li><a class="hladvarp" href="/hlusta">Hlaðvarpið </a></li>
+      <li><a class="spjall" href="https://myndasogur.app">Spjallborðið</a></li>
+      <li><a class="senda" id="sendStory" href="#">Sendu inn sögu </a></li>
+    </ul>
+  </nav>
 
   <script>
     (function(){
-      const TOTAL = 60;
-      const WRONG_PW = 'Rangt lykilorð. Reyndu aftur eða pantaðu lykilorð.';
-      let index = 1; // 1-based
-      let unlocked = false; // becomes true after correct password
-      let swipeHintTimer = null;
+      // Fyrirvari: intro myndband/gif er fjarlægt – aðeins aðalefni birtist.
+    })();
 
-      const img = document.getElementById('frame');
-      const counter = document.getElementById('counter');
-      const zoneLeft = document.getElementById('zoneLeft');
-      const zoneRight = document.getElementById('zoneRight');
-      const stage = document.getElementById('stage');
-      const hint = document.getElementById('hint');
-      const swipeHint = document.getElementById('swipeHint');
-      const swipeHintText = document.getElementById('swipeHintText');
-      const themeMeta = document.querySelector('meta[name="theme-color"]');
+    // ===== Logo pop-menu toggle =====
+    (function(){
+      const btn = document.getElementById('logoBtn');
+      const menu = document.getElementById('popMenu');
+      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      const modal = document.getElementById('passwordModal');
-      const pwInput = document.getElementById('pw');
-      const confirmPw = document.getElementById('confirmPw');
-      const cancelPw = document.getElementById('cancelPw');
-      const requestPw = document.getElementById('requestPw');
-      const mHelp = document.getElementById('mHelp');
-      const modalLogo = document.getElementById('modalLogo');
-
-      function hideSwipeHint(){
-        if(swipeHintTimer){
-          clearTimeout(swipeHintTimer);
-          swipeHintTimer = null;
-        }
-        if(!swipeHint) return;
-        swipeHint.setAttribute('hidden','');
-        swipeHint.classList.remove('visible');
+      function nudgeLogo(){
+        if(prefersReduced) return;
+        if(btn.classList.contains('nudge')) return;
+        btn.classList.add('nudge');
+        setTimeout(()=> btn.classList.remove('nudge'), 2050);
       }
 
-      function scheduleSwipeHint(){
-        if(!swipeHint) return;
-        hideSwipeHint();
-        if(index !== 1) return;
-        swipeHintTimer = window.setTimeout(()=>{
-          swipeHintTimer = null;
-          swipeHint.removeAttribute('hidden');
-          swipeHint.classList.add('visible');
-        }, 600);
-      }
+      setInterval(nudgeLogo, 20000);
+      setTimeout(nudgeLogo, 2000); // fyrsti púls eftir smá stund
 
-      function markInteracted(){
-        hideSwipeHint();
-      }
-
-      function assetPath(n){
-        return `is/Bls${n}.avif`;
-      }
-
-      function applyStageBackground(){
-        const color = index === 1 ? PRIMARY_BG : SHADED_BG;
-        stage.style.background = color;
-        if(themeMeta){ themeMeta.setAttribute('content', color); }
-      }
-
-      function recalibrateViewport(){
-        // Reset scroll/size after mobile keyboard events
-        stage.style.height = `${window.innerHeight}px`;
-        stage.style.width = `${window.innerWidth}px`;
-        applyStageBackground();
-        window.scrollTo(0,0);
-      }
-
-      window.addEventListener('resize', recalibrateViewport);
-      if(window.visualViewport){
-        window.visualViewport.addEventListener('resize', recalibrateViewport);
-      }
-
-      function updateView(){
-        img.src = assetPath(index);
-        img.alt = `Blaðsíða ${index}`;
-        counter.textContent = `${index} / ${TOTAL}`;
-        zoneLeft.classList.toggle('disabled', index === 1);
-        zoneRight.classList.toggle('disabled', index === TOTAL);
-        scheduleSwipeHint();
-        applyStageBackground();
-      }
-
-      function go(delta){
-        markInteracted();
-        const next = index + delta;
-        if(next < 1 || next > TOTAL) return;
-        if(next > 5 && !unlocked){
-          openModal();
-          return;
-        }
-        index = next;
-        updateView();
-        preload(index+1);
-        preload(index-1);
-      }
-
-      function preload(n){
-        if(n < 1 || n > TOTAL) return;
-        const i = new Image();
-        i.src = assetPath(n);
-      }
-
-      function toggleConfirmVisibility(){
-        const hasValue = pwInput.value.trim().length > 0;
-        confirmPw.hidden = !hasValue;
-        confirmPw.classList.toggle('is-visible', hasValue);
-        confirmPw.disabled = !hasValue;
-      }
-
-      function setHelpVisibility(show){
-        if(!mHelp || !modalLogo) return;
-        if(show){
-          mHelp.removeAttribute('hidden');
-        } else {
-          mHelp.setAttribute('hidden', '');
-        }
-        modalLogo.classList.toggle('is-active', show);
-        modalLogo.setAttribute('aria-expanded', show ? 'true' : 'false');
-      }
-
-      function toggleHelp(){
-        if(!mHelp || !modalLogo) return;
-        const shouldShow = mHelp.hasAttribute('hidden');
-        setHelpVisibility(shouldShow);
-      }
-
-      function openModal(){
-        modal.style.display = 'flex';
-        pwInput.value = '';
-        toggleConfirmVisibility();
-        setHelpVisibility(false);
-        setTimeout(()=>pwInput.focus(), 50);
-      }
-      function closeModal(){
-        modal.style.display = 'none';
-        pwInput.value='';
-        toggleConfirmVisibility();
-        setHelpVisibility(false);
-        setTimeout(recalibrateViewport, 150);
-      }
-
-      function checkPw(){
-        const val = pwInput.value.trim().toLowerCase();
-        if(!val){
-          return;
-        }
-        if(val === 'banani'){
-          unlocked = true;
-          closeModal();
-          if(index === 5){
-            index = 6; 
-            updateView();
-            preload(7);
-          }
-        } else {
-          pwInput.select();
-          alert(WRONG_PW);
-        }
-      }
-
-      // Modal interactions
-      pwInput.addEventListener('input', toggleConfirmVisibility);
-      if(modalLogo){
-        modalLogo.addEventListener('click', toggleHelp);
-      }
-
-      // Click handlers
-      zoneLeft.addEventListener('click', ()=> go(-1));
-      zoneRight.addEventListener('click', ()=> go(1));
-
-      // Keyboard arrows and space
-      window.addEventListener('keydown', (e)=>{
-        if(modal.style.display === 'flex'){
-          if(e.key === 'Escape'){
-            closeModal();
-            return;
-          }
-          if(e.key === 'Enter' && document.activeElement === pwInput){
-            if(pwInput.value.trim()){ checkPw(); }
-            e.preventDefault();
-            return;
-          }
-          return;
-        }
-        if(e.key === 'ArrowRight' || e.key === ' '){
-          go(1);
-          return;
-        }
-        if(e.key === 'ArrowLeft'){
-          go(-1);
-          return;
-        }
-        if(e.key === 'Home'){
-          markInteracted();
-          index = 1;
-          updateView();
-          return;
-        }
-        if(e.key === 'End'){
-          markInteracted();
-          index = TOTAL;
-          updateView();
-        }
+      btn.addEventListener('click', ()=>{
+        const open = menu.classList.toggle('open');
+        btn.setAttribute('aria-expanded', String(open));
+        menu.setAttribute('aria-hidden', String(!open));
       });
+    })();
 
-      // Modal buttons
-      confirmPw.addEventListener('click', checkPw);
-      cancelPw.addEventListener('click', closeModal);
-
-      // Touch swipe support
-      let touchStartX = null;
-      stage.addEventListener('touchstart', (e)=>{
-        markInteracted();
-        touchStartX = e.changedTouches[0].clientX;
-      }, {passive:true});
-      stage.addEventListener('touchend', (e)=>{
-        const dx = e.changedTouches[0].clientX - touchStartX;
-        if(Math.abs(dx) > 40){
-          if(dx < 0) go(1); else go(-1);
-        }
-      });
-
-      // Init
-      toggleConfirmVisibility();
-      setHelpVisibility(false);
-      // Static Icelandic UI labels
-      document.documentElement.setAttribute('lang', 'is');
-      document.title = 'Myndarsögur í skóinn';
-      hint.innerHTML = 'Smelltu vinstra/hægri eða notaðu <span class="kbd">←</span> / <span class="kbd">→</span>';
-      if(swipeHintText){
-        swipeHintText.textContent = 'Smelltu til að fletta';
-      }
-      zoneLeft.setAttribute('aria-label', 'Fara til baka');
-      zoneRight.setAttribute('aria-label', 'Fara áfram');
-      modal.setAttribute('aria-label', 'Lykilorðsgluggi');
-      pwInput.setAttribute('placeholder', 'Sláðu inn lykilorð til að lesa meira');
-      confirmPw.textContent = '✓';
-      confirmPw.setAttribute('aria-label', 'Staðfesta lykilorð');
-      cancelPw.textContent = '×';
-      cancelPw.setAttribute('aria-label', 'Loka glugga');
-      modalLogo.setAttribute('aria-label', 'Sýna leiðbeiningar');
-      requestPw.textContent = 'Panta lykilorð';
-      const mailSubject = 'Beiðni um lykilorð fyrir Myndarsögur í skóinn';
-      const mailBody = 'Halló — mig vantar lykilorðið fyrir Myndarsögur í skóinn. Hvað kostar það og hvernig greiði ég fyrir það?';
-      requestPw.href = `mailto:myndarsogur@gmail.com?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
-      mHelp.innerHTML = 'Vinsamlega skrifaðu inn <em>lykilorðið</em> til að halda áfram að lesa. Þú getur pantað það hér fyrir ofan. Eða sent okkur póst á <strong>myndarsogur@gmail.com</strong>.';
-      updateView();
-      preload(2);
+    // ===== Sendu inn sögu mailto (auðvelt að breyta) =====
+    (function(){
+      const link = document.getElementById('sendStory');
+      if(!link) return;
+      const subject = 'Myndasaga fyrir jólamyndasögusamkeppni 2025';
+      const body = [
+        'Ég set hana hér sem viðhengi.',
+        '',
+        'Ég heiti:',
+        'Skólinn minn heitir:',
+        'Eitthvað sem ég vil segja:',
+        '',
+        'Hlakka til að heyra frá ykkur'
+      ].join('\n');
+      link.href = `mailto:myndarsogur@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     })();
   </script>
 </body>

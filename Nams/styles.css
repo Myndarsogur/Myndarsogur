@@ -1,0 +1,93 @@
+/* styles.css */
+
+/* 1. Grunnstillingar */
+:root {
+    --max-content-width: 640px; /* fyrir síma upp að breiðari skjá */
+    --gap: 1rem;
+    --color-bg: #fff;
+    --color-text: #111;
+    --color-accent: #c00;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0;
+    font-family: system-ui, sans-serif;
+    background: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  main.course {
+    max-width: var(--max-content-width);
+    margin: 0 auto;
+  }
+  
+  /* 2. Hver hluti */
+  .module {
+    padding: 2rem 1rem;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .module-inner {
+    display: grid;
+    gap: var(--gap);
+  }
+  
+  /* Standard: text over image eða image over text */
+  .module .text-block,
+  .module .image-block {
+    width: 100%;
+  }
+  
+  /* 3. Breytt röðun í stærri skjám */
+  @media(min-width: 600px) {
+    .module-inner {
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+    }
+    /* Til að breyta röðun á ákveðnum köflum */
+    .module-inner.reverse-layout {
+      direction: rtl; /* breyting á röð */
+    }
+    .module-inner.reverse-layout > * {
+      direction: ltr; /* svo texti sömu leið */
+    }
+  }
+  
+  /* 4. Myndastíll */
+  .image-block img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+  }
+  
+  /* 5. Textastíll */
+  .text-block h1 {
+    font-size: 2rem;
+    margin: 0 0 0.5rem;
+  }
+  .text-block h2 {
+    font-size: 1.5rem;
+    margin: 0 0 0.5rem;
+  }
+  .text-block p {
+    margin: 0 0 1rem;
+  }
+  .text-block strong {
+    color: var(--color-accent);
+  }
+  
+  /* 6. Sérstakar block fyrir lokaverkefni eða risastórar myndir */
+  .module--final {
+    background: #f9f9f9;
+  }
+  
+  /* 7. Snertivæn lykill eða hnappur ef þarf síðar */
+  /* Notaðu einfölda liti, stóra hnit til að einfaldleika */
+  

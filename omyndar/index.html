@@ -2,118 +2,96 @@
 <html lang="is">
 <head>
   <meta charset="UTF-8">
-  <title>stora</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Litur á toppstiku vafra -->
-<meta name="theme-color" content="#252424" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#252424" media="(prefers-color-scheme: dark)">
-<meta name="msapplication-TileColor" content="#252424">
-
-<!-- iOS Safari / Home Screen hegðun -->
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-
-
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Ómyndar</title>
   <style>
-    body {
-      margin: 0;
-      background-color: #252424;
-      background-image: url('Bakgrunnsmyndir/mynd1.png'); /* Eina bakgrunnsmyndin */
-      background-size: cover;
-      background-position: center;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      overflow: hidden;
+    :root{
+      --bg:#252424;
+      --ink:#f9f9f9;
+      --paper:#fff7ef;
     }
-    img {
-      max-width: 85vw; /* 85% nýting á skjánum */
-      max-height: 85vh;
-      object-fit: contain;
-      display: block;
-      z-index: 5;
-      background: transparent;
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--ink);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Helvetica, Arial, "Noto Sans", sans-serif;
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      padding:32px 16px;
     }
-    .click-zone {
-      position: absolute;
-      top: 0;
-      height: 100%;
-      width: 50%;
-      z-index: 10;
+    @font-face{
+      font-family:'CCSharkSnack';
+      src:url('../assets/fonts/CCSharkSnack-Regular.woff2') format('woff2');
+      font-display:swap;
     }
-    .left-zone {
-      left: 0;
+    @font-face{
+      font-family:'HighJinkies';
+      src:url('../assets/fonts/High_Jinkies.otf') format('opentype');
+      font-display:swap;
     }
-    .right-zone {
-      right: 0;
+
+    .stack{
+      display:grid;
+      gap:16px;
+      justify-items:center;
+      text-align:center;
     }
+    .b5{
+      width:min(78vw, 580px);
+      aspect-ratio:176/250;
+      background:var(--paper);
+      border-radius:12px;
+      overflow:hidden;
+      box-shadow:0 10px 38px rgba(0,0,0,0.38);
+      display:grid;
+      place-items:center;
+    }
+    .b5 img{width:100%; height:100%; object-fit:cover; display:block;}
+    .authors-link{
+      font-family:'CCSharkSnack','HighJinkies', ui-sans-serif, system-ui;
+      font-size:clamp(46px, 6vw, 60px);
+      text-decoration:none;
+      color:#fff;
+      position:relative;
+    }
+    .authors-link::after{
+      content:attr(data-text);
+      position:absolute;
+      inset:0;
+      color:#000;
+      transform:translate(-1px,4px);
+      pointer-events:none;
+    }
+    .logo-btn{
+      position:fixed;
+      right:16px;
+      bottom:16px;
+      width:clamp(72px, 14vw, 140px);
+      height:clamp(72px, 14vw, 140px);
+      border:none;
+      padding:0;
+      background:transparent;
+      cursor:pointer;
+    }
+    .logo-btn img{width:100%; height:100%; object-fit:contain; display:block;}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
   </style>
 </head>
 <body>
+  <main class="stack">
+    <h1 class="sr-only">Ómyndar</h1>
+    <div class="b5">
+      <a href="./lesa/" aria-label="Lesa Ómyndar">
+        <img src="./Adal/mynd1.avif" alt="Ómyndar forsíða">
+      </a>
+    </div>
+    <a class="authors-link" data-text="Höfundar" href="./hofundar/">Höfundar</a>
+  </main>
 
-  <img id="image" src="Adal/mynd1.avif" alt="mynd">
-
-  <div class="click-zone left-zone" onclick="previousImage()"></div>
-  <div class="click-zone right-zone" onclick="nextImage()"></div>
-
-  <!-- Myndhnappur sem vísar á aðra síðu -->
-  <a href="https://myndarsogur.is" style="position: absolute; bottom: 20px; right: 20px; z-index: 20;">
-    <img src="Login/logo.png" alt="Heim" style="height: 60px; cursor: pointer;">
-  </a>
-
-  <script>
-    const totalImages = 32;
-    let currentImage = 1;
-    const image = document.getElementById('image');
-    let isTransitioning = false; // Lás til að forðast tvöfaldar flettingar
-
-    function preloadNextImage(imageNumber) {
-      if (imageNumber <= totalImages) {
-        const img = new Image();
-        img.src = `Adal/mynd${imageNumber}.avif`;
-      }
-    }
-
-    function updateImage() {
-      isTransitioning = true;
-      image.src = `Adal/mynd${currentImage}.avif`;
-      preloadNextImage(currentImage + 1);
-      
-      // Bíða aðeins áður en leyfilegt er að fletta aftur
-      setTimeout(() => {
-        isTransitioning = false;
-      }, 150); // 50ms - getur verið lengra ef þörf er á meiri öryggi
-    }
-
-    function nextImage() {
-      if (!isTransitioning && currentImage < totalImages) {
-        currentImage++;
-        updateImage();
-      }
-    }
-
-    function previousImage() {
-      if (!isTransitioning && currentImage > 1) {
-        currentImage--;
-        updateImage();
-      }
-    }
-
-    // Lyklaborð
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'ArrowRight' || event.key === ' ' || event.key === 'Enter') {
-        nextImage();
-      } else if (event.key === 'ArrowLeft' || event.key === 'Backspace') {
-        previousImage();
-      }
-    });
-
-    // Snertismellur
-    document.querySelector('.right-zone').addEventListener('click', nextImage);
-    document.querySelector('.left-zone').addEventListener('click', previousImage);
-  </script>
-
+  <button class="logo-btn" aria-label="Til baka á forsíðu" onclick="location.href='../'">
+    <img src="./logo.png" alt="Ómyndar">
+  </button>
 </body>
 </html>

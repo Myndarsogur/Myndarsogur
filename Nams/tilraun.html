@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="is">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kafli 1 — Rannsóknarvinna</title>
+
+  <style>
+    /* ==============
+      THEME TOKENS
+    ============== */
+    :root{
+      --bg: #fbfaf7;
+      --surface: #ffffff;
+      --text: #141414;
+      --muted: #4a4a4a;
+      --line: rgba(20,20,20,.14);
+
+      /* Kafla-litur (breyttu per kafla) */
+      --accent: #215a7a;
+      --accent-ink: #0f2c3b;
+      --accent-wash: rgba(33,90,122,.10);
+
+      --radius: 18px;
+
+      /* Spacing (mobile-first) */
+      --space-1: 8px;
+      --space-2: 12px;
+      --space-3: 16px;
+      --space-4: 24px;
+      --space-5: 36px;
+      --space-6: 52px;
+
+      /* Typography */
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+      --text-max: 68ch; /* hámarksbreidd texta */
+      --lh: 1.6;
+    }
+
+    /* ==============
+      BASE
+    ============== */
+    *{ box-sizing: border-box; }
+    html{ scroll-behavior: smooth; }
+    body{
+      margin:0;
+      font-family: var(--font);
+      line-height: var(--lh);
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    img{ max-width: 100%; height: auto; display:block; }
+    a{ color: var(--accent); text-underline-offset: 3px; }
+    a:focus-visible, button:focus-visible{
+      outline: 3px solid rgba(33,90,122,.45);
+      outline-offset: 3px;
+      border-radius: 10px;
+    }
+    .skip-link{
+      position:absolute;
+      left:-999px;
+      top:auto;
+      width:1px;
+      height:1px;
+      overflow:hidden;
+    }
+    .skip-link:focus{
+      left: var(--space-3);
+      top: var(--space-3);
+      width:auto;
+      height:auto;
+      padding: 10px 12px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      z-index: 9999;
+    }
+
+    /* Layout container */
+    .wrap{
+      width: min(1100px, 100%);
+      margin: 0 auto;
+      padding: 0 var(--space-3);
+    }
+
+    /* Reusable blocks */
+    .chapter{
+      padding-bottom: var(--space-6);
+    }
+
+    .panel{
+      margin: 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section{
+      padding: var(--space-5) 0;
+    }
+
+    .kicker{
+      font-size: 0.92rem;
+      letter-spacing: .02em;
+      color: var(--muted);
+      margin: 0 0 var(--space-2) 0;
+    }
+
+    h1,h2,h3{
+      line-height: 1.15;
+      margin: 0 0 var(--space-2) 0;
+    }
+    h1{ font-size: clamp(1.9rem, 4.2vw, 3.2rem); }
+    h2{ font-size: clamp(1.35rem, 3.2vw, 2.1rem); }
+    h3{ font-size: 1.1rem; }
+
+    p{ margin: 0 0 var(--space-3) 0; color: var(--text); }
+    .muted{ color: var(--muted); }
+
+    .prose{
+      max-width: var(--text-max);
+    }
+
+    .surface{
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 10px 28px rgba(0,0,0,.05);
+    }
+
+    .divider{
+      height: 1px;
+      background: var(--line);
+      margin: var(--space-4) 0;
+    }
+
+    /* ==============
+      HERO
+    ============== */
+    .hero{
+      min-height: 100svh;
+      display: grid;
+      align-items: end;
+      position: relative;
+      overflow: clip;
+      background: #0f1418;
+      color: #fff;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+    }
+    .hero__img{
+      position:absolute;
+      inset:0;
+      opacity:.85;
+      object-fit: cover;
+      width:100%;
+      height:100%;
+      filter: saturate(.95) contrast(1.02);
+    }
+    .hero__shade{
+      position:absolute;
+      inset:0;
+      background: linear-gradient(180deg,
+        rgba(0,0,0,.20) 0%,
+        rgba(0,0,0,.45) 40%,
+        rgba(0,0,0,.70) 100%);
+    }
+    .hero__content{
+      position: relative;
+      padding: var(--space-6) 0;
+    }
+    .badge{
+      display:inline-flex;
+      gap: 8px;
+      align-items:center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.18);
+      font-size: .9rem;
+      color: rgba(255,255,255,.92);
+      margin-bottom: var(--space-3);
+    }
+    .badge__dot{
+      width: 9px; height: 9px; border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(33,90,122,.25);
+    }
+    .hero__subtitle{
+      max-width: 56ch;
+      font-size: 1.05rem;
+      color: rgba(255,255,255,.90);
+      margin-bottom: var(--space-3);
+    }
+    .hero__note{
+      font-size: .95rem;
+      color: rgba(255,255,255,.78);
+      max-width: 62ch;
+    }
+
+    /* ==============
+      READING
+    ============== */
+    .reading .surface{
+      padding: var(--space-4);
+    }
+    .reading ul{
+      margin: 0;
+      padding-left: 1.1rem;
+    }
+    .reading li{ margin: 0 0 10px 0; }
+
+    /* ==============
+      SPLIT (image + text)
+    ============== */
+    .split{
+      display: grid;
+      gap: var(--space-3);
+    }
+    .split__media{
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: #111;
+    }
+    .split__media img{
+      width:100%;
+      height: 46svh;
+      object-fit: cover;
+    }
+    .split__text .surface{
+      padding: var(--space-4);
+    }
+    .callout{
+      background: var(--accent-wash);
+      border: 1px solid rgba(33,90,122,.18);
+      border-radius: 14px;
+      padding: 12px 14px;
+      color: var(--accent-ink);
+      margin-top: var(--space-3);
+    }
+    .callout strong{ color: var(--accent-ink); }
+
+    /* Desktop: two columns */
+    @media (min-width: 860px){
+      .split{
+        grid-template-columns: 1.05fr .95fr;
+        align-items: start;
+        gap: var(--space-4);
+      }
+      .split__media img{ height: 520px; }
+    }
+
+    /* ==============
+      QUOTE
+    ============== */
+    .quote .surface{
+      padding: var(--space-4);
+      border-left: 6px solid var(--accent);
+    }
+    blockquote{
+      margin:0;
+      padding:0;
+      font-size: 1.05rem;
+    }
+    .quote__attr{
+      margin-top: var(--space-2);
+      font-family: var(--mono);
+      font-size: .9rem;
+      color: var(--muted);
+    }
+
+    /* ==============
+      CARDS (skim)
+    ============== */
+    .cards{
+      display:grid;
+      gap: var(--space-3);
+      margin-top: var(--space-3);
+    }
+    .card{
+      padding: var(--space-4);
+    }
+    .card h3{
+      margin-bottom: 10px;
+    }
+    .tag{
+      display:inline-block;
+      font-family: var(--mono);
+      font-size: .85rem;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      background: rgba(255,255,255,.65);
+      margin-bottom: 10px;
+    }
+    @media (min-width: 860px){
+      .cards{ grid-template-columns: repeat(3, 1fr); }
+    }
+
+    /* ==============
+      TASK
+    ============== */
+    .task .surface{
+      padding: var(--space-4);
+      background: linear-gradient(180deg, rgba(33,90,122,.08), rgba(33,90,122,.02));
+      border: 1px solid rgba(33,90,122,.22);
+    }
+    .task__grid{
+      display:grid;
+      gap: var(--space-4);
+      margin-top: var(--space-3);
+    }
+    .checklist{
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display:grid;
+      gap: 12px;
+    }
+    .checklist li{
+      display:flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .box{
+      width: 22px; height: 22px;
+      border-radius: 6px;
+      border: 2px solid rgba(20,20,20,.35);
+      flex: 0 0 auto;
+      margin-top: 1px;
+      background: rgba(255,255,255,.7);
+    }
+    .fill{
+      margin-top: var(--space-3);
+      padding-top: var(--space-3);
+      border-top: 1px dashed rgba(20,20,20,.25);
+    }
+    .line{
+      display:block;
+      height: 14px;
+      border-bottom: 1px solid rgba(20,20,20,.28);
+      margin: 10px 0 0 0;
+    }
+    @media (min-width: 860px){
+      .task__grid{ grid-template-columns: 1.1fr .9fr; }
+    }
+
+    /* ==============
+      FOOTER NOTE
+    ============== */
+    .next{
+      padding-top: var(--space-4);
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      html{ scroll-behavior: auto; }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#chapter-1">Sleppa í efni</a>
+
+  <main id="chapter-1" class="chapter" aria-label="Kafli 1 — Rannsóknarvinna">
+
+    <!-- HERO -->
+    <header class="hero panel" aria-label="Kynning">
+      <img class="hero__img" src="images/kafli-1-hero.jpg" alt="Alt text placeholder: rannsóknarborð, minnisblöð, skissubók, myndrænt hráefni." />
+      <div class="hero__shade" aria-hidden="true"></div>
+
+      <div class="wrap hero__content">
+        <div class="badge"><span class="badge__dot" aria-hidden="true"></span> Kafli 1 af 6</div>
+        <h1>Rannsóknarvinna</h1>
+        <p class="hero__subtitle">
+          Áður en þú teiknar: skilgreindu söguna, taktu ákvörðun um umfang og safnaðu heimildum á þann hátt sem kveikir myndræna hugsun.
+        </p>
+        <p class="hero__note">
+          Markmiðið er ekki að “klára rannsóknina” fyrst — heldur að láta rannsókn og teikningu vaxa saman.
+        </p>
+      </div>
+    </header>
+
+    <!-- INTRO (text-only) -->
+    <section class="panel section">
+      <div class="wrap reading">
+        <div class="surface">
+          <p class="kicker">Hvað erum við að gera hér?</p>
+          <h2>Þú þarft að vita hvaða sögu þú ert að fara að gera.</h2>
+          <div class="prose">
+            <p>
+              Rannsóknarvinna í non-fiction myndasögum er ekki bara að safna staðreyndum.
+              Hún er líka að finna <strong>hvaða sjónarhorn</strong> sagan tekur og <strong>hvaða myndræn kjarni</strong> heldur lesandanum.
+            </p>
+            <p class="muted">
+              Spurningin er ekki “hvað get ég fundið?” heldur: “hvað þarf sagan mín til að verða skýr, heiðarleg og sjónræn?”
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SPLIT: what story -->
+    <section class="panel section">
+      <div class="wrap split">
+        <figure class="split__media">
+          <img src="images/kafli-1-saga.jpg" alt="Alt text placeholder: einföld blaðsíða með 3 ramma-skissu og spurningu skrifaðri með penna." />
+        </figure>
+
+        <div class="split__text">
+          <div class="surface">
+            <p class="kicker">Undirkafli 1</p>
+            <h2>Hver er sagan?</h2>
+            <div class="prose">
+              <p>
+                Ertu að kafa í söguna? Taka viðtöl? Er þetta sjálfsævisögulegt?
+                Þetta skiptir máli því rannsóknarvinnan er mismunandi eftir því hvaða “gerð sannleika” þú ert að vinna með.
+              </p>
+              <div class="callout">
+                <strong>Próf:</strong> Geturðu sagt söguna í einni setningu — án þess að útskýra allt?
+                Ef ekki, þá er sagan ennþá of óskýr.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- READING: scope/length -->
+    <section class="panel section">
+      <div class="wrap reading">
+        <div class="surface">
+          <p class="kicker">Undirkafli 2</p>
+          <h2>Lengd hjálpar þér að átta þig á umfangi rannsóknarvinnunnar.</h2>
+          <div class="prose">
+            <p>
+              Stundum uppgötvar þú, þegar þú byrjar að skoða efnið, að “10 panela vefmyndasaga”
+              er í raun bók sem gæti tekið fimm ár. Eða öfugt: epísk frásögn verður sterkari sem 8–10 síður.
+            </p>
+            <ul>
+              <li><strong>Stutt form</strong> (1–10 síður): veldu 1–2 senur, 1 aðalrödd, skýran endapunkt.</li>
+              <li><strong>Miðlungs</strong> (10–30 síður): leyfir fleiri heimildir og kontrast milli sjónarhorna.</li>
+              <li><strong>Langt</strong> (bók): krefst kerfis (tímalína, heimildaskrá, viðtalsbanki, myndasafn).</li>
+            </ul>
+            <p class="muted">
+              Ekki giska á lengd til að vera “rétt(ur)”. Giska til að geta skipulagt vinnuna.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUOTE: example -->
+    <section class="panel section quote">
+      <div class="wrap">
+        <div class="surface">
+          <p class="kicker">Undirkafli 2 (dæmi)</p>
+          <blockquote>
+            „Blaðamaður sem ég vann með skrifaði á meðan hann kynnti sér efnið.
+            Greinin byggðist upp í rannsóknarvinnunni. Hin leiðin — að safna öllu fyrst og skrifa svo —
+            varð oft að tímaþröng á lokametrunum.“
+          </blockquote>
+          <div class="quote__attr">Dæmisaga: “gera á meðan” vs “bíða og safna”</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SPLIT: do both (research + sketch) -->
+    <section class="panel section">
+      <div class="wrap split">
+        <figure class="split__media">
+          <img src="images/kafli-1-krass.jpg" alt="Alt text placeholder: krass og minnispunktar með litlum örvum, dagsetningum og viðtalsorðum." />
+        </figure>
+
+        <div class="split__text">
+          <div class="surface">
+            <p class="kicker">Undirkafli 2</p>
+            <h2>Safnaðu efni án þess að frjósa.</h2>
+            <div class="prose">
+              <p>
+                Skrifaðu niður ferlið — og <strong>skyssaðu</strong> hugmyndir samhliða.
+                Ekki lesa endalaust og bíða með að byrja að teikna. Ef þú ætlar að komast yfir efnið,
+                þá þarf allt að haldast í hendur.
+              </p>
+              <div class="callout">
+                <strong>Regla:</strong> Eftir hverja 20–30 mínútna rannsókn → 5 mínútur af skissu/rammahugsun.
+                Þá verður efnið strax sjónrænt.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CARDS: sources -->
+    <section class="panel section">
+      <div class="wrap reading">
+        <div class="surface">
+          <p class="kicker">Undirkafli 3</p>
+          <h2>Heimildir, raddir og sjónarhorn</h2>
+          <div class="prose">
+            <p>
+              Hverjir í þjóðfélaginu ræða málefnið? Réttindasamtök, fólkið sjálft, vísindamenn —
+              eða er engin opinber umræða og hún fer fram annars staðar?
+              Hugsaðu líka: <strong>hver er hugsanleg framtíðarþróun?</strong>
+            </p>
+          </div>
+
+          <div class="cards" role="list">
+            <article class="surface card" role="listitem">
+              <span class="tag">UPPLIFUN</span>
+              <h3>Raddir úr lífinu</h3>
+              <p class="muted">Sjónarvottar, aðstandendur, fólk í miðjum klíðum. Setningar sem “bera” senu.</p>
+            </article>
+
+            <article class="surface card" role="listitem">
+              <span class="tag">SKJÖL</span>
+              <h3>Gögn og sögulegt efni</h3>
+              <p class="muted">Dagbækur, myndir, fréttir, hljóð, myndbönd, dómskjöl — efni sem má vitna í og byggja bakgrunn.</p>
+            </article>
+
+            <article class="surface card" role="listitem">
+              <span class="tag">SAMHENGI</span>
+              <h3>Sérfræðingar og umhverfi</h3>
+              <p class="muted">Vísindi, gæði, aðstæður, saga, kerfi. Hvað “útskýrir” án þess að drepa söguna.</p>
+            </article>
+          </div>
+
+          <div class="divider" aria-hidden="true"></div>
+
+          <div class="prose">
+            <p>
+              Spurningar liggja oft á bakvið meginspurninguna. Ef sagan snýst um eitt atriði,
+              getur hún samt opnað dyr að stærri samhengi — svo lengi sem þú velur hvað fer inn og hvað fer út.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MINI TASK -->
+    <section class="panel section task" aria-label="Mini-verkefni">
+      <div class="wrap">
+        <div class="surface">
+          <p class="kicker">Mini-task</p>
+          <h2>Rannsóknarkortið (15–25 mín)</h2>
+          <p class="muted">
+            Þetta er ekki próf. Þetta er verkfæri til að koma þér af stað — með efnið og myndmálið í sömu hendi.
+          </p>
+
+          <div class="task__grid">
+            <div>
+              <h3>Skref</h3>
+              <ul class="checklist">
+                <li><span class="box" aria-hidden="true"></span><span><strong>Kjarni í 1 setningu:</strong> Hvað er sagan mín?</span></li>
+                <li><span class="box" aria-hidden="true"></span><span><strong>Form/lengd:</strong> 1–10 síður, 10–30, eða bók?</span></li>
+                <li><span class="box" aria-hidden="true"></span><span><strong>3 heimildir:</strong> (1 upplifun, 1 skjal, 1 sérfræðingur)</span></li>
+                <li><span class="box" aria-hidden="true"></span><span><strong>2 spurningar undir spurningunni:</strong> Hvað þarf sagan líka að snerta?</span></li>
+                <li><span class="box" aria-hidden="true"></span><span><strong>3 sjónrænir “krókar”:</strong> hlutir/staðir/hljóð/andlit sem geta orðið sena.</span></li>
+                <li><span class="box" aria-hidden="true"></span><span><strong>Teikna strax:</strong> 3–6 thumbnail-rammar (stangast ekki á við rannsóknina — byggja hana).</span></li>
+              </ul>
+            </div>
+
+            <div class="fill" aria-label="Útfylling">
+              <h3>Fylltu inn</h3>
+              <p><strong>Sagan mín í 1 setningu:</strong></p>
+              <span class="line" aria-hidden="true"></span>
+              <span class="line" aria-hidden="true"></span>
+
+              <p style="margin-top:16px;"><strong>Áætluð lengd og af hverju:</strong></p>
+              <span class="line" aria-hidden="true"></span>
+
+              <p style="margin-top:16px;"><strong>Sjónrænn kjarni (hvernig “lítur sagan út”?):</strong></p>
+              <span class="line" aria-hidden="true"></span>
+              <span class="line" aria-hidden="true"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="next prose">
+          <p class="muted" style="margin-top: var(--space-3);">
+            Næst: að breyta rannsóknarkortinu í “sögulínu” og senur (án þess að missa sannleikann eða flækja allt í einn vegg af texta).
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</body>
+</html>

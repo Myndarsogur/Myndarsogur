@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Myndasaga dagsins – höfundar og hlekkir</title>
+  <style>
+    :root{
+      --bg:#0f172a;
+      --ink:#f8fafc;
+      --card:#111827;
+      --accent:#16dcf2;
+      --border:#1f2937;
+    }
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--ink);
+      font-family: "Segoe UI", "Inter", system-ui, -apple-system, sans-serif;
+      padding:24px 16px 40px;
+    }
+    h1{margin:0 0 10px; font-size:28px;}
+    p{margin:0 0 14px; color:#cbd5e1;}
+    .grid{
+      display:grid;
+      gap:12px;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:12px;
+      overflow:hidden;
+      box-shadow:0 10px 30px rgba(0,0,0,0.25);
+      transition:transform .15s ease, border-color .15s ease;
+    }
+    .card:hover{transform:translateY(-3px); border-color:var(--accent);}
+    .thumb{
+      width:100%;
+      aspect-ratio:3/4;
+      object-fit:cover;
+      display:block;
+    }
+    .body{
+      padding:10px 12px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px;
+    }
+    .name{margin:0; font-size:15px; font-weight:700;}
+    .cta{
+      color:var(--accent);
+      text-decoration:none;
+      font-weight:700;
+      font-size:13px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Myndasaga dagsins</h1>
+  <p>Smelltu á höfund til að opna hlekkinn hans.</p>
+
+  <div class="grid" id="authors"></div>
+
+  <script>
+    const entries = [
+      { name:"Addi nabblakusk", link:"https://www.instagram.com/addinabblakusk/", img:"https://imgur.com/xRi9YuI.jpg" },
+      { name:"Arní JG", link:"https://bsky.app/profile/arnijg.bsky.social", img:"https://imgur.com/ZJwVHOg.jpg" },
+      { name:"diedeer", link:"https://www.instagram.com/diedeer/", img:"https://i.imgur.com/RD6pjYu.png" },
+      { name:"brimrundraws", link:"https://www.instagram.com/brimrundraws/", img:"https://i.imgur.com/J6F7aUM.png" },
+      { name:"kris_helga_art", link:"https://www.instagram.com/kris_helga_art/", img:"https://i.imgur.com/6Wy2xO4.jpeg" },
+      { name:"Vespríus og kaleikurinn", link:"https://www.forlagid.is/vara/vesprius-og-kaleikurinn/", img:"https://imgur.com/PUUCEHd.jpg" },
+      { name:"bluebonnetmilk", link:"https://www.instagram.com/bluebonnetmilk/", img:"https://imgur.com/X6moetY.jpg" },
+      { name:"biggiegils", link:"https://www.instagram.com/biggiegils/", img:"https://imgur.com/osyB7Ux.jpg" },
+      { name:"ingisnakeface", link:"https://www.instagram.com/ingisnakeface/", img:"https://imgur.com/BJdeGRD.jpg" },
+      { name:"alexsteinthorsdottir", link:"https://www.instagram.com/alexsteinthorsdottir/", img:"https://imgur.com/kp7S54Y.jpg" },
+      { name:"Unnur Snorradóttir", link:"https://www.instagram.com/unnur_snorradottir_/", img:"https://i.imgur.com/bj8x0dp.png" },
+      { name:"Sigurður Ámundason", link:"https://www.instagram.com/sigurduramundason/", img:"https://imgur.com/mkQNgPn.jpg" },
+      { name:"dagur_s", link:"https://www.instagram.com/dagur_s/", img:"https://i.imgur.com/uJEnluR.jpg" },
+      { name:"Lóa laboratorium", link:"https://loaboratorium.com", img:"https://imgur.com/OBeB0h2.jpg" },
+      { name:"Group 15", link:"#", img:"https://imgur.com/a7roVg9.jpg" },
+      { name:"Einar Másson", link:"https://www.instagram.com/emassonart/", img:"https://imgur.com/lkZCRR8.jpg" },
+    ];
+
+    const wrap = document.getElementById("authors");
+    entries.forEach(item => {
+      const card = document.createElement("a");
+      card.className = "card";
+      card.href = item.link || "#";
+      card.target = "_blank";
+      card.rel = "noopener";
+      card.innerHTML = `
+        <img class="thumb" src="${item.img}" alt="${item.name}">
+        <div class="body">
+          <p class="name">${item.name}</p>
+          <span class="cta">Opna →</span>
+        </div>
+      `;
+      wrap.appendChild(card);
+    });
+  </script>
+</body>
+</html>
