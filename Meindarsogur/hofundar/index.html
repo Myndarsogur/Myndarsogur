@@ -108,7 +108,39 @@
     }
     .portrait.is-loading{ opacity:0; }
 
-    .arrow-nav{ display:flex; justify-content:center; gap:clamp(28px, 12vw, 56px); margin-top:24px; }
+    .info{
+      border:1px solid rgba(255,255,255,0.28);
+      border-radius:14px;
+      padding:14px;
+      background:rgba(255,255,255,0.06);
+      color:#fff;
+      box-shadow:0 10px 30px rgba(0,0,0,0.12);
+    }
+    .info p{margin:0 0 10px;}
+    .meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      font-size:14px;
+      color:rgba(255,255,255,0.85);
+    }
+    .works{
+      list-style:none;
+      margin:8px 0 0;
+      padding:0;
+      display:grid;
+      gap:6px;
+      color:#f8f8f8;
+    }
+    .works li{
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.12);
+      border-radius:10px;
+      padding:8px 10px;
+    }
+    .works strong{display:inline-block; margin-right:6px;}
+
+    .arrow-nav{ display:flex; justify-content:center; gap:clamp(28px, 12vw, 56px); margin-top:12px; }
     .arrow-btn{
       pointer-events:auto;
       appearance:none;
@@ -161,6 +193,15 @@
       </div>
     </div>
 
+    <section class="info" aria-label="Um höfund">
+      <p id="authorBio">Upplýsingar vantar um þennan höfund.</p>
+      <div class="meta">
+        <span id="authorLinks">Vefur / samfélagsmiðlar: —</span>
+        <span id="authorEmail">Tölvupóstur: —</span>
+      </div>
+      <ul class="works" id="authorWorks" aria-label="Verk höfundar"></ul>
+    </section>
+
     <footer id="dots" aria-label="Staða"></footer>
     <div class="arrow-nav" aria-hidden="false">
       <button type="button" class="arrow-btn" id="arrowPrev" aria-label="Fletta til baka">←</button>
@@ -173,6 +214,7 @@
   </div>
 
   <script>
+    const DATA_URL = "../../Hofundar2/authors.json";
     const mediaBase = "Birt";
     const slidesByFolder = {
       "Bjarni Pálsson": [
@@ -303,7 +345,12 @@
 
     authors.forEach((author) => {
       const files = slidesByFolder[author.folder] || [];
-      author.slides = (files.length ? files : ["mynd1.jpg"]).map((file) => buildSlidePath(author.folder, file));
+      const first = (files.length ? files : ["mynd1.jpg"])[0];
+      author.slides = [buildSlidePath(author.folder, first)];
+      author.bio = "Upplýsingar vantar um þennan höfund.";
+      author.website = author.url || "";
+      author.email = "";
+      author.works = [];
     });
 
     const themeMeta     = document.getElementById("themeColor");
@@ -313,11 +360,14 @@
     const dotsEl        = document.getElementById("dots");
     const prevZone      = document.querySelector(".navzone.prev");
     const nextZone      = document.querySelector(".navzone.next");
+    const bioEl         = document.getElementById("authorBio");
+    const linksEl       = document.getElementById("authorLinks");
+    const emailEl       = document.getElementById("authorEmail");
+    const worksEl       = document.getElementById("authorWorks");
     const arrowPrevBtn = document.getElementById("arrowPrev");
     const arrowNextBtn = document.getElementById("arrowNext");
 
     let authorIndex = 0;
-    let slideIndex = 0;
     const preloaded = new Set();
 
     function redShade(index, total){
@@ -337,22 +387,10 @@
         dot.setAttribute("aria-label", `Fara í ${author.name}`);
         dot.addEventListener("click", () => {
           authorIndex = idx;
-          slideIndex = 0;
           render();
         });
         dotsEl.appendChild(dot);
       });
-    }
-
-    function preloadSlide(aIdx, sIdx){
-      if(aIdx < 0 || aIdx >= authors.length) return;
-      const slides = authors[aIdx].slides;
-      if(!slides || sIdx < 0 || sIdx >= slides.length) return;
-      const src = slides[sIdx];
-      if(preloaded.has(src)) return;
-      const img = new Image();
-      img.src = src;
-      preloaded.add(src);
     }
 
     portraitEl.addEventListener("load", () => {
@@ -362,14 +400,11 @@
     function renderSlide(){
       const author = authors[authorIndex];
       const slides = author.slides;
-      slideIndex = Math.min(Math.max(slideIndex, 0), slides.length - 1);
-      const src = slides[slideIndex];
-      const alt = `${author.name} — mynd ${slideIndex + 1} af ${slides.length}`;
+      const src = slides[0];
+      const alt = `${author.name}`;
       portraitEl.classList.add("is-loading");
       portraitEl.src = src;
       portraitEl.alt = alt;
-      preloadSlide(authorIndex, slideIndex + 1);
-      preloadSlide(authorIndex + 1, 0);
     }
 
     function render(){
@@ -390,40 +425,41 @@
       themeMeta.setAttribute("content", bg);
       document.title = `${author.name} — Höfundar`;
 
+      bioEl.textContent = author.bio || "Upplýsingar vantar um þennan höfund.";
+      const websiteLabel = author.website || author.url || "";
+      linksEl.innerHTML = websiteLabel
+        ? `Vefur / samfélagsmiðlar: <a href="${ensureUrl(websiteLabel)}" target="_blank" rel="noopener">${websiteLabel}</a>`
+        : "Vefur / samfélagsmiðlar: —";
+      emailEl.innerHTML = author.email
+        ? `Tölvupóstur: <a href="mailto:${author.email}">${author.email}</a>`
+        : "Tölvupóstur: —";
+      const works = Array.isArray(author.works) ? author.works : [];
+      worksEl.innerHTML = works.length
+        ? works.map(w => `<li><strong>${w.title || "Verk"}</strong>${w.description ? ` – ${w.description}` : ""}</li>`).join("")
+        : "<li>Engar upplýsingar um verk skráðar.</li>";
+
       renderDots();
       renderSlide();
       updateNavState();
     }
 
     function next(){
-      const slides = authors[authorIndex].slides;
-      if(slideIndex < slides.length - 1){
-        slideIndex += 1;
-        renderSlide();
-        updateNavState();
-      } else if(authorIndex < authors.length - 1){
+      if(authorIndex < authors.length - 1){
         authorIndex += 1;
-        slideIndex = 0;
         render();
       }
     }
 
     function prev(){
-      if(slideIndex > 0){
-        slideIndex -= 1;
-        renderSlide();
-        updateNavState();
-      } else if(authorIndex > 0){
+      if(authorIndex > 0){
         authorIndex -= 1;
-        slideIndex = authors[authorIndex].slides.length - 1;
         render();
       }
     }
 
     function updateNavState(){
-      const slides = authors[authorIndex].slides;
-      const canPrev = slideIndex > 0 || authorIndex > 0;
-      const canNext = slideIndex < slides.length - 1 || authorIndex < authors.length - 1;
+      const canPrev = authorIndex > 0;
+      const canNext = authorIndex < authors.length - 1;
       arrowPrevBtn.disabled = !canPrev;
       arrowNextBtn.disabled = !canNext;
     }
@@ -452,7 +488,46 @@
       touchX = null;
     }, {passive:true});
 
-    render();
+    function normalizeName(str = ""){
+      return str.toLowerCase()
+        .replace(/á/g,"a").replace(/æ/g,"ae").replace(/ð/g,"d").replace(/é/g,"e").replace(/í/g,"i").replace(/ó/g,"o").replace(/ö/g,"o").replace(/ú/g,"u").replace(/ý/g,"y").replace(/þ/g,"th")
+        .replace(/[^a-z0-9]/g,"");
+    }
+
+    function mergeAuthorData(remoteAuthors){
+      const lookup = new Map();
+      (remoteAuthors || []).forEach(a => {
+        const names = [a.name, ...(a.aliases || [])].filter(Boolean);
+        names.forEach(n => {
+          lookup.set(normalizeName(n), a);
+        });
+      });
+      // manual bridge for name variants
+      const manual = {
+        "fannarggilbertsson": "fannargilbertsson"
+      };
+      const isMissing = (val = "") => val.toLowerCase().startsWith("vantar");
+      authors.forEach(author => {
+        const key = normalizeName(author.name);
+        let match = lookup.get(key);
+        if(!match && manual[key]) match = lookup.get(manual[key]);
+        if(match){
+          author.bio = match.bio || author.bio;
+          author.website = (match.website && !isMissing(match.website)) ? match.website : author.website;
+          author.email = (match.email && !isMissing(match.email)) ? match.email : "";
+          author.works = Array.isArray(match.works) ? match.works : [];
+        }
+      });
+    }
+
+    fetch(DATA_URL)
+      .then(res => res.json())
+      .then(data => {
+        mergeAuthorData(data);
+        render();
+      })
+      .catch(() => render());
+
   </script>
 </body>
 </html>
