@@ -158,7 +158,6 @@
       <h2 style="margin:0 0 8px;">Um höfund</h2>
       <p style="margin:0 0 10px;" id="authorBio">Stutt kynning á höfundi. Segðu frá verkum, stíl og áherslum. Þú getur líka bætt við tenglum hér að neðan.</p>
       <div class="meta">
-        <span id="authorLocation">Staðsetning: ...</span>
         <span id="authorLinks">Vefur / samfélagsmiðlar: <a href="#">hlekkur</a></span>
         <span id="authorEmail">Tölvupóstur: <a href="mailto:nafn@example.com">nafn@example.com</a></span>
       </div>
@@ -186,7 +185,6 @@
     const titleEl = document.getElementById("authorTitle");
     const imgEl = document.getElementById("authorImg");
     const bioEl = document.getElementById("authorBio");
-    const locEl = document.getElementById("authorLocation");
     const linksEl = document.getElementById("authorLinks");
     const emailEl = document.getElementById("authorEmail");
     const worksEl = document.getElementById("authorWorks");
@@ -266,8 +264,6 @@
       imgEl.alt = a.name || "Höfundarmynd";
       imgEl.src = a.image && a.image !== "vantar höfundamynd" ? a.image : PLACEHOLDER_IMG;
       bioEl.textContent = a.bio || "Upplýsingar vantar um þennan höfund.";
-      const aliases = (a.aliases || []).join(", ");
-      locEl.textContent = aliases ? `Auknöfn: ${aliases}` : "Auknöfn: —";
       linksEl.innerHTML = a.website && a.website !== "vantar vefslóð"
         ? `Vefur / samfélagsmiðlar: <a href="${ensureUrl(a.website)}" target="_blank" rel="noopener">${a.website}</a>`
         : "Vefur / samfélagsmiðlar: —";

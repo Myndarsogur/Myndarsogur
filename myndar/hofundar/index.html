@@ -157,7 +157,6 @@
       <h2 style="margin:0 0 8px;">Um höfund</h2>
       <p style="margin:0 0 10px;" id="authorBio">Smelltu hægra eða vinstra megin til að fletta milli höfunda. Upplýsingar birtast hér fyrir neðan.</p>
       <div class="meta">
-        <span id="authorLocation">Staðsetning: ...</span>
         <span id="authorLinks">Vefur / samfélagsmiðlar: <a href="#">hlekkur</a></span>
         <span id="authorEmail">Tölvupóstur: <a href="mailto:nafn@example.com">nafn@example.com</a></span>
       </div>
@@ -185,7 +184,6 @@
     const imgEl = document.getElementById("authorImg");
     const titleEl = document.getElementById("authorTitle");
     const bioEl = document.getElementById("authorBio");
-    const locEl = document.getElementById("authorLocation");
     const linksEl = document.getElementById("authorLinks");
     const emailEl = document.getElementById("authorEmail");
     const worksEl = document.getElementById("authorWorks");
@@ -265,8 +263,6 @@
       bioEl.textContent = a.bio || "Upplýsingar vantar um þennan höfund.";
       imgEl.alt = a.name || "Höfundarmynd";
       imgEl.src = a.image && a.image !== "vantar höfundamynd" ? a.image : PLACEHOLDER_IMG;
-      const aliases = (a.aliases || []).join(", ");
-      locEl.textContent = aliases ? `Auknöfn: ${aliases}` : "Auknöfn: —";
       linksEl.innerHTML = a.website && a.website !== "vantar vefslóð"
         ? `Vefur / samfélagsmiðlar: <a href="${ensureUrl(a.website)}" target="_blank" rel="noopener">${a.website}</a>`
         : "Vefur / samfélagsmiðlar: —";
