@@ -70,6 +70,76 @@
       color:#475569;
     }
     ul{margin:0; padding-left:18px;}
+    .works-gallery{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap:10px;
+      margin-top:12px;
+    }
+    .work-thumb{
+      border:1px solid #e5e7eb;
+      border-radius:10px;
+      padding:0;
+      overflow:hidden;
+      background:#f8fafc;
+      cursor:pointer;
+      box-shadow:0 6px 18px rgba(0,0,0,0.08);
+    }
+    .work-thumb img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .muted{color:#6b7280; font-size:14px; margin:0;}
+    .lightbox{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.65);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:16px;
+      z-index:9999;
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .18s ease;
+    }
+    .lightbox.is-open{
+      opacity:1;
+      pointer-events:auto;
+    }
+    .lightbox__inner{
+      position:relative;
+      max-width: min(1100px, 92vw);
+      max-height: 90vh;
+      width:100%;
+      background:#0b1120;
+      border-radius:12px;
+      overflow:hidden;
+      box-shadow:0 16px 48px rgba(0,0,0,0.25);
+    }
+    .lightbox__inner img{
+      display:block;
+      width:100%;
+      height:auto;
+      max-height:90vh;
+      object-fit:contain;
+      background:#0b1120;
+    }
+    .lightbox__close{
+      position:absolute;
+      top:10px;
+      right:10px;
+      background:rgba(0,0,0,0.55);
+      color:#fff;
+      border:0;
+      border-radius:50%;
+      width:36px;
+      height:36px;
+      font-size:22px;
+      cursor:pointer;
+    }
   </style>
 </head>
 <body>
@@ -100,6 +170,7 @@
         <li>Verk / saga 2</li>
         <li>Verk / saga 3</li>
       </ul>
+      <div id="authorGallery" class="works-gallery" aria-label="Myndir úr verkum"></div>
     </section>
   </div>
 
@@ -111,19 +182,81 @@
     let authors = [];
     let idx = 0;
 
-    const bioEl = document.getElementById("authorBio");
     const imgEl = document.getElementById("authorImg");
     const titleEl = document.getElementById("authorTitle");
+    const bioEl = document.getElementById("authorBio");
     const locEl = document.getElementById("authorLocation");
     const linksEl = document.getElementById("authorLinks");
     const emailEl = document.getElementById("authorEmail");
     const worksEl = document.getElementById("authorWorks");
+    const galleryEl = document.getElementById("authorGallery");
+
+    const lightbox = document.createElement("div");
+    lightbox.className = "lightbox";
+    lightbox.innerHTML = `
+      <div class="lightbox__inner">
+        <button class="lightbox__close" aria-label="Loka">&times;</button>
+        <img id="lightboxImg" alt="">
+      </div>
+    `;
+    document.body.appendChild(lightbox);
+    const lightboxImg = lightbox.querySelector("#lightboxImg");
+    const closeBtn = lightbox.querySelector(".lightbox__close");
+
+    const openLightbox = (img) => {
+      if(!img || !img.src) return;
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt || "";
+      lightbox.classList.add("is-open");
+      document.body.style.overflow = "hidden";
+    };
+    const closeLightbox = () => {
+      lightbox.classList.remove("is-open");
+      document.body.style.overflow = "";
+    };
+    lightbox.addEventListener("click", (e) => {
+      if(e.target === lightbox || e.target === closeBtn) closeLightbox();
+    });
+    document.addEventListener("keydown", (e) => {
+      if(e.key === "Escape") closeLightbox();
+    });
 
     const ensureUrl = (url) => {
       if (!url) return "";
       if (url.startsWith("http://") || url.startsWith("https://")) return url;
       return `https://${url}`;
     };
+    const toArray = (val) => Array.isArray(val) ? val : (val ? [val] : []);
+
+    function buildGallery(author){
+      if(!galleryEl) return;
+      const imgs = [];
+      const seen = new Set();
+      const addImage = (src, alt) => {
+        if(!src || seen.has(src)) return;
+        seen.add(src);
+        imgs.push({src, alt});
+      };
+      (author.works || []).forEach(w => {
+        toArray(w.images).forEach(src => addImage(src, w.title || author.name || "Mynd"));
+      });
+      toArray(author.gallery).forEach(src => addImage(src, author.name || "Mynd"));
+      if(!imgs.length){
+        galleryEl.innerHTML = '<p class="muted">Engar myndir skráðar enn.</p>';
+        return;
+      }
+      galleryEl.innerHTML = imgs.map((img, i) => `
+        <button class="work-thumb" data-idx="${i}" aria-label="Stækka mynd ${i+1}">
+          <img src="${img.src}" alt="${img.alt || 'Mynd'}">
+        </button>
+      `).join("");
+      galleryEl.querySelectorAll(".work-thumb").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const item = imgs[Number(btn.dataset.idx)] || null;
+          openLightbox(item);
+        });
+      });
+    }
 
     function render() {
       if (!authors.length) return;
@@ -143,6 +276,7 @@
       worksEl.innerHTML = Array.isArray(a.works) && a.works.length
         ? a.works.map(w => `<li><strong>${w.title || "Verk"}</strong>${w.description ? ` – ${w.description}` : ""}</li>`).join("")
         : "<li>Engar upplýsingar um verk skráðar.</li>";
+      buildGallery(a);
     }
 
     function next() {
@@ -157,10 +291,12 @@
     }
 
     document.addEventListener("keydown", (e) => {
+      if(lightbox.classList.contains("is-open")) return;
       if (e.key === "ArrowRight") next();
       if (e.key === "ArrowLeft") prev();
     });
     document.addEventListener("click", (e) => {
+      if(lightbox.classList.contains("is-open")) return;
       if (e.target.closest('a') || e.target.closest('.card')) return;
       const mid = window.innerWidth / 2;
       if (e.clientX > mid) next(); else prev();
