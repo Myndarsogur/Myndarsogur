@@ -65,41 +65,31 @@
   <div class="grid" id="authors"></div>
 
   <script>
-    const entries = [
-      { name:"Addi nabblakusk", link:"https://www.instagram.com/addinabblakusk/", img:"https://imgur.com/xRi9YuI.jpg" },
-      { name:"Árni Jón", link:"https://bsky.app/profile/arnijg.bsky.social", img:"https://imgur.com/ZJwVHOg.jpg" },
-      { name:"Guðrún Gígja", link:"https://www.instagram.com/gudrun.gigja/", img:"https://i.imgur.com/RD6pjYu.png" },
-      { name:"Brimrún Birta", link:"https://www.instagram.com/brimrundraws/", img:"https://i.imgur.com/J6F7aUM.png" },
-      { name:"Kris Helga", link:"https://www.instagram.com/kris_helga_art/", img:"https://i.imgur.com/6Wy2xO4.jpeg" },
-      { name:"Sunneva Guðrún", link:"https://www.forlagid.is/vara/vesprius-og-kaleikurinn/", img:"https://imgur.com/PUUCEHd.jpg" },
-      { name:"Viktoría Söring", link:"https://www.instagram.com/bluebonnetmilk/", img:"https://imgur.com/X6moetY.jpg" },
-      { name:"Biggi Egils", link:"https://www.instagram.com/biggiegils/", img:"https://imgur.com/osyB7Ux.jpg" },
-      { name:"I.R. Kjartansson", link:"https://www.instagram.com/ingisnakeface/", img:"https://imgur.com/BJdeGRD.jpg" },
-      { name:"Alex Steinþórsdóttir", link:"https://www.instagram.com/alexsteinthorsdottir/", img:"https://imgur.com/kp7S54Y.jpg" },
-      { name:"Unnur Snorradóttir", link:"https://www.instagram.com/unnur_snorradottir_/", img:"https://i.imgur.com/bj8x0dp.png" },
-      { name:"Sigurður Ámundason", link:"https://www.instagram.com/sigurduramundason/", img:"https://imgur.com/mkQNgPn.jpg" },
-      { name:"Dagur Sigurðarson", link:"https://www.instagram.com/dagur_s/", img:"https://i.imgur.com/uJEnluR.jpg" },
-      { name:"Lóaboratoríum", link:"https://loaboratorium.com", img:"https://imgur.com/OBeB0h2.jpg" },
-      { name:"Group 15", link:"#", img:"https://imgur.com/a7roVg9.jpg" },
-      { name:"Einar Másson", link:"https://www.instagram.com/emassonart/", img:"https://imgur.com/lkZCRR8.jpg" },
-    ];
-
     const wrap = document.getElementById("authors");
-    entries.forEach(item => {
-      const card = document.createElement("a");
-      card.className = "card";
-      card.href = item.link || "#";
-      card.target = "_blank";
-      card.rel = "noopener";
-      card.innerHTML = `
-        <img class="thumb" src="${item.img}" alt="${item.name}">
-        <div class="body">
-          <p class="name">${item.name}</p>
-          <span class="cta">Opna →</span>
-        </div>
-      `;
-      wrap.appendChild(card);
-    });
+
+    function render(entries = []){
+      wrap.innerHTML = "";
+      entries.forEach(item => {
+        const card = document.createElement("a");
+        card.className = "card";
+        card.href = item.link || item.href || "#";
+        card.target = "_blank";
+        card.rel = "noopener";
+        card.innerHTML = `
+          <img class="thumb" src="${item.src || item.img}" alt="${item.alt || item.name || ''}">
+          <div class="body">
+            <p class="name">${item.name || "—"}</p>
+            <span class="cta">Opna →</span>
+          </div>
+        `;
+        wrap.appendChild(card);
+      });
+    }
+
+    fetch("dagsins.json")
+      .then(res => res.json())
+      .then(render)
+      .catch(() => render([]));
   </script>
 </body>
 </html>
