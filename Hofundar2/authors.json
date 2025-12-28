@@ -15,17 +15,23 @@
       {
         "title": "Plakat fyrir 100 ára afmæli ASÍ ",
         "description": "",
-        "images": ["/Hofundar2/Myndir/Alexandra_Dogg/738beb_66546aacd6434e6cbcbcea64f7073fff~mv2.png.avif"]
+        "images": [
+          "/Hofundar2/Myndir/Alexandra_Dogg/738beb_66546aacd6434e6cbcbcea64f7073fff~mv2.png.avif"
+        ]
       },
       {
         "title": "Níu til fimm - Ein af hópnum",
         "description": "",
-        "images": ["/Hofundar2/Myndir/Alexandra_Dogg/738beb_1898d75a6fd044198c671a19e8fe6489~mv2.jpg.avif"]
+        "images": [
+          "/Hofundar2/Myndir/Alexandra_Dogg/738beb_1898d75a6fd044198c671a19e8fe6489~mv2.jpg.avif"
+        ]
       },
       {
         "title": "Teikning fyrir Flóru um heimilisleysi ",
         "description": "",
-        "images": ["/Hofundar2/Myndir/Alexandra_Dogg/738beb_1c577e79921f43d8a094d37147b1eeb0~mv2.jpg.avif"]
+        "images": [
+          "/Hofundar2/Myndir/Alexandra_Dogg/738beb_1c577e79921f43d8a094d37147b1eeb0~mv2.jpg.avif"
+        ]
       }
     ],
     "gallery": [
@@ -49,17 +55,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Arnar Marvin Kristjánsson",
@@ -74,17 +84,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Arnar Þór Sigurlaugar-Kristjánsson",
@@ -104,17 +118,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Arndís Björk Marinósdóttir",
@@ -132,17 +150,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Arnfinnur Rúnar Sigmundsson",
@@ -161,17 +183,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Astrid M Stefánsdóttir",
@@ -186,17 +212,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Björn Heimir Önundarson",
@@ -209,17 +239,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Dagur Sævarsson",
@@ -234,17 +268,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Dileydi Florez",
@@ -260,17 +298,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Dýrfinna Benita",
@@ -285,17 +327,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Egill Jónasson",
@@ -310,17 +356,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Einar Másson",
@@ -336,17 +386,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Eiríkur Lynch",
@@ -364,17 +418,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Elías Rúni",
@@ -389,17 +447,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Elín Elísabet Einarsdóttir",
@@ -416,17 +478,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Fannar Gilbertsson",
@@ -447,17 +513,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Fannar Már Skarphéðinsson",
@@ -475,17 +545,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Finnur Matteo Bettaglio",
@@ -506,17 +580,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Glytta",
@@ -532,17 +610,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Gísli Dan",
@@ -558,17 +640,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Heiða Maack",
@@ -583,17 +669,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Hekla Art",
@@ -608,17 +698,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Herdís Hlíf",
@@ -633,17 +727,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Herdís Þorvaldsdóttir",
@@ -656,17 +754,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Hermann Ingi Guðbrandsson",
@@ -681,17 +783,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Hlíf Una",
@@ -707,17 +813,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Hrafnsunna Ross",
@@ -732,17 +842,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Hugleikur Dagsson",
@@ -758,17 +872,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Hugljúf Jósefsdóttir",
@@ -783,17 +901,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Ingi Jensson",
@@ -808,17 +930,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Ingi Rúnar Kjartansson",
@@ -840,17 +966,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "jj mancho",
@@ -870,17 +1000,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Jólaljósamaðurinn",
@@ -898,17 +1032,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Jörundur Óskarsson",
@@ -923,17 +1061,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Kailash Youze",
@@ -949,17 +1091,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Klara Rosatti",
@@ -974,17 +1120,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Kris Helga",
@@ -1002,17 +1152,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Krummi",
@@ -1034,17 +1188,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Lefteris Jakúmakis",
@@ -1059,17 +1217,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Lilja Björg Jökulsdóttir",
@@ -1085,17 +1247,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Linn Janssen",
@@ -1110,17 +1276,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Lísa Margrét",
@@ -1135,17 +1305,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Lóa Hlín Hjálmtýsdóttir",
@@ -1161,17 +1335,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Lúkas og Matthías Regal",
@@ -1186,17 +1364,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Lúkas Regal",
@@ -1214,17 +1396,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Martyna Laura",
@@ -1239,17 +1425,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "María Carmela",
@@ -1264,17 +1454,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Myndarsögur",
@@ -1287,17 +1481,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Natka Klimowicz",
@@ -1312,17 +1510,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Plóma",
@@ -1337,17 +1539,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Rakki móri úr mýri Reykjavíkur",
@@ -1362,17 +1568,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Sharky Sharky",
@@ -1387,17 +1597,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Sigfús Jóhannsson",
@@ -1412,17 +1626,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Sigurður Ámundason",
@@ -1437,17 +1655,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Sunneva Guðrún",
@@ -1462,17 +1684,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Sunneva Thomsen",
@@ -1488,17 +1714,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Sólveig Eva Magnúsdóttir",
@@ -1513,17 +1743,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Taylor Garcia van Biljon",
@@ -1540,17 +1774,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Teitur Emil",
@@ -1565,17 +1803,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Una Björk",
@@ -1590,17 +1832,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Una Erlín",
@@ -1616,17 +1862,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Unndeadcat",
@@ -1641,17 +1891,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Unnur Snorradóttir",
@@ -1666,17 +1920,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Vala Steingrímsdóttir",
@@ -1691,17 +1949,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Viktoría Söring",
@@ -1717,17 +1979,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Ymir Arnarson",
@@ -1743,17 +2009,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Ísold Davíðsdóttir",
@@ -1769,17 +2039,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Ómar Smári Sigurgeirsson",
@@ -1792,17 +2066,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Ómar Vídó",
@@ -1818,17 +2096,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Þórey Mjallhvít",
@@ -1843,17 +2125,21 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   },
   {
     "name": "Þórir Karl Celin",
@@ -1868,16 +2154,20 @@
     "works": [
       {
         "title": "Verk 1",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 2",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       },
       {
         "title": "Verk 3",
-        "description": "vantar lýsingu"
+        "description": "vantar lýsingu",
+        "images": []
       }
-    ]
+    ],
+    "gallery": []
   }
 ]
