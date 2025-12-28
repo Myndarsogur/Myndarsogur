@@ -488,6 +488,12 @@
       touchX = null;
     }, {passive:true});
 
+    function ensureUrl(url = ""){
+      if(!url) return "";
+      if(url.startsWith("http://") || url.startsWith("https://")) return url;
+      return `https://${url}`;
+    }
+
     function normalizeName(str = ""){
       return str.toLowerCase()
         .replace(/á/g,"a").replace(/æ/g,"ae").replace(/ð/g,"d").replace(/é/g,"e").replace(/í/g,"i").replace(/ó/g,"o").replace(/ö/g,"o").replace(/ú/g,"u").replace(/ý/g,"y").replace(/þ/g,"th")
