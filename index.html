@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8" />
 <!-- Litur á toppstiku vafra -->
-<meta name="theme-color" content="#0b1c22" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0b1c22" media="(prefers-color-scheme: dark)">
-<meta name="msapplication-TileColor" content="#0b1c22">
+<meta name="theme-color" content="#f6f1e3">
+<meta name="msapplication-TileColor" content="#f6f1e3">
 
 <!-- iOS Safari / Home Screen hegðun -->
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Myndarsögur">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="Myndarsögur í skóinn eru íslenskar myndasögur og hlaðvörp fyrir alla — lesið, hlustið og njótið.">
   <meta name="robots" content="max-image-preview:large">
@@ -18,7 +18,8 @@
   <link rel="icon" type="image/png" sizes="192x192" href="/favicon/favicon-192x192.png">
   <link rel="icon" type="image/png" sizes="512x512" href="/favicon/favicon-512x512.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
-  <link rel="manifest" href="/site.webmanifest">
+  <!-- „Bæta á heimaskjá“ á Android/iOS opnar síðuna eins og app -->
+  <link rel="manifest" href="assets/myndarsogur.webmanifest">
 
   <title>Myndarsögur - Útgáfa með meiru</title>
   <meta property="og:title" content="Myndarsögur - Útgáfa með meiru">
@@ -44,1053 +45,144 @@
     "sameAs": ["https://www.facebook.com/Myndarsogur", "https://www.instagram.com/Myndarsogur"]
   }
   </script>
-  <style>
-    :root{
-      --bg:#f6f7fb;
-      --ink:#0f172a;
-      --muted:#475569;
-      --card:#ffffff;
-      --accent:#15d1e6;
-      --accent-ink:#052836;
-      --border:#e5e7eb;
-      --shadow:0 10px 35px rgba(15,23,42,0.08);
-      --radius:14px;
-    }
-    @font-face{
-      font-family:'HVComicSerif';
-      src: url('assets/fonts/HVComicSerifotf.woff2') format('woff2'),
-           url('assets/fonts/HVComicSerifotf.otf') format('opentype');
-      font-display:swap;
-    }
-    @font-face{
-      font-family:'CCBiffBamBoom';
-      src: url('assets/fonts/CCBiffBamBoom.woff2') format('woff2');
-      font-display:swap;
-    }
-    @font-face{
-      font-family:'HighJinkies';
-      src: url('assets/fonts/High_Jinkies.woff2') format('woff2'),
-           url('assets/fonts/High_Jinkies.otf') format('opentype');
-      font-display:swap;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      padding:0;
-      font-family: "Segoe UI", "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
-      background:var(--bg);
-      color:var(--ink);
-      line-height:1.5;
-    }
-    .hero-band{
-      background:linear-gradient(135deg, #e8f4ff 0%, #f7f7f9 45%, #f7f7f9 100%);
-      padding:24px 24px 16px;
-    }
-    header{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      margin-bottom:18px;
-    }
-    h1{
-      margin:0;
-      font-size:26px;
-      letter-spacing:-0.2px;
-    }
-    p{margin:0 0 16px; color:var(--muted);}
-    main{display:flex; flex-direction:column; gap:24px;}
-
-    .section{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      padding:18px;
-      box-shadow:var(--shadow);
-    }
-    .section h2{
-      margin:0 0 8px;
-      font-size:18px;
-    }
-    .section small{color:var(--muted);}
-
-    /* Carousel */
-    .carousel-shell{
-      position:relative;
-      overflow:visible;
-      margin:0 -24px;
-    }
-    .carousel{
-      display:flex;
-      gap:16px;
-      overflow-x:auto;
-      scroll-snap-type:x mandatory;
-      padding:20px 32px;
-      scroll-behavior:smooth;
-    }
-    .carousel::-webkit-scrollbar{display:none;}
-    .carousel-card{
-      background:#0b1c22;
-      border:1px solid #0f172a;
-      border-radius:2px;
-      min-width:72%;
-      aspect-ratio:3/4;
-      scroll-snap-align:center;
-      box-shadow:0 12px 32px rgba(0,0,0,0.18);
-      position:relative;
-      overflow:hidden;
-      display:block;
-      transform:scale(.82) translateY(14px);
-      opacity:0.55;
-      transition:transform .25s ease, opacity .22s ease, box-shadow .22s ease;
-    }
-    @media (min-width:720px){
-      .carousel-card{min-width:38%;}
-    }
-    @media (min-width:1080px){
-      .carousel-card{min-width:28%;}
-    }
-    .carousel-card img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-    }
-    .carousel-card::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      pointer-events:none;
-      background:radial-gradient(circle at 20% 20%, rgba(0,0,0,0.1), transparent 30%), linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 55%);
-      opacity:0.7;
-      transition:opacity .2s ease;
-    }
-    .carousel-card:focus-visible::after,
-    .carousel-card:hover::after{
-      opacity:0.35;
-    }
-    .carousel-card.is-active{
-      transform:scale(1) translateY(0);
-      opacity:1;
-      box-shadow:0 16px 42px rgba(0,0,0,0.24);
-    }
-    .cta{
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      text-decoration:none;
-      color:var(--ink);
-      font-weight:700;
-    }
-    .cta span{font-size:14px;}
-    .carousel-controls{
-      position:absolute;
-      inset:0;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      pointer-events:none;
-      padding:0 6px;
-    }
-    .carousel-btn{
-      width:36px;
-      height:36px;
-      border-radius:50%;
-      border:1px solid var(--border);
-      background:rgba(255,255,255,0.9);
-      box-shadow:var(--shadow);
-      display:grid;
-      place-items:center;
-      cursor:pointer;
-      pointer-events:auto;
-    }
-
-    /* Grids */
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap:12px;
-      list-style:none;
-      padding:0;
-      margin:0;
-    }
-    .card{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      padding:14px;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      box-shadow:var(--shadow);
-    }
-    .pill-row{
-      display:flex;
-      gap:6px;
-      flex-wrap:wrap;
-      color:var(--muted);
-      font-size:12px;
-    }
-    .pill{
-      border:1px solid var(--border);
-      border-radius:999px;
-      padding:4px 10px;
-    }
-    .mini-title{margin:0; font-size:16px;}
-    .muted{color:var(--muted);}
-
-    /* Audio cards */
-    .audio-list{
-      display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap:12px;
-      list-style:none;
-      padding:0;
-      margin:0;
-    }
-    .audio-card audio{width:100%;}
-
-    /* Verkefni – myndrænt */
-    .project-grid{
-      display:grid;
-      grid-template-columns:repeat(2, minmax(0, 1fr));
-      gap:14px;
-      list-style:none;
-      padding:0;
-      margin:0;
-    }
-    @media(min-width:900px){
-      .project-grid{
-        grid-template-columns:repeat(4, minmax(0, 1fr));
-      }
-    }
-    .project-card{
-      border-radius:16px;
-      overflow:hidden;
-      background:var(--card);
-      box-shadow:var(--shadow);
-      border:1px solid var(--border);
-      display:flex;
-      flex-direction:column;
-    }
-    .project-card img{
-      width:100%;
-      height:180px;
-      object-fit:cover;
-      display:block;
-    }
-    .project-card h3{
-      font-family:'HVComicSerif','Comic Sans MS',cursive,serif;
-      font-size:18px;
-      margin:10px 12px 12px;
-      letter-spacing:0.3px;
-    }
-
-    /* Archive + daily */
-    .archive{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:12px;
-    }
-    @media (min-width:900px){
-      .archive{grid-template-columns:2fr 1fr;}
-    }
-    .timeline{
-      list-style:none;
-      padding:0;
-      margin:0;
-      display:grid;
-      gap:10px;
-    }
-    .timeline li{
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      padding:12px;
-      background:var(--card);
-      box-shadow:var(--shadow);
-    }
-    .daily{
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      padding:12px;
-      background:linear-gradient(135deg, #fff, #f7f9ff);
-      box-shadow:var(--shadow);
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
-    .moment-title{
-      font-family:'HVComicSerif', 'Comic Sans MS', cursive, serif;
-      font-size:20px;
-      margin:0 0 8px;
-      letter-spacing:0.3px;
-    }
-    .moment-author{
-      margin:4px 0 10px;
-      color:#475569;
-      font-weight:600;
-      font-size:14px;
-    }
-    .moment-frame{
-      border:2px solid #dce2eb;
-      border-radius:12px;
-      overflow:hidden;
-      background:#fff;
-      box-shadow:var(--shadow);
-    }
-    .moment-frame img{
-      display:block;
-      width:100%;
-      height:auto;
-      object-fit:cover;
-    }
-    /* Timarit stíll */
-    .timarit-wrap{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:14px;
-    }
-    @media(min-width:900px){
-      .timarit-wrap{
-        grid-template-columns:1fr;
-      }
-    }
-    @media(min-width:1200px){
-      .timarit-wrap{
-        grid-template-columns:2fr 1fr;
-        align-items:start;
-      }
-    }
-    .timarit-grid{
-      display:grid;
-      gap:12px;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      grid-template-areas:
-        "a a"
-        "d d"
-        "b c";
-      max-width: none;
-      margin: 0;
-      align-items:start;
-    }
-    .tile{
-      position:relative;
-      overflow:hidden;
-      border-radius:12px;
-      background:linear-gradient(135deg, #f3e1c4, #fcfaf5);
-      border:1px solid #e4d4b5;
-      box-shadow:var(--shadow);
-      display:flex;
-      align-items:flex-end;
-      color:#1a1a1a;
-      text-decoration:none;
-      min-height:0;
-      padding:14px;
-      width:100%;
-    }
-    .tile[data-img]{
-      background: var(--tile-img) center/cover no-repeat;
-    }
-    .tile::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:linear-gradient(0deg,
-        rgba(243,225,196,0.88) 0%,
-        rgba(243,225,196,0.75) 28%,
-        rgba(243,225,196,0.35) 54%,
-        rgba(243,225,196,0) 82%);
-      mix-blend-mode:multiply;
-      opacity:.9;
-      pointer-events:none;
-    }
-    .tile__body{
-      position:relative;
-      z-index:1;
-      max-width:85%;
-    }
-    .tile__tag{
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      background:#d62839;
-      color:#fff;
-      padding:4px 10px;
-      border-radius:999px;
-      font-size:12px;
-      font-weight:700;
-      font-family:'CCBiffBamBoom', 'Comic Sans MS', cursive, sans-serif;
-      letter-spacing:0.3px;
-    }
-    .tile__title{
-      margin:8px 0 4px;
-      font-family:'CCBiffBamBoom', 'Comic Sans MS', cursive, sans-serif;
-      font-size: clamp(18px, 2.8vw, 24px);
-      line-height:1.1;
-    }
-    .tile__excerpt{
-      margin:0;
-      color:#2f2f2f;
-      font-size:14px;
-    }
-    .tile--square{aspect-ratio:1/1; grid-area:a;}
-    .tile--rect{aspect-ratio:4/3; grid-area:b;}
-    .tile--wide{aspect-ratio:4/3; grid-area:c;}
-    .tile--audio{grid-area:d; min-height:140px; background:linear-gradient(135deg, #dfe7ed, #cfe0e8); border:1px solid #bed0db;}
-    @media(min-width:900px){
-      .tile--square{aspect-ratio:4/3;}
-      .tile--wide{aspect-ratio:4/3;}
-    }
-    .tile:hover{transform:translateY(-2px); transition:transform .15s ease;}
-    .sketch-play{
-      width:36px;
-      height:36px;
-      border-radius:12px;
-      border:2px solid #0f172a;
-      background:linear-gradient(120deg, #fff, #eff6fb);
-      display:grid;
-      place-items:center;
-      box-shadow:2px 3px 0 #0f172a;
-      cursor:pointer;
-      transition:transform .1s ease, box-shadow .1s ease;
-    }
-    .sketch-play:hover{transform:translateY(-2px); box-shadow:3px 4px 0 #0f172a;}
-    .sketch-play:active{transform:translateY(0); box-shadow:2px 2px 0 #0f172a;}
-    .sketch-icon{
-      width:12px;
-      height:12px;
-      border:2px solid #0f172a;
-      border-left:0;
-      clip-path: polygon(0 0, 100% 50%, 0 100%);
-      background:#16dcf2;
-      transform:translateX(1px);
-    }
-    .sketch-icon.pause{
-      clip-path:none;
-      width:12px;
-      height:12px;
-      background:none;
-      border:none;
-      display:flex;
-      gap:3px;
-    }
-    .sketch-icon.pause span{
-      display:block;
-      width:4px;
-      height:12px;
-      background:#0f172a;
-    }
-    .sketch-bar{
-      position:relative;
-      height:10px;
-      background:repeating-linear-gradient(90deg, rgba(0,0,0,0.08) 0 8px, rgba(0,0,0,0.02) 8px 16px);
-      border:2px solid #0f172a;
-      border-radius:12px;
-      box-shadow: inset 2px 2px 0 rgba(0,0,0,0.08);
-      overflow:hidden;
-    }
-    .sketch-progress{
-      position:absolute;
-      inset:0;
-      width:0%;
-      background:linear-gradient(90deg, #16dcf2, #15d1e6);
-      transition:width .1s linear;
-    }
-    .sketch-knob{
-      position:absolute;
-      top:-4px;
-      left:0%;
-      width:18px;
-      height:18px;
-      border-radius:50%;
-      border:2px solid #0f172a;
-      background:#fff;
-      box-shadow:2px 2px 0 #0f172a;
-      transform:translateX(-50%);
-      transition:left .1s linear;
-    }
-    .sketch-time{
-      font-family:'CCBiffBamBoom', 'Comic Sans MS', cursive, sans-serif;
-      font-size:14px;
-      margin:6px 0 0;
-      color:#0f172a;
-    }
-    .timarit-shell{
-      background:linear-gradient(135deg, #f3e1c4, #fcfaf5);
-      border:1px solid #e4d4b5;
-      border-radius:16px;
-      padding:14px;
-      box-shadow:var(--shadow);
-    }
-    .timarit-heading{
-      display:inline-block;
-      font-family:'CCBiffBamBoom','Comic Sans MS',cursive,sans-serif;
-      font-size:32px;
-      letter-spacing:0.5px;
-      margin:0 0 10px;
-      color:#1a1a1a;
-      text-decoration:none;
-    }
-    .timarit-heading:hover{text-decoration:none;}
-    /* LAGA: audio-tile á ekki að erfa min-height:200px frá .tile */
-    .timarit-grid .tile.tile--audio{
-      min-height:140px !important;
-      padding:12px !important;
-    }
-
-    /* Minnka play-hnappinn (hlusta) */
-    .timarit-grid .tile--audio .sketch-play{
-      width:36px !important;
-      height:36px !important;
-      border-radius:12px !important;
-      border-width:2px !important;
-      box-shadow:2px 3px 0 #0f172a !important;
-      display:flex !important;
-      align-items:center !important;
-      justify-content:center !important;
-    }
-
-    /* Minnka play-ikon */
-    .timarit-grid .tile--audio .sketch-icon{
-      width:14px !important;
-      height:14px !important;
-      border-width:2px !important;
-      transform:none !important;
-    }
-    .timarit-grid .tile--audio .sketch-icon.pause{
-      width:14px !important;
-      height:14px !important;
-    }
-    .timarit-grid .tile--audio .sketch-icon.pause span{
-      width:4px !important;
-      height:14px !important;
-    }
-    /* Modal */
-    .modal-backdrop{
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,0.5);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:20px;
-      z-index:999;
-      backdrop-filter:blur(2px);
-      opacity:0;
-      pointer-events:none;
-      transition:opacity .2s ease;
-    }
-    .modal-backdrop.is-open{
-      opacity:1;
-      pointer-events:auto;
-    }
-    .modal{
-      background:#fff;
-      border:2px solid #0f172a;
-      border-radius:14px;
-      max-width:520px;
-      width:100%;
-      box-shadow:0 16px 48px rgba(0,0,0,0.18);
-      padding:18px 18px 14px;
-      position:relative;
-    }
-    .modal h3{
-      margin:0 0 8px;
-      font-family:'HighJinkies','CCBiffBamBoom','Comic Sans MS',cursive,sans-serif;
-      font-size:28px;
-    }
-    .modal p{margin:0; color:var(--ink);}
-    .modal-close{
-      position:absolute;
-      top:8px;
-      right:10px;
-      background:none;
-      color:#0f172a;
-      border:0;
-      border-radius:50%;
-      width:32px;
-      height:32px;
-      cursor:pointer;
-      font-size:22px;
-      line-height:1;
-      font-family:'HighJinkies','CCBiffBamBoom','Comic Sans MS',cursive,sans-serif;
-    }
-    .timarit-shell a:hover{text-decoration:none;}
-    a{text-decoration:none; color:inherit;}
-    a:hover{text-decoration:underline;}
-    /* 1) Lækka gula reitinn sjálfan */
-.timarit-grid .tile.tile--audio{
-  min-height: 96px !important;   /* prófaðu 88–110px */
-  padding: 10px !important;
-}
-
-/* 2) Þjappa öllu inni í reitnum */
-.timarit-grid .tile--audio .tile__body{
-  margin: 0 !important;
-  padding: 0 !important;
-  gap: 10px !important;
-}
-
-/* 3) Minnka/breyta spacings á bar + tíma */
-.timarit-grid .tile--audio .sketch-bar{ margin-top: 8px !important; }
-.timarit-grid .tile--audio .sketch-time{ margin-top: 4px !important; font-size: 13px !important; line-height: 1.1 !important; }
-
-  </style>
+  <!-- Letrin sækjast strax svo merkið hoppi ekki til á meðan síðan hleðst -->
+  <link rel="preload" href="assets/fonts/High_Jinkies.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/HVComicSerifotf.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/home.css">
+  <link rel="stylesheet" href="assets/homenewnew.css">
+  <script src="assets/sogur.js" defer></script>
+  <script src="assets/homenewnew.js" defer></script>
+  <script src="assets/authorsnew.js" defer></script>
 </head>
-<body>
-  <header>
-  </header>
+<body class="home-page m2">
+  <a class="skip" href="#main">Beint í myndasögurnar</a>
 
-  <main>
-    <section aria-label="Lítill hópur – forsýning" style="border:none; padding:0; box-shadow:none;">
-      <div class="hero-band">
-        <div class="carousel-shell">
-          <div class="carousel" id="carousel-track"></div>
-          <div class="carousel-controls">
-            <button class="carousel-btn" aria-label="Til baka" id="prev">‹</button>
-            <button class="carousel-btn" aria-label="Áfram" id="next">›</button>
-          </div>
-        </div>
-        <div style="margin-top:10px; text-align:center;">
-          <button id="about-trigger" style="margin:0; padding:0; background:none; border:none; cursor:pointer;">
-            <h1 style="margin:0; font-family:'HighJinkies','CCBiffBamBoom','Comic Sans MS',cursive,sans-serif; font-size:64px; letter-spacing:0.3px; color:black;">Myndarsögur</h1>
+  <main id="main">
+    <section class="books" id="hilla" aria-label="Myndasögur">
+      <a class="continue" id="continue" href="lesa/" hidden>
+        <span class="continue-icon" aria-hidden="true">📖</span>
+        <span>Halda áfram í <b id="continue-title"></b> <small id="continue-page"></small></span>
+        <span aria-hidden="true">→</span>
+      </a>
+      <div class="carousel-shell">
+        <div class="carousel" id="carousel" tabindex="0" role="region" aria-roledescription="karúsella" aria-label="Myndasögubækur"></div>
+      </div>
+      <div class="shelf-controls">
+        <button class="arrow prev" id="prev" aria-label="Fyrri myndasaga"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12.4c4.4-.7 9.2-.8 14.6-.2"/><path d="M13.6 6.6c1.9 2 3.6 3.7 5.6 5.5-2 1.7-3.8 3.4-5.4 5.4"/></svg></button>
+        <div class="dots" id="dots" role="group" aria-label="Velja myndasögu"></div>
+        <button class="arrow next" id="next" aria-label="Næsta myndasaga"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12.4c4.4-.7 9.2-.8 14.6-.2"/><path d="M13.6 6.6c1.9 2 3.6 3.7 5.6 5.5-2 1.7-3.8 3.4-5.4 5.4"/></svg></button>
+      </div>
+    </section>
+
+    <header class="home-hub">
+      <a class="brand" href="/" aria-label="Myndarsögur — heim">Myndarsögur<span>Útgáfa með meiru</span></a>
+      <nav class="home-actions" aria-label="Aðalvalmynd">
+        <a class="button submit" href="https://innsendingar.myndarsogur.is"><svg class="i tile-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1-4.5L15.5 5a2.1 2.1 0 0 1 3 3L8 18.5z"/><path d="M13.5 7l3 3"/></svg><span>Sendu inn sögu</span> <span class="ext" aria-hidden="true">↗</span></a>
+        <a class="button courses-link" href="Namskeid/"><svg class="i tile-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4.5h16v10.5H4z"/><path d="M12 15v5M8 20l2-5M16 20l-2-5"/><path d="M7.5 11.5l2.5-2.5 2 2 3.5-3.5"/></svg><span>Skoða námskeið</span> <span class="ext" aria-hidden="true">↗</span></a>
+        <a class="button shop-link" href="Verslun/"><svg class="i tile-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 12H6z"/><path d="M9 10V7a3 3 0 0 1 6 0v3"/></svg><span>Opna verslun</span> <span class="ext" aria-hidden="true">↗</span></a>
+        <a class="button games-link" href="Leikjasidan/"><svg class="i tile-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 8h10a4 4 0 0 1 4 4.5l-.5 3.5a2.5 2.5 0 0 1-4.3 1.3L14.5 15h-5l-1.7 2.3A2.5 2.5 0 0 1 3.5 16L3 12.5A4 4 0 0 1 7 8z"/><path d="M8 10.5v3M6.5 12h3"/><path d="M15.5 11h.01M17 13h.01"/></svg><span>Spila leiki</span> <span class="ext" aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+
+    <section class="discover" aria-label="Eitthvað óvænt">
+      <article class="podcast panel" id="hlusta">
+        <div class="panel-top"><span class="tag">Hlaðvarp</span><span class="doodle" aria-hidden="true">♫</span></div>
+        <div class="episode"><img id="episode-image" alt="" width="120" height="120" hidden><div aria-live="polite"><h3 id="episode-name">Sækjum eitthvað skemmtilegt…</h3><p id="episode-topic"></p></div></div>
+        <!-- Eigin spilari: stórir hnappar fyrir þumalinn, og stýring af læstum skjá -->
+        <div class="player">
+          <button class="skip-btn" id="back15" type="button" aria-label="Spóla 15 sekúndur til baka" disabled>−15</button>
+          <button class="play" id="play" type="button" aria-label="Spila" disabled>
+            <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.2v13.6c0 .8.9 1.3 1.6.8l10-6.8a1 1 0 0 0 0-1.6l-10-6.8C8.9 3.9 8 4.4 8 5.2z"/></svg>
+            <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4.2" height="14" rx="1.2"/><rect x="13.8" y="5" width="4.2" height="14" rx="1.2"/></svg>
           </button>
+          <button class="skip-btn" id="fwd15" type="button" aria-label="Spóla 15 sekúndur áfram" disabled>+15</button>
         </div>
-      </div>
-    </section>
-
-    <section class="section" aria-label="Verkefni á döfinni">
-      <ul class="project-grid" id="projects"></ul>
-    </section>
-
-    <section class="section" aria-label="Sögulegt efni og daglegt">
-      <div class="archive timarit-shell">
-        <div class="timarit-wrap">
-          <div>
-            <a class="timarit-heading" href="https://frettir.myndarsogur.is">Hvað er að gerast!</a>
-            <div class="timarit-grid" id="timarit-grid"></div>
-          </div>
-          <div>
-            <div class="daily" id="daily-spot"></div>
-            <div style="display:flex; justify-content:center; padding-top:10px;">
-              <a href="https://myndasogur.app" aria-label="Myndarsogurapp">
-                <img src="/blektober/myndasogurapp.png" alt="Myndasogur.app" style="max-width:160px; height:auto; display:block; filter:drop-shadow(0 4px 12px rgba(0,0,0,0.15));">
-              </a>
-            </div>
-          </div>
+        <div class="scrub">
+          <input class="seek" id="seek" type="range" min="0" max="1000" step="1" value="0" aria-label="Staða í þættinum" disabled>
+          <div class="times"><span id="time-current">0:00</span><span id="time-total">--:--</span></div>
         </div>
-      </div>
+        <audio id="audio" preload="none" hidden></audio>
+        <p id="audio-status" class="status" role="status"></p>
+        <div class="panel-actions"><button class="button" id="shuffle-audio" disabled>↻ Annar þáttur</button><a href="hlusta/">Allir þættir ↗</a></div>
+      </article>
+      <article class="picture panel" id="myndir">
+        <div class="panel-top"><span class="tag">Fyrir augun</span><span class="doodle doodle-icon" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M7.5 4.5h11a2 2 0 0 1 2 2v10"/><rect x="3.5" y="7.5" width="14" height="12.5" rx="2.2"/><circle cx="8" cy="11.7" r="1.5"/><path d="m5.2 18.4 3.8-3.8 2.8 2.8 1.9-1.9 3 3"/></svg></span></div>
+        <button class="random-frame" id="open-viewer" type="button" aria-label="Skoða myndina í fullri stærð">
+          <img id="random-image" alt="" loading="lazy">
+          <span class="zoom-hint" aria-hidden="true">⤢</span>
+        </button>
+        <a class="picture-credit" id="picture-credit" href="Arid2024/" aria-live="polite"></a>
+        <div class="panel-actions"><button class="button" id="shuffle-image" disabled>↻ Önnur mynd</button><a href="Arid2024/">Fleiri myndasögur ↗</a></div>
+      </article>
     </section>
   </main>
 
-  <script>
-    // Demo-gögn fyrir prufu
-    const littleGroup = [
-      { href:"myndar/", cover:"myndar/Adal/mynd1.avif", alt:"Myndar forsíða" },
-      { href:"omyndar/", cover:"omyndar/Adal/mynd1.avif", alt:"Ómyndar forsíða" },
-      { href:"jola/", cover:"jola/Adal/mynd1.avif", alt:"Jóla forsíða" },
-      { href:"stora/", cover:"stora/forsida.avif", alt:"Stóra forsíða" },
-      { href:"iskoinn/", cover:"iskoinn/forsida.avif", alt:"Ískóinn forsíða" },
-      { href:"Meindarsogur/", cover:"Meindarsogur/lesa/is/mynd1.avif", alt:"Meindarsögur forsíða" }
-    ];
-
-    const projects = [
-     { title:"Innsendingar", image:"Namskeid/innsendingar.avif", link:"https://innsendingar.myndarsogur.is" },
-     { title:"Námskeið", image:"Namskeid/namskeid_is.avif", link:"Namskeid/" },
-     { title:"Leikir", image:"Leikjasidan/leikjasidan.png", link:"Leikjasidan/" },
-     { title:"Verslun", image:"Verslun/solusida.jpeg", link:"Verslun/" },
-      
-      
-    ];
-
-    const newsFeedUrl = "https://frettir.myndarsogur.is/rss.xml";
-    const podcastFeedUrl = "https://anchor.fm/s/eb470ff4/podcast/rss";
-    const pinnedNewsTitle = "Vor útgáfa";
-
-    // Byggjum upp DOM
-    const carouselTrack = document.getElementById("carousel-track");
-    const buildCard = (item) => {
-      const card = document.createElement("a");
-      card.className = "carousel-card";
-      card.href = item.href;
-      card.setAttribute("aria-label", item.alt || "Forsíða");
-      card.innerHTML = `<img src="${item.cover}" alt="${item.alt || ""}">`;
-      return card;
-    };
-    // endurtaka röðina 54x (324 kort) til að líkja eftir endalausri hringingu
-    const repeats = 54;
-    const repeated = Array.from({length: littleGroup.length * repeats}, (_,i) => littleGroup[i % littleGroup.length]);
-    repeated.forEach(item => carouselTrack.appendChild(buildCard(item)));
-
-    const projectsList = document.getElementById("projects");
-    projects.forEach(p => {
-      const li = document.createElement("li");
-      li.className = "project-card";
-      li.innerHTML = `
-        <a href="${p.link}" style="color:inherit; text-decoration:none; display:block;">
-          <img src="${p.image}" alt="${p.title}">
-          <h3>${p.title}</h3>
-        </a>
-      `;
-      projectsList.appendChild(li);
-    });
-
-    const fallbackArid = [];
-    let aridShots = [];
-
-    async function loadAridShots(){
-      try{
-        const res = await fetch("Arid2024/dagsins.json");
-        if(res.ok){
-          aridShots = await res.json();
-        }
-      }catch(e){}
-      if(!aridShots || !aridShots.length) aridShots = fallbackArid;
-      showDaily();
-    }
-
-    function showDaily(){
-      const dailySpot = document.getElementById("daily-spot");
-      if(!dailySpot || !aridShots.length) return;
-      const pick = aridShots[Math.floor(Math.random() * aridShots.length)];
-      const extractAuthor = (alt = "") => {
-        if(!alt) return "";
-        const parts = alt.split("–");
-        if(parts.length > 1) return parts.slice(1).join("–").trim();
-        const hyphen = alt.split("-");
-        if(hyphen.length > 1) return hyphen.slice(1).join("-").trim();
-        return alt.trim();
-      };
-      const authorName = pick.name || pick.author || extractAuthor(pick.alt || "") || "Höfundur";
-      const href = pick.link || pick.artist || "#";
-      dailySpot.innerHTML = `
-        <h3 class="moment-title">Myndasaga augnabliksins</h3>
-        <div class="moment-author">${authorName}</div>
-        <a href="${href}" target="_blank" rel="noopener" style="display:block;">
-          <div class="moment-frame">
-            <img src="${pick.src}" alt="${pick.alt || authorName}">
-          </div>
-        </a>
-      `;
-    }
-
-    // Fréttir + hlaðvarp fyrir "Hvað er að gerast!"
-    const timaritGrid = document.getElementById("timarit-grid");
-    const newsShapes = ["square","rect","wide"];
-    const fallbackNews = [
-      { title:"Vor útgáfa", excerpt:"Sendu þína sögu innsendingar@myndarsogur.is", href:"https://frettir.myndarsogur.is/", tag:"Fréttir", image:"vorutgafa/Untitled_Artwork%2032.png" },
-      { title:"", excerpt:"", href:"https://frettir.myndarsogur.is/", tag:"Fréttir", image:"vorutgafa/Untitled_Artwork%2030.png" },
-      { title:"", excerpt:"", href:"https://frettir.myndarsogur.is/", tag:"Fréttir", image:"vorutgafa/Untitled_Artwork%2029.png" }
-    ];
-    const fallbackPodcast = { title:"Myndarsögur hlaðvarp", length:"", src:"", link:"hlusta/", description:"Opna hlaðvarpssíðuna." };
-    let newsItems = fallbackNews.slice(0,3);
-    let audioTile = null;
-
-    const stripHTML = (html = "") => {
-      const div = document.createElement("div");
-      div.innerHTML = html;
-      return (div.textContent || div.innerText || "").trim();
-    };
-    const truncate = (txt = "", limit = 120) => txt.length > limit ? `${txt.slice(0, limit - 1)}…` : txt;
-
-    function renderTimarit(){
-      if(!timaritGrid) return;
-      timaritGrid.innerHTML = "";
-      const frag = document.createDocumentFragment();
-      newsItems.slice(0,3).forEach((item, idx) => {
-        const tile = document.createElement("a");
-        const shape = newsShapes[idx] || "square";
-        tile.className = `tile tile--${shape}`;
-        if(item.image){
-          tile.setAttribute("data-img","true");
-          tile.style.setProperty("--tile-img", `url('${item.image}')`);
-        }
-        tile.href = item.href || "#";
-        tile.innerHTML = `
-          <div class="tile__body">
-            <span class="tile__tag">${item.tag || "Frétt"}</span>
-            <div class="tile__title">${item.title || ""}</div>
-            <p class="tile__excerpt">${item.excerpt || ""}</p>
-          </div>
-        `;
-        frag.appendChild(tile);
-      });
-      if(audioTile) frag.appendChild(audioTile);
-      timaritGrid.appendChild(frag);
-    }
-
-    async function loadNewsFromRSS(){
-      try{
-        const res = await fetch(newsFeedUrl);
-        if(!res.ok) throw new Error("RSS fetch failed");
-        const xml = await res.text();
-        const doc = new window.DOMParser().parseFromString(xml, "text/xml");
-        let items = Array.from(doc.querySelectorAll("item")).map(item => {
-          const title = (item.querySelector("title")?.textContent || "").trim();
-          const href = (item.querySelector("link")?.textContent || "").trim();
-          const description = item.querySelector("description")?.textContent || "";
-          const pubDate = Date.parse(item.querySelector("pubDate")?.textContent || "") || 0;
-          return { title, href, description, pubDate };
-        }).filter(i => i.title && i.href);
-        if(!items.length) throw new Error("No news items");
-
-        items.sort((a,b) => b.pubDate - a.pubDate);
-        const pinnedIdx = items.findIndex(i => i.title.toLowerCase() === pinnedNewsTitle.toLowerCase());
-        const ordered = [];
-        if(pinnedIdx >= 0){
-          ordered.push(items.splice(pinnedIdx,1)[0]);
-        }else if(items.length){
-          ordered.push(items.shift());
-        }
-        ordered.push(...items.slice(0,2));
-
-        newsItems = ordered.filter(Boolean).map(item => ({
-          title: item.title,
-          excerpt: truncate(stripHTML(item.description || "Skoða fréttina."), 120),
-          href: item.href,
-          tag: "Frétt"
-        }));
-        if(newsItems.length < 3){
-          newsItems = [...newsItems, ...fallbackNews].slice(0,3);
-        }
-      }catch(err){
-        newsItems = fallbackNews.slice(0,3);
-      }
-      renderTimarit();
-    }
-
-    function buildAudioTile(latestAudio){
-      const durationLabel = latestAudio.length || "--:--";
-      const tile = document.createElement("div");
-      tile.className = "tile tile--audio";
-      tile.id = "podcast-tile";
-      tile.innerHTML = `
-        <div class="tile__body" style="display:flex; align-items:center; gap:12px; justify-content:space-between;">
-          <div style="flex:1;">
-            <a href="${latestAudio.link || "hlusta/"}" style="text-decoration:none; color:inherit;">
-              <span class="tile__tag" style="background:#0f172a; color:#fff;">Hlustaðu</span>
-            </a>
-            <div class="tile__title" style="margin-top:6px;">${latestAudio.title || "Hlaðvarp Myndarsagna"}</div>
-            <p class="tile__excerpt" style="margin-top:4px;">${latestAudio.description || "Random þáttur úr hlaðvarpinu."}${latestAudio.length ? ` • ${durationLabel}` : ""}</p>
-          </div>
-          <button class="sketch-play" id="mini-play" aria-label="Spila hlaðvarp">
-            <div class="sketch-icon" id="mini-icon"></div>
-          </button>
-        </div>
-        <div class="sketch-bar" style="margin-top:10px;">
-          <div class="sketch-progress" id="mini-progress"></div>
-          <div class="sketch-knob" id="mini-knob"></div>
-        </div>
-        <div class="sketch-time" id="mini-time">00:00 / ${durationLabel}</div>
-        <audio id="mini-audio" preload="metadata" ${latestAudio.src ? `src="${latestAudio.src}"` : ""} style="display:none;"></audio>
-      `;
-      const audioEl = tile.querySelector("#mini-audio");
-      const btn = tile.querySelector("#mini-play");
-      const icon = tile.querySelector("#mini-icon");
-      const prog = tile.querySelector("#mini-progress");
-      const knob = tile.querySelector("#mini-knob");
-      const time = tile.querySelector("#mini-time");
-
-      if(!latestAudio.src){
-        btn.disabled = true;
-        btn.style.opacity = 0.6;
-        btn.title = "Tókst ekki að hlaða hljóðslóð fyrir þessa lotu";
-        return tile;
-      }
-
-      const formatTime = (s) => {
-        if(!isFinite(s)) return "00:00";
-        const m = Math.floor(s/60).toString().padStart(2,"0");
-        const sec = Math.floor(s%60).toString().padStart(2,"0");
-        return `${m}:${sec}`;
-      };
-
-      const setPauseIcon = () => {
-        icon.className = "sketch-icon pause";
-        icon.innerHTML = "<span></span><span></span>";
-      };
-      const setPlayIcon = () => {
-        icon.className = "sketch-icon";
-        icon.innerHTML = "";
-      };
-
-      btn.addEventListener("click", () => {
-        if(btn.disabled) return;
-        if(audioEl.paused){
-          audioEl.play();
-          setPauseIcon();
-        }else{
-          audioEl.pause();
-          setPlayIcon();
-        }
-      });
-
-      audioEl.addEventListener("timeupdate", () => {
-        const pct = audioEl.duration ? (audioEl.currentTime / audioEl.duration) * 100 : 0;
-        prog.style.width = pct + "%";
-        knob.style.left = pct + "%";
-        time.textContent = `${formatTime(audioEl.currentTime)} / ${latestAudio.length || formatTime(audioEl.duration) || "--:--"}`;
-      });
-
-      audioEl.addEventListener("ended", () => {
-        setPlayIcon();
-        prog.style.width = "0%";
-        knob.style.left = "0%";
-        time.textContent = `00:00 / ${latestAudio.length || formatTime(audioEl.duration) || "--:--"}`;
-      });
-
-      audioEl.addEventListener("loadedmetadata", () => {
-        if(!latestAudio.length && isFinite(audioEl.duration)){
-          time.textContent = `00:00 / ${formatTime(audioEl.duration)}`;
-        }
-      });
-
-      return tile;
-    }
-
-    function setAudioTile(data){
-      audioTile = buildAudioTile(data);
-      renderTimarit();
-    }
-
-    const formatDuration = (raw = "") => {
-      if(!raw) return "";
-      if(raw.includes(":")) return raw;
-      const num = parseInt(raw, 10);
-      if(!Number.isFinite(num)) return "";
-      const h = Math.floor(num / 3600);
-      const m = Math.floor((num % 3600) / 60);
-      const s = num % 60;
-      const parts = [];
-      if(h) parts.push(String(h).padStart(2,"0"));
-      parts.push(String(m).padStart(2,"0"));
-      parts.push(String(s).padStart(2,"0"));
-      return parts.join(":");
-    };
-
-    async function loadPodcastFromRSS(){
-      try{
-        const res = await fetch(podcastFeedUrl);
-        if(!res.ok) throw new Error("Podcast fetch failed");
-        const xml = await res.text();
-        const doc = new window.DOMParser().parseFromString(xml, "text/xml");
-        const items = Array.from(doc.querySelectorAll("item")).map(item => {
-          const enclosure = item.querySelector("enclosure");
-          const audioUrl = enclosure?.getAttribute("url") || "";
-          const title = (item.querySelector("title")?.textContent || "").trim();
-          const link = (item.querySelector("link")?.textContent || "").trim();
-          const duration = formatDuration(item.querySelector("itunes\\:duration, duration")?.textContent?.trim() || "");
-          const description = item.querySelector("description")?.textContent || "";
-          return { title, audioUrl, link, duration, description };
-        }).filter(i => i.audioUrl);
-        if(!items.length) throw new Error("No podcast episodes");
-        const pick = items[Math.floor(Math.random() * items.length)];
-        setAudioTile({
-          title: pick.title || "Hlaðvarp Myndarsagna",
-          length: pick.duration || "",
-          src: pick.audioUrl,
-          link: pick.link || "hlusta/",
-          description: truncate(stripHTML(pick.description || "Random þáttur úr hlaðvarpinu."), 90)
-        });
-        return;
-      }catch(err){
-        setAudioTile(fallbackPodcast);
-      }
-    }
-
-    renderTimarit();
-    setAudioTile(fallbackPodcast);
-    loadNewsFromRSS();
-    loadPodcastFromRSS();
-
-    // Carousel interaction
-    const carousel = document.querySelector(".carousel");
-    const btnPrev = document.getElementById("prev");
-    const btnNext = document.getElementById("next");
-    const cards = Array.from(carousel.querySelectorAll(".carousel-card"));
-
-    let cardSize = 0;
-    const measureCard = () => {
-      const first = carousel.querySelector(".carousel-card");
-      if(!first) return;
-      const gap = parseFloat(getComputedStyle(carousel).gap || "0");
-      cardSize = first.getBoundingClientRect().width + gap;
-    };
-    measureCard();
-    window.addEventListener("resize", measureCard);
-
-    // stillum byrjun í miðju endurtekningar
-    requestAnimationFrame(() => {
-      measureCard();
-      const midIndex = littleGroup.length * 27; // miðpunktur 54x
-      carousel.scrollLeft = (cardSize || 0) * midIndex;
-      highlightActive();
-    });
-
-    function scrollByCard(dir){
-      const step = cardSize || carousel.clientWidth * 0.9;
-      carousel.scrollBy({left: step * dir, behavior:"smooth"});
-    }
-    btnPrev.addEventListener("click", () => scrollByCard(-1));
-    btnNext.addEventListener("click", () => scrollByCard(1));
-
-    let scrollTimer;
-    function highlightActive(){
-      const center = carousel.scrollLeft + carousel.clientWidth/2;
-      let nearest = null;
-      let nearestDist = Infinity;
-      cards.forEach(c => {
-        const rect = c.getBoundingClientRect();
-        const left = c.offsetLeft;
-        const mid = left + rect.width/2;
-        const dist = Math.abs(mid - (center));
-        if(dist < nearestDist){
-          nearestDist = dist;
-          nearest = c;
-        }
-      });
-      cards.forEach(c => c.classList.remove("is-active"));
-      if(nearest) nearest.classList.add("is-active");
-    }
-
-    carousel.addEventListener("scroll", () => {
-      clearTimeout(scrollTimer);
-      highlightActive();
-      scrollTimer = setTimeout(() => {
-        const total = cards.length;
-        const windowSize = littleGroup.length * 2; // mörk áður en við hoppum
-        const idx = Math.round(carousel.scrollLeft / (cardSize || 1));
-        if(idx < windowSize){
-          carousel.scrollLeft += cardSize * littleGroup.length * (repeats - 4);
-        }else if(idx > total - windowSize){
-          carousel.scrollLeft -= cardSize * littleGroup.length * (repeats - 4);
-        }
-        highlightActive();
-      }, 60);
-    });
-
-    // Hleð myndasögu dagsins úr skrá
-    loadAridShots();
-
-    // About modal
-    const aboutTrigger = document.getElementById("about-trigger");
-    const backdrop = document.createElement("div");
-    backdrop.className = "modal-backdrop";
-    backdrop.innerHTML = `
-      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="about-title">
-        <button class="modal-close" aria-label="Loka">×</button>
-        <h3 id="about-title">Myndarsögur</h3>
-        <p>Myndarsögur eru samtök sem voru stofnuð með það háleita markmið í huga að sjá meira af myndasögum á íslandi. Af einhverri ástæðu óx þessi hugmynd meir og meir þangað til allt í einu var til svo mikið af myndasögum að enginn veit hvað hann á að gera við þær lengur. Núna standa samtökin að því að reyna koma skikk á þetta allt saman með því að kenna, leiðbeina og stýra verkefnum sem að kynda undir sköpunargleði og framþróun miðilsins öllum til heilla, vonandi, kannski...</p>
+  <aside class="author-dock" id="hofundar" aria-label="Höfundar Myndarsagna">
+    <div class="dock-heading">
+      <a class="authors-label" href="/folk/">Höfundar</a>
+      <div class="dock-tools">
+        <button id="tilt-authors" class="tilt-button" type="button" aria-pressed="false" aria-label="Hallaðu símanum til að velta höfundunum" hidden><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="15" y="7" width="18" height="34" rx="4" transform="rotate(-16 24 24)"/><path d="M20.5 35.5h5"/><path d="M7 17a17 17 0 0 0 0 14M41 17a17 17 0 0 1 0 14"/></svg></button>
+        <button id="fish-author" class="fish-button" aria-label="Veiða höfund af handahófi" disabled><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 9h32M24 9v10"/><circle cx="24" cy="23" r="7"/><path d="M24 30v7q0 9-8 6q-4-2-3-7"/><path d="m10 38 3-3 3 3"/></svg></button>
       </div>
-    `;
-    document.body.appendChild(backdrop);
-    const closeBtn = backdrop.querySelector(".modal-close");
+    </div>
+    <div class="author-scroll" id="author-scroll" tabindex="0" role="region" aria-label="Leikheimur höfunda"><div class="author-track" id="authors"></div></div>
+    <span class="sr-only" id="fishing-status" role="status"></span>
+  </aside>
 
-    const openModal = () => { backdrop.classList.add("is-open"); };
-    const closeModal = () => { backdrop.classList.remove("is-open"); };
-    aboutTrigger.addEventListener("click", openModal);
-    closeBtn.addEventListener("click", closeModal);
-    backdrop.addEventListener("click", (e) => { if(e.target === backdrop) closeModal(); });
-  </script>
+  <!-- Smáspilari: fylgir þér niður síðuna á meðan þáttur er í gangi -->
+  <section class="miniplayer" id="miniplayer" aria-label="Hlaðvarpsspilari" hidden>
+    <img id="mini-image" alt="" width="40" height="40">
+    <button class="mini-title" id="mini-title" type="button"></button>
+    <button class="mini-play" id="mini-play" type="button" aria-label="Spila">
+      <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.2v13.6c0 .8.9 1.3 1.6.8l10-6.8a1 1 0 0 0 0-1.6l-10-6.8C8.9 3.9 8 4.4 8 5.2z"/></svg>
+      <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4.2" height="14" rx="1.2"/><rect x="13.8" y="5" width="4.2" height="14" rx="1.2"/></svg>
+    </button>
+    <button class="mini-close" id="mini-close" type="button" aria-label="Stöðva og loka spilara">×</button>
+    <span class="mini-progress" id="mini-progress" aria-hidden="true"></span>
+  </section>
+
+  <!-- Flipastika neðst í síma, innan seilingar fyrir þumalinn -->
+  <nav class="tabbar" aria-label="Flýtileiðir">
+    <a href="#hilla" data-section="hilla" style="--c:var(--yellow)"><span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5C7 4 9.5 4.3 12 6c2.5-1.7 5-2 8-.5V19c-3-1.4-5.5-1.1-8 .5-2.5-1.6-5-1.9-8-.5z"/><path d="M12 6v13.5"/></svg></span>Sögur</a>
+    <a href="#hlusta" data-section="hlusta" style="--c:var(--blue)"><span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="14" width="4.5" height="6.5" rx="1.8"/><rect x="16.5" y="14" width="4.5" height="6.5" rx="1.8"/></svg></span>Hlusta</a>
+    <a href="#myndir" data-section="myndir" style="--c:var(--pink)"><span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 4.5h11a2 2 0 0 1 2 2v10"/><rect x="3.5" y="7.5" width="14" height="12.5" rx="2.2"/><circle cx="8" cy="11.7" r="1.5"/><path d="m5.2 18.4 3.8-3.8 2.8 2.8 1.9-1.9 3 3"/></svg></span>Myndir</a>
+    <a href="#hofundar" data-section="hofundar" style="--c:#8fd18b"><span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="8.5" cy="9" r="3.2"/><circle cx="16.5" cy="10" r="2.6"/><path d="M3 19c.8-3.3 3-5 5.5-5s4.7 1.7 5.5 5M14 15.3c.8-.8 1.6-1.1 2.5-1.1 2 0 3.7 1.5 4.3 4.3"/></svg></span>Höfundar</a>
+    <button type="button" id="open-more" aria-haspopup="dialog" style="--c:#b9a3e8"><span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.5 12h.01M12 12h.01M18.5 12h.01" stroke-width="3.4"/></svg></span>Meira</button>
+  </nav>
+
+  <dialog id="more-sheet" class="sheet" aria-labelledby="more-title">
+    <span class="sheet-grab" aria-hidden="true"></span>
+    <button class="sheet-close" id="close-more" type="button" aria-label="Loka">×</button>
+    <h2 id="more-title">Meira</h2>
+    <nav class="sheet-links" aria-label="Allar síður">
+      <a href="https://innsendingar.myndarsogur.is" style="--c:var(--yellow)">Sendu inn sögu <span aria-hidden="true">↗</span></a>
+      <a href="Namskeid/" style="--c:#8fd18b">Námskeið <span aria-hidden="true">↗</span></a>
+      <a href="Verslun/" style="--c:var(--pink)">Verslun <span aria-hidden="true">↗</span></a>
+      <a href="Leikjasidan/" style="--c:var(--blue)">Leikir <span aria-hidden="true">↗</span></a>
+      <a href="hlusta/">Allir hlaðvarpsþættir <span aria-hidden="true">↗</span></a>
+      <a href="Arid2024/">Fleiri myndasögur <span aria-hidden="true">↗</span></a>
+      <a href="/folk/">Höfundaskrá <span aria-hidden="true">↗</span></a>
+    </nav>
+    <p class="sheet-social"><a href="https://www.instagram.com/Myndarsogur">Instagram ↗</a><a href="https://www.facebook.com/Myndarsogur">Facebook ↗</a></p>
+  </dialog>
+
+  <dialog id="viewer" class="viewer" aria-label="Mynd í fullri stærð">
+    <div class="viewer-bar">
+      <a id="viewer-credit" class="viewer-credit" href="Arid2024/"></a>
+      <button class="viewer-close" id="close-viewer" type="button" aria-label="Loka">×</button>
+    </div>
+    <figure><img id="viewer-image" alt="" loading="lazy" draggable="false"></figure>
+    <div class="viewer-actions">
+      <button class="button" id="viewer-prev" type="button" aria-label="Fyrri mynd"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12.4c4.4-.7 9.2-.8 14.6-.2"/><path d="M13.6 6.6c1.9 2 3.6 3.7 5.6 5.5-2 1.7-3.8 3.4-5.4 5.4"/></svg></button>
+      <button class="button submit" id="viewer-next" type="button">↻ Önnur mynd</button>
+    </div>
+    <p class="viewer-hint">Strjúktu til hliðar fyrir aðra mynd, niður til að loka</p>
+  </dialog>
+
+  <dialog id="author-dialog" class="author-dialog" aria-labelledby="author-name">
+    <button id="close-author" class="close-author" aria-label="Loka">×</button>
+    <img id="author-portrait" alt="" width="180" height="180">
+    <h2 id="author-name"></h2><a id="author-website" class="button submit" href="/hofundar/">Meira frá höfundi ↗</a>
+  </dialog>
 </body>
 </html>

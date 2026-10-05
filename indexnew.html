@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+  <meta charset="utf-8" />
+<!-- Litur á toppstiku vafra -->
+<meta name="theme-color" content="#f6f1e3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#f6f1e3" media="(prefers-color-scheme: dark)">
+<meta name="msapplication-TileColor" content="#f6f1e3">
+
+<!-- iOS Safari / Home Screen hegðun -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Myndarsögur í skóinn eru íslenskar myndasögur og hlaðvörp fyrir alla — lesið, hlustið og njótið.">
+  <meta name="robots" content="max-image-preview:large">
+  <link rel="canonical" href="https://myndarsogur.is/">
+  <link rel="icon" href="/favicon/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/favicon/favicon-512x512.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+
+  <title>Myndarsögur - Útgáfa með meiru</title>
+  <meta property="og:title" content="Myndarsögur - Útgáfa með meiru">
+  <meta property="og:description" content="Íslenskar myndasögur, sögur og hlaðvörp fyrir krakka og fjölskyldur — lesið, hlustið og njótið saman.">
+  <meta property="og:url" content="https://myndarsogur.is/">
+  <meta property="og:site_name" content="Myndarsögur">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://myndarsogur.is/forsida-og.png">
+  <meta property="fb:app_id" content="1501563707185143">
+  <meta name="facebook-domain-verification" content="9gxutfbhyvr1cj225z5y2wstxbaqmd" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Myndarsögur - Útgáfa með meiru">
+  <meta name="twitter:description" content="Íslenskar myndasögur og hlaðvörp fyrir alla.">
+  <meta name="twitter:image" content="https://myndarsogur.is/forsida-og.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Myndarsögur",
+    "url": "https://myndarsogur.is/",
+    "logo": "https://myndarsogur.is/logo.png",
+    "image": "https://myndarsogur.is/forsida-og.png",
+    "sameAs": ["https://www.facebook.com/Myndarsogur", "https://www.instagram.com/Myndarsogur"]
+  }
+  </script>
+  <link rel="stylesheet" href="assets/home.css">
+  <script src="assets/sogur.js" defer></script>
+  <script src="assets/homenew.js" defer></script>
+  <script src="assets/authors.js" defer></script>
+</head>
+<body class="home-page">
+  <a class="skip" href="#main">Beint í myndasögurnar</a>
+  <main id="main">
+    <section class="books" aria-label="Myndasögur">
+      <div class="carousel-shell">
+        <div class="carousel" id="carousel" tabindex="0" role="region" aria-roledescription="karúsella" aria-label="Myndasögubækur"></div>
+        <button class="arrow prev" id="prev" aria-label="Fyrri myndasaga">←</button>
+        <button class="arrow next" id="next" aria-label="Næsta myndasaga">→</button>
+      </div>
+    </section>
+    <header class="home-hub">
+      <a class="brand" href="/" aria-label="Myndarsögur — heim">Myndarsögur<span>Útgáfa með meiru</span></a>
+      <nav class="home-actions" aria-label="Aðalvalmynd">
+        <a class="button submit" href="https://innsendingar.myndarsogur.is">Sendu inn sögu <span aria-hidden="true">↗</span></a>
+        <a class="button courses-link" href="Namskeid/">Skoða námskeið <span aria-hidden="true">↗</span></a>
+        <a class="button shop-link" href="Verslun/">Opna verslun <span aria-hidden="true">↗</span></a>
+        <a class="button games-link" href="Leikjasidan/">Spila leiki <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+    <section class="discover" aria-label="Eitthvað óvænt">
+      <article class="podcast panel">
+        <div class="panel-top"><span class="tag">Hlaðvarp</span><span class="doodle" aria-hidden="true">♫</span></div>
+
+        <div class="episode"><img id="episode-image" alt="" width="76" height="76" hidden><div><span class="eyebrow">Þáttur augnabliksins</span><h3 id="episode-title" aria-live="polite">Sækjum eitthvað skemmtilegt…</h3></div></div>
+        <audio id="audio" controls preload="none" aria-label="Spila þátt augnabliksins"></audio>
+        <p id="audio-status" class="status" role="status"></p>
+        <div class="panel-actions"><button class="button" id="shuffle-audio" disabled>↻ Annar þáttur</button><a href="hlusta/">Allir þættir ↗</a></div>
+      </article>
+      <article class="picture panel">
+        <div class="panel-top"><span class="tag">Fyrir augun</span><span class="doodle" aria-hidden="true">✷</span></div>
+        <a id="random-link" class="random-frame" href="Arid2024/"><img id="random-image" src="myndar/Adal/mynd1.avif" alt="Myndar forsíða" loading="lazy"></a>
+        <div class="picture-credit" id="picture-credit" aria-live="polite"></div>
+        <div class="panel-actions"><button class="button" id="shuffle-image" disabled>↻ Önnur mynd</button><a href="Arid2024/">Fleiri myndasögur ↗</a></div>
+      </article>
+    </section>
+  </main>
+  <aside class="author-dock" aria-label="Höfundar Myndarsagna">
+    <div class="dock-heading"><a class="authors-label" href="/folk/">Höfundar</a><button id="fish-author" class="fish-button" aria-label="Veiða höfund af handahófi" disabled><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 9h32M24 9v10"/><circle cx="24" cy="23" r="7"/><path d="M24 30v7q0 9-8 6q-4-2-3-7"/><path d="m10 38 3-3 3 3"/></svg></button></div>
+    <div class="author-scroll" id="author-scroll" tabindex="0" role="region" aria-label="Leikheimur höfunda — skrollaðu niður"><div class="author-track" id="authors"></div></div>
+    <span class="sr-only" id="fishing-status" role="status"></span>
+  </aside>
+  <dialog id="author-dialog" class="author-dialog" aria-labelledby="author-name">
+    <button id="close-author" class="close-author" aria-label="Loka">×</button>
+    <img id="author-portrait" alt="" width="180" height="180">
+    <h2 id="author-name"></h2><a id="author-website" class="button submit" href="/hofundar/">Meira frá höfundi ↗</a>
+  </dialog>
+</body>
+</html>

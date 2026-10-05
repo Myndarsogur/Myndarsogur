@@ -1,0 +1,129 @@
+[
+  {
+    "id": 1,
+    "name": "Alex Steinþórsdóttir",
+    "img": "assets/portraits/1.avif",
+    "href": "Karakterar/author.html?id=1",
+    "slug": "alex-steinthorsdottir"
+  },
+  {
+    "name": "María Carmela",
+    "img": "Meindarsogur/hofundar/img/maria-carmela.jpg",
+    "href": "https://www.instagram.com/mct.art/?hl=en",
+    "slug": "maria-carmela"
+  },
+  {
+    "name": "Bjarni Pálsson",
+    "img": "Meindarsogur/hofundar/img/bjarni-palsson.jpg",
+    "href": "https://www.jolaljosamadurinn.com/",
+    "slug": "bjarni-palsson"
+  },
+  {
+    "name": "Sunneva Thomsen",
+    "img": "Meindarsogur/hofundar/img/sunneva-thomsen.jpg",
+    "href": "https://www.instagram.com/sunnevaart/?hl=en",
+    "slug": "sunneva-thomsen"
+  },
+  {
+    "name": "Sunneva Guðrún",
+    "img": "Meindarsogur/hofundar/img/sunneva-gudrun.jpg",
+    "href": "https://www.instagram.com/greykolla/?hl=en",
+    "slug": "sunneva-gudrun"
+  },
+  {
+    "name": "Krummi",
+    "img": "Meindarsogur/hofundar/img/krummi.jpg",
+    "href": "https://www.instagram.com/kruzidula/?hl=en",
+    "slug": "krummi"
+  },
+  {
+    "name": "Lefteris Jakúmakis",
+    "img": "Meindarsogur/hofundar/img/lefteris-yakoumakis.jpg",
+    "href": "https://left-y.com/",
+    "slug": "lefteris-jakumakis"
+  },
+  {
+    "name": "J.J. Mancho",
+    "img": "Meindarsogur/hofundar/img/jj-mancho.jpg",
+    "href": "https://www.domestika.org/es/jjmancho/portfolio",
+    "slug": "j-j-mancho"
+  },
+  {
+    "name": "Sigfús Jóhannsson",
+    "img": "Meindarsogur/hofundar/img/sigfus-johannsson.jpg",
+    "href": "https://www.instagram.com/sigfus_johannsson/?hl=en",
+    "slug": "sigfus-johannsson"
+  },
+  {
+    "name": "Þórir Karl Celin",
+    "img": "Meindarsogur/hofundar/img/thorir-karl-celin.jpg",
+    "href": "https://celin.myportfolio.com/",
+    "slug": "thorir-karl-celin"
+  },
+  {
+    "name": "Lúkas Stefán Regal",
+    "img": "Meindarsogur/hofundar/img/lukas-stefan-regal.jpg",
+    "href": "https://www.instagram.com/lukas_regal/?hl=en",
+    "slug": "lukas-stefan-regal"
+  },
+  {
+    "name": "Fannar G. Gilbertsson",
+    "img": "Meindarsogur/hofundar/img/fannar-g-gilbertsson.jpg",
+    "href": "https://fannargg.com",
+    "slug": "fannar-g-gilbertsson"
+  },
+  {
+    "name": "Heiða Maack",
+    "img": "Meindarsogur/hofundar/img/heida-maack.jpg",
+    "href": "https://www.instagram.com/dimma_limm/?hl=en",
+    "slug": "heida-maack"
+  },
+  {
+    "name": "Plóma",
+    "img": "Meindarsogur/hofundar/img/ploma.jpg",
+    "href": "https://www.webtoons.com/en/canvas/goblin-behaviour/list?title_no=733332",
+    "slug": "ploma"
+  },
+  {
+    "name": "Hekla Art",
+    "img": "Meindarsogur/hofundar/img/hekla-art.jpg",
+    "href": "https://www.instagram.com/jheklaart/?hl=en",
+    "slug": "hekla-art"
+  },
+  {
+    "name": "Gísli Dan",
+    "img": "Meindarsogur/hofundar/img/gisli-dan.jpg",
+    "href": "https://www.instagram.com/gisli.dan.illustrations/?hl=en",
+    "slug": "gisli-dan"
+  },
+  {
+    "name": "Einar Másson",
+    "img": "Meindarsogur/hofundar/img/einar-masson.jpg",
+    "href": "https://emassonart.com",
+    "slug": "einar-masson"
+  },
+  {
+    "name": "I.R. Kjartansson",
+    "img": "Meindarsogur/hofundar/img/ir-kjartansson.jpg",
+    "href": "https://www.instagram.com/i.r.kjartansson_/",
+    "slug": "i-r-kjartansson"
+  },
+  {
+    "name": "Kris Helga",
+    "img": "hofundar/Birt/Kris Helga/kris-helga.avif",
+    "href": "https://www.instagram.com/kris_helga_art/",
+    "slug": "kris-helga"
+  },
+  {
+    "name": "Una Björk",
+    "img": "hofundar/Birt/Una Björk/una-bjork.avif",
+    "href": "https://www.instagram.com/freckled.fairy/",
+    "slug": "una-bjork"
+  },
+  {
+    "name": "Ísold Davíðsdóttir",
+    "img": "hofundar/Birt/Ísold Davíðsdóttir/isold-davidsdottir.avif",
+    "href": "https://www.instagram.com/aparasscomix/",
+    "slug": "isold-davidsdottir"
+  }
+]

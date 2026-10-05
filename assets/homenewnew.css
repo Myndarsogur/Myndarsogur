@@ -1,0 +1,162 @@
+/* Tillaga að símavænni forsíðu (indexnewnew.html). Byggir ofan á home.css og breytir henni ekki. */
+:root{--tabbar-h:62px;--safe-b:env(safe-area-inset-bottom,0px)}
+@media(prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+.m2{-webkit-tap-highlight-color:transparent}
+.m2 [id]{scroll-margin-top:14px}
+.i{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tile-icon{display:none}
+
+/* Hver hnappur heldur sínum halla. Í snertiskjá festist hover-hallinn ekki eftir að ýtt er. */
+.m2 .button{position:relative;transform:rotate(var(--r,0deg))}
+.m2 .submit{--r:-2deg}
+.m2 .home-actions .courses-link{--r:1deg}.m2 .home-actions .shop-link{--r:-1deg}.m2 .home-actions .games-link{--r:2deg}
+.m2 .button:hover{transform:rotate(var(--r,0deg))}
+@media(hover:hover){.m2 .button:hover{transform:rotate(calc(var(--r,0deg) - 2deg)) translateY(-2px)}}
+.m2 .button:active{transform:rotate(var(--r,0deg)) translate(3px,3px);box-shadow:none}
+@media(hover:none){
+  .m2 .book:hover img{transform:scale(.87) rotate(var(--tilt))}
+  .m2 .book.is-active:hover img{transform:scale(1) rotate(-1deg)}
+  .m2 .fish-button:hover{transform:rotate(3deg)}
+}
+
+/* ---------- Hillan ---------- */
+.continue{display:flex;align-items:center;gap:10px;width:fit-content;max-width:calc(100% - 32px);margin:6px auto 0;padding:9px 14px;background:#ddf0fc;border:2px solid var(--ink);border-radius:14px 9px 16px 10px;box-shadow:3px 3px 0 var(--ink);text-decoration:none;font-size:14px;transform:rotate(-1deg)}
+.continue b{font-family:Comic,serif;font-weight:400;font-size:16px}
+.continue small{color:var(--soft);font-size:12px;white-space:nowrap}
+.continue-icon{font-size:18px}
+.continue:active{transform:translate(3px,3px) rotate(-1deg);box-shadow:none}
+
+.shelf-controls{display:flex;align-items:center;justify-content:center;gap:8px;padding:0 16px}
+.m2 .shelf-controls .arrow{position:static;flex-shrink:0;display:grid;place-items:center;width:44px;height:44px;padding:0}
+/* Handteiknaðar örvar í stað leturtákna; sama örin, spegluð til baka. */
+.m2 .arrow svg,#viewer-prev svg{width:24px;height:24px;stroke-width:2.4}
+.m2 .prev svg,#viewer-prev svg{transform:scaleX(-1)}
+.doodle-icon svg{display:block;width:36px;height:36px;stroke-width:1.8;transform:rotate(6deg)}
+.dots{display:flex;flex-wrap:wrap;justify-content:center}
+.dot{display:grid;place-items:center;width:26px;height:44px;padding:0;border:0;background:none}
+.dot::before{content:'';width:11px;height:11px;border:2px solid var(--ink);border-radius:50% 45% 55% 48%;background:var(--paper);transition:width .2s,background .2s}
+.dot[aria-current=true]::before{width:24px;border-radius:8px 6px 9px 5px;background:var(--yellow)}
+
+/* Merkið situr beint undir punktunum. */
+.m2 .home-hub{margin-top:18px}
+
+/* ---------- Hlaðvarpsspilarinn ---------- */
+/* Viðmælandinn í forgrunni: stór mynd og nafnið vel sýnilegt, efni þáttarins smærra fyrir neðan. */
+.m2 .podcast .episode{gap:18px;min-height:0;margin:16px 0 14px}
+.m2 .podcast .episode img{width:128px;height:128px;border-width:2.5px;border-radius:18px 12px 20px 13px;box-shadow:3px 4px 0 var(--ink);transform:rotate(-2deg)}
+.m2 .podcast .episode h3{margin:0;font-family:Comic,serif;font-size:27px;font-weight:400;line-height:1.15}
+.m2 .podcast .episode p{margin:8px 0 0;color:var(--soft);font-size:14px;line-height:1.35}
+.m2 .podcast .episode p:empty{display:none}
+.player{display:flex;align-items:center;justify-content:center;gap:24px;margin:4px 0 8px}
+.play{display:grid;place-items:center;width:70px;height:70px;padding:0;border:2.5px solid var(--ink);border-radius:46% 54% 42% 58% / 54% 43% 57% 46%;background:var(--yellow);box-shadow:3px 4px 0 var(--ink);transition:transform .15s,box-shadow .15s}
+.play svg,.mini-play svg{width:30px;height:30px;fill:var(--ink)}
+.play .i-pause,.play.is-playing .i-play,.mini-play .i-pause,.mini-play.is-playing .i-play{display:none}
+.play.is-playing .i-pause,.mini-play.is-playing .i-pause{display:block}
+.play:not(:disabled):active,.mini-play:active{transform:translate(3px,4px);box-shadow:none}
+.skip-btn{width:50px;height:50px;padding:0;border:2px solid var(--ink);border-radius:50% 46% 52% 48%;background:var(--paper);box-shadow:2px 3px 0 var(--ink);font-size:14px;font-weight:700;font-variant-numeric:tabular-nums}
+.skip-btn:not(:disabled):active{transform:translate(2px,3px);box-shadow:none}
+.seek{display:block;width:100%;height:30px;margin:0;background:transparent;-webkit-appearance:none;appearance:none;--p:0%}
+.seek::-webkit-slider-runnable-track{height:10px;border-radius:6px;background:linear-gradient(90deg,var(--ink) var(--p),var(--paper) var(--p));box-shadow:inset 0 0 0 2px var(--ink)}
+.seek::-moz-range-track{height:10px;border-radius:6px;background:linear-gradient(90deg,var(--ink) var(--p),var(--paper) var(--p));box-shadow:inset 0 0 0 2px var(--ink)}
+.seek::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;margin-top:-7px;border:2px solid var(--ink);border-radius:46% 54% 50% 50%;background:var(--pink)}
+.seek::-moz-range-thumb{width:20px;height:20px;border:2px solid var(--ink);border-radius:50%;background:var(--pink)}
+.seek:disabled{opacity:.45}
+.times{display:flex;justify-content:space-between;color:var(--soft);font-size:12px;font-variant-numeric:tabular-nums}
+
+/* ---------- Mynd dagsins ---------- */
+.m2 .random-frame{position:relative;width:100%;padding:0;cursor:zoom-in}
+.zoom-hint{position:absolute;right:8px;bottom:8px;display:grid;place-items:center;width:34px;height:34px;border:2px solid var(--ink);border-radius:50% 45% 52% 48%;background:var(--paper);font-size:18px}
+.m2 .picture-credit{display:block;width:fit-content;font-size:13px;text-underline-offset:4px}
+
+/* ---------- Höfundar ---------- */
+.dock-tools{display:flex;align-items:center;gap:12px}
+.m2 .dock-heading .tilt-button{width:57px;height:57px;padding:8px;background:var(--blue);transform:rotate(-3deg)}
+.tilt-button svg{width:100%;height:100%;fill:none;stroke:var(--ink);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.m2 .dock-heading .tilt-button[aria-pressed=true]{background:var(--pink)}
+.tilt-button[aria-pressed=true] svg{animation:wobble 1.2s ease-in-out infinite}
+@keyframes wobble{50%{transform:rotate(14deg)}}
+
+/* ---------- Smáspilari ---------- */
+.miniplayer{position:fixed;z-index:30;right:24px;bottom:calc(24px + var(--safe-b));width:min(380px,calc(100% - 24px));display:flex;align-items:center;gap:10px;padding:8px;overflow:hidden;background:#ddf0fc;border:2px solid var(--ink);border-radius:18px 12px 20px 13px;box-shadow:3px 4px 0 var(--ink);animation:pop-up .25s ease-out}
+@keyframes pop-up{from{transform:translateY(24px);opacity:0}}
+.miniplayer img{width:42px;height:42px;flex-shrink:0;object-fit:cover;border:1.5px solid var(--ink);border-radius:10px}
+.miniplayer img:not([src]),.miniplayer img[src='']{visibility:hidden}
+.mini-title{flex:1;min-width:0;padding:6px 0;border:0;background:none;text-align:left;font-size:13px;font-weight:650;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mini-play{display:grid;place-items:center;flex-shrink:0;width:46px;height:46px;padding:0;border:2px solid var(--ink);border-radius:46% 54% 42% 58% / 54% 43% 57% 46%;background:var(--yellow);box-shadow:2px 3px 0 var(--ink)}
+.mini-play svg{width:20px;height:20px}
+.mini-close{flex-shrink:0;width:36px;height:46px;padding:0;border:0;background:none;font-size:26px;line-height:1}
+.mini-progress{position:absolute;left:0;bottom:0;width:0;height:3px;background:var(--ink)}
+
+/* ---------- Flipastika (aðeins í síma) ---------- */
+.tabbar{display:none}
+
+/* ---------- „Meira“-skúffan ---------- */
+.sheet{inset:auto 0 0;width:100%;max-width:min(560px,100%);max-height:86svh;margin:0 auto;padding:8px 18px calc(20px + var(--safe-b));overflow:auto;background:var(--paper);color:var(--ink);border:2.5px solid var(--ink);border-bottom:0;border-radius:26px 20px 0 0;box-shadow:0 -4px 0 var(--ink)}
+.sheet::backdrop{background:#2a263375;backdrop-filter:blur(3px)}
+.sheet[open]{animation:sheet-up .3s cubic-bezier(.2,.9,.3,1.08)}
+@keyframes sheet-up{from{transform:translateY(100%)}}
+.sheet-grab{display:block;width:46px;height:5px;margin:4px auto 10px;border-radius:3px;background:var(--ink);opacity:.3}
+.sheet h2{margin:0 0 16px;font-family:HighJinkies,sans-serif;font-size:38px;font-weight:400;transform:rotate(-3deg);width:fit-content}
+.sheet-close{position:absolute;top:10px;right:10px;width:44px;height:44px;border:0;background:none;font-size:30px}
+.sheet-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.sheet-links a{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:58px;padding:12px 14px;background:var(--c,#fffbf0);border:2px solid var(--ink);border-radius:15px 9px 17px 10px;box-shadow:3px 3px 0 var(--ink);font-weight:650;font-size:15px;text-decoration:none}
+.sheet-links a:active{transform:translate(3px,3px);box-shadow:none}
+.sheet-social{display:flex;gap:22px;justify-content:center;margin:20px 0 0;font-size:14px}
+.sheet-social a{text-underline-offset:4px}
+
+/* ---------- Myndaskoðari ---------- */
+.viewer{width:100%;height:100%;max-width:none;max-height:none;margin:0;padding:calc(10px + env(safe-area-inset-top,0px)) 14px calc(16px + var(--safe-b));border:0;background:#1f1b26;color:var(--paper);overscroll-behavior:contain}
+.viewer[open]{display:flex;flex-direction:column;gap:12px;animation:fade .2s ease-out}
+@keyframes fade{from{opacity:0}}
+.viewer::backdrop{background:transparent}
+.viewer-bar{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.viewer-credit{color:var(--paper);font-family:Comic,serif;font-size:17px;text-underline-offset:5px}
+.viewer-close{width:48px;height:48px;padding:0;border:0;background:none;color:var(--paper);font-size:36px;line-height:1}
+.viewer figure{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;margin:0;touch-action:pinch-zoom}
+.viewer img{display:block;max-width:100%;max-height:100%;object-fit:contain;background:var(--paper);border:2px solid var(--paper);border-radius:10px;user-select:none;-webkit-user-select:none;-webkit-user-drag:none;transition:transform .25s ease-out,opacity .25s}
+.viewer img.dragging{transition:none}
+.viewer-actions{display:flex;justify-content:center;gap:14px}
+.m2 .viewer-actions .button{color:var(--ink);font-size:15px;padding:12px 18px;box-shadow:3px 3px 0 #000}
+.viewer-actions .button:disabled{opacity:.35}
+.viewer-hint{margin:0;text-align:center;font-size:12px;opacity:.65}
+@media(hover:hover) and (pointer:fine){.viewer-hint{display:none}}
+
+/* ======================= SÍMI ======================= */
+@media(max-width:650px){
+  .m2{padding-bottom:calc(var(--tabbar-h) + var(--safe-b))}
+
+  .m2 .books{padding-top:calc(10px + env(safe-area-inset-top,0px))}
+  .m2 .carousel{gap:12px;padding:16px 17vw 18px}
+  .m2 .book{flex-basis:66vw}
+  .m2 .shelf-controls .arrow{width:42px;height:42px}
+
+  /* Áfangastaðirnir verða stórar flísar með teikningu, auðveldar fyrir þumalinn. */
+  .m2 .home-hub{margin-top:14px;padding:0 16px}
+  .m2 .home-actions{max-width:none;gap:12px}
+  .m2 .home-actions .button{flex-direction:column;align-items:flex-start;justify-content:space-between;gap:12px;min-height:96px;padding:14px;border-radius:18px 11px 20px 12px;font-size:15px;line-height:1.2;text-align:left}
+  .tile-icon{display:block;width:32px;height:32px;stroke-width:1.8}
+  .m2 .home-actions .ext{position:absolute;top:10px;right:12px}
+
+  .m2 .discover{margin-top:32px;padding:0 16px;gap:28px}
+  .m2 .random-frame img{height:min(62vw,300px)}
+  .m2 .podcast .episode{gap:14px}
+  .m2 .podcast .episode img{width:min(32vw,120px);height:min(32vw,120px)}
+  .m2 .podcast .episode h3{font-size:23px}
+
+  .m2 .author-dock{margin-top:36px;padding-bottom:0}
+  .m2 .dock-heading{padding:18px 16px 8px}
+  .m2 .dock-tools{gap:10px}
+  .m2 .dock-heading .tilt-button,.m2 .fish-button{width:50px;height:50px}
+  /* Einn skjár á hæð í stað langs veggs: JS minnkar hausana svo allir passi. */
+  .m2 .author-track:not(.still){height:min(68svh,560px)}
+
+  .miniplayer{left:12px;right:12px;width:auto;bottom:calc(var(--tabbar-h) + 10px + var(--safe-b))}
+
+  .tabbar{position:fixed;z-index:40;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(5,1fr);height:calc(var(--tabbar-h) + var(--safe-b));padding:0 4px var(--safe-b);background:var(--paper);border-top:2px solid var(--ink)}
+  .tabbar a,.tabbar button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:0;border:0;background:none;color:var(--ink);text-decoration:none;font-size:11px;font-weight:650}
+  .tabbar .ico{display:grid;place-items:center;width:46px;height:30px;border:1.5px solid transparent;border-radius:13px 9px 14px 8px;transition:background .2s,transform .2s}
+  .tabbar svg{width:24px;height:24px}
+  .tabbar [aria-current] .ico{background:var(--c);border-color:var(--ink);transform:rotate(-4deg)}
+  .tabbar a:active .ico,.tabbar button:active .ico{transform:scale(.9)}
+}
+@media(prefers-reduced-motion:reduce){.tilt-button[aria-pressed=true] svg,.sheet[open],.miniplayer,.viewer[open]{animation:none}}

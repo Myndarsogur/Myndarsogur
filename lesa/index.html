@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1b1b1b">
+<meta name="description" content="Lestu íslenskar myndasögur frá Myndarsögum.">
+<link rel="icon" href="../favicon/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
+<title>Lesa · Myndarsögur</title>
+<style>
+@font-face{font-family:Comic;src:url('../assets/fonts/HVComicSerifotf.woff2') format('woff2');font-display:swap}
+:root{--bg:#1b1b1b;--ink:#2a2633;--paper:#fffbf0;--yellow:#f7d44c;--pink:#f6a5c9;color-scheme:only light}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;overflow:hidden;overscroll-behavior:none}
+html{background:var(--bg);transition:background-color .35s}
+body{font-family:Comic,ui-rounded,system-ui,sans-serif;color:var(--ink)}
+[hidden]{display:none!important}
+:focus-visible{outline:3px dashed var(--paper);outline-offset:3px}
+
+/* Blaðsíðan fyllir skjáinn eins og hlutföllin leyfa; liturinn í kring er þema sögunnar. */
+.stage{position:fixed;inset:0;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+.page{display:block;width:100%;height:100%;object-fit:contain;pointer-events:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+.missing{position:absolute;inset:0;display:grid;place-items:center;color:var(--paper);font-size:20px;text-align:center;padding:24px}
+
+/* Vinstri helmingur flettir til baka, hægri áfram. */
+.zones{position:fixed;inset:0;display:grid;grid-template-columns:1fr 1fr;z-index:1}
+.zone{border:0;padding:0;background:none;cursor:e-resize;touch-action:manipulation}
+.zone.prev{cursor:w-resize}
+.zone:focus-visible{outline-offset:-10px}
+
+/* Stjórntæki: lítil, og dofna þegar ekkert er hreyft. */
+.chrome{position:fixed;top:0;left:0;right:0;z-index:3;display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:max(10px,env(safe-area-inset-top)) max(10px,env(safe-area-inset-right)) 0 max(10px,env(safe-area-inset-left));pointer-events:none;transition:opacity .5s}
+.chrome>*{pointer-events:auto}
+body.idle .chrome{opacity:.3}
+.ctl{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-width:44px;height:44px;padding:0 14px;border:2.5px solid var(--ink);border-radius:15px 9px 17px 10px;background:var(--paper);box-shadow:3px 3px 0 var(--ink);color:var(--ink);font:inherit;font-size:16px;text-decoration:none;cursor:pointer;touch-action:manipulation;white-space:nowrap}
+.ctl:focus-visible{outline-color:var(--ink)}
+.ctl:active{transform:translate(3px,3px);box-shadow:none}
+.ctl.close{font-size:26px;padding:0;line-height:1}
+.langs{display:flex;gap:8px}
+.langs .ctl{min-width:50px;padding:0 10px;font-size:15px}
+.langs .ctl[aria-pressed=true]{background:var(--yellow)}
+
+.progress{position:fixed;left:0;right:0;bottom:0;height:4px;z-index:3;pointer-events:none}
+.progress span{display:block;height:100%;width:0;background:#fff;mix-blend-mode:difference;transition:width .25s}
+
+/* Leiðbeiningar í byrjun lesturs. Þær stöðva ekki smelli og dofna sjálfar. */
+.guide{position:fixed;inset:0;z-index:2;display:grid;grid-template-columns:1fr 1fr;pointer-events:none;transition:opacity .9s}
+.guide.gone{opacity:0}
+.guide .half{display:grid;place-items:center;color:#fff;font-size:clamp(18px,4.2vw,26px);text-shadow:0 2px 0 var(--ink),0 0 14px #0009}
+.guide .half span{display:grid;justify-items:center;gap:6px}
+.guide .half b{font-size:clamp(44px,10vw,84px);line-height:1;font-weight:400}
+.guide .prev{background:linear-gradient(90deg,#00000059,#0000)}
+.guide .next{background:linear-gradient(270deg,#00000059,#0000)}
+.guide .next b{animation:nudge 1.3s ease-in-out infinite}
+@keyframes nudge{50%{transform:translateX(10px)}}
+.guide .tip{position:absolute;left:50%;bottom:max(9%,calc(env(safe-area-inset-bottom) + 24px));transform:translateX(-50%) rotate(-2deg);width:max-content;max-width:min(88vw,420px);margin:0;padding:12px 20px;background:var(--paper);border:2.5px solid var(--ink);border-radius:22px 14px 26px 12px;box-shadow:4px 5px 0 var(--ink);text-align:center;font-size:clamp(16px,4vw,20px);line-height:1.35}
+
+/* Gluggar: lykilorð og sögulok. */
+dialog{border:0;padding:0;background:none;max-width:none;max-height:none;width:100%;height:100%;color:var(--ink)}
+dialog::backdrop{background:#0000008c}
+dialog .box{position:relative;width:min(440px,calc(100vw - 32px));margin:max(12vh,24px) auto 0;padding:30px 24px 24px;background:var(--paper);border:2.5px solid var(--ink);border-radius:26px 17px 29px 15px;box-shadow:6px 7px 0 var(--ink);text-align:center}
+dialog h2{font-weight:400;font-size:28px;line-height:1.2;margin:0 0 10px}
+dialog p{margin:0 0 18px;line-height:1.45;font-family:ui-rounded,system-ui,sans-serif;font-size:15px}
+.x{position:absolute;right:8px;top:6px;border:0;background:none;font:inherit;font-size:30px;line-height:1;padding:6px 10px;cursor:pointer;color:var(--ink)}
+.row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.row .ctl.main{background:var(--yellow)}
+input{width:100%;font:inherit;font-size:18px;padding:12px 14px;margin:0 0 12px;border:2.5px solid var(--ink);border-radius:12px 8px 14px 9px;background:#fff;color:var(--ink)}
+.error{color:#b3122e;font-weight:600}
+.links{margin-top:20px;padding-top:16px;border-top:2px dashed #2a263355}
+.links .ctl{height:38px;font-size:14px;box-shadow:2px 2px 0 var(--ink)}
+
+.lost{position:fixed;inset:0;display:grid;place-content:center;gap:16px;justify-items:center;text-align:center;padding:24px;background:#f6f1e3}
+.lost h1{font-weight:400;margin:0}
+
+@media(hover:none){body.idle .chrome{opacity:.55}}
+@media(prefers-reduced-motion:reduce){html,.chrome,.guide,.progress span{transition:none}.guide .next b{animation:none}}
+</style>
+</head>
+<body>
+<main class="stage" id="stage">
+ <img class="page" id="page" alt="" draggable="false">
+ <p class="missing" id="missing" hidden></p>
+</main>
+<div class="zones" id="zones">
+ <button class="zone prev" id="prev" type="button" tabindex="-1" aria-label="Fyrri blaðsíða"></button>
+ <button class="zone next" id="next" type="button" tabindex="-1" aria-label="Næsta blaðsíða"></button>
+</div>
+<div class="guide" id="guide" aria-hidden="true">
+ <div class="half prev"><span><b>←</b><i id="guide-prev">Til baka</i></span></div>
+ <div class="half next"><span><b>→</b><i id="guide-next">Áfram</i></span></div>
+ <p class="tip" id="guide-tip">Smelltu hægra megin til að fletta.</p>
+</div>
+<header class="chrome">
+ <a class="ctl close" id="close" href="../" aria-label="Aftur í hilluna">×</a>
+ <div class="langs" id="langs" hidden></div>
+</header>
+<div class="progress"><span id="bar"></span></div>
+<p class="sr-status" id="status" role="status" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)"></p>
+
+<dialog id="lock" aria-labelledby="lock-title">
+ <div class="box">
+  <button class="x" type="button" data-close aria-label="Loka">×</button>
+  <h2 id="lock-title">Viltu lesa meira?</h2>
+  <p id="lock-text">Restin er læst. Sláðu inn lykilorðið eða pantaðu það.</p>
+  <form id="lock-form">
+   <input id="pw" type="password" autocomplete="current-password" aria-label="Lykilorð" placeholder="Lykilorð">
+   <p class="error" id="pw-error" role="alert" hidden>Rangt lykilorð. Reyndu aftur.</p>
+   <div class="row"><button class="ctl main" id="pw-ok" type="submit">Opna</button><a class="ctl" id="order" href="#">Panta lykilorð</a></div>
+  </form>
+ </div>
+</dialog>
+
+<dialog id="end" aria-labelledby="end-title">
+ <div class="box">
+  <button class="x" type="button" data-close aria-label="Loka">×</button>
+  <h2 id="end-title">Búið!</h2>
+  <p id="end-text"></p>
+  <div class="row">
+   <button class="ctl" id="again" type="button">↺ Lesa aftur</button>
+   <a class="ctl main" id="next-story" href="#"></a>
+  </div>
+  <div class="row links" id="end-links" hidden></div>
+ </div>
+</dialog>
+
+<noscript><div class="lost"><h1>Lesarinn þarf JavaScript</h1><a href="../">Aftur á forsíðuna</a></div></noscript>
+
+<script src="../assets/sogur.js"></script>
+<script>
+(()=>{
+'use strict';
+const DB=window.MYNDARSOGUR,ROOT='../';
+const $=id=>document.getElementById(id);
+const store={get(k,f){try{const v=localStorage.getItem(k);return v==null?f:JSON.parse(v)}catch{return f}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const href=p=>/^[a-z]+:/i.test(p)?p:ROOT+p;
+
+const UI={
+ is:{name:'Íslenska',prev:'Fyrri blaðsíða',next:'Næsta blaðsíða',back:'Til baka',fwd:'Áfram',
+  tip:'Smelltu hægra megin til að fletta, vinstra megin til baka. Í síma má líka strjúka.',
+  close:'Aftur í hilluna',page:'blaðsíða',missing:'Blaðsíðan fannst ekki.',
+  lockTitle:'Viltu lesa meira?',lockText:t=>`Restin af ${t} er læst. Sláðu inn lykilorðið eða pantaðu það.`,
+  pw:'Lykilorð',open:'Opna',order:'Panta lykilorð',wrong:'Rangt lykilorð. Reyndu aftur.',
+  subject:t=>`Pöntun á lykilorði – ${t}`,body:t=>`Hæhæ!\n\nMig langar að lesa ${t}. Hvað kostar það og hvernig fæ ég lykilorðið?`,
+  endTitle:'Búið!',endText:t=>`Takk fyrir að lesa ${t}.`,again:'↺ Lesa aftur',nextStory:t=>`${t} →`,shelf:'← Í hilluna',closeDlg:'Loka'},
+ en:{name:'English',prev:'Previous page',next:'Next page',back:'Back',fwd:'Next',
+  tip:'Tap the right side to turn the page, the left side to go back. You can also swipe.',
+  close:'Back to the shelf',page:'page',missing:'This page could not be found.',
+  lockTitle:'Want to read more?',lockText:t=>`The rest of ${t} is locked. Enter the password or request one.`,
+  pw:'Password',open:'Unlock',order:'Request password',wrong:'Wrong password. Try again.',
+  subject:t=>`Password request – ${t}`,body:t=>`Hi!\n\nI would like to read ${t}. How much is it and how do I get the password?`,
+  endTitle:'The end!',endText:t=>`Thanks for reading ${t}.`,again:'↺ Read again',nextStory:t=>`${t} →`,shelf:'← To the shelf',closeDlg:'Close'}
+};
+
+const params=new URLSearchParams(location.search);
+const story=DB.saga(params.get('saga'));
+if(!story){
+ document.body.innerHTML=`<div class="lost"><h1>Þessi saga fannst ekki</h1><a class="ctl" href="${ROOT}">← Aftur í hilluna</a></div>`;
+ return;
+}
+
+const langs=DB.málSögu(story);
+const saved=store.get('myndarsogur-mal','is');
+let lang=[params.get('mal'),saved].find(l=>langs.includes(l))||langs[0];
+const t=()=>UI[lang]||UI.is;
+const title=()=>DB.titill(story,lang);
+const total=()=>DB.fjöldi(story,lang);
+const lockAt=Number(story.læst)||0;
+const isOpen=()=>!lockAt||store.get('myndarsogur-opid',[]).includes(story.id);
+const lastAllowed=()=>isOpen()?total():Math.min(lockAt,total());
+let page=Math.min(Math.max(parseInt(params.get('bls'),10)||1,1),lastAllowed());
+
+const frame=$('page'),meta=document.querySelector('meta[name=theme-color]');
+let ticket=0;
+
+function render(){
+ const n=page,url=href(DB.slóð(story,lang,n)),mine=++ticket;
+ const color=DB.litur(story,lang,n);
+ document.documentElement.style.setProperty('--bg',color);meta.content=color;
+ // Ný blaðsíða birtist fyrst þegar hún er tilbúin, svo skjárinn blikki ekki.
+ const next=new Image();next.src=url;
+ (next.decode?next.decode():Promise.resolve()).catch(()=>{}).then(()=>{
+  if(mine!==ticket)return;
+  frame.src=url;frame.alt=`${title()}, ${t().page} ${n}`;
+ });
+ $('bar').style.width=`${n/total()*100}%`;
+ $('status').textContent=`${n} / ${total()}`;
+ const q=new URLSearchParams({saga:story.id});
+ if(langs.length>1)q.set('mal',lang);
+ if(n>1)q.set('bls',n);
+ history.replaceState(null,'',`?${q}`);
+ for(const k of [n+1,n+2,n-1])if(k>=1&&k<=lastAllowed())new Image().src=href(DB.slóð(story,lang,k));
+}
+frame.addEventListener('error',()=>{$('missing').hidden=false;$('missing').textContent=t().missing});
+frame.addEventListener('load',()=>{$('missing').hidden=true});
+
+const anyOpen=()=>$('lock').open||$('end').open;
+function flip(d){
+ hideGuide();
+ if(anyOpen())return;
+ const n=page+d;
+ if(n<1)return;
+ if(n>total())return openEnd();
+ if(n>lastAllowed())return openLock();
+ page=n;render();
+}
+
+/* Smellir og strokur */
+let swipedAt=0;
+// Helmingarnir halda ekki fókus, svo bilslá og örvar fletti alltaf rétta leið.
+for(const [id,d] of [['prev',-1],['next',1]])$(id).addEventListener('click',e=>{e.currentTarget.blur();if(Date.now()-swipedAt>500)flip(d)});
+let sx=null,sy=0;
+$('zones').addEventListener('touchstart',e=>{if(e.touches.length>1){sx=null;return}sx=e.touches[0].clientX;sy=e.touches[0].clientY},{passive:true});
+$('zones').addEventListener('touchend',e=>{
+ if(sx==null)return;
+ const p=e.changedTouches[0],dx=p.clientX-sx,dy=p.clientY-sy;sx=null;
+ if((window.visualViewport?.scale||1)>1.05)return; // Aðdráttur: strokan færir myndina, ekki síðuna.
+ if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.3){swipedAt=Date.now();flip(dx<0?1:-1)}
+},{passive:true});
+addEventListener('keydown',e=>{
+ if(anyOpen()||e.target.closest?.('input'))return;
+ if((e.key===' '||e.key==='Enter')&&e.target.closest?.('button,a'))return;
+ if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();flip(1)}
+ else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();flip(-1)}
+ else if(e.key==='Home'){hideGuide();page=1;render()}
+ else if(e.key==='End'){hideGuide();page=lastAllowed();render()}
+});
+
+/* Leiðbeiningar */
+let guideTimer=setTimeout(hideGuide,reduced?5000:4200);
+function hideGuide(){
+ const g=$('guide');if(g.hidden)return;
+ clearTimeout(guideTimer);g.classList.add('gone');
+ setTimeout(()=>{g.hidden=true},reduced?0:900);
+}
+
+/* Stjórntækin dofna eftir smá kyrrð */
+let idleTimer;
+function wake(){document.body.classList.remove('idle');clearTimeout(idleTimer);idleTimer=setTimeout(()=>document.body.classList.add('idle'),2600)}
+addEventListener('pointermove',e=>{if(e.pointerType==='mouse')wake()});
+addEventListener('pointerdown',wake);
+wake();
+
+/* Til baka í hilluna: aftur á síðuna sem opnaði lesarann (hillan heldur stöðu sinni), annars forsíðan.
+   Flettingar og „Næsta saga“ bæta engu við vafrasöguna, svo eitt skref til baka nægir. */
+const ref=document.referrer;
+try{if(ref.startsWith(location.origin)&&!ref.includes('/lesa/'))sessionStorage.setItem('myndarsogur-hilla','1')}catch{}
+$('close').addEventListener('click',e=>{
+ let fromShelf=false;try{fromShelf=sessionStorage.getItem('myndarsogur-hilla')==='1'}catch{}
+ if(fromShelf&&history.length>1){e.preventDefault();history.back()}
+});
+
+/* Tungumál */
+function setLang(l){
+ lang=l;store.set('myndarsogur-mal',l);
+ page=Math.min(page,lastAllowed());
+ applyText();render();
+}
+function applyText(){
+ const u=t();
+ document.documentElement.lang=lang;
+ document.title=`${title()} · Myndarsögur`;
+ $('prev').setAttribute('aria-label',u.prev);$('next').setAttribute('aria-label',u.next);
+ $('guide-prev').textContent=u.back;$('guide-next').textContent=u.fwd;$('guide-tip').textContent=u.tip;
+ $('close').setAttribute('aria-label',u.close);
+ $('lock-title').textContent=u.lockTitle;$('lock-text').textContent=u.lockText(title());
+ $('pw').placeholder=u.pw;$('pw').setAttribute('aria-label',u.pw);
+ $('pw-ok').textContent=u.open;$('order').textContent=u.order;$('pw-error').textContent=u.wrong;
+ $('order').href=`mailto:${DB.netfang}?subject=${encodeURIComponent(u.subject(title()))}&body=${encodeURIComponent(u.body(title()))}`;
+ $('end-title').textContent=u.endTitle;$('end-text').textContent=u.endText(title());$('again').textContent=u.again;
+ for(const b of document.querySelectorAll('[data-close]'))b.setAttribute('aria-label',u.closeDlg);
+ for(const b of $('langs').children)b.setAttribute('aria-pressed',String(b.dataset.lang===lang));
+ const shelf=DB.hilla(),i=shelf.indexOf(story),following=shelf[(i+1)%shelf.length];
+ const ns=$('next-story');
+ if(following&&following!==story){ns.textContent=u.nextStory(DB.titill(following,lang));ns.href=`?saga=${encodeURIComponent(following.id)}`}
+ else{ns.textContent=u.shelf;ns.href=ROOT}
+}
+if(langs.length>1){
+ $('langs').hidden=false;
+ $('langs').append(...langs.map(l=>{
+  const b=document.createElement('button');b.type='button';b.className='ctl';b.dataset.lang=l;
+  b.textContent=l.toUpperCase();b.setAttribute('aria-label',UI[l]?.name||l);
+  b.addEventListener('click',()=>{if(l!==lang)setLang(l)});return b;
+ }));
+}
+
+/* Lykilorð */
+function openLock(){$('pw').value='';$('pw-error').hidden=true;$('lock').showModal();setTimeout(()=>$('pw').focus(),30)}
+$('lock-form').addEventListener('submit',e=>{
+ e.preventDefault();
+ if($('pw').value.trim().toLowerCase()!==String(DB.lykilorð).toLowerCase()){$('pw-error').hidden=false;$('pw').select();return}
+ store.set('myndarsogur-opid',[...new Set([...store.get('myndarsogur-opid',[]),story.id])]);
+ $('lock').close();flip(1);
+});
+
+/* Sögulok */
+function openEnd(){
+ const links=story.tenglar||[];
+ $('end-links').hidden=!links.length;
+ $('end-links').replaceChildren(...links.map(l=>{const a=document.createElement('a');a.className='ctl';a.href=href(l.slóð);a.textContent=`${DB.eftirMáli(l.texti,lang)} ↗`;return a}));
+ $('end').showModal();
+}
+$('again').addEventListener('click',()=>{$('end').close();page=1;render()});
+$('next-story').addEventListener('click',e=>{if(e.currentTarget.getAttribute('href').startsWith('?')){e.preventDefault();location.replace(e.currentTarget.href)}});
+
+for(const d of [$('lock'),$('end')]){
+ d.addEventListener('click',e=>{if(e.target===d||e.target.closest('[data-close]'))d.close()});
+}
+
+applyText();
+render();
+})();
+</script>
+</body>
+</html>

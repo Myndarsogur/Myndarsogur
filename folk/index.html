@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="is">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f6f1e3">
+  <title>Höfundar · Myndarsögur</title>
+  <meta name="description" content="Kynnstu höfundum Myndarsagna. Gríptu höfundakúlurnar, fleygðu þeim um og smelltu til að sjá meira.">
+  <link rel="canonical" href="https://myndarsogur.is/folk/">
+  <link rel="icon" href="/favicon/favicon.ico">
+  <link rel="stylesheet" href="/assets/home.css"><script src="/assets/authors.js" defer></script>
+</head>
+<body class="people-page">
+  <a class="skip" href="#main">Beint í höfundana</a>
+  <header class="top"><h1 class="brand people-brand">Höfundar</h1><nav aria-label="Aðalvalmynd"><a class="button submit home-button" href="/">Myndarsögur <span aria-hidden="true">↗</span></a><button id="fish-author" class="fish-button" aria-label="Veiða höfund af handahófi" disabled><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 9h32M24 9v10"/><circle cx="24" cy="23" r="7"/><path d="M24 30v7q0 9-8 6q-4-2-3-7"/><path d="m10 38 3-3 3 3"/></svg></button></nav></header>
+  <main id="main">
+    <section class="author-dock" aria-label="Höfundar Myndarsagna">
+      <div class="author-scroll" id="author-scroll" tabindex="0" role="region" aria-label="Leikheimur höfunda — skrollaðu niður"><div class="author-track" id="authors"></div></div>
+      <span class="sr-only" id="fishing-status" role="status"></span>
+    </section>
+  </main>
+  <dialog id="author-dialog" class="author-dialog" aria-labelledby="author-name">
+    <button id="close-author" class="close-author" aria-label="Loka">×</button>
+    <img id="author-portrait" alt="" width="180" height="180">
+    <h2 id="author-name"></h2><a id="author-website" class="button submit" href="/hofundar/">Meira frá höfundi ↗</a>
+  </dialog>
+</body></html>
