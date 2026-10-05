@@ -125,5 +125,59 @@
     "img": "hofundar/Birt/Ísold Davíðsdóttir/isold-davidsdottir.avif",
     "href": "https://www.instagram.com/aparasscomix/",
     "slug": "isold-davidsdottir"
+  },
+  {
+    "name": "Alex Sumarliði",
+    "img": "",
+    "href": "https://alexsumarlidi.com/",
+    "slug": "alex-sumarlidi"
+  },
+  {
+    "name": "Arndís Björk Marinósdóttir",
+    "img": "assets/portraits/arndis-bjork-marinosdottir.avif",
+    "href": "https://linktr.ee/adda_bjagga_art",
+    "slug": "arndis-bjork-marinosdottir"
+  },
+  {
+    "name": "Edda K.",
+    "img": "",
+    "href": "",
+    "slug": "edda-k"
+  },
+  {
+    "name": "Elísabet Einarsdóttir",
+    "img": "",
+    "href": "",
+    "slug": "elisabet-einarsdottir"
+  },
+  {
+    "name": "Finnur Matteo Bettaglio",
+    "img": "hofundar/Birt/Finnur Matteo Bettaglio/finnur-matteo-bettaglio.avif",
+    "href": "https://www.instagram.com/greenfinnur/",
+    "slug": "finnur-matteo-bettaglio"
+  },
+  {
+    "name": "María Rós",
+    "img": "",
+    "href": "",
+    "slug": "maria-ros"
+  },
+  {
+    "name": "Rebekka Mirjam Rafns.",
+    "img": "",
+    "href": "https://www.instagram.com/bekkartybean/",
+    "slug": "rebekka-mirjam-rafns"
+  },
+  {
+    "name": "Teitur Emil",
+    "img": "",
+    "href": "",
+    "slug": "teitur-emil"
+  },
+  {
+    "name": "Theodór Una Braga",
+    "img": "",
+    "href": "https://youtu.be/fMMXv9u_oaY",
+    "slug": "theodor-una-braga"
   }
 ]

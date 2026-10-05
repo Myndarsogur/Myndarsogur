@@ -29,6 +29,13 @@ window.MYNDARSOGUR = {
 
  sögur: [
   {
+   id: 'aferd',
+   titill: 'Á ferð',
+   blaðsíður: 44,
+   bakgrunnur: '#00a3e6',
+   tenglar: [{texti: 'Höfundar', slóð: 'folk/'}],
+  },
+  {
    id: 'myndar',
    titill: 'Myndar',
    blaðsíður: 32,
